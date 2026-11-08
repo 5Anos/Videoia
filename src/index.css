@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    background-color: #FAF8F5;
+    color: #1A1715;
+  }
+
+  .font-serif-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+  }
+
+  .font-display {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Warm subtle selection */
+::selection {
+  background-color: #C05638;
+  color: #FFFFFF;
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
