@@ -1,112 +1,81 @@
-# IA na Educação · Ferramentas de Vídeo (Módulo 3)
+# IA na Educação — Ferramentas de Vídeo (Módulo 3)
 
-Plataforma interativa de apoio à formação contínua de professores sobre **Inteligência Artificial na Educação: Foco em Ferramentas de Vídeo**, concebida por **Carla Oliveira (2026)** com base na apresentação original do Genially ([ver apresentação original](https://view.genially.com/698e2231c179d8cda8291f79)).
-
----
-
-## 🎯 Conteúdos e Módulos Integrados
-
-1. **Visão Geral e Objetivos do Módulo 3**:
-   - Conhecer ferramentas de IA educativas;
-   - Experimentar soluções para texto, imagem, áudio e vídeo;
-   - Criar recursos pedagógicos (planos de aula, apresentações e vídeos).
-
-2. **Categorias de IA Audiovisual**:
-   - **IA Generativa de Vídeo**: sintetizar vídeos educativos a partir de prompts de texto, imagens ou documentos;
-   - **Edição com IA Integrada**: legendagem automática, tradução e dobragem/dublagem multilíngue com lip-sync e cortes por texto.
-
-3. **5 Grandes Vantagens na Ótica do Professor**:
-   - Criar Videoaulas (*Synthesia, HeyGen, Pictory*);
-   - Legendar, Traduzir e Dobrar Instantaneamente (*Descript, Kapwing AI, HeyGen Video Translate*);
-   - Transformar Vídeos Longos em Resumos (*Opus Clip, Pictory, Descript*);
-   - Criar Avatares Digitais do Professor (*Synthesia Personal Avatar, HeyGen Personal Avatar*);
-   - Editar Vídeos Automaticamente (*Descript, Runway ML, Kapwing AI, CapCut*).
-
-4. **Catálogo Completo de Ferramentas de Vídeo**:
-   - **Vidnoz AI**: avatares, diálogos entre 2 personagens, entrada por PDFs e URLs;
-   - **CapCut AI**: 300 créditos gratuitos, estilo Whimsical 3D, exemplo prático de matemática (*"Olá, pequenos matemáticos!"*);
-   - **HeyGen**: avatares fotorrealistas e player de vídeo embed demonstrativo;
-   - **OpenAI Sora**: reconstituição cinematográfica da Revolução de 25 de Abril;
-   - **Runway ML**: geração texto-para-vídeo, imagem-para-vídeo e Motion Brush;
-   - **Perchance AI Video**: gerador 100% gratuito sem registo nem cartão (prompts em inglês);
-   - **Canva IA Video**: modelos escolares, apresentações integradas e Canva para Educação;
-   - **Google AI Studio**: prototipagem de modelos multimodais Gemini;
-   - **Microsoft Clipchamp**: conversão de texto em fala com vozes portuguesas e 1080p grátis.
-
-5. **Banco de Prompts Pedagógicos**:
-   - 11 prompts prontos a copiar com 1 clique (coração, mitose, pintura viva, interior da célula, savana, castelo medieval, 25 de Abril, multiplicação 1.º ciclo, etc.).
-
-6. **Guiões Didáticos para a Sala de Aula**:
-   - *Atividade 1*: Entrevista com IA (História / Ciências);
-   - *Atividade 2*: Vídeo de Resumo Criativo (Sistema Imunitário);
-   - *Atividade 3*: Noticiário Diário sobre Ciência com IA (Mural Padlet);
-   - *Atividade 4*: Os Sólidos Geométricos com Avatar Falante (Matemática).
-   - Inclui **Calculadora de Avaliação Qualitativa** (escala de 0 a 20 e menções qualitativas).
-
-7. **Gerador Interativo de Prompts**:
-   - Construtor personalizado por disciplina, ciclo de ensino e ferramenta de destino.
-
-8. **Comparador de Ferramentas**:
-   - Tabela comparativa com filtros rápidos (avatares, sem conta, texto-para-vídeo).
-
-9. **Modo Apresentação Slide a Slide**:
-   - Reprodução completa e fiel dos 44 slides do Genially com navegação por teclado e miniaturas.
-
-10. **Bibliografia & Ficha Imprimível**:
-    - Referências de Bloom, Bruner, Holmes, Kasneci, Mayer, OECD e UNESCO;
-    - Ficha de planificação em formato A4 pronta para imprimir ou guardar em PDF (`window.print()`).
+> **Plataforma Didática Aberta para a Formação Contínua de Docentes**  
+> Autora e Formadora: **Carla Oliveira (2026)**  
+> Enquadramento: Perfil dos Alunos à Saída da Escolaridade Obrigatória · RGPD (Art. 8.º e 9.º) · Regulamento Europeu de IA (Reg. 2024/1689)
 
 ---
 
-## 🚀 Como Publicar no GitHub
+## 📖 Sobre o Projeto
 
-Esta plataforma foi desenvolvida em React + TypeScript + Vite + Tailwind CSS, estando 100% pronta para publicação no GitHub e alojamento gratuito (ex.: GitHub Pages ou Vercel).
+Esta plataforma interativa foi concebida para apoiar a formação contínua de professores dos Ensinos Básico e Secundário sobre o uso pedagógico de ferramentas de vídeo com Inteligência Artificial.
 
-### Passo 1: Inicializar o Repositório Git
-```bash
-git init
-git add .
-git commit -m "feat: plataforma de formacao IA na Educacao (Modulo 3)"
-```
-
-### Passo 2: Associar ao Repositório no GitHub
-```bash
-git branch -M main
-git remote add origin https://github.com/SEU_UTILIZADOR/SEU_REPOSITORIO.git
-git push -u origin main
-```
-
-### Passo 3: Publicar no GitHub Pages (ou Vercel)
-Se optar pelo Vercel ou Netlify, basta conectar o repositório GitHub para publicação automática imediata com 1 clique.
-
-Para GitHub Pages com Vite, adicione `"base": "/SEU_REPOSITORIO/"` em `vite.config.ts` e corra:
-```bash
-npm run build
-```
+A plataforma afasta-se do fascínio técnico superficial e foca-se na **intencionalidade pedagógica**:
+- **Taxonomia Revista de Bloom (Anderson & Krathwohl, 2001):** Mobilização do patamar mais elevado — *Criar* (*Creating*) — alicerçado na análise crítica da informação.
+- **Teoria Cognitiva da Aprendizagem Multimédia (Richard E. Mayer, 2020):** Aplicação prática dos Princípios da Modalidade e da Redundância para proteger a memória de trabalho dos alunos.
+- **Segurança e Privacidade dos Alunos:** Salvaguarda rigorosa contra a recolha de dados biométricos (rosto e voz) de menores e rotulagem transparente de conteúdos sintéticos.
 
 ---
 
-## 💻 Comandos de Desenvolvimento Local
+## ✨ Conteúdos da Plataforma
 
+1. **Visão Pedagógica:** Os 4 pilares fundamentais da integração audiovisual em contexto educativo.
+2. **5 Vantagens na Ótica do Professor:** Como poupar tempo na preparação letiva, diferenciar para a inclusão (DUA) e dinamizar projetos sem burocracias.
+3. **Catálogo de Ferramentas de Vídeo:** Análise prática e quotas reais de utilização:
+   - *InVideo AI* (vídeo completo a partir de guião)
+   - *Kling AI* (realismo físico e cinematográfico)
+   - *Luma Dream Machine / Ray 2* (reconstituição histórica)
+   - *Minimax / Hailuo AI* (expressões humanas e empatia narrativa)
+   - *Perchance AI Video* (100% gratuito, sem registo, seguro para turmas de menores)
+   - *Canva para Educação* (ecossistema escolar protegido e colaborativo)
+   - *CapCut AI* (legendagem automática e edição rápida em português)
+   - *Microsoft Clipchamp* (locução neural com pronúncia autêntica PT-PT)
+   - *HeyGen* & *OpenAI Sora* (demonstração do estado da arte)
+4. **Banco de Prompts Didáticos:** 11 instruções estruturadas por disciplina curricular, com critérios éticos e botão de cópia instantânea.
+5. **Guiões de Sala de Aula:** 4 atividades curriculares completas com lista de etapas para o professor e **Calculadora Interativa de Avaliação (0 a 20 valores)**.
+6. **Comparador & RGPD:** Tabela comparativa com filtros rápidos de privacidade e idade mínima legal.
+7. **Bibliografia Académica:** Fontes científicas formatadas em **APA (7.ª edição)** e declaração explícita de incertezas da investigação (*O Que a Ciência Não Sabe em 2026*).
+8. **Ficha Pedagógica para Impressão:** Versão formatada em PDF pronta para impressão e partilha presencial.
+
+---
+
+## 🚀 Como Executar Localmente
+
+### Pré-requisitos
+- Node.js (v18 ou superior)
+- npm
+
+### Instalação e Execução
 ```bash
-# Instalar dependências
+# 1. Clonar o repositório
+git clone https://github.com/SEU-UTILIZADOR/NOME-DO-REPOSITORIO.git
+
+# 2. Entrar na pasta do projeto
+cd NOME-DO-REPOSITORIO
+
+# 3. Instalar as dependências
 npm install
 
-# Iniciar servidor local
+# 4. Iniciar o servidor de desenvolvimento local
 npm run dev
-
-# Executar testes unitários
-npx tsx --test src/utils/pedagogyLogic.test.ts
-
-# Compilar para produção
-npm run build
-
-# Validação de tipos (lint)
-npm run lint
 ```
+
+Aceda a `http://localhost:3000` no seu navegador.
 
 ---
 
-## 📄 Licença e Créditos
-- **Autora e Formadora:** Carla Oliveira (2026)
-- **Apoio à Formação de Professores**
+## 🌐 Publicação no GitHub Pages (Automática)
+
+Este repositório já inclui o ficheiro `.github/workflows/deploy.yml` configurado para publicação automática:
+
+1. Crie um repositório no seu GitHub (ex: `ia-video-educacao`).
+2. Faça o envio (*push*) dos ficheiros para o ramo `main`.
+3. No GitHub, aceda a **Settings** > **Pages** e em **Build and deployment > Source** selecione **GitHub Actions**.
+4. O seu site ficará imediatamente disponível online no endereço:  
+   `https://SEU-UTILIZADOR.github.io/NOME-DO-REPOSITORIO/`
+
+---
+
+## 📄 Licença e Direitos
+
+Projeto pedagógico aberto desenvolvido por **Carla Oliveira (2026)** para formação docente e partilha com a comunidade educativa.
