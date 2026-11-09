@@ -53,10 +53,6 @@ export function generateEducationalPrompt(params: PromptTemplateParams): string 
     `Requisitos pedagógicos: linguagem adaptada ao nível etário, explicação clara dos conceitos essenciais passo a passo, sem sobrecarga cognitiva e com exemplos práticos do quotidiano.`,
   ];
 
-  if (toolTarget === 'perchance' || toolTarget === 'sora') {
-    prompt.push(`(Nota técnica: Caso a ferramenta exija prompts em inglês, traduzir a instrução mantendo a fidelidade científica e o foco didático).`);
-  }
-
   return prompt.join(' ');
 }
 
@@ -92,11 +88,19 @@ export function calculateRubricScore(scores: {
 }
 
 /**
- * Fast search matcher for educational resources
+ * Fast search matcher for educational resources with accent normalization (pt-PT)
  */
 export function matchesSearch(query: string, fields: (string | undefined)[]): boolean {
   if (!query || !query.trim()) return true;
-  const terms = query.toLowerCase().trim().split(/\s+/);
-  const combined = fields.filter(Boolean).join(' ').toLowerCase();
+
+  const normalizeText = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('pt-PT');
+
+  const terms = normalizeText(query).trim().split(/\s+/);
+  const combined = normalizeText(fields.filter(Boolean).join(' '));
+
   return terms.every(term => combined.includes(term));
 }

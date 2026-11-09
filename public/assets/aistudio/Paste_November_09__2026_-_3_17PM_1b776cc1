@@ -1,0 +1,1550 @@
+# REVISÃO E CORREÇÃO CIRÚRGICA DA PLATAFORMA
+## IA NA EDUCAÇÃO — FERRAMENTAS DE VÍDEO | MÓDULO 3
+
+Quero que trabalhes diretamente no projeto atualmente aberto.
+
+A plataforma destina-se à **formação contínua de professores e à consulta por docentes**. Não é uma plataforma de registo ou utilização autónoma de ferramentas por alunos.
+
+As atividades apresentadas destinam-se a apoiar o trabalho do professor com as suas turmas. Isso não significa que todas as ferramentas do catálogo possam ser utilizadas diretamente pelos alunos.
+
+A tua tarefa é corrigir problemas concretos de rigor, conteúdo, linguagem e funcionamento identificados no código existente.
+
+## 1. REGRA FUNDAMENTAL: NÃO ALTERAR O QUE ESTÁ CORRETO
+
+Não quero uma reformulação integral da plataforma.
+
+Não quero um novo design.
+
+Não quero que substituas os conteúdos existentes por textos genéricos.
+
+Não quero novas funcionalidades sem necessidade.
+
+Não quero que elimines ferramentas ou atividades apenas porque não conseguiste confirmar uma informação secundária.
+
+**Preserva tudo o que está correto e altera apenas o que está identificado nesta ordem de trabalho ou aquilo cuja incorreção consigas demonstrar.**
+
+Mantém:
+
+- A identidade visual, a paleta cromática e a tipografia.
+- A estrutura de navegação.
+- As secções e os cartões existentes.
+- As cinco vantagens pedagógicas.
+- Os onze prompts.
+- As quatro atividades.
+- As ferramentas que permanecem no catálogo.
+- O comparador, o gerador, a calculadora e a ficha de impressão.
+- A organização geral e a responsividade.
+- A publicação através de GitHub Pages.
+
+Não reconstruas a aplicação de raiz.
+
+Não substituas os componentes que funcionam por outros novos.
+
+Não alteres a disposição das secções sem necessidade técnica.
+
+Não introduzas conteúdos apenas para aumentar a dimensão da plataforma.
+
+## 2. COMO TRATAR A INFORMAÇÃO
+
+Aplica estas regras:
+
+1. Uma afirmação factual sem fundamento suficiente não pode ser apresentada como facto.
+2. Uma quota, preço, crédito, duração, idade mínima ou funcionalidade comercial que não esteja confirmada deve ser retirada ou substituída por uma nota de consulta à página oficial.
+3. Não inventes informação para preencher campos.
+4. Distingue claramente as funcionalidades de geração de vídeo das funcionalidades de edição.
+5. Não confundas a utilização de uma ferramenta pelo professor com a utilização autónoma por alunos.
+6. Não apresentes uma boa prática pedagógica como se fosse uma obrigação legal.
+7. Não apresentes uma recomendação de segurança como certificação de conformidade.
+8. Mantém as afirmações que estejam corretas e que não sejam abrangidas pelas alterações seguintes.
+
+Todos os novos textos devem estar em Português de Portugal.
+
+---
+
+# PARTE A — CORREÇÕES LEGAIS E DE PROTEÇÃO DE DADOS
+
+## 3. Rodapé — retirar declaração indevida de conformidade
+
+No `App.tsx`, localiza exatamente:
+
+"Conforme com RGPD (Art. 8.º e 9.º) e Regulamento Europeu de IA (Reg. 2024/1689, Art. 50.º)"
+
+Elimina essa declaração.
+
+Substitui-a exatamente por:
+
+"Esta plataforma disponibiliza informação e orientações pedagógicas sobre a utilização de ferramentas digitais e de Inteligência Artificial. Não constitui uma certificação de conformidade legal ou de segurança das ferramentas apresentadas. Antes da utilização de ferramentas externas, devem ser consultados os respetivos termos, políticas de privacidade e orientações da escola e do Encarregado de Proteção de Dados."
+
+Não alteres o restante rodapé.
+
+## 4. Visão Pedagógica — corrigir a definição de dados biométricos
+
+No `OverviewSection.tsx`, localiza o parágrafo que começa por:
+
+"O rosto e a voz dos alunos são dados biométricos protegidos (Art. 8.º e 9.º do RGPD)..."
+
+e termina com:
+
+"...qualquer vídeo gerado seja explicitamente identificado como sintético."
+
+Substitui o parágrafo completo por:
+
+"Uma imagem, gravação de voz ou vídeo em que uma pessoa possa ser identificada pode constituir dado pessoal. Nem toda a fotografia ou gravação de voz constitui automaticamente um dado biométrico de categoria especial. Para efeitos do RGPD, a classificação como dado biométrico depende de tratamento técnico específico de características físicas, fisiológicas ou comportamentais que permita ou confirme a identificação única da pessoa.
+
+Antes de enviar materiais que identifiquem alunos para ferramentas externas, o docente deve verificar os termos de utilização, a política de privacidade, as finalidades do tratamento, a base jurídica aplicável e as orientações da escola e do Encarregado de Proteção de Dados."
+
+Não afirmes que qualquer fotografia ou gravação de voz é automaticamente um dado biométrico de categoria especial.
+
+Não afirmes que o RGPD proíbe universalmente o envio de qualquer imagem ou gravação para qualquer serviço externo. A análise depende do tratamento, da finalidade, da base jurídica e do contexto.
+
+## 5. Regulamento Europeu da IA — corrigir a explicação do artigo 50.º
+
+A plataforma contém a afirmação de que o artigo 50.º obriga a colocar uma marca visual permanente em qualquer vídeo gerado por IA.
+
+Esta interpretação está errada.
+
+Consulta o texto oficial:
+
+https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=pt
+
+E as orientações da Comissão Europeia:
+
+https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act
+
+No `BibliographySection.tsx`, o texto atual da análise crítica do Regulamento da IA afirma:
+
+"O Artigo 50.º impõe a obrigação de transparência e rotulagem para qualquer conteúdo de áudio ou vídeo sintético (marcas de água), garantindo que as crianças e jovens sabem sempre distinguir a realidade da ficção digital."
+
+Substitui por:
+
+"O artigo 50.º do Regulamento (UE) 2024/1689 distingue as obrigações dos fornecedores e dos responsáveis pela utilização de determinados sistemas e conteúdos de Inteligência Artificial. O n.º 2 estabelece obrigações de marcação técnica dos resultados sintéticos para os fornecedores dos sistemas abrangidos. O n.º 4 prevê, nas condições aí estabelecidas, a divulgação de conteúdos que constituam deepfakes e de determinados textos gerados ou manipulados por IA e publicados sobre assuntos de interesse público sem revisão ou controlo editorial humano. A divulgação dos deepfakes deve ser clara e percetível. Para conteúdos manifestamente artísticos, criativos, satíricos ou ficcionais, a informação deve ser apresentada de forma adequada, sem prejudicar a fruição da obra. Não se trata de uma obrigação universal de inserir uma marca visual permanente em todos os vídeos gerados por IA."
+
+Na atividade "O Noticiário de Ciência", não apresentes a identificação visual de qualquer vídeo gerado como uma obrigação legal universal.
+
+Mantém a identificação de conteúdos sintéticos como uma prática pedagógica de transparência, quando adequada ao contexto.
+
+---
+
+# PARTE B — CATÁLOGO DE FERRAMENTAS
+
+## 6. Retirar apenas o Sora
+
+O Sora ainda aparece em `TOOLS_CATALOG`, no comparador, no gerador e em diversas descrições.
+
+A OpenAI anunciou a descontinuação das experiências Web e aplicação do Sora em 26 de abril de 2026 e da API em 24 de setembro de 2026.
+
+Fonte oficial:
+
+https://help.openai.com/pt-pt/articles/20001152-what-to-know-about-the-sora-discontinuation
+
+Executa estas alterações:
+
+- Retira o objeto `id: "sora"` de `TOOLS_CATALOG`.
+- Retira o Sora do comparador.
+- Retira-o das opções do gerador de prompts.
+- Retira as referências ao Sora das atividades, vantagens e prompts.
+- Retira-o do README e dos exemplos.
+- Retira referências ao endereço `sora.chatgpt.com`.
+- Remove os badges e as recomendações associados à ferramenta.
+
+Não substituas o Sora por outra ferramenta.
+
+Não alteres as restantes ferramentas por causa desta remoção.
+
+## 7. Manter o Perchance, mas corrigir completamente a sua apresentação
+
+**Não elimines o Perchance do catálogo.**
+
+O catálogo destina-se a professores adultos, pelo que a ferramenta pode continuar a ser apresentada para exploração individual pelo docente, desde que se respeitem os termos do serviço.
+
+Contudo, os termos oficiais indicam que a utilização está reservada a pessoas com pelo menos 18 anos.
+
+Fonte:
+https://perchance.org/terms-of-service
+
+A política de privacidade descreve a recolha automática de dados técnicos e de utilização, incluindo endereço IP, informação do navegador, sistema operativo, idioma e páginas visitadas. Também distingue alguns plugins cujos dados de entrada não são guardados no servidor. Não generalizar a política de um plugin a todos os serviços do ecossistema.
+
+Fonte:
+https://perchance.org/privacy-policy
+
+### 7.1. Corrigir os campos atuais do Perchance
+
+Em `TOOLS_CATALOG`, localiza o objeto:
+
+`id: "perchance"`
+
+Mantém o ID, o endereço oficial e a estrutura do objeto.
+
+Substitui a categoria atual:
+
+"Geração Simples 100% Livre e Sem Registo"
+
+Por:
+
+"Geração de conteúdos com IA — utilização por adultos"
+
+Substitui o badge:
+
+"O Porto Seguro do RGPD para Turmas"
+
+Por:
+
+"Apenas para adultos — 18+"
+
+Substitui `shortDesc` por:
+
+"Ferramenta do ecossistema Perchance para exploração de geração de conteúdos por docentes adultos. Os termos do serviço restringem a utilização a pessoas com pelo menos 18 anos; não deve ser recomendada para utilização direta por alunos."
+
+Substitui `fullDesc` por:
+
+"O Perchance disponibiliza diferentes geradores de conteúdos através do navegador. Pode ser considerado pelo docente adulto como recurso de exploração individual, de acordo com os termos do serviço. A ausência de um processo de registo num determinado gerador não permite concluir que o serviço não recolhe dados técnicos ou de utilização. A ferramenta não deve ser apresentada como adequada a qualquer idade nem como solução certificada de conformidade com o RGPD."
+
+Substitui `keyFeatures` por:
+
+```ts
+[
+  "Acesso através do navegador, de acordo com as características de cada gerador.",
+  "Exploração de ferramentas de geração de conteúdos por utilizadores adultos.",
+  "Funcionalidades e condições específicas dependem do gerador utilizado."
+]
+```
+
+Substitui `freeTierDetails` por:
+
+"Consulte os termos do serviço e as condições apresentadas na página do gerador. Esta ficha não garante quotas, limites ou condições comerciais permanentes."
+
+Substitui `limitations` por:
+
+```ts
+[
+  "Os termos do serviço restringem a utilização a pessoas com pelo menos 18 anos.",
+  "Não recomendar a utilização direta por alunos.",
+  "A política de privacidade descreve recolha automática de informação técnica e de utilização.",
+  "Não introduzir informação pessoal, confidencial ou dados de alunos."
+]
+```
+
+Substitui `pedagogicalUseCases` por:
+
+```ts
+[
+  "Exploração individual pelo docente adulto de possibilidades de geração de conteúdos.",
+  "Análise crítica das limitações das imagens ou vídeos gerados.",
+  "Preparação de um exemplo demonstrativo pelo professor, sem solicitar acesso dos alunos ao serviço."
+]
+```
+
+Na propriedade `factCheckStatus`, utiliza:
+
+`freeStatus`: "Acesso reservado a adultos (18+)"
+
+`minimumAge`: "18+ anos, conforme os termos do fornecedor."
+
+`rgpdRiskLevel`: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha."
+
+`teacherVerdict`:
+
+"Apenas para exploração individual por docentes adultos que cumpram os termos do serviço. Não recomendar a criação de contas nem a utilização direta por alunos."
+
+`whatIsFact`:
+
+"Os termos oficiais indicam que o serviço se destina a utilizadores com pelo menos 18 anos."
+
+`whatIsMisleading`:
+
+"Não é correto descrevê-lo como uma ferramenta adequada a qualquer idade, sem recolha de informação ou com risco nulo de privacidade."
+
+### 7.2. Remover afirmações falsas sobre o Perchance
+
+Elimina, em todas as secções, as seguintes frases:
+
+- "O Porto Seguro do RGPD para Turmas".
+- "A única ferramenta que não pede conta, não pede email, não pede cartão e não guarda dados pessoais."
+- "Qualquer idade (com supervisão do professor)".
+- "Zero registo: sem email, sem login, sem palavra-passe, sem rastreio comercial".
+- "100% gratuito e ilimitado para uso em sala de aula".
+- "Conformidade total e imediata com o RGPD".
+- "Zero burocracias e risco nulo de proteção de dados".
+- "Seguro para turmas de menores".
+- "A salvação para aulas práticas com turmas do 2.º e 3.º ciclos".
+
+Não elimines o restante conteúdo do catálogo que possa continuar a ser útil ao professor adulto.
+
+## 8. Corrigir as afirmações comerciais do catálogo
+
+Não reescrevas integralmente as descrições das restantes ferramentas.
+
+Mantém as funcionalidades gerais que estejam corretamente identificadas e elimina apenas os valores e afirmações não demonstrados.
+
+### 8.1. Eliminar números e condições não confirmados
+
+Nos objetos das ferramentas InVideo, Kling, Luma, MiniMax, Pika, CapCut, HeyGen e Vidnoz, elimina valores específicos de créditos, minutos, gerações, resoluções, marcas de água e limites de teste sempre que não estejam confirmados na documentação oficial atual.
+
+Remove dos campos `freeTierDetails` as afirmações concretas que não sejam comprováveis, incluindo:
+
+- InVideo: "10 minutos de vídeo por semana".
+- Kling: "66 créditos gratuitos todos os dias" e "6 a 8 clipes diariamente".
+- Luma: "30 gerações gratuitas por mês".
+- MiniMax/Hailuo: "créditos gratuitos diários generosos".
+- Pika: "30 créditos".
+- CapCut: "bónus inicial de 300 créditos IA".
+- HeyGen: "1 crédito de teste único" e "1 vídeo de 1 minuto".
+- Vidnoz: "1 a 3 minutos diários" e "720p com marca de água".
+
+Não substituas estes números por outros.
+
+Para as ferramentas em que a quota ou o plano gratuito não esteja confirmado, utiliza exatamente:
+
+"As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita."
+
+### 8.2. Canva para Educação
+
+A informação de que o Canva para Educação é gratuito para qualquer professor ou instituição educativa é demasiado abrangente.
+
+A elegibilidade oficial abrange professores e instituições elegíveis do ensino primário, básico e secundário. O programa não se encontra disponível para instituições de ensino superior ou instituições de educação contínua/adultos, nos termos indicados pelo fornecedor.
+
+Fonte oficial:
+
+https://www.canva.com/pt_pt/educacao/elegibilidade/
+
+Mantém o Canva para Educação, mas substitui `freeTierDetails` por:
+
+"O Canva para Educação é gratuito para docentes e alunos que cumpram os critérios de elegibilidade do programa, aplicável ao ensino primário, básico e secundário. A elegibilidade está sujeita às condições e validação do fornecedor. O programa não está disponível para instituições de ensino superior ou de educação contínua. Esta condição não significa que todas as funcionalidades de IA sejam ilimitadas ou gratuitas."
+
+Retira as expressões:
+
+- "100% gratuito sem restrições".
+- "Todas as funcionalidades premium gratuitamente".
+- "Ecossistema mais seguro".
+- "Filtros de IA calibrados para contexto escolar de menores".
+- "Sem riscos de privacidade".
+
+Mantém a descrição das possibilidades de composição de apresentações e vídeos, sem garantir que todas as funções de IA estão disponíveis no plano educativo.
+
+### 8.3. Microsoft Clipchamp
+
+A documentação oficial confirma que a versão pessoal dispõe de um plano gratuito que permite exportar até 1080p. Esta condição não deve ser generalizada a contas de trabalho ou educação.
+
+Fonte oficial:
+
+https://support.microsoft.com/pt-pt/clipchamp/what-clipchamp-products-are-there-and-what-s-their-cost
+
+Substitui `freeTierDetails` por:
+
+"A versão pessoal do Clipchamp inclui um plano gratuito que permite exportar vídeos até 1080p. As funcionalidades disponíveis nas contas de trabalho ou educação dependem da licença aplicável. Não extrapolar as condições da conta pessoal para contas escolares ou profissionais."
+
+Remove afirmações não confirmadas como:
+
+- "Exportação ilimitada para todos".
+- "As melhores vozes neurais do mercado".
+- "As vozes Duarte e Raquel estão totalmente disponíveis no plano gratuito".
+- "Totalmente integrado em qualquer conta escolar Microsoft".
+
+Mantém a descrição do Clipchamp como editor de vídeo.
+
+## 9. Corrigir a apresentação do risco de privacidade no catálogo
+
+No `ToolCatalogItem`, mantém a estrutura de `factCheckStatus`. Não apagues todo o sistema.
+
+Na propriedade `rgpdRiskLevel`, acrescenta a opção:
+
+`"Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha."`
+
+Usa essa opção nas ferramentas para as quais não exista uma avaliação formal.
+
+Não uses as categorias "Baixo", "Médio" e "Alto" como se resultassem de uma auditoria de conformidade ao RGPD.
+
+No `ToolsCatalogSection.tsx`:
+
+- Substitui a etiqueta "Risco RGPD" por "Privacidade e dados".
+- Apresenta a informação num estilo neutro, sem semáforos verde, amarelo ou vermelho.
+- Não interpretes a ausência de uma classificação como risco baixo.
+- Substitui o título "Versão Gratuita Real" por "Condições de acesso".
+- Mantém a informação específica do Perchance sobre a restrição etária.
+
+Remove os badges comerciais que afirmem "O Melhor", "Líder", "Padrão de Avatares", "Excelente Opção Gratuita" ou outras superioridades sem comparação objetiva.
+
+Podes substituí-los por designações neutras da categoria funcional, mantendo a aparência dos cartões.
+
+## 10. Corrigir as idades mínimas das ferramentas
+
+Não apresentes idades como "13+" ou "18+" sem confirmação dos termos oficiais do fornecedor e da versão utilizada.
+
+Para as ferramentas em que a idade não esteja confirmada, apresenta:
+
+"Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha."
+
+Para Perchance, mantém a indicação de 18+.
+
+Não confundas idade mínima definida pelo fornecedor com idade de consentimento prevista no RGPD.
+
+---
+
+# PARTE C — COMPARADOR
+
+## 11. Corrigir o comparador sem alterar o seu desenho
+
+O `ToolsComparatorSection.tsx` tem uma tabela independente do catálogo e contém informação contraditória ou não confirmada.
+
+O comparador atual apresenta:
+
+- Quotas gratuitas.
+- Idades mínimas.
+- Risco RGPD.
+- Necessidade de registo.
+- Língua do prompt.
+- Parecer do especialista.
+
+Estas colunas não estão suficientemente sustentadas.
+
+Mantém o componente, o estilo visual e a interação, mas elimina as colunas e os dados que dependem de valores não confirmados:
+
+- `freeTier`.
+- `rgpdRisk`.
+- `minimumAge`, exceto quando houver confirmação oficial.
+- `requiresLogin`, exceto quando confirmado.
+- `promptLanguage`, exceto quando confirmado.
+- `teacherVerdict`, sempre que contenha uma classificação subjetiva ou uma garantia de segurança.
+
+Mantém apenas informação que possa ser demonstrada através das propriedades do catálogo:
+
+- Nome da ferramenta.
+- Categoria.
+- Funcionalidades descritas.
+- Utilização pedagógica possível.
+- Endereço oficial.
+
+Substitui o pequeno título:
+
+"Matriz Comparativa & Conformidade RGPD"
+
+Por:
+
+"Comparação Funcional"
+
+Substitui a descrição:
+
+"Quadro comparativo para apoiar a seleção fundamentada da ferramenta: quotas reais gratuitas, idade mínima legal, língua do prompt e parecer ético de sala de aula."
+
+Por:
+
+"Compare a finalidade e as funcionalidades descritas para cada ferramenta. As condições comerciais, os requisitos de conta, a idade mínima e a privacidade devem ser confirmados na documentação oficial e nas orientações da escola."
+
+Retira o filtro "Sem Conta (Alunos)" e toda a sua lógica.
+
+Não apresentes um resultado do comparador como certificação RGPD.
+
+Garante que a lista do comparador corresponde às ferramentas que efetivamente existem em `TOOLS_CATALOG`, sem nomes desatualizados e sem Sora.
+
+Inclui Pika e Vidnoz, que existem no catálogo e não estão representados de forma coerente no comparador atual.
+
+Não inventes funcionalidades para preencher as células. Quando um dado não estiver confirmado, omite-o.
+
+---
+
+# PARTE D — VANTAGENS PEDAGÓGICAS
+
+## 12. Corrigir apenas as afirmações problemáticas nas cinco vantagens
+
+Não substituas o array `TEACHER_ADVANTAGES` por cinco textos completamente novos.
+
+Mantém a estrutura, os títulos, as descrições e as funcionalidades que estejam corretas.
+
+Efetua apenas as substituições seguintes.
+
+### Vantagem 1 — poupança de tempo
+
+Na propriedade `teacherBenefits`, localiza:
+
+"Liberta até 80% do tempo habitual de preparação técnica de gravações"
+
+Substitui por:
+
+"Pode reduzir algumas tarefas de preparação técnica e edição; a poupança efetiva depende da ferramenta, da complexidade do recurso e do trabalho de revisão necessário."
+
+Na propriedade `cognitivePrinciple`, mantém a referência ao princípio da modalidade, mas substitui o texto por:
+
+"Princípio da Modalidade de Mayer: a combinação de imagens relevantes com explicação oral pode apoiar a aprendizagem. A sua eficácia depende da organização da informação, da complexidade do conteúdo e dos conhecimentos prévios dos alunos."
+
+Na descrição da ferramenta InVideo AI, substitui a afirmação de que uma frase gera sempre um vídeo completo por:
+
+"Pode apoiar a criação de um rascunho audiovisual a partir de instruções escritas; o guião, as imagens e a narração devem ser revistos pelo docente."
+
+### Vantagem 2 — acessibilidade e DUA
+
+No final da descrição atual, encontra:
+
+"A IA faz a ponte para que ninguém fique para trás."
+
+Substitui por:
+
+"As funcionalidades de legendagem, transcrição e tradução podem apoiar o acesso à informação, mas não garantem, por si só, a inclusão de todos os alunos."
+
+Na propriedade `teacherBenefits`, substitui:
+
+"Cumprimento prático do Desenho Universal para a Aprendizagem (DUA) sem passar noites a transcrever"
+
+Por:
+
+"A legendagem e a disponibilização de alternativas textuais podem apoiar a acessibilidade, mas não significam, por si só, que a atividade cumpra os princípios do DUA."
+
+Substitui:
+
+"Acolhimento acolhedor e imediato de alunos estrangeiros com materiais traduzidos"
+
+Por:
+
+"A tradução automática pode apoiar a compreensão inicial, mas deve ser revista e adaptada ao contexto linguístico e disciplinar."
+
+Substitui a explicação do Princípio da Redundância por:
+
+"Princípio da Redundância de Mayer: a apresentação simultânea de gráficos, narração e texto impresso idêntico pode, em determinadas condições, aumentar a carga de processamento. Este princípio não justifica retirar legendas necessárias à acessibilidade. É importante distinguir legendas de acessibilidade de texto redundante utilizado como elemento visual."
+
+Na lista `usefulTools` da segunda vantagem, o nome `CapCut (Desktop / Web)` deve passar a ser exatamente:
+
+`CapCut (Web, PC e Telemóvel)`
+
+O texto da descrição deve passar a:
+
+"Editor de vídeo com funcionalidades de edição e recursos de IA. A disponibilidade e a qualidade das ferramentas de reconhecimento de fala e legendagem devem ser confirmadas na versão utilizada."
+
+A entrada `Veed.io` não está presente no catálogo e, por isso, o botão de encaminhamento não consegue encontrá-la. Retira apenas essa entrada da lista `usefulTools`; não cries uma nova ficha para o Veed.io.
+
+Na entrada Microsoft Clipchamp, substitui a descrição atual que afirma "100% gratuito" e fala em "excelentes vozes neurais" por:
+
+"A Microsoft disponibiliza um plano gratuito na versão pessoal do Clipchamp. As funcionalidades e as condições das contas escolares ou profissionais dependem da licença utilizada."
+
+### Vantagem 3 — segmentação de conteúdos
+
+Na descrição atual, localiza:
+
+"Colocar uma gravação de 50 minutos no Teams ou no Classroom é garantir que quase nenhum aluno a vai ver até ao fim."
+
+Substitui por:
+
+"Uma gravação extensa pode dificultar a localização de uma explicação específica. A criação de excertos com objetivos claros pode facilitar a consulta e a revisão, desde que os segmentos mantenham o contexto necessário."
+
+Na propriedade `teacherBenefits`, substitui:
+
+"Materiais adaptados ao tempo de atenção real dos jovens de hoje"
+
+Por:
+
+"Materiais organizados por tema ou conceito, facilitando a consulta de partes específicas."
+
+Substitui:
+
+"Menor peso nos servidores da escola e maior taxa de visualização efetiva"
+
+Por:
+
+"Possibilidade de reutilizar e disponibilizar excertos revistos, adequados aos objetivos de cada atividade."
+
+Na propriedade `cognitivePrinciple`, mantém a referência à segmentação, mas substitui a afirmação absoluta por:
+
+"Princípio da Segmentação de Mayer: a informação pode ser organizada em partes significativas, permitindo ao aluno controlar o ritmo, pausar e rever. O benefício depende do conteúdo e da forma como os segmentos são estruturados."
+
+Na ferramenta CapCut, corrige o nome para corresponder exatamente ao catálogo:
+
+`CapCut (Web, PC e Telemóvel)`
+
+Não alteres o restante conteúdo desta vantagem se não existir uma incorreção concreta.
+
+### Vantagem 4 — avatares
+
+Na propriedade `teacherBenefits`, substitui:
+
+"Cria um elemento lúdico e inovador que capta o olhar dos alunos nos primeiros minutos da aula"
+
+Por:
+
+"Pode introduzir uma personagem ou voz diferente, quando essa opção serve o objetivo pedagógico; não se deve presumir um aumento automático da motivação."
+
+Substitui:
+
+"Garante uma comunicação fluida mesmo em dias em que o docente está sem voz ou cansado"
+
+Por:
+
+"Pode permitir preparar previamente uma mensagem ou explicação narrada, que o professor revê e contextualiza."
+
+Na propriedade `cognitivePrinciple`, substitui o título e a explicação por:
+
+"Princípio da Voz e Princípio da Personalização de Mayer: estes princípios abordam, em determinadas condições, a preferência por uma voz humana e por uma linguagem conversacional. Não permitem concluir que qualquer voz sintética prejudica a aprendizagem nem que a utilização de avatares aumenta automaticamente o envolvimento."
+
+Na propriedade `rgpdNote`, substitui o texto atual por:
+
+"Fotografias, vídeos e gravações de voz podem conter dados pessoais. A utilização de funcionalidades de criação ou clonagem de voz e imagem exige análise dos termos, das autorizações, da finalidade e das orientações institucionais. Não assumir que todos estes dados são automaticamente dados biométricos de categoria especial."
+
+### Vantagem 5 — edição
+
+Na descrição atual, substitui a frase:
+
+"A edição com IA trata o vídeo como se fosse um documento do Word: para cortar uma frase errada, basta apagá-la no texto da transcrição."
+
+Por:
+
+"Alguns editores permitem realizar operações a partir de uma transcrição, mas essa funcionalidade depende do produto e do plano. Noutros casos, a edição continua a ser feita na linha temporal."
+
+Na propriedade `teacherBenefits`, substitui:
+
+"Autonomia real: o professor faz pequenos ajustes aos seus vídeos em 10 minutos nos intervalos"
+
+Por:
+
+"Algumas tarefas de edição podem tornar-se mais simples, embora o tempo necessário dependa do recurso e da ferramenta."
+
+Na propriedade `cognitivePrinciple`, substitui o texto atual por:
+
+"Princípio da Sinalização de Mayer: consiste na utilização de pistas visuais ou verbais que orientam a atenção para a organização e para os elementos relevantes da informação. Cortar hesitações ou ruído pode melhorar a edição, mas não constitui, por si só, a aplicação deste princípio."
+
+Na propriedade `rgpdNote`, substitui a afirmação de que editores locais são mais seguros por:
+
+"O facto de uma aplicação estar instalada no computador não garante que todas as operações sejam locais. Confirme se os ficheiros são enviados para servidores externos e consulte as regras da escola antes de utilizar gravações ou imagens identificáveis."
+
+### 12.1. Corrigir nomes das ferramentas nos cartões das vantagens
+
+Os botões das ferramentas encaminham para o catálogo através de correspondência exata do nome. Atualmente existem nomes que não correspondem ao catálogo.
+
+Corrige estas correspondências:
+
+| Nome atual na vantagem | Nome a utilizar |
+|---|---|
+| CapCut AI | CapCut (Web, PC e Telemóvel) |
+| CapCut (Desktop / Web) | CapCut (Web, PC e Telemóvel) |
+| CapCut | CapCut (Web, PC e Telemóvel) |
+| CapCut Desktop | CapCut (Web, PC e Telemóvel) |
+| Canva Educação | Canva para Educação |
+
+Não alteres os nomes das ferramentas no catálogo para resolver este problema; corrige as referências nas vantagens.
+
+No `AdvantagesSection.tsx`:
+
+- Substitui "5 Pilares Didáticos" por "5 Vantagens Pedagógicas".
+- Substitui "Conforme CTML (Mayer, 2020)" por "Enquadramento pedagógico".
+- Elimina o selo "100% Amigo do RGPD".
+- Substitui "Enquadramento Cognitivo (Mayer, 2020)" por "Enquadramento pedagógico".
+- Substitui "Alerta RGPD & Regulamento Europeu de IA" por "Proteção de dados e utilização responsável".
+
+Não alteres a estrutura visual dos cinco cartões.
+
+---
+
+# PARTE E — VISÃO PEDAGÓGICA
+
+## 13. Corrigir as duas categorias de utilização audiovisual
+
+No `presentationData.ts`, dentro de `MODULE_OVERVIEW.videoAICategories[1]`, a descrição atual diz:
+
+"Ferramentas práticas que eliminam as horas perdidas em softwares complicados de edição."
+
+Substitui por:
+
+"Ferramentas que podem apoiar algumas tarefas de edição, legendagem, transcrição e adaptação de materiais. As funcionalidades disponíveis e a qualidade dos resultados variam entre ferramentas, versões e planos."
+
+Substitui os quatro destaques atuais por:
+
+```ts
+[
+  "Criar legendas automáticas, quando a ferramenta disponibiliza essa funcionalidade, e rever o resultado.",
+  "Preparar versões traduzidas ou transcritas, com revisão linguística e técnica.",
+  "Organizar e cortar excertos de vídeo, de acordo com as funcionalidades do editor.",
+  "Produzir materiais com texto, áudio e imagem, considerando os objetivos da aula e as necessidades de acessibilidade."
+]
+```
+
+Mantém a nota de cautela relativa à revisão de legendas e termos técnicos.
+
+## 14. Corrigir os quatro pilares
+
+No `OverviewSection.tsx`, mantém os quatro pilares e a sua disposição.
+
+### Pilar 1 — Taxonomia Revista de Bloom
+
+Mantém a explicação de que Criar é o nível superior da taxonomia revista, mas acrescenta que a utilização de uma ferramenta não garante automaticamente a mobilização desse processo cognitivo.
+
+Substitui o parágrafo por:
+
+"Segundo a revisão de Anderson e Krathwohl (2001), Criar situa-se no topo dos processos cognitivos. A produção de um vídeo pode mobilizar esse processo quando o aluno pesquisa, seleciona, organiza informação, toma decisões e justifica as suas opções. A simples utilização automática de uma ferramenta não garante, por si só, aprendizagem ao nível de Criar."
+
+### Pilar 2 — Aprendizagem Multimédia de Mayer
+
+Substitui o parágrafo atual por:
+
+"A Teoria da Aprendizagem Multimédia estuda como as pessoas aprendem com palavras e imagens. A combinação de narração e elementos visuais relevantes pode apoiar a aprendizagem quando a informação está bem organizada. O princípio da redundância alerta para a possível sobrecarga causada por texto impresso idêntico à narração, mas não justifica retirar legendas necessárias à acessibilidade."
+
+### Pilar 3 — Viabilidade em Sala de Aula
+
+Substitui o parágrafo que começa por:
+
+"Nem todo o software comercial funciona com 25 alunos em 50 minutos..."
+
+Por:
+
+"A seleção de uma ferramenta deve considerar a tarefa pedagógica, o tempo disponível, os equipamentos, as condições de acesso, os termos do fornecedor e as regras da escola. Um plano educativo ou a ausência de registo não constituem, por si só, uma garantia de segurança ou de conformidade com o RGPD. O Perchance, em particular, está reservado a adultos, de acordo com os seus termos."
+
+### Pilar 4 — Proteção de Dados
+
+Substitui o título:
+
+"Proteção Biometria de Menores"
+
+Por:
+
+"Proteção de Dados e Transparência"
+
+Utiliza o texto corrigido da secção 4 desta ordem de trabalho.
+
+### 14.1. Corrigir a lista de ferramentas apresentada na visão geral
+
+No texto que atualmente diz:
+
+"Kling AI, Luma Ray 2, InVideo, Perchance"
+
+Substitui por:
+
+"InVideo AI, Kling AI, Luma Dream Machine e Hailuo AI"
+
+O Perchance continua no catálogo, mas não deve aparecer nesta lista como ferramenta recomendada para utilização pelos alunos.
+
+### 14.2. Corrigir o botão do comparador
+
+Substitui:
+
+"Matriz de Risco RGPD"
+
+Por:
+
+"Comparador de Ferramentas"
+
+### 14.3. Corrigir indicadores
+
+A página apresenta atualmente o número fixo `9` para ferramentas e `100%` como indicador de privacidade e segurança.
+
+Substitui os indicadores por valores dinâmicos:
+
+- Ferramentas: `TOOLS_CATALOG.length`.
+- Prompts: `EDUCATIONAL_PROMPTS.length`.
+- Atividades: `CLASSROOM_ACTIVITIES.length`.
+
+Os valores esperados após a remoção do Sora são:
+
+- 11 ferramentas.
+- 11 prompts.
+- 4 atividades.
+
+Substitui o indicador "100% Foco em privacidade e segurança" por:
+
+"4 Atividades práticas"
+
+Não uses percentagens de segurança ou conformidade como indicadores da plataforma.
+
+---
+
+# PARTE F — BANCO DE PROMPTS
+
+## 15. Não reescrever os onze prompts integralmente
+
+O banco de prompts tem conteúdos úteis e deve ser preservado.
+
+Corrige apenas os problemas concretos abaixo.
+
+### 15.1. Introdução do banco
+
+No `PromptsBankSection.tsx`, substitui:
+
+"Banco de Prompts Didáticos · Testados em Sala de Aula"
+
+Por:
+
+"Banco de Prompts Didáticos · Para adaptação pelo docente"
+
+Não existe no projeto evidência que comprove que todos os prompts foram efetivamente testados em sala de aula.
+
+Substitui:
+
+"Instruções redigidas com intencionalidade pedagógica para produzir animações científicas, reconstituições históricas e demonstrações visuais sem ambiguidades ou alucinações."
+
+Por:
+
+"Prompts estruturados para apoiar a criação de recursos audiovisuais educativos. Os resultados podem conter erros, omissões ou elementos inventados. Adapte cada instrução ao objetivo, ao ano de escolaridade e à ferramenta escolhida, verificando sempre a informação antes de utilizar o recurso."
+
+Não utilizes expressões como "sem alucinações", "resultado garantido" ou "rigor perfeito".
+
+### 15.2. Prompt 1 — Coração e circulação sanguínea
+
+No `pedagogicalObjective`, substitui a expressão:
+
+"separação entre o sangue com oxigénio e o sangue com dióxido de carbono"
+
+Por:
+
+"distinção entre o sangue com maior e menor concentração de oxigénio nos circuitos pulmonar e sistémico."
+
+No `promptText`, depois da indicação das cores azul e vermelho, acrescenta:
+
+"Estas cores são convenções gráficas e não representam a cor real do sangue."
+
+Não alteres o restante prompt.
+
+### 15.3. Prompt 2 — Mitose
+
+No `pedagogicalObjective`, retira:
+
+"divide com perfeição"
+
+Substitui por:
+
+"separa o material genético durante as fases da mitose."
+
+No `promptText`, substitui:
+
+"até a célula se dividir em duas novas células gémeas perfeitas"
+
+Por:
+
+"até à formação de duas células-filhas após a divisão do citoplasma."
+
+Não apresentes a ferramenta como capaz de garantir uma representação biológica perfeita.
+
+### 15.4. Prompt 3 — Pintura clássica
+
+Mantém o prompt e o objetivo de exploração artística.
+
+Na propriedade `ethicalConsideration`, acrescenta:
+
+"A animação deve ser identificada como interpretação visual ficcional, não como registo histórico. Confirme também os direitos de utilização da reprodução digital da obra."
+
+Não alteres a restante proposta artística.
+
+### 15.5. Prompt 4 — Célula eucariótica
+
+No `promptText`, substitui:
+
+"pedagogicamente fiel às proporções dos organelos"
+
+Por:
+
+"representação esquemática dos organelos, sem afirmar que as respetivas dimensões estão rigorosamente à escala."
+
+Na consideração ética, mantém a referência às cores da microscopia e acrescenta que a imagem gerada deve ser validada com uma fonte científica.
+
+### 15.6. Prompt 5 — Floresta tropical
+
+Mantém o prompt visual.
+
+Na consideração ética, acrescenta:
+
+"O vídeo é uma ilustração do ecossistema. A explicação sobre evapotranspiração, biodiversidade e influência das florestas no clima deve ser sustentada em fontes científicas e não inferida apenas a partir das imagens geradas."
+
+### 15.7. Prompt 6 — Energia das ondas
+
+O prompt atual termina com:
+
+"...mostrando o movimento circular da massa de água e a energia das marés."
+
+Isto confunde a energia das ondas com a energia das marés.
+
+Substitui a expressão:
+
+"e a energia das marés"
+
+Por:
+
+"e o potencial de aproveitamento da energia das ondas."
+
+Não alteres a restante estrutura do prompt.
+
+### 15.8. Prompt 7 — Recifes de coral
+
+No `pedagogicalObjective`, substitui:
+
+"Conhecer as relações de cooperação entre espécies nos recifes e sensibilizar para o branqueamento dos corais causado pela subida de temperatura da água."
+
+Por:
+
+"Observar relações ecológicas nos recifes, incluindo relações de simbiose, e compreender que o branqueamento dos corais pode estar associado a diferentes situações de stress ambiental, incluindo o aumento da temperatura da água."
+
+Não apresentes a temperatura como a única causa possível do branqueamento.
+
+### 15.9. Prompt 8 — Savana
+
+O objetivo atual refere cadeias alimentares, cooperação e escassez de água, mas o vídeo descreve apenas uma família de elefantes a caminhar na savana.
+
+Para evitar uma discrepância entre objetivo e produto, substitui o `pedagogicalObjective` por:
+
+"Observar características do ecossistema da savana, identificar elementos do habitat e descrever o comportamento de um grupo de elefantes no seu ambiente."
+
+Mantém o prompt visual original.
+
+### 15.10. Prompt 9 — Castelo medieval português
+
+O objetivo atual apresenta o fosso como elemento geral dos castelos.
+
+Substitui o `pedagogicalObjective` por:
+
+"Identificar elementos arquitetónicos de defesa presentes no castelo escolhido, relacionando-os com a sua função e com o contexto histórico medieval."
+
+Na propriedade `ethicalConsideration`, substitui o texto atual por:
+
+"Confirmar os elementos arquitetónicos na documentação do castelo escolhido. Não assumir que todos os castelos portugueses tinham fosso, torre de menagem, ameias ou seteiras na mesma configuração."
+
+No `promptText`, acrescenta:
+
+"A representação deve ser adaptada ao monumento selecionado e confrontada com imagens ou documentação histórica; não inventes elementos específicos que não estejam documentados."
+
+### 15.11. Prompt 10 — Multiplicação
+
+Mantém o prompt atual.
+
+Não alteres o exemplo das três caixas com quatro maçãs, porque a representação matemática está coerente.
+
+Mantém a revisão para Português de Portugal.
+
+### 15.12. Prompt 11 — 25 de Abril de 1974
+
+O prompt atual está em inglês e pede:
+
+"Ultra-realistic authentic historical documentary footage look, peaceful and deeply humane."
+
+Esta instrução pode levar à criação de imagens sintéticas confundíveis com registos documentais reais e simplifica o contexto histórico.
+
+Substitui integralmente apenas os quatro campos deste prompt:
+
+**`visualStyle`:**
+
+"Reconstituição visual ilustrativa, estilizada e claramente identificada como gerada por Inteligência Artificial; não imitar filmagem documental autêntica."
+
+**`pedagogicalObjective`:**
+
+"Explorar o contexto histórico do 25 de Abril de 1974, relacionando acontecimentos e símbolos com fontes históricas e distinguindo registos documentais de reconstituições visuais."
+
+**`promptText`:**
+
+"Cria uma reconstituição visual ilustrativa, em estilo gráfico ou cinematográfico assumidamente ficcional, inspirada no 25 de Abril de 1974 em Lisboa. Mostra uma rua de Lisboa, a presença de militares e civis e um cravo vermelho como símbolo associado à Revolução dos Cravos. Não imites a aparência de uma filmagem documental autêntica, não inventes diálogos nem detalhes históricos específicos e não apresentes a cena como registo real. A composição deve ser identificada como reconstituição gerada por Inteligência Artificial e acompanhada, na atividade, por fotografias, testemunhos e fontes históricas devidamente identificados."
+
+**`ethicalConsideration`:**
+
+"Confrontar a reconstituição com fontes documentais; não usar o vídeo gerado como prova histórica."
+
+Não reescrevas os outros dez prompts.
+
+### 15.13. Corrigir os nomes das ferramentas recomendadas nos prompts
+
+Os nomes devem corresponder aos nomes usados no catálogo sempre que a ferramenta esteja incluída nele.
+
+Corrige, onde aplicável:
+
+- "Minimax" para "MiniMax (Hailuo AI)".
+- "Luma Ray 2" para "Luma Dream Machine (Ray 2)".
+- "Pika Labs" para "Pika Labs (Pika 2.1)".
+- "CapCut AI" para "CapCut (Web, PC e Telemóvel)".
+- "Canva Educação" para "Canva para Educação".
+
+Não elimines automaticamente referências a ferramentas externas que estejam numa proposta pedagógica, mas não as apresentes como pertencentes ao catálogo se não estiverem incluídas nele.
+
+---
+
+# PARTE G — QUATRO ATIVIDADES
+
+## 16. Manter as quatro atividades e fazer apenas as correções identificadas
+
+Não substituas o array `CLASSROOM_ACTIVITIES`.
+
+Não alteres os respetivos IDs.
+
+Não inventes novas atividades.
+
+### Atividade 1 — Entrevista a uma Figura da História
+
+No passo 2, acrescenta depois da descrição do guião:
+
+"As respostas devem ser identificadas como dramatização baseada em informação histórica. Não devem ser apresentadas como citações literais da figura escolhida, salvo quando exista uma fonte documental que comprove a citação."
+
+No passo 3, o texto atual diz:
+
+"Utilizando uma ferramenta simples (como o Perchance para criar a imagem da figura ou o Clipchamp para a locução), os alunos montam o diálogo sem precisarem de colocar os seus próprios rostos."
+
+Substitui por:
+
+"O professor pode preparar uma imagem ilustrativa recorrendo a uma fonte com direitos de utilização adequados ou a uma ferramenta que possa utilizar nos termos aplicáveis à sua conta adulta. Os alunos montam o diálogo com uma ferramenta de edição aprovada pela escola. Não lhes deve ser solicitado que acedam ao Perchance, cujos termos restringem a utilização a maiores de 18 anos."
+
+Na propriedade `recommendedTools`, substitui:
+
+`["Perchance AI Video", "Microsoft Clipchamp", "Canva Educação"]`
+
+Por:
+
+`["Microsoft Clipchamp", "Canva para Educação"]`
+
+Na lista de entregáveis, a atividade refere um vídeo de 1 a 2 minutos, enquanto o passo 4 prevê 90 segundos.
+
+Mantém a duração de 90 segundos e substitui o entregável por:
+
+"Vídeo curto de aproximadamente 90 segundos com a simulação da entrevista."
+
+Na `rgpdSafetyChecklist`, substitui:
+
+"Os alunos não criam contas com dados pessoais individuais."
+
+Por:
+
+"Não solicitar que os alunos criem contas em ferramentas externas sem verificar previamente os termos, os requisitos de idade e as orientações da escola."
+
+Não alteres o restante guião.
+
+### Atividade 2 — Microdocumentário
+
+Na etapa 2, o texto atual refere quatro quadrículas, mas só apresenta três momentos:
+
+- Introdução (0-15s).
+- O Processo (15-40s).
+- O Impacto (40-60s).
+
+Substitui por:
+
+"Em três quadrículas de papel, os alunos desenham o que se vai ver e o que a voz vai dizer em cada um dos três momentos: Introdução (0–15 s), O Processo (15–40 s) e O Impacto (40–60 s)."
+
+Substitui a `teacherTip`:
+
+"Ensine os alunos a não meterem texto no ecrã enquanto a voz fala: a imagem mostra o movimento, a voz explica."
+
+Por:
+
+"Evite texto corrido que repita integralmente a narração. Mantenha as legendas necessárias à acessibilidade e utilize no ecrã palavras-chave ou dados essenciais."
+
+Na propriedade `studentDeliverables`, substitui:
+
+"Storyboard em papel ou digital com os 4 momentos do vídeo"
+
+Por:
+
+"Storyboard em papel ou digital com os três momentos do vídeo."
+
+Substitui:
+
+"Ficheiro de vídeo MP4 de exatamente 60 a 90 segundos com legendas ativadas"
+
+Por:
+
+"Ficheiro de vídeo MP4 com aproximadamente 60 segundos e legendas revistas."
+
+Na etapa 3, corrige o nome `CapCut` para o nome utilizado no catálogo: `CapCut (Web, PC e Telemóvel)`.
+
+Não alteres a duração global de duas semanas, porque pode incluir trabalho em aula e trabalho autónomo.
+
+### Atividade 3 — O Noticiário de Ciência
+
+No `learningObjectives`, substitui:
+
+"Identificar marcas visuais de manipulação por IA e cumprir o dever de transparência do Regulamento Europeu de IA."
+
+Por:
+
+"Desenvolver procedimentos de verificação da origem, data, contexto e fontes de um conteúdo audiovisual; compreender como os conteúdos sintéticos podem induzir em erro e como os identificar de forma transparente."
+
+Na etapa 1, substitui a indicação:
+
+"olhos sem pestanejar, sombras incoerentes, dentes perfeitos demais"
+
+Por:
+
+"Os alunos analisam a origem do conteúdo, o contexto da publicação, a data, a fonte original e a existência de confirmação em fontes independentes. A aparência visual, por si só, não permite determinar com fiabilidade se um vídeo foi gerado ou manipulado por Inteligência Artificial."
+
+Na etapa 2, substitui o subitem:
+
+"O aviso obrigatório: 'Imagens geradas por IA para fins de simulação didática'."
+
+Por:
+
+"Indicação dos elementos visuais gerados ou alterados por IA, quando existam, distinguindo imagens ilustrativas de registos documentais."
+
+Na etapa 3, substitui a descrição atual que exige uma menção visual permanente no canto do vídeo para cumprir o artigo 50.º por:
+
+"Os alunos identificam de forma clara e adequada ao contexto os elementos sintéticos ou manipulados utilizados na peça. Quando o conteúdo constitua um deepfake ou se enquadre noutra obrigação de divulgação prevista no artigo 50.º, o professor deve verificar a aplicação da regra correspondente. Não se deve assumir que todos os vídeos gerados por IA necessitam de uma marca visual permanente."
+
+Na propriedade `studentDeliverables`, substitui:
+
+"Vídeo da peça noticiosa com aviso visível de conteúdo gerado por IA"
+
+Por:
+
+"Vídeo da peça noticiosa com identificação clara dos elementos gerados ou manipulados por IA, quando existam, e com as fontes indicadas."
+
+Na propriedade `evaluationCriteria`, substitui:
+
+"Postura ética e cumprimento das normas de rotulagem de IA da UE (30%)"
+
+Por:
+
+"Transparência na identificação dos elementos sintéticos e distinção entre ilustração e registo documental (30%)."
+
+Mantém as restantes ponderações.
+
+### Atividade 4 — Vozes do Património
+
+No `learningObjectives`, substitui:
+
+"Investigar o contexto em que a obra foi pintada e os sentimentos que o artista quis transmitir."
+
+Por:
+
+"Investigar o contexto histórico e cultural da obra e analisar os seus elementos visuais, distinguindo informação documentada de interpretações possíveis."
+
+Na etapa 2, substitui:
+
+"Os alunos imaginam que são uma das figuras da pintura. Escrevem um monólogo curto de 40 segundos: quem sou eu? O que estou a sentir neste momento congelado no tempo?"
+
+Por:
+
+"Os alunos imaginam que são uma das figuras da pintura e escrevem um monólogo curto de cerca de 40 segundos. O texto deve ser identificado como criação ficcional inspirada na obra e não como testemunho real da personagem ou declaração documentada do artista."
+
+Mantém a restante estrutura da atividade e a respetiva avaliação.
+
+---
+
+# PARTE H — BIBLIOGRAFIA E SECÇÃO DE INCERTEZAS
+
+## 17. Bibliografia — Mayer
+
+No registo de Mayer em `BIBLIOGRAPHY`, substitui `relevanceToEducation`:
+
+"A obra científica mais importante do mundo sobre como o cérebro humano processa palavras e imagens em vídeo. Formula os 12 princípios cognitivos."
+
+Por:
+
+"Obra de referência sobre a aprendizagem multimédia e os princípios de conceção de materiais que combinam palavras e imagens."
+
+Substitui `criticalAnalysis`:
+
+"Obrigatória para combater o erro mais frequente na formação: encher o ecrã com texto que um avatar lê simultaneamente. Mayer prova cientificamente que isso sobrecarrega a memória de trabalho e impede a aprendizagem duradoura."
+
+Por:
+
+"A obra apresenta princípios para conceber materiais multimédia considerando a seleção, a organização e a integração de palavras e imagens. Estes princípios orientam decisões de conceção, mas não são proibições absolutas. A necessidade de legendas para acessibilidade e de texto de apoio deve ser considerada separadamente da redundância de texto decorativo ou idêntico à narração."
+
+Não alteres a referência bibliográfica, autor, ano, DOI ou editora.
+
+## 18. Bibliografia — UNESCO
+
+No registo da UNESCO, a análise crítica atual diz:
+
+"Recomenda a idade mínima de 13 anos para interação direta e exige que as escolas não cedam a pressão das grandes tecnológicas sem salvaguardas claras de proteção dos menores."
+
+Substitui por:
+
+"O documento apresenta orientações e recomendações para a utilização da Inteligência Artificial generativa na educação e na investigação, abordando questões relacionadas com a adequação etária, a proteção de dados, a supervisão humana e a governação. Qualquer referência à idade de 13 anos deve ser identificada como recomendação do documento, e não como idade mínima geral estabelecida pela legislação portuguesa ou pelos termos de todos os fornecedores."
+
+Não elimines a referência da UNESCO.
+
+## 19. Secção WHAT_WE_DO_NOT_KNOW
+
+Mantém a secção e as quatro entradas.
+
+Não apresentes hipóteses como conclusões científicas.
+
+Substitui apenas as descrições problemáticas:
+
+**Entrada `long-term-cognition`**
+
+Descrição atual:
+
+"A ciência e a neuroeducação ainda não têm estudos longitudinais de 5 a 10 anos que comprovem como a exposição diária prolongada a avatares com rostos e vozes sintéticas afeta a empatia, o desenvolvimento socioemocional e a capacidade de relacionamento humano das crianças e dos jovens."
+
+Substituir por:
+
+"Os efeitos da utilização prolongada de avatares e personagens sintéticas podem depender da idade, da tarefa, da frequência de utilização e da mediação do docente. Esta plataforma não apresenta uma conclusão geral sobre os efeitos socioemocionais da exposição prolongada. Recomenda-se que os avatares sejam utilizados como recursos complementares e avaliados no contexto concreto."
+
+**Entrada `pricing-volatility`**
+
+Descrição atual:
+
+"Muitas das ferramentas que hoje oferecem créditos gratuitos estão a fazê-lo para recolher utilizadores e dados de treino."
+
+Substituir por:
+
+"Os planos, créditos, preços e limites de utilização podem mudar, e as condições variam entre fornecedores. Não se deve inferir que uma oferta gratuita implica recolha de dados para treino sem documentação específica do fornecedor."
+
+Mantém a recomendação de não depender de uma única ferramenta comercial.
+
+**Entrada `training-data-opacity`**
+
+Substitui a afirmação generalizada de que nenhuma das grandes empresas revela os ficheiros usados no treino por:
+
+"O nível de informação publicado sobre dados de treino, licenças e proveniência varia entre fornecedores e modelos. Não é adequado generalizar sobre todas as empresas. É necessário consultar a documentação do modelo e as condições aplicáveis à ferramenta utilizada."
+
+**Entrada `linguistic-nuances-pt`**
+
+Substitui a afirmação de que os modelos são treinados esmagadoramente em inglês e português do Brasil por:
+
+"A qualidade do Português de Portugal varia entre ferramentas, modelos, vozes e versões. A transcrição, a locução, a ortografia, o vocabulário, a terminologia técnica e a pronúncia devem ser revistos pelo docente."
+
+Não alteres as recomendações pedagógicas restantes, desde que não contenham afirmações absolutas.
+
+---
+
+# PARTE I — PEQUENAS CORREÇÕES TÉCNICAS COMPROVADAS
+
+## 20. Pesquisa — corrigir apenas os acentos
+
+No ficheiro `src/utils/pedagogyLogic.ts`, a função `matchesSearch` converte o texto para minúsculas, mas não normaliza os acentos.
+
+Substitui a função por esta implementação:
+
+```ts
+export function matchesSearch(query: string, fields: (string | undefined)[]): boolean {
+  if (!query || !query.trim()) return true;
+
+  const normalizeText = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('pt-PT');
+
+  const terms = normalizeText(query).trim().split(/\s+/);
+  const combined = normalizeText(fields.filter(Boolean).join(' '));
+
+  return terms.every(term => combined.includes(term));
+}
+```
+
+Acrescenta testes para garantir que:
+
+- "ciencias" encontra "Ciências".
+- "educacao" encontra "Educação".
+- "video" encontra "vídeo".
+- As pesquisas com várias palavras continuam a funcionar.
+
+Não alteres a lógica de filtragem das disciplinas.
+
+## 21. Cabeçalho — corrigir a promessa da pesquisa
+
+No `Header.tsx`, o campo de pesquisa anuncia:
+
+"Pesquisar ferramentas, prompts, atividades..."
+
+Mas a aplicação só encaminha a pesquisa para o catálogo e para o banco de prompts.
+
+Não quero implementar uma pesquisa global nesta correção.
+
+Substitui o placeholder por:
+
+"Pesquisar ferramentas e prompts..."
+
+Não alteres o funcionamento atual da pesquisa para além da normalização dos acentos.
+
+## 22. Gerador de prompts — corrigir a seleção inicial
+
+No `PromptGeneratorModal.tsx`, os valores de `params` são inicializados através de `useState` usando `initialPrompt`.
+
+Como o componente permanece montado, quando se seleciona um novo prompt pode continuar a apresentar dados da seleção anterior.
+
+Corrige isto com uma sincronização através de `useEffect`.
+
+Regras:
+
+- Quando o modal abre com um novo `initialPrompt`, atualiza a disciplina, o nível de ensino e o tema.
+- Não alteres automaticamente o estilo visual, ferramenta escolhida ou duração se o professor já os tiver selecionado.
+- Quando o modal abre sem `initialPrompt`, mantém os valores predefinidos atuais.
+- Não substituas as edições do professor enquanto o modal permanece aberto com o mesmo prompt.
+
+Não reconstruas o gerador.
+
+## 23. Gerador de prompts — remover tradução automática fictícia
+
+Em `src/utils/pedagogyLogic.ts`, existe este bloco:
+
+```ts
+if (toolTarget === 'perchance' || toolTarget === 'sora') {
+  prompt.push(`(Nota técnica: Caso a ferramenta exija prompts em inglês, traduzir a instrução mantendo a fidelidade científica e o foco didático).`);
+}
+```
+
+Este texto afirma que deve ocorrer uma tradução, mas o código não traduz nada.
+
+Elimina este bloco.
+
+Não acrescentes qualquer afirmação de tradução automática.
+
+No `PromptGeneratorModal.tsx`, mantém Perchance como opção de ferramenta, mas altera o texto da opção para:
+
+"Perchance (apenas docentes adultos, 18+)"
+
+Retira Sora do seletor.
+
+A seleção de Perchance destina-se exclusivamente à exploração individual pelo professor adulto.
+
+## 24. Cópia de prompts — só confirmar sucesso quando a cópia funcionar
+
+Em `PromptGeneratorModal.tsx` e `PromptsBankSection.tsx`, as funções atuais chamam `navigator.clipboard.writeText()` e apresentam imediatamente a mensagem de sucesso.
+
+Altera as funções para:
+
+- Serem assíncronas.
+- Aguardar a conclusão da operação.
+- Mostrar sucesso apenas quando a cópia for concluída.
+- Tratar o erro caso a permissão de cópia seja recusada.
+- Não apresentar confettis nem mensagens de sucesso quando a cópia falhar.
+
+Quando falhar, apresentar:
+
+"Não foi possível copiar automaticamente. Seleciona o texto e utiliza a opção de copiar do navegador."
+
+Mantém a interação e o design existentes.
+
+## 25. Imagens — corrigir os caminhos no Vite
+
+Nos componentes:
+
+- `OverviewSection.tsx`
+- `AdvantagesSection.tsx`
+- `ToolsCatalogSection.tsx`
+
+existem referências de imagens através de caminhos escritos como:
+
+```tsx
+src="/src/assets/images/hero_teacher_multimedia_classroom_1794113537383.jpg"
+```
+
+e:
+
+```tsx
+src="/src/assets/images/teacher_student_video_collaboration_1794113537076.jpg"
+```
+
+e:
+
+```tsx
+src="/src/assets/images/ai_video_creative_studio_workspace_1794113537764.jpg"
+```
+
+e:
+
+```tsx
+src="/src/assets/images/multimedia_cognitive_pedagogy_concept_1794113538329.jpg"
+```
+
+Não elimines as imagens.
+
+Substitui estas strings por importações estáticas de módulos Vite nos componentes correspondentes, mantendo a mesma imagem, o mesmo `alt`, a mesma dimensão e a mesma apresentação visual.
+
+Testa as imagens no resultado de produção, não apenas no ambiente de desenvolvimento.
+
+## 26. HTML — corrigir idioma
+
+No `index.html`, substitui:
+
+```html
+<html lang="en">
+```
+
+Por:
+
+```html
+<html lang="pt-PT">
+```
+
+Não alteres outros metadados sem necessidade.
+
+## 27. Calculadora de avaliação — não alterar a fórmula
+
+A função `calculateRubricScore()` em `pedagogyLogic.ts` calcula a soma de quatro critérios classificados de 0 a 5, numa escala de 0 a 20.
+
+A fórmula atual está correta para um simulador geral de quatro critérios com igual ponderação.
+
+**Não alteres a função, a fórmula, os limites ou os testes matemáticos existentes.**
+
+Existe, contudo, uma limitação de apresentação: a calculadora utiliza quatro critérios fixos, enquanto as atividades apresentam ponderações específicas.
+
+No `ActivitiesSection.tsx`, junto à calculadora, acrescenta a seguinte nota:
+
+"Este simulador utiliza quatro critérios com igual ponderação e constitui um apoio geral à reflexão sobre a avaliação. Não reproduz automaticamente as ponderações específicas apresentadas nas grelhas de cada atividade. Para a classificação final, o professor deve utilizar os critérios e ponderações definidos para a atividade em causa."
+
+Substitui o título:
+
+"Calculadora de Avaliação (0-20)"
+
+Por:
+
+"Simulador Geral de Pontuação (0-20)"
+
+Não reconstruas a calculadora nem alteres os quatro controlos atuais.
+
+## 28. Ficha de impressão — corrigir apenas o texto
+
+No `PrintableGuideModal.tsx`, existe a frase:
+
+"Documento síntese com objetivos curriculares, 5 pilares de Mayer, banco de prompts e 4 guiões de atividades práticas."
+
+Substitui por:
+
+"Documento síntese com objetivos do módulo, cinco vantagens pedagógicas, prompts selecionados e quatro guiões de atividades práticas."
+
+Mantém:
+
+```ts
+EDUCATIONAL_PROMPTS.slice(0, 5)
+```
+
+A ficha está identificada como apresentando cinco prompts selecionados. Não é um erro mostrar cinco em vez dos onze existentes no banco principal.
+
+Não alteres a quantidade de prompts apresentados na ficha.
+
+Não reformules o documento de impressão.
+
+---
+
+# PARTE J — README E PUBLICAÇÃO
+
+## 29. README — corrigir apenas as informações desatualizadas
+
+Não substituas o README integralmente.
+
+Mantém a estrutura, os comandos e as instruções de publicação.
+
+Executa apenas estas alterações:
+
+- Atualiza a lista de ferramentas para refletir as onze ferramentas que permanecem.
+- Retira Sora.
+- Substitui a descrição de Perchance por uma nota que indique a restrição de 18 anos e que o recurso se destina apenas à exploração individual por docentes adultos.
+- Retira a afirmação "seguro para turmas de menores".
+- Retira a expressão "quotas reais de utilização".
+- Substitui "Comparador & RGPD" por "Comparador de Ferramentas".
+- Retira a afirmação de conformidade com os artigos 8.º e 9.º do RGPD e a apresentação do artigo 50.º como obrigação universal de rotulagem.
+- Mantém as referências ao Perfil dos Alunos, à Taxonomia Revista de Bloom e à teoria de Mayer, corrigindo apenas as afirmações já indicadas nesta ordem de trabalho.
+
+No pré-requisito do README, encontra:
+
+"Node.js (v18 ou superior)"
+
+Substitui por:
+
+"Node.js 20.19 ou superior da série 20, ou 22.12 ou superior."
+
+Esta atualização decorre da versão de Vite instalada no projeto (`vite` 8.x), cujos requisitos oficiais são:
+
+https://vite.dev/blog/announcing-vite8
+
+Não alteres o workflow `.github/workflows/deploy.yml` sem necessidade. A versão `node-version: 20` já seleciona a série 20 e não deve ser trocada por Node 24 nesta correção.
+
+Não alteres a configuração:
+
+```ts
+base: './'
+```
+
+em `vite.config.ts`, porque é adequada à publicação relativa no GitHub Pages.
+
+Não alteres o comando de instalação existente no workflow.
+
+---
+
+# PARTE K — VERIFICAÇÃO FINAL
+
+## 30. Verificações de conteúdo
+
+Depois das alterações, pesquisa em todo o projeto por:
+
+- `Sora`
+- `sora.chatgpt.com`
+- `Perchance`
+- `perchance.org`
+- `100% Amigo do RGPD`
+- `risco nulo`
+- `Conformidade total`
+- `Testados em Sala de Aula`
+- `80% do tempo`
+- `marca visual permanente`
+- `olhos sem pestanejar`
+- `dentes perfeitos demais`
+- `dados biométricos` quando usados como sinónimo automático de rosto ou voz.
+
+O Sora não deve permanecer em qualquer secção.
+
+O Perchance deve permanecer apenas nas referências destinadas a docentes adultos, com identificação clara da restrição de 18 anos, e nunca como ferramenta de utilização direta por alunos.
+
+Verifica que:
+
+- Existem 11 ferramentas no catálogo.
+- Existem 11 prompts.
+- Existem quatro atividades.
+- Existem cinco vantagens pedagógicas.
+- Os nomes das ferramentas nos cartões das vantagens correspondem aos nomes exatos do catálogo.
+- A atividade 1 não recomenda Perchance aos alunos.
+- O microdocumentário apresenta três momentos coerentes.
+- A atividade 3 não utiliza sinais visuais como método fiável de deteção de vídeos falsos.
+- A atividade 4 distingue interpretação ficcional de factos históricos.
+- O prompt n.º 11 está em Português de Portugal e identificado como reconstituição.
+- O comparador não contém quotas, riscos RGPD ou idades não confirmadas.
+- O README corresponde ao projeto atual.
+- A ficha de impressão continua a apresentar cinco prompts selecionados.
+
+## 31. Verificações técnicas
+
+Executa:
+
+```bash
+npm run lint
+```
+
+```bash
+npm run build
+```
+
+E executa os testes existentes:
+
+```bash
+npx tsx --test src/utils/pedagogyLogic.test.ts
+```
+
+Não acrescentes um novo sistema de testes nem alteres as dependências apenas para mudar a forma de executar os testes.
+
+Confirma:
+
+- Pesquisa com e sem acentos.
+- Seleção de ferramentas nas vantagens e respetivo encaminhamento para o catálogo.
+- Atualização do prompt inicial no gerador.
+- Cópia de prompts, incluindo tratamento de erros.
+- Correspondência entre catálogo e comparador.
+- Visualização das imagens no build de produção.
+- Navegação e apresentação em computador e telemóvel.
+- Ficha de impressão.
+
+Se algum teste falhar, corrige a causa concreta sem modificar funcionalidades não relacionadas.
+
+Não declares um teste executado se não o executaste.
+
+Não declares o projeto pronto para publicação se o build falhar.
+
+---
+
+# INSTRUÇÃO FINAL
+
+Executa estas correções diretamente nos ficheiros existentes.
+
+**Não faças uma reformulação geral da plataforma.**
+
+Não reescrevas os conteúdos que não foram indicados.
+
+Não substituas os onze prompts por outros.
+
+Não reconstruas as quatro atividades.
+
+Não alteres o cálculo da calculadora.
+
+Não elimines o Perchance do catálogo: mantém-no como recurso para exploração individual por docentes adultos, com a indicação de 18+ e sem recomendação de utilização por alunos.
+
+Elimina o Sora, porque foi descontinuado.
+
+Não alteres o design, o workflow, o sistema de publicação ou a organização geral sem uma necessidade técnica demonstrada.
+
+A prioridade é corrigir os erros reais, preservar o trabalho já desenvolvido e manter uma plataforma de formação de professores rigorosa, útil e escrita em Português de Portugal.
+
+No final, apresenta apenas:
+
+1. Os ficheiros que alteraste e as correções realizadas.
+2. As afirmações e referências eliminadas.
+3. Os testes que executaste e respetivos resultados.
+4. Os problemas que permaneceram por resolver.
+
+Não apresentes como concluída nenhuma alteração que não tenhas efetivamente executado.

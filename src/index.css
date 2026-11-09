@@ -5,8 +5,14 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
-    background-color: #FAF8F5;
-    color: #1A1715;
+    background-color: #071321;
+    color: #F8FAFC;
+  }
+
+  body {
+    background-color: #071321;
+    color: #F8FAFC;
+    min-height: 100vh;
   }
 
   .font-serif-display {
@@ -23,15 +29,8 @@
   }
 }
 
-/* Warm subtle selection */
+/* Studio cyan selection */
 ::selection {
-  background-color: #C05638;
+  background-color: #0891B2;
   color: #FFFFFF;
-}
-
-@media print {
-  body {
-    background: white !important;
-    color: black !important;
-  }
 }

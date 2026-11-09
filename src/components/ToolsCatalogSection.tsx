@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { TOOLS_CATALOG, ToolCatalogItem } from '../data/presentationData';
 import { matchesSearch } from '../utils/pedagogyLogic';
+import studioWorkspaceImg from '../assets/images/ai_video_creative_studio_workspace_1794113537764.jpg';
 
 interface ToolsCatalogSectionProps {
   searchQuery?: string;
@@ -50,7 +51,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
     { id: 'generative', label: 'Texto-para-Vídeo (Generativo)' },
     { id: 'editing', label: 'Edição & Legendas Automáticas' },
     { id: 'avatars', label: 'Avatares Virtuais' },
-    { id: 'free-no-login', label: '100% Grátis & Sem Registo' },
+    { id: 'free-no-login', label: 'Exploração sem registo' },
   ];
 
   const filteredTools = TOOLS_CATALOG.filter(tool => {
@@ -81,7 +82,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       return tool.category.toLowerCase().includes('edição') || tool.keyFeatures.some(f => f.toLowerCase().includes('legend'));
     }
     if (activeCategory === 'free-no-login') {
-      return tool.id === 'perchance' || tool.freeTierDetails.toLowerCase().includes('100% gratuito');
+      return tool.id === 'perchance' || tool.freeTierDetails.toLowerCase().includes('sem registo');
     }
 
     return true;
@@ -90,33 +91,33 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
   return (
     <div className="space-y-10 animate-in fade-in duration-300">
       {/* Editorial Studio Hero Card */}
-      <section className="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-10 shadow-sm overflow-hidden">
+      <section className="bg-[#0B1E33] rounded-3xl border border-[#143657] p-6 sm:p-10 shadow-xl overflow-hidden">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#C05638] uppercase font-mono">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-cyan-400 uppercase font-mono">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Seleção Pedagógica · Análise Prática de Ferramentas</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-stone-900 font-serif-display leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-serif-display leading-tight">
               Catálogo de Ferramentas de Vídeo com IA para Professores
             </h1>
 
-            <p className="text-stone-600 text-xs sm:text-sm leading-relaxed max-w-2xl">
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
               Guia prático sobre o software de vídeo mais relevante para a escola: limites reais de utilização gratuita, 
               idade mínima dos alunos, pontos fortes didáticos e salvaguardas de privacidade.
             </p>
 
-            {/* Interactive Category Segmented Control */}
-            <div className="pt-2 flex flex-wrap items-center gap-2">
-              {categories.map(cat => (
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     activeCategory === cat.id
-                      ? 'bg-[#181513] text-white shadow-xs'
-                      : 'bg-stone-100 hover:bg-stone-200/80 text-stone-700 border border-stone-200/80'
+                      ? 'bg-[#FACC15] text-[#071526] font-bold shadow-md shadow-amber-400/20'
+                      : 'bg-[#07172A] hover:bg-[#0E243A] text-slate-300 border border-[#143657] hover:border-cyan-500/40 hover:text-white'
                   }`}
                 >
                   {cat.label}
@@ -126,18 +127,17 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="rounded-2xl overflow-hidden border border-stone-200 shadow-md relative group">
+            <div className="rounded-2xl overflow-hidden border border-[#143657] shadow-xl relative group">
               <img
-                src="/src/assets/images/ai_video_creative_studio_workspace_1794113537764.jpg"
+                src={studioWorkspaceImg}
                 alt="Estúdio criativo de edição e geração de vídeo com IA com monitores e linha temporal"
                 className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-500 group-hover:scale-102"
-                referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071321]/90 via-black/30 to-transparent" />
               <div className="absolute bottom-3 left-4 right-4 text-white text-xs">
-                <span className="font-mono text-amber-300 text-[10px] uppercase font-bold">Bancada de Testes</span>
-                <p className="font-serif-display italic text-stone-200 mt-0.5 leading-snug">
-                  Todas as quotas e restrições foram testadas na ótica de uma turma real de 25 alunos.
+                <span className="font-mono text-amber-300 text-[10px] uppercase font-bold">Verificação Contínua</span>
+                <p className="font-serif-display italic text-slate-200 mt-0.5 leading-snug">
+                  As condições e quotas de utilização variam frequentemente e devem ser confirmadas junto de cada fornecedor.
                 </p>
               </div>
             </div>
@@ -146,10 +146,10 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       </section>
 
       {filteredTools.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-3xl border border-stone-200 p-8">
-          <Info className="w-10 h-10 text-stone-400 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-stone-800 font-serif-display">Nenhuma ferramenta encontrada</h3>
-          <p className="text-xs text-stone-500 mt-1">Tente ajustar a sua pesquisa ou clique noutra categoria de ferramentas.</p>
+        <div className="text-center py-12 bg-[#0B1E33] rounded-3xl border border-[#143657] p-8">
+          <Info className="w-10 h-10 text-slate-500 mx-auto mb-3" />
+          <h3 className="text-base font-bold text-white font-serif-display">Nenhuma ferramenta encontrada</h3>
+          <p className="text-xs text-slate-400 mt-1">Tente ajustar a sua pesquisa ou clique noutra categoria de ferramentas.</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -159,25 +159,25 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
             return (
               <div 
                 key={tool.id}
-                className="bg-white rounded-3xl border border-stone-200/90 shadow-sm hover:shadow-md hover:border-stone-300 transition-all flex flex-col justify-between overflow-hidden group"
+                className="bg-[#0B1E33] rounded-3xl border border-[#143657] shadow-xl hover:shadow-2xl hover:border-cyan-500/50 transition-all flex flex-col justify-between overflow-hidden group"
               >
                 <div>
                   {/* Tool Card Header */}
-                  <div className="p-6 border-b border-stone-100 bg-[#FCFAF7]">
+                  <div className="p-6 border-b border-[#143657] bg-[#07172A]/80">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         {tool.badge && (
-                          <span className="inline-block px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-stone-200/80 text-stone-800 mb-2 font-mono">
+                          <span className="inline-block px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#071321] text-amber-300 border border-amber-500/30 mb-2 font-mono">
                             {tool.badge}
                           </span>
                         )}
-                        <h2 className="text-lg font-bold text-stone-900 group-hover:text-[#C05638] transition-colors font-serif-display">
+                        <h2 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors font-serif-display">
                           {tool.name}
                         </h2>
-                        <div className="flex items-center gap-2 text-xs text-stone-500 font-medium mt-0.5">
+                        <div className="flex items-center gap-2 text-xs text-slate-400 font-medium mt-0.5">
                           <span>{tool.category}</span>
                           <span>·</span>
-                          <span className="font-semibold text-stone-800">{tool.factCheckStatus.freeStatus}</span>
+                          <span className="font-semibold text-cyan-300">{tool.factCheckStatus.freeStatus}</span>
                         </div>
                       </div>
 
@@ -185,185 +185,136 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                         href={tool.externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-xl bg-white hover:bg-stone-100 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors border border-stone-200 shrink-0 shadow-2xs"
+                        className="w-9 h-9 rounded-xl bg-[#0B1E33] hover:bg-[#07172A] text-slate-300 hover:text-white flex items-center justify-center transition-colors border border-[#143657] shrink-0 shadow-sm"
                         title={`Abrir página oficial do ${tool.name}`}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
 
-                    <p className="text-xs text-stone-600 mt-3 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-300 mt-3 line-clamp-3 leading-relaxed">
                       {tool.shortDesc}
                     </p>
                   </div>
 
                   {/* Screenshots or Styled Fallback Container */}
                   {tool.screenshots && tool.screenshots.length > 0 ? (
-                    <div className="relative bg-stone-900 aspect-video overflow-hidden">
+                    <div className="relative bg-[#071321] aspect-video overflow-hidden">
                       <img 
                         src={tool.screenshots[0].url} 
                         alt={tool.screenshots[0].caption || tool.name}
                         className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-102 transition-all duration-300"
                         loading="lazy"
-                        referrerPolicy="no-referrer"
                       />
                       <button
-                        onClick={() => setActiveImageZoom({ url: tool.screenshots[0].url, title: `${tool.name} - ${tool.screenshots[0].caption || 'Screenshot'}` })}
-                        className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-black/70 hover:bg-black/90 text-white text-xs backdrop-blur-xs transition-all cursor-pointer"
+                        onClick={() => setActiveImageZoom({ url: tool.screenshots![0].url, title: `${tool.name} - ${tool.screenshots![0].caption || 'Screenshot'}` })}
+                        className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-black/80 hover:bg-black text-white text-xs backdrop-blur-xs transition-all cursor-pointer"
                         title="Ampliar captura de ecrã"
                       >
                         <Maximize2 className="w-3.5 h-3.5" />
                       </button>
                       {tool.screenshots[0].caption && (
-                        <div className="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-[11px] text-stone-200 truncate">
+                        <div className="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-[11px] text-slate-200 truncate">
                           {tool.screenshots[0].caption}
                         </div>
                       )}
                     </div>
                   ) : (
-                    <div className="p-4 bg-[#FAF8F5] border-b border-stone-100 flex items-center justify-between text-xs text-stone-500 font-mono">
-                      <span className="flex items-center gap-1.5">
-                        <Cpu className="w-4 h-4 text-[#C05638]" />
-                        Modelo: Text-to-Video de Alta Resolução
-                      </span>
-                      <span className="text-[11px] text-stone-400">Verificado 2026</span>
-                    </div>
-                  )}
-
-                  {/* HeyGen Video Embed Highlight */}
-                  {tool.demoEmbedUrl && (
-                    <div className="p-3 bg-amber-50/70 border-y border-amber-200/60 flex items-center justify-between text-xs">
-                      <span className="text-amber-900 font-semibold flex items-center gap-1.5">
-                        <Play className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
-                        Vídeo de Demonstração HeyGen
-                      </span>
-                      <button
-                        onClick={() => setShowHeyGenVideo(!showHeyGenVideo)}
-                        className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-xs transition-colors cursor-pointer"
-                      >
-                        {showHeyGenVideo ? 'Ocultar Player' : 'Ver Vídeo'}
-                      </button>
-                    </div>
-                  )}
-
-                  {tool.demoEmbedUrl && showHeyGenVideo && (
-                    <div className="p-3 bg-stone-950 aspect-video">
-                      <iframe
-                        src={tool.demoEmbedUrl}
-                        title="HeyGen video player demo"
-                        className="w-full h-full rounded-xl border-0"
-                        allow="encrypted-media; fullscreen"
-                        allowFullScreen
-                      />
-                    </div>
-                  )}
-
-                  {/* CapCut Demo Video Link */}
-                  {tool.demoDriveUrl && (
-                    <div className="p-3 bg-indigo-50/70 border-y border-indigo-200/60 flex items-center justify-between text-xs">
-                      <span className="text-indigo-900 font-semibold flex items-center gap-1.5">
-                        <FileVideo className="w-3.5 h-3.5 text-indigo-600" />
-                        Exemplo Didático: 'Pequenos Matemáticos'
-                      </span>
-                      <a
-                        href={tool.demoDriveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs transition-colors inline-flex items-center gap-1"
-                      >
-                        <span>Abrir no Drive</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </div>
-                  )}
-
-                  {/* Pedagogical Analysis Drawer */}
-                  <div className="p-4 border-b border-stone-100 bg-stone-50/70">
-                    <button
-                      onClick={() => toggleFactCheck(tool.id)}
-                      className="w-full flex items-center justify-between text-left text-xs font-bold text-stone-800 hover:text-[#C05638] cursor-pointer"
-                    >
-                      <div className="flex items-center gap-1.5">
-                        <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                        <span>Análise Prática & Dicas para a Aula</span>
+                    <div className="aspect-video bg-[#07172A] flex items-center justify-center border-b border-[#143657] text-slate-500">
+                      <div className="text-center p-4">
+                        <FileVideo className="w-8 h-8 mx-auto mb-2 text-cyan-500/50" />
+                        <span className="text-xs font-mono">{tool.name} Studio</span>
                       </div>
-                      {isFactCheckOpen ? (
-                        <ChevronUp className="w-4 h-4 text-stone-400" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-stone-400" />
-                      )}
-                    </button>
+                    </div>
+                  )}
 
-                    {isFactCheckOpen && (
-                      <div className="mt-3 pt-3 border-t border-stone-200 space-y-2 text-xs animate-in slide-in-from-top-1 duration-150">
-                        <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-emerald-950">
-                          <span className="font-bold block text-[11px] uppercase tracking-wide text-emerald-800 font-mono">
-                            ✓ Pontos Fortes na Aprendizagem:
-                          </span>
-                          <span className="leading-relaxed">{tool.factCheckStatus.whatIsFact}</span>
-                        </div>
-
-                        <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 text-amber-950">
-                          <span className="font-bold block text-[11px] uppercase tracking-wide text-amber-800 font-mono">
-                            ⚠ Aspetos Práticos a Ter em Conta:
-                          </span>
-                          <span className="leading-relaxed">{tool.factCheckStatus.whatIsMisleading}</span>
-                        </div>
-
-                        <div className="text-[11px] text-stone-700 pt-1">
-                          <strong>Recomendação para a Aula:</strong> {tool.factCheckStatus.teacherVerdict}
-                        </div>
+                  {/* Badges / Key Specs */}
+                  <div className="p-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="p-2.5 rounded-xl bg-[#07172A] border border-[#143657] text-slate-300">
+                        <span className="block font-mono text-[10px] text-slate-400 uppercase">Registo / Idade</span>
+                        <span className="font-semibold text-white">{tool.factCheckStatus.minimumAge}</span>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Free Tier Details & GDPR */}
-                  <div className="p-5 space-y-3">
-                    <div className="space-y-1">
-                      <div className="text-[11px] font-bold uppercase tracking-wider text-stone-600 flex items-center gap-1 font-mono">
-                        <Gift className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Versão Gratuita Real</span>
+                      <div className="p-2.5 rounded-xl bg-[#07172A] border border-[#143657] text-slate-300">
+                        <span className="block font-mono text-[10px] text-slate-400 uppercase">Acesso Gratuito</span>
+                        <span className="font-semibold text-amber-300 truncate block" title={tool.freeTierDetails}>
+                          {tool.freeTierDetails}
+                        </span>
                       </div>
-                      <p className="text-xs text-stone-700 leading-normal">
-                        {tool.freeTierDetails}
+                    </div>
+
+                    {/* Educational Use Case Preview */}
+                    <div className="space-y-1.5">
+                      <span className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider block">
+                        Cenário de Aplicação:
+                      </span>
+                      <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                        {tool.pedagogicalUseCases[0] || 'Apoio à produção de conteúdos e diferenciação pedagógica.'}
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-100 text-[11px]">
-                      <span className="text-stone-500">Risco RGPD:</span>
-                      <span className={`px-2 py-0.5 rounded-md font-semibold text-[11px] ${
-                        tool.factCheckStatus.rgpdRiskLevel.includes('Alto') 
-                          ? 'bg-red-50 text-red-700 border border-red-200'
-                          : tool.factCheckStatus.rgpdRiskLevel.includes('Médio')
-                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                          : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      }`}>
-                        {tool.factCheckStatus.rgpdRiskLevel}
-                      </span>
-                    </div>
+                    {/* Fact Check Toggle Drawer */}
+                    <div className="pt-2 border-t border-[#143657]">
+                      <button
+                        onClick={() => toggleFactCheck(tool.id)}
+                        className="w-full flex items-center justify-between py-2 text-xs font-bold text-slate-300 hover:text-white cursor-pointer"
+                      >
+                        <span className="flex items-center gap-1.5 font-mono text-[11px] text-cyan-400">
+                          <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Auditoria Pedagógica & Fact-Check</span>
+                        </span>
+                        {isFactCheckOpen ? (
+                          <ChevronUp className="w-4 h-4 text-cyan-400" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-slate-400" />
+                        )}
+                      </button>
 
-                    {tool.requiresEnglishPrompt && (
-                      <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-medium">
-                        ⚠️ Atenção: Os prompts têm de ser formulados em inglês nesta ferramenta para garantir fidelidade ao guião.
-                      </div>
-                    )}
+                      {isFactCheckOpen && (
+                        <div className="mt-2 space-y-2.5 text-xs animate-in fade-in duration-150">
+                          <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-300 space-y-1">
+                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase">
+                              <Check className="w-3 h-3" />
+                              <span>O que é Realidade Comprovada:</span>
+                            </div>
+                            <p className="text-[11px] text-emerald-200 leading-snug">{tool.factCheckStatus.whatIsFact}</p>
+                          </div>
+
+                          <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60 text-amber-300 space-y-1">
+                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase">
+                              <AlertTriangle className="w-3 h-3" />
+                              <span>Mito / Exagero de Marketing:</span>
+                            </div>
+                            <p className="text-[11px] text-amber-200 leading-snug">{tool.factCheckStatus.whatIsMisleading}</p>
+                          </div>
+
+                          <div className="p-3 rounded-xl bg-[#07172A] border border-[#143657] text-slate-300 space-y-1">
+                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase text-cyan-400">
+                              <UserCheck className="w-3 h-3" />
+                              <span>Parecer para Professores:</span>
+                            </div>
+                            <p className="text-[11px] leading-snug">{tool.factCheckStatus.teacherVerdict}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 {/* Card Footer */}
-                <div className="p-4 bg-stone-50 border-t border-stone-100 flex items-center justify-between">
+                <div className="p-6 pt-0 border-t border-[#143657] mt-auto bg-[#07172A]/40 flex items-center justify-between gap-3">
                   <button
                     onClick={() => setSelectedToolModal(tool)}
-                    className="text-xs font-bold text-[#C05638] hover:text-[#A8492E] transition-colors cursor-pointer"
+                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 cursor-pointer py-3"
                   >
-                    Ver Ficha Completa +
+                    Ver Ficha Completa
                   </button>
 
                   <a
                     href={tool.externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-[#181513] hover:bg-stone-800 text-white transition-all shadow-2xs cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold transition-all shadow-md shadow-amber-400/20"
                   >
                     <span>Experimentar</span>
                     <ExternalLink className="w-3 h-3" />
@@ -375,116 +326,100 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
         </div>
       )}
 
-      {/* Full Tool Detail Modal */}
+      {/* Tool Detail Modal */}
       {selectedToolModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200 animate-in zoom-in-95 duration-200">
-            <div className="sticky top-0 bg-white/95 backdrop-blur-md p-6 border-b border-stone-200 flex items-center justify-between z-10">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
+          <div className="bg-[#0B1E33] rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-cyan-500/40 text-white">
+            <div className="p-6 sm:p-8 border-b border-[#143657] bg-[#07172A] flex items-start justify-between gap-4 sticky top-0 z-10">
               <div>
-                <span className="text-xs font-bold text-[#C05638] uppercase tracking-wider font-mono">
-                  Ficha Pedagógica e Técnica
+                <span className="text-[11px] font-bold font-mono text-cyan-400 uppercase tracking-wider">
+                  {selectedToolModal.category}
                 </span>
-                <h3 className="text-xl font-bold text-stone-900 mt-0.5 font-serif-display">
+                <h2 className="text-2xl font-bold text-white font-serif-display mt-0.5">
                   {selectedToolModal.name}
-                </h3>
+                </h2>
+                <p className="text-xs text-slate-300 mt-1">
+                  {selectedToolModal.shortDesc}
+                </p>
               </div>
               <button
                 onClick={() => setSelectedToolModal(null)}
-                className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 cursor-pointer"
+                className="w-9 h-9 rounded-xl bg-[#0B1E33] hover:bg-[#0E243A] text-slate-300 hover:text-white flex items-center justify-center border border-[#143657] cursor-pointer shrink-0"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="p-6 sm:p-8 space-y-6">
-              {/* Full Description */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500 font-mono mb-1.5">
-                  Descrição & Enquadramento na Formação
-                </h4>
-                <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
+                <h3 className="text-sm font-bold text-cyan-400 uppercase font-mono tracking-wider mb-2">
+                  Descrição Aprofundada
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
                   {selectedToolModal.fullDesc}
                 </p>
               </div>
 
-              {/* Practical Evaluation Box in Modal */}
-              <div className="p-5 rounded-2xl bg-[#FCFAF7] border border-stone-200 space-y-3">
-                <div className="flex items-center gap-2 font-bold text-xs uppercase text-stone-900 font-mono">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Avaliação Didática e Proteção de Dados</span>
-                </div>
-                
-                <div className="grid sm:grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-emerald-950">
-                    <strong className="block text-emerald-800 text-[11px] uppercase">Pontos Fortes:</strong>
-                    <span>{selectedToolModal.factCheckStatus.whatIsFact}</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 text-amber-950">
-                    <strong className="block text-amber-800 text-[11px] uppercase">Aspetos a Considerar:</strong>
-                    <span>{selectedToolModal.factCheckStatus.whatIsMisleading}</span>
-                  </div>
-                </div>
-
-                <div className="text-xs text-stone-700 pt-1 border-t border-stone-200/80">
-                  <strong>Recomendação para a Aula:</strong> {selectedToolModal.factCheckStatus.teacherVerdict}
-                </div>
-              </div>
-
               {/* Key Features */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500 font-mono mb-2">
-                  Funcionalidades Principais
-                </h4>
-                <div className="grid sm:grid-cols-2 gap-2">
+                <h3 className="text-sm font-bold text-cyan-400 uppercase font-mono tracking-wider mb-2">
+                  Principais Funcionalidades
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-2 text-xs">
                   {selectedToolModal.keyFeatures.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2 p-2.5 rounded-xl bg-stone-50 border border-stone-100 text-xs text-stone-800">
-                      <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
+                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-[#07172A] border border-[#143657]">
+                      <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                      <span className="text-slate-200">{feat}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Pedagogical Use Cases */}
+              {/* Pedagogical Scenarios */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500 font-mono mb-2">
-                  Ideias de Aplicação Pedagógica
-                </h4>
-                <ul className="space-y-2">
+                <h3 className="text-sm font-bold text-amber-400 uppercase font-mono tracking-wider mb-2">
+                  Cenários de Aplicação em Sala de Aula
+                </h3>
+                <div className="space-y-2 text-xs">
                   {selectedToolModal.pedagogicalUseCases.map((useCase, i) => (
-                    <li key={i} className="p-3 rounded-xl bg-[#FAF8F5] border border-stone-200/80 text-xs text-stone-800 flex items-start gap-2">
-                      <span className="text-[#C05638] font-bold">•</span>
-                      <span>{useCase}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Limitations */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500 font-mono mb-2">
-                  Limitações e Cuidados
-                </h4>
-                <div className="space-y-1.5">
-                  {selectedToolModal.limitations.map((lim, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-stone-600">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                      <span>{lim}</span>
+                    <div key={i} className="p-3.5 rounded-xl bg-[#07172A] border border-[#143657] text-slate-200 leading-relaxed">
+                      <strong>Cenário 0{i + 1}:</strong> {useCase}
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Link CTA */}
-              <div className="pt-4 border-t border-stone-200 flex justify-end">
+              {/* Legal & Age Safeguards */}
+              <div className="p-4 rounded-2xl bg-[#07172A] border border-amber-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-amber-400 font-mono uppercase">
+                  <ShieldAlert className="w-4 h-4 text-amber-400" />
+                  <span>Requisitos Legais, Idade e Salvaguardas</span>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Idade mínima: {selectedToolModal.factCheckStatus.minimumAge} · Nível de risco RGPD: {selectedToolModal.factCheckStatus.rgpdRiskLevel}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-[#07172A] border-t border-[#143657] flex items-center justify-between gap-4 sticky bottom-0">
+              <span className="text-xs text-slate-400 font-mono">
+                {selectedToolModal.factCheckStatus.freeStatus}
+              </span>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSelectedToolModal(null)}
+                  className="px-4 py-2 rounded-xl bg-[#0B1E33] hover:bg-[#0E243A] text-slate-300 text-xs font-semibold border border-[#143657] cursor-pointer"
+                >
+                  Fechar
+                </button>
                 <a
                   href={selectedToolModal.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C05638] hover:bg-[#A8492E] text-white text-xs font-bold transition-all shadow-md shadow-[#C05638]/20"
+                  className="px-5 py-2 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold shadow-md shadow-amber-400/20 inline-flex items-center gap-1.5"
                 >
-                  <span>Aceder ao Site Oficial</span>
-                  <ExternalLink className="w-4 h-4" />
+                  <span>Abrir Website Oficial</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
@@ -495,25 +430,27 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       {/* Image Zoom Modal */}
       {activeImageZoom && (
         <div 
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setActiveImageZoom(null)}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out animate-in fade-in duration-200"
         >
-          <div className="relative max-w-4xl w-full">
-            <button
-              onClick={() => setActiveImageZoom(null)}
-              className="absolute -top-10 right-0 text-white text-xs font-bold flex items-center gap-1 hover:text-amber-400"
-            >
-              Fechar ✕
-            </button>
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="relative max-w-5xl w-full bg-[#0B1E33] rounded-3xl overflow-hidden border border-[#143657] shadow-2xl"
+          >
+            <div className="p-4 bg-[#07172A] border-b border-[#143657] flex items-center justify-between text-white text-xs font-mono">
+              <span>{activeImageZoom.title}</span>
+              <button 
+                onClick={() => setActiveImageZoom(null)}
+                className="p-1 rounded-lg hover:bg-[#0B1E33] text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
             <img 
               src={activeImageZoom.url} 
               alt={activeImageZoom.title} 
-              className="w-full h-auto rounded-2xl shadow-2xl border border-white/20"
-              referrerPolicy="no-referrer"
+              className="w-full max-h-[80vh] object-contain bg-[#071321]"
             />
-            <p className="text-center text-xs text-stone-300 mt-2 font-mono">
-              {activeImageZoom.title}
-            </p>
           </div>
         </div>
       )}

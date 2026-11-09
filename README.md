@@ -21,19 +21,21 @@ A plataforma afasta-se do fascínio técnico superficial e foca-se na **intencio
 
 1. **Visão Pedagógica:** Os 4 pilares fundamentais da integração audiovisual em contexto educativo.
 2. **5 Vantagens na Ótica do Professor:** Como poupar tempo na preparação letiva, diferenciar para a inclusão (DUA) e dinamizar projetos sem burocracias.
-3. **Catálogo de Ferramentas de Vídeo:** Análise prática e quotas reais de utilização:
+3. **Catálogo de Ferramentas de Vídeo:** Análise de 11 ferramentas com foco na viabilidade didática:
    - *InVideo AI* (vídeo completo a partir de guião)
-   - *Kling AI* (realismo físico e cinematográfico)
-   - *Luma Dream Machine / Ray 2* (reconstituição histórica)
-   - *Minimax / Hailuo AI* (expressões humanas e empatia narrativa)
-   - *Perchance AI Video* (100% gratuito, sem registo, seguro para turmas de menores)
-   - *Canva para Educação* (ecossistema escolar protegido e colaborativo)
-   - *CapCut AI* (legendagem automática e edição rápida em português)
-   - *Microsoft Clipchamp* (locução neural com pronúncia autêntica PT-PT)
-   - *HeyGen* & *OpenAI Sora* (demonstração do estado da arte)
-4. **Banco de Prompts Didáticos:** 11 instruções estruturadas por disciplina curricular, com critérios éticos e botão de cópia instantânea.
-5. **Guiões de Sala de Aula:** 4 atividades curriculares completas com lista de etapas para o professor e **Calculadora Interativa de Avaliação (0 a 20 valores)**.
-6. **Comparador & RGPD:** Tabela comparativa com filtros rápidos de privacidade e idade mínima legal.
+   - *Kling AI* (realismo físico e movimento)
+   - *Luma Dream Machine* (reconstituição visual e perspetivas de câmara)
+   - *Minimax / Hailuo AI* (expressões e dinamismo visual)
+   - *Pika Labs* (efeitos de transformação visual e animação)
+   - *Perchance AI Video* (apenas para docentes adultos, 18+; exploração prévia pelo professor sem necessidade de registo)
+   - *Canva para Educação* (ecossistema escolar para docentes e alunos elegíveis K-12)
+   - *CapCut (Web, PC e Telemóvel)* (legendagem automática e edição rápida em português)
+   - *Microsoft Clipchamp* (locução neural com pronúncia PT-PT)
+   - *HeyGen* (demonstração de avatares didáticos)
+   - *Vidnoz AI* (geração de avatares para apresentações didáticas)
+4. **Banco de Prompts Didáticos:** 11 instruções curriculares estruturadas para adaptação pelo professor, com salvaguardas éticas e cópia assistida.
+5. **Guiões de Sala de Aula:** 4 atividades curriculares completas com lista de etapas para o professor e **Simulador Geral de Pontuação (0 a 20 valores)**.
+6. **Comparador de Ferramentas:** Tabela de comparação funcional orientada a cenários de aula.
 7. **Bibliografia Académica:** Fontes científicas formatadas em **APA (7.ª edição)** e declaração explícita de incertezas da investigação (*O Que a Ciência Não Sabe em 2026*).
 8. **Ficha Pedagógica para Impressão:** Versão formatada em PDF pronta para impressão e partilha presencial.
 
@@ -42,7 +44,7 @@ A plataforma afasta-se do fascínio técnico superficial e foca-se na **intencio
 ## 🚀 Como Executar Localmente
 
 ### Pré-requisitos
-- Node.js (v18 ou superior)
+- Node.js 20.19 ou superior da série 20, ou 22.12 ou superior
 - npm
 
 ### Instalação e Execução

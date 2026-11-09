@@ -18,7 +18,7 @@ test('generateEducationalPrompt creates comprehensive prompt with pedagogical cr
   assert.ok(result.includes('sem sobrecarga cognitiva'));
 });
 
-test('generateEducationalPrompt appends translation note for perchance tool', () => {
+test('generateEducationalPrompt generates clean prompt for perchance tool without false translation claims', () => {
   const result = generateEducationalPrompt({
     subject: 'História',
     gradeLevel: '8.º ano',
@@ -27,7 +27,8 @@ test('generateEducationalPrompt appends translation note for perchance tool', ()
     toolTarget: 'perchance'
   });
 
-  assert.ok(result.includes('prompts em inglês'));
+  assert.equal(result.includes('prompts em inglês'), false);
+  assert.ok(result.includes('História'));
 });
 
 test('calculateRubricScore calculates qualitative ratings and percentages correctly', () => {
@@ -68,4 +69,13 @@ test('matchesSearch properly performs multi-word query matching', () => {
   assert.equal(matchesSearch('diálogos personagens', fields), true);
   assert.equal(matchesSearch('inexistente termo', fields), false);
   assert.equal(matchesSearch('', fields), true);
+});
+
+test('matchesSearch normalizes accents in query and target fields (ciencias, educacao, video)', () => {
+  const fields = ['Ciências Naturais', 'Educação Visual', 'Edição de vídeo com IA'];
+  assert.equal(matchesSearch('ciencias', fields), true);
+  assert.equal(matchesSearch('educacao', fields), true);
+  assert.equal(matchesSearch('video', fields), true);
+  assert.equal(matchesSearch('ciencias naturais video', fields), true);
+  assert.equal(matchesSearch('EDUCACAO', fields), true);
 });
