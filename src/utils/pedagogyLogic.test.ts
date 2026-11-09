@@ -1,74 +1,108 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateEducationalPrompt, calculateRubricScore, matchesSearch } from './pedagogyLogic';
+import { 
+  generateEducationalPrompt, 
+  calculateRubricScore, 
+  calculateWeightedRubricScore, 
+  matchesSearch 
+} from './pedagogyLogic';
 
-test('generateEducationalPrompt creates comprehensive prompt with pedagogical criteria', () => {
+test('generateEducationalPrompt differentiates clip generator tools (Kling, Luma, Pika)', () => {
   const result = generateEducationalPrompt({
     subject: 'Ciências Naturais',
-    gradeLevel: '5.º ano',
-    topic: 'Sistema Imunitário',
+    gradeLevel: '3.º Ciclo (8.º ano)',
+    topic: 'Tectónica de Placas',
+    videoStyle: 'realistic',
+    toolTarget: 'kling',
+    clipDuration: '5 segundos',
+    duration: '2 minutos',
+    visualRestrictions: 'Evitar texto em inglês e mapas anacrónicos'
+  });
+
+  assert.ok(result.includes('Sujeito principal'));
+  assert.ok(result.includes('Ação visível'));
+  assert.ok(result.includes('Tectónica de Placas'));
+  assert.ok(result.includes('Restrições visuais: Evitar texto em inglês e mapas anacrónicos'));
+  assert.ok(result.includes('Nota de produção'));
+  assert.ok(!result.includes('traduzir para inglês'));
+});
+
+test('generateEducationalPrompt differentiates full video tool (InVideo AI)', () => {
+  const result = generateEducationalPrompt({
+    subject: 'História',
+    gradeLevel: '3.º Ciclo (9.º ano)',
+    topic: 'A Revolução dos Cravos',
+    videoStyle: 'documentary',
+    toolTarget: 'invideo',
+    duration: '90 segundos'
+  });
+
+  assert.ok(result.includes('Estrutura do guião'));
+  assert.ok(result.includes('Português de Portugal'));
+  assert.ok(result.includes('Legendas: Legendas completas sincronizadas'));
+});
+
+test('generateEducationalPrompt differentiates video editors (CapCut, Clipchamp, Canva)', () => {
+  const result = generateEducationalPrompt({
+    subject: 'Português',
+    gradeLevel: '2.º Ciclo (6.º ano)',
+    topic: 'Entrevista a um Poeta',
     videoStyle: 'animation',
+    toolTarget: 'capcut',
     duration: '2 minutos'
   });
 
-  assert.ok(result.includes('Ciências Naturais'));
-  assert.ok(result.includes('5.º ano'));
-  assert.ok(result.includes('Sistema Imunitário'));
-  assert.ok(result.includes('estilo animação'));
-  assert.ok(result.includes('sem sobrecarga cognitiva'));
+  assert.ok(result.includes('Storyboard visual'));
+  assert.ok(result.includes('Texto da narração'));
+  assert.ok(result.includes('Instruções de montagem'));
 });
 
-test('generateEducationalPrompt generates clean prompt for perchance tool without false translation claims', () => {
+test('generateEducationalPrompt differentiates avatar tools (HeyGen, Vidnoz)', () => {
   const result = generateEducationalPrompt({
-    subject: 'História',
-    gradeLevel: '8.º ano',
-    topic: '25 de Abril',
-    videoStyle: 'documentary',
-    toolTarget: 'perchance'
+    subject: 'Filosofia',
+    gradeLevel: 'Ensino Secundário (10.º ano)',
+    topic: 'O Mito da Caverna de Platão',
+    videoStyle: 'avatar',
+    toolTarget: 'heygen',
+    duration: '1 minuto'
   });
 
-  assert.equal(result.includes('prompts em inglês'), false);
-  assert.ok(result.includes('História'));
+  assert.ok(result.includes('apresentador virtual'));
+  assert.ok(result.includes('Divisão em cenas'));
+  assert.ok(result.includes('Aviso ético e institucional'));
 });
 
-test('calculateRubricScore calculates qualitative ratings and percentages correctly', () => {
-  const scoreMax = calculateRubricScore({
-    scientificAccuracy: 5,
-    clarityAndPacing: 5,
-    creativityAndStyle: 5,
-    debateParticipation: 5
-  });
-  assert.equal(scoreMax.total, 20);
-  assert.equal(scoreMax.percentage, 100);
-  assert.equal(scoreMax.qualitativeGrade, 'Excelente');
+test('calculateWeightedRubricScore calculates 0-20 weighted scale rigorously', () => {
+  const rubric = [
+    { id: 'crit1', weight: 40 },
+    { id: 'crit2', weight: 30 },
+    { id: 'crit3', weight: 20 },
+    { id: 'crit4', weight: 10 }
+  ];
 
-  const scoreMedium = calculateRubricScore({
-    scientificAccuracy: 4,
-    clarityAndPacing: 4,
-    creativityAndStyle: 3,
-    debateParticipation: 3
-  });
-  assert.equal(scoreMedium.total, 14);
-  assert.equal(scoreMedium.percentage, 70);
-  assert.equal(scoreMedium.qualitativeGrade, 'Bom');
+  // All 5s -> exactly 20 values
+  const maxScore = calculateWeightedRubricScore(
+    { crit1: 5, crit2: 5, crit3: 5, crit4: 5 },
+    rubric
+  );
+  assert.equal(maxScore.total, 20);
+  assert.equal(maxScore.percentage, 100);
 
-  const scoreLow = calculateRubricScore({
-    scientificAccuracy: 2,
-    clarityAndPacing: 2,
-    creativityAndStyle: 2,
-    debateParticipation: 2
-  });
-  assert.equal(scoreLow.total, 8);
-  assert.equal(scoreLow.percentage, 40);
-  assert.equal(scoreLow.qualitativeGrade, 'Insuficiente');
-});
+  // All 0s -> exactly 0 values
+  const minScore = calculateWeightedRubricScore(
+    { crit1: 0, crit2: 0, crit3: 0, crit4: 0 },
+    rubric
+  );
+  assert.equal(minScore.total, 0);
+  assert.equal(minScore.percentage, 0);
 
-test('matchesSearch properly performs multi-word query matching', () => {
-  const fields = ['Vidnoz', 'Ferramenta de criação de avatares com IA', 'Permite diálogos entre duas personagens'];
-  assert.equal(matchesSearch('vidnoz avatares', fields), true);
-  assert.equal(matchesSearch('diálogos personagens', fields), true);
-  assert.equal(matchesSearch('inexistente termo', fields), false);
-  assert.equal(matchesSearch('', fields), true);
+  // Specific weighting: crit1 (40%) = 5, others = 0 -> (5 * 40)/100 * 4 = 8 values
+  const partialScore = calculateWeightedRubricScore(
+    { crit1: 5, crit2: 0, crit3: 0, crit4: 0 },
+    rubric
+  );
+  assert.equal(partialScore.total, 8);
+  assert.equal(partialScore.percentage, 40);
 });
 
 test('matchesSearch normalizes accents in query and target fields (ciencias, educacao, video)', () => {

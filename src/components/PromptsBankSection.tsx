@@ -93,14 +93,14 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
     <div className="space-y-8 animate-in fade-in duration-300">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-cyan-400 uppercase font-mono mb-1">
-            <Sparkle className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-1">
+            <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
             <span>Banco de Prompts Didáticos · Para adaptação pelo docente</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif-display">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#08203E] tracking-tight font-serif-display">
             Prompts Estruturados para Recursos Visuais
           </h2>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[#475569] text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
             Instruções estruturadas para apoio à criação de recursos visuais pelo docente. Devem ser adaptadas ao contexto pedagógico e revistas criticamente quanto à sua exatidão científica e histórica.
           </p>
         </div>
@@ -113,8 +113,8 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
               onClick={() => setSelectedDiscipline(d.id)}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
                 selectedDiscipline === d.id
-                  ? 'bg-[#FACC15] text-[#071526] font-bold shadow-md shadow-amber-400/20'
-                  : 'bg-[#07172A] border border-[#143657] text-slate-300 hover:text-white hover:border-cyan-500/40'
+                  ? 'bg-[#FACC15] text-[#071526] font-bold shadow-xs'
+                  : 'bg-white border border-[#DCE8F6] text-[#475569] hover:text-[#08203E] hover:bg-[#F0F5FA]'
               }`}
             >
               {d.label}
@@ -127,56 +127,56 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
         {filteredPrompts.map((prompt) => (
           <div
             key={prompt.id}
-            className="bg-[#0B1E33] rounded-3xl border border-[#143657] p-6 sm:p-7 shadow-xl hover:border-cyan-500/50 hover:shadow-2xl transition-all flex flex-col justify-between space-y-4"
+            className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-7 shadow-sm hover:border-[#38BDF8] hover:shadow-md transition-all flex flex-col justify-between space-y-4"
           >
             <div className="space-y-3.5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-medium mb-1">
-                    <span className="font-bold text-cyan-400">{prompt.discipline}</span>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#64748B] font-medium mb-1">
+                    <span className="font-bold text-[#0B4B82]">{prompt.discipline}</span>
                     <span>·</span>
-                    <span className="font-mono text-[11px] text-amber-300">{prompt.gradeLevel}</span>
+                    <span className="font-mono text-[11px] text-[#92400E] bg-[#FEF8E7] px-2 py-0.5 rounded border border-[#FDE5B5]">{prompt.gradeLevel}</span>
                     <span>·</span>
-                    <span className="text-slate-300 font-medium">{prompt.category}</span>
+                    <span className="text-[#475569] font-medium">{prompt.category}</span>
                   </div>
-                  <h3 className="text-base font-bold text-white leading-snug font-serif-display">
+                  <h3 className="text-base font-bold text-[#08203E] leading-snug font-serif-display">
                     {prompt.title}
                   </h3>
                 </div>
 
-                <span className="w-8 h-8 rounded-xl bg-[#07172A] text-amber-300 text-xs font-mono font-bold flex items-center justify-center shrink-0 border border-[#143657]">
+                <span className="w-8 h-8 rounded-xl bg-[#EAF3FD] text-[#0B4B82] text-xs font-mono font-bold flex items-center justify-center shrink-0 border border-[#CEE2F7]">
                   {prompt.id}
                 </span>
               </div>
 
               {/* Pedagogical Objective, Curriculum Competence & Visual Style */}
               <div className="space-y-2 text-xs">
-                <div className="p-3.5 rounded-2xl bg-[#07172A] border border-[#143657] text-slate-200 space-y-1">
-                  <div className="font-bold text-white flex items-center gap-1.5 font-mono text-[11px] uppercase">
-                    <Target className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] text-[#334155] space-y-1">
+                  <div className="font-bold text-[#08203E] flex items-center gap-1.5 font-mono text-[11px] uppercase">
+                    <Target className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
                     <span>Objetivo de Aprendizagem:</span>
                   </div>
-                  <p className="leading-relaxed text-slate-300">{prompt.pedagogicalObjective}</p>
+                  <p className="leading-relaxed text-[#475569]">{prompt.pedagogicalObjective}</p>
                 </div>
 
                 {prompt.curriculumCompetence && (
-                  <div className="text-[11px] text-slate-300 pl-1 leading-normal">
-                    <strong className="text-cyan-400">Competência Curricular:</strong> {prompt.curriculumCompetence}
+                  <div className="text-[11px] text-[#334155] pl-1 leading-normal">
+                    <strong className="text-[#0B4B82]">Competência Curricular:</strong> {prompt.curriculumCompetence}
                   </div>
                 )}
 
-                <div className="flex items-center gap-2 text-slate-300 text-[11px] pl-1">
-                  <Film className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <div className="flex items-center gap-2 text-[#475569] text-[11px] pl-1">
+                  <Film className="w-3.5 h-3.5 text-[#B45309] shrink-0" />
                   <span><strong>Estilo Visual:</strong> {prompt.visualStyle}</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-300 text-[11px] pl-1">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <div className="flex items-center gap-2 text-[#475569] text-[11px] pl-1">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span><strong>Ferramentas sugeridas para exploração:</strong> {prompt.recommendedTool}</span>
                 </div>
 
                 {prompt.ethicalConsideration && (
-                  <div className="p-2.5 rounded-xl bg-amber-950/40 border border-amber-800/60 text-[11px] text-amber-300 leading-relaxed">
+                  <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
                     <strong>Atenção Didática:</strong> {prompt.ethicalConsideration}
                   </div>
                 )}
@@ -184,24 +184,24 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
 
               {/* The Prompt Box */}
               <div className="relative group pt-1">
-                <div className="p-4 rounded-2xl bg-[#071321] text-amber-200 font-mono text-xs leading-relaxed border border-[#143657] selection:bg-cyan-500/30">
+                <div className="p-4 rounded-2xl bg-[#041D3A] text-[#FDE68A] font-mono text-xs leading-relaxed border border-[#041D3A] selection:bg-cyan-500/30">
                   {prompt.promptText}
                 </div>
               </div>
 
               {copyErrorId === prompt.id && (
-                <div className="p-2.5 rounded-xl bg-amber-950/60 border border-amber-700 text-[11px] text-amber-200 leading-snug">
+                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-[11px] text-amber-900 leading-snug">
                   Não foi possível copiar automaticamente. Selecione o texto e utilize a opção de copiar do navegador.
                 </div>
               )}
             </div>
 
             {/* Actions Bar */}
-            <div className="pt-3 border-t border-[#143657] flex items-center justify-between gap-3">
+            <div className="pt-3 border-t border-[#EEF2F6] flex items-center justify-between gap-3">
               {onUsePromptInGenerator && (
                 <button
                   onClick={() => onUsePromptInGenerator(prompt)}
-                  className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-bold cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#0284C7] hover:text-[#0369A1] font-bold cursor-pointer"
                 >
                   <Wand2 className="w-3.5 h-3.5" />
                   <span>Personalizar no Gerador</span>
@@ -212,8 +212,8 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
                 onClick={() => handleCopy(prompt)}
                 className={`ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   copiedId === prompt.id
-                    ? 'bg-emerald-500 text-[#071526] font-bold shadow-md'
-                    : 'bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] font-bold shadow-md shadow-amber-400/20'
+                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                    : 'bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] font-bold shadow-xs'
                 }`}
               >
                 {copiedId === prompt.id ? (

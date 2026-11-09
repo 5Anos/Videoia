@@ -45,7 +45,6 @@ export interface ToolCatalogItem {
   pedagogicalUseCases: string[];
   externalUrl: string;
   demoEmbedUrl?: string;
-  demoDriveUrl?: string;
   requiresEnglishPrompt?: boolean;
   creditSystem?: string;
   screenshots: { name: string; url: string; caption?: string }[];
@@ -59,6 +58,13 @@ export interface ToolCatalogItem {
   };
 }
 
+export interface EvaluationRubricCriterion {
+  id: string;
+  criterion: string;
+  weight: number; // Percentagem, soma = 100
+  evidence: string;
+}
+
 export interface ClassroomActivity {
   id: string;
   title: string;
@@ -67,16 +73,35 @@ export interface ClassroomActivity {
   estimatedDuration: string;
   icon: string;
   learningObjectives: string[];
+  teacherVerificationChecklist: string[];
+  whoOperatesTool: {
+    firstCycle: string;
+    secondCycle: string;
+    thirdAndSecondary: string;
+  };
   teacherImplementationSteps: {
     step: number;
     title: string;
     description: string;
+    aiUseMode: 'Sem IA' | 'IA de apoio' | 'IA integrada';
     subitems?: string[];
     recommendedTools?: string[];
     teacherTip?: string;
   }[];
   studentDeliverables: string[];
-  evaluationCriteria: string[];
+  evaluationRubric: EvaluationRubricCriterion[];
+  evaluationCriteria: string[]; // Retrocompatibilidade textual
+  processEvaluation: {
+    selfAssessment: string;
+    peerAssessment: string;
+    processEvidence: string;
+  };
+  udlAndDifferentiation: {
+    representation: string;
+    actionAndExpression: string;
+    engagement: string;
+    noTechAlternative: string;
+  };
   pedagogicalFramework: string;
   rgpdSafetyChecklist: string[];
 }
@@ -115,7 +140,7 @@ export const MODULE_OVERVIEW = {
         "Despertar a curiosidade no início de uma aula com uma introdução impactante de 30 segundos",
         "Dar aos alunos o papel de realizadores e investigadores, colocando o foco na criatividade e no rigor"
       ],
-      caution: "A IA inventa pormenores com frequência. O olhar crítico do professor e dos alunos é indispensável para caçar erros conceituais."
+      caution: "A IA inventa pormenores com frequência. O olhar crítico do professor e dos alunos é indispensável para detetar erros de conteúdo."
     },
     {
       type: "Edição Assistida e Acessibilidade",
@@ -140,20 +165,20 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Videoaulas em Minutos",
     description: "Todos nós sabemos a vergonha que muitos sentem em frente a uma câmara ou as horas perdidas a montar tripés e microfones. A IA permite transformar um resumo ou apontamento numa explicação narrada com clareza, mantendo o foco no conteúdo e não na técnica.",
     capabilities: [
-      "Transformar sumários ou textos curriculares em vídeos estruturados com imagens pertinentes",
-      "Gerar locuções com voz natural em português de Portugal para acompanhar os diapositivos",
-      "Criar pequenos vídeos de 1 a 2 minutos (microlearning) para rever conteúdos antes de testes",
-      "Gravar explicações uma única vez e reutilizá-las com alunos que faltaram ou precisam de reforço"
+      "Transformar sumários ou textos curriculares em vídeos estruturados com imagem e narração.",
+      "Gerar locuções com voz natural em português de Portugal, sem a necessidade de gravação.",
+      "Criar pequenos vídeos de 1 a 2 minutos, ideais para introduzir, consolidar ou rever conteúdos.",
+      "Gravar explicações uma única vez e reutilizá-las com alunos que faltaram ou precisam de reforço."
     ],
     usefulTools: [
-      { name: "InVideo AI", description: "Pode apoiar a criação de um rascunho audiovisual a partir de instruções escritas; o guião, as imagens e a narração devem ser revistos pelo docente." },
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Ideal para criar animações explicativas rápidas com estilo didático e legendas automáticas." },
+      { name: "InVideo AI", description: "Pode apoiar a criação de um rascunho audiovisual a partir de instruções escritas ou guiões." },
+      { name: "CapCut (Web, PC e Telemóvel)", description: "Edição simples, legendas automáticas e recursos visuais." },
       { name: "Canva para Educação", description: "Perfeito para integrar vídeos e animações em apresentações já habituais na escola." }
     ],
     teacherBenefits: [
-      "Pode reduzir algumas tarefas de preparação técnica e edição; a poupança efetiva depende da ferramenta, da complexidade do recurso e do trabalho de revisão necessário.",
-      "Permite criar uma videoteca de apoio que os alunos podem consultar ao seu próprio ritmo em casa (sala de aula invertida)",
-      "Reduz a ansiedade de quem não se sente confortável a expor a sua própria imagem em vídeo"
+      "Pode reduzir algumas tarefas de preparação técnica e edição, libertando tempo para a planificação pedagógica.",
+      "Permite criar uma videoteca de apoio que os alunos podem consultar ao seu próprio ritmo em casa (sala de aula invertida).",
+      "Reduz a ansiedade de quem não se sente confortável a expor a sua própria imagem em vídeo."
     ],
     cognitivePrinciple: "Princípio da Modalidade de Mayer: a combinação de imagens relevantes com explicação oral pode apoiar a aprendizagem. A sua eficácia depende da organização da informação, da complexidade do conteúdo e dos conhecimentos prévios dos alunos.",
     rgpdNote: "Nunca introduza dados pessoais de alunos (nomes, notas ou situações individuais) nos guiões que envia para ferramentas na nuvem."
@@ -164,10 +189,10 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Inclusão e Acessibilidade",
     description: "Numa turma típica de 25 ou 28 alunos, temos alunos que leem devagar, alunos com défice auditivo e, cada vez mais em Portugal, alunos recém-chegados de outros países que ainda não dominam a nossa língua. As funcionalidades de legendagem, transcrição e tradução podem apoiar o acesso à informação, mas não garantem, por si só, a inclusão de todos os alunos.",
     capabilities: [
-      "Criar legendas automáticas sincronizadas e com pontuação adequada em poucos segundos",
-      "Corrigir rapidamente no texto palavras técnicas ou vocabulário científico mal transcrito",
-      "Traduzir o áudio de uma aula para dezenas de línguas, preservando a clareza e entoação",
-      "Produzir materiais com suporte bimodal (áudio + texto simultâneo) que apoiam a literacia"
+      "Criar legendas automáticas sincronizadas e com pontuação adequada em poucos segundos.",
+      "Corrigir rapidamente no texto palavras técnicas ou vocabulário científico mal transcrito.",
+      "Traduzir o áudio de uma aula para dezenas de línguas, preservando a clareza e entoação.",
+      "Produzir materiais com suporte bimodal (áudio + texto simultâneo) que apoiam a literacia."
     ],
     usefulTools: [
       { name: "CapCut (Web, PC e Telemóvel)", description: "Editor de vídeo com funcionalidades de edição e recursos de IA. A disponibilidade e a qualidade das ferramentas de reconhecimento de fala e legendagem devem ser confirmadas na versão utilizada." },
@@ -176,10 +201,10 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     teacherBenefits: [
       "A legendagem e a disponibilização de alternativas textuais podem apoiar a acessibilidade, mas não significam, por si só, que a atividade cumpra os princípios do DUA.",
       "A tradução automática pode apoiar a compreensão inicial, mas deve ser revista e adaptada ao contexto linguístico e disciplinar.",
-      "Apoio direto a alunos com dificuldades de concentração ou processamento auditivo"
+      "Apoio direto a alunos com dificuldades de concentração ou processamento auditivo."
     ],
     cognitivePrinciple: "Princípio da Redundância de Mayer: a apresentação simultânea de gráficos, narração e texto impresso idêntico pode, em determinadas condições, aumentar a carga de processamento. Este princípio não justifica retirar legendas necessárias à acessibilidade. É importante distinguir legendas de acessibilidade de texto redundante utilizado como elemento visual.",
-    rgpdNote: "A gravação da voz do professor é um dado pessoal. Em ferramentas externas, use ferramentas institucionais da escola sempre que possível."
+    rgpdNote: "A gravação da voz do professor é um dado pessoal. Em ferramentas externas, utilize ferramentas institucionais da escola sempre que possível."
   },
   {
     id: 3,
@@ -187,18 +212,18 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Pílulas e Resumos Curtos",
     description: "Uma gravação extensa pode dificultar a localização de uma explicação específica. A criação de excertos com objetivos claros pode facilitar a consulta e a revisão, desde que os segmentos mantenham o contexto necessário.",
     capabilities: [
-      "Localizar automaticamente no vídeo os momentos onde foi colocada uma dúvida ou explicado um conceito",
-      "Cortar os silêncios, as pausas de transição e os momentos de espera da aula",
-      "Gerar clipes curtos com título automático focados num único problema resolvido",
-      "Disponibilizar pequenos 'trailers' didáticos antes de começar um novo capítulo para despertar o interesse"
+      "Localizar no vídeo os momentos onde foi colocada uma dúvida ou explicado um conceito.",
+      "Cortar os silêncios, as pausas de transição e os momentos de espera da aula.",
+      "Gerar clipes curtos com título automático focados num único problema resolvido.",
+      "Disponibilizar pequenos clipes didáticos antes de começar um novo capítulo para despertar o interesse."
     ],
     usefulTools: [
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Permite cortar partes do vídeo diretamente selecionando o texto transcrito, sem ter de procurar na linha de tempo." },
+      { name: "CapCut (Web, PC e Telemóvel)", description: "Permite cortar partes do vídeo diretamente selecionando o texto transcrito, sem ter de procurar manualmente na linha de tempo." },
       { name: "InVideo AI", description: "Resume artigos ou capítulos extensos num vídeo dinâmico de 90 segundos com os tópicos essenciais." }
     ],
     teacherBenefits: [
       "Materiais organizados por tema ou conceito, facilitando a consulta de partes específicas.",
-      "Fácil consulta rápida no telemóvel antes de fichas de avaliação",
+      "Fácil consulta rápida no telemóvel antes de fichas de avaliação e momentos de síntese.",
       "Possibilidade de reutilizar e disponibilizar excertos revistos, adequados aos objetivos de cada atividade."
     ],
     cognitivePrinciple: "Princípio da Segmentação de Mayer: a informação pode ser organizada em partes significativas, permitindo ao aluno controlar o ritmo, pausar e rever. O benefício depende do conteúdo e da forma como os segmentos são estruturados.",
@@ -208,25 +233,25 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     id: 4,
     title: "4. Apresentadores Virtuais para Manter a Consistência e Proximidade",
     shortTitle: "Avatares Pedagógicos",
-    description: "Um avatar virtual pode parecer artificial à primeira vista, mas quando bem utilizado é uma ferramenta preciosa: serve para dar as boas-vindas a um módulo, colocar uma questão desafiadora ou simular uma entrevista com uma figura histórica.",
+    description: "Um avatar virtual pode parecer artificial à primeira vista, mas quando bem utilizado é uma ferramenta complementar: serve para dar as boas-vindas a um módulo, colocar uma questão desafiadora ou simular uma dramatização com uma figura histórica.",
     capabilities: [
-      "Criar uma personagem virtual que lê as instruções de um trabalho com clareza e paciência infinita",
-      "Simular diálogos entre duas figuras (por exemplo, um debate fictício entre dois filósofos ou cientistas)",
-      "Manter a mesma voz e identidade visual em todos os materiais de apoio ao estudo ao longo do ano letivo",
-      "Gravar comunicações breves para a comunidade escolar ou encarregados de educação sem montar cenários"
+      "Criar uma personagem virtual que lê as instruções de um trabalho com clareza e ritmo pausado.",
+      "Simular diálogos entre duas figuras (por exemplo, um debate fictício entre dois filósofos ou cientistas).",
+      "Manter a mesma voz e identidade visual em materiais de apoio ao estudo ao longo do ano letivo.",
+      "Preparar comunicações breves e avisos pedagógicos sem necessidade de montagem de estúdio."
     ],
     usefulTools: [
-      { name: "Vidnoz AI", description: "Permite colocar dois avatares a conversar na mesma cena, o que é ótimo para debates didáticos." },
-      { name: "HeyGen", description: "Os avatares mais realistas do mercado com excelente sincronização labial, ideal para demonstrações." },
-      { name: "Canva para Educação", description: "Avatares simples e personagens animadas prontas para usar em apresentações de sala de aula." }
+      { name: "Vidnoz AI", description: "Permite colocar dois avatares a dialogar na mesma cena, o que é útil para simulações didáticas." },
+      { name: "HeyGen", description: "Avatares virtuais com sincronização labial avançada, ideal para demonstrações breves do professor." },
+      { name: "Canva para Educação", description: "Personagens animadas e elementos ilustrativos prontos para apresentações escolares." }
     ],
     teacherBenefits: [
-      "Permite atualizar um guião no ano seguinte sem ter de regravar o vídeo do início",
+      "Permite atualizar um guião no ano seguinte sem ter de regravar o vídeo do início.",
       "Pode introduzir uma personagem ou voz diferente, quando essa opção serve o objetivo pedagógico; não se deve presumir um aumento automático da motivação.",
       "Pode permitir preparar previamente uma mensagem ou explicação narrada, que o professor revê e contextualiza."
     ],
-    cognitivePrinciple: "Princípio da Voz e Princípio da Personalização de Mayer: estes princípios abordam, em determinadas condições, a preferência por uma voz humana e por uma linguagem conversacional. Não permitem concluir que qualquer voz sintética prejudica a aprendizagem nem que a utilização de avatares aumenta automaticamente o envolvimento.",
-    rgpdNote: "Fotografias, vídeos e gravações de voz podem conter dados pessoais. A utilização de funcionalidades de criação ou clonagem de voz e imagem exige análise dos termos, das autorizações, da finalidade e das orientações institucionais. Não assumir que todos estes dados são automaticamente dados biométricos de categoria especial."
+    cognitivePrinciple: "Princípio da Personalização: as pessoas podem aprender melhor quando a narração utiliza uma linguagem conversacional, em vez de um registo excessivamente formal.\n\nPrincípio da Voz: a investigação clássica de Mayer encontrou vantagens na utilização de uma voz humana padrão em comparação com uma voz de máquina. Contudo, esta evidência não permite afirmar que todas as vozes sintéticas modernas prejudicam a aprendizagem. A qualidade da síntese, a inteligibilidade e o contexto de utilização devem ser considerados.\n\nPrincípio da Imagem: a presença da imagem do apresentador no ecrã não melhora necessariamente a aprendizagem. A inclusão de um avatar ou de uma personagem deve ter uma finalidade pedagógica e não ser apresentada como garantia de maior compreensão, atenção ou motivação.",
+    rgpdNote: "Não criar nem divulgar imagens, vídeos ou gravações de voz sintéticas que representem alunos, professores, colegas ou outras pessoas identificáveis sem autorização, validação institucional e verificação das condições legais aplicáveis. Não clonar a voz ou a aparência de pessoas reais para criar conteúdos que possam ser confundidos com declarações ou registos autênticos."
   },
   {
     id: 5,
@@ -234,22 +259,22 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Edição Descomplicada",
     description: "A maioria dos professores não tem tempo para aprender programas profissionais pesados como o Premiere ou o DaVinci. Alguns editores permitem realizar operações a partir de uma transcrição, mas essa funcionalidade depende do produto e do plano. Noutros casos, a edição continua a ser feita na linha temporal.",
     capabilities: [
-      "Apagar gaffes, hesitações e palavras repetidas ('humm', 'portanto', 'é assim') apagando o texto",
-      "Equilibrar o volume do microfone e retirar o eco da sala de aula com um simples clique",
-      "Adicionar transições e títulos limpos sem ter de ajustar manualmente segundo a segundo",
-      "Exportar com qualidade em alta definição (1080p) pronto a partilhar com os alunos"
+      "Eliminar gafes e remover apenas hesitações prolongadas, repetições involuntárias e ruídos que prejudiquem a compreensão, preservando conectores discursivos e formulações relevantes para o raciocínio.",
+      "Equilibrar o volume do microfone e atenuar ruídos da sala com funcionalidades integradas.",
+      "Adicionar transições simples e destaques gráficos sem ter de recorrer a software complexo.",
+      "Exportar com qualidade em alta definição pronto a partilhar com os alunos."
     ],
     usefulTools: [
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Editor de vídeo com funcionalidades de edição e recursos de IA." },
-      { name: "Microsoft Clipchamp", description: "A Microsoft disponibiliza um plano gratuito na versão pessoal do Clipchamp. As funcionalidades e as condições das contas escolares ou profissionais dependem da licença utilizada." }
+      { name: "CapCut (Web, PC e Telemóvel)", description: "Editor de vídeo com funcionalidades de corte, legendagem e recursos de composição." },
+      { name: "Microsoft Clipchamp", description: "Editor de vídeo com plano pessoal gratuito e suporte institucional dependente da licença da escola." }
     ],
     teacherBenefits: [
       "Algumas tarefas de edição podem tornar-se mais simples, embora o tempo necessário dependa do recurso e da ferramenta.",
-      "Acabamento limpo que transmite brio pedagógico e respeito pelo tempo do estudante",
-      "Fim do sentimento de frustração técnica que afasta tantos docentes das tecnologias"
+      "Acabamento limpo que transmite cuidado pedagógico e respeito pelo tempo do estudante.",
+      "Redução da frustração técnica que por vezes afasta docentes das tecnologias digitais."
     ],
-    cognitivePrinciple: "Princípio da Sinalização de Mayer: consiste na utilização de pistas visuais ou verbais que orientam a atenção para a organização e para os elementos relevantes da informação. Cortar hesitações ou ruído pode melhorar a edição, mas não constitui, por si só, a aplicação deste princípio.",
-    rgpdNote: "O facto de uma aplicação estar instalada no computador não garante que todas as operações sejam locais. Confirme se os ficheiros são enviados para servidores externos e consulte as regras da escola antes de utilizar gravações ou imagens identificáveis."
+    cognitivePrinciple: "Princípio da Coerência de Mayer: consiste em excluir elementos, palavras, imagens ou sons que não contribuem para o objetivo da aprendizagem, reduzindo informação desnecessária. A remoção de ruídos de fundo, pausas excessivas ou elementos irrelevantes pode contribuir para este princípio quando melhora a compreensão.\n\nPrincípio da Sinalização de Mayer: consiste em acrescentar pistas visuais ou verbais que orientam a atenção para os elementos essenciais e ajudam a compreender a organização da informação, por exemplo através de setas, destaques de cor, títulos ou palavras-chave.\n\nOs dois princípios são distintos. A simples remoção de hesitações não corresponde, por si só, à aplicação da Sinalização.",
+    rgpdNote: "A existência de uma aplicação instalada no computador não garante que todas as funcionalidades sejam processadas localmente. As funções de IA podem envolver serviços externos. Confirme as condições de processamento, armazenamento e utilização dos ficheiros na documentação aplicável."
   }
 ];
 
@@ -259,131 +284,131 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     id: 1,
     title: "1. Como Funciona o Coração: Circulação Sanguínea",
     discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "2.º e 3.º Ciclo / Secundário",
-    category: "Animação Científica 3D",
-    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine (Ray 2)",
-    visualStyle: "Animação científica esquemática e limpa, corte transversal, luz clara de laboratório, sem excessos de fantasia",
-    pedagogicalObjective: "Ajudar os alunos a ver no espaço tridimensional o trajeto do sangue: a contração das aurículas e ventrículos e a distinção entre o sangue com maior e menor concentração de oxigénio nos circuitos pulmonar e sistémico.",
-    curriculumCompetence: "Explicar a circulação sistémica e pulmonar no corpo humano e reconhecer a anatomia funcional do coração.",
-    promptText: "Cria uma animação médica e educativa em 3D de alta qualidade mostrando um corte frontal do coração humano a bater com ritmo calmo. Mostra o sangue a entrar e a sair das aurículas e dos ventrículos com válvulas a abrir e fechar com precisão. Usa setas subtis em azul para sangue desoxigenado e em vermelho vivo para sangue oxigenado. Estas cores são convenções gráficas e não representam a cor real do sangue. Estilo didático e claro para contexto escolar, ritmo pausado, sem cortes bruscos e com rigor anatómico.",
-    ethicalConsideration: "Verifique se a IA não baralha a posição anatómica das artérias pulmonares e da aorta."
+    gradeLevel: "3.º Ciclo (9.º ano)",
+    category: "Animação 3D Didática de Processo Biológico",
+    recommendedTool: "Kling AI / Luma Dream Machine / MiniMax (Hailuo AI)",
+    visualStyle: "Animação 3D médica translúcida, com contraste forte entre sangue oxigenado e desoxigenado",
+    pedagogicalObjective: "Visualizar o percurso do sangue no coração humano em movimento contínuo e compreender a sístole e a diástole.",
+    curriculumCompetence: "Identificar os constituintes do sistema cardiovascular e explicar as funções da circulação pulmonar e sistémica.",
+    promptText: "Cria uma animação médica educativa em 3D, mostrando um corte longitudinal do coração humano a bater em ritmo calmo e realista. Mostra o sangue desoxigenado (representado a azul) a entrar na aurícula direita através das veias cavas, a passar para o ventrículo direito e a ser bombeado para a artéria pulmonar. Em simultâneo, o sangue oxigenado (representado a vermelho vivo) regressa dos pulmões pelas veias pulmonares para a aurícula esquerda, passa para o ventrículo esquerdo e é ejetado pela artéria aorta. Movimento de câmara suave e contínuo, iluminação clara, fundo neutro em tons de cinzento escuro para destacar as válvulas cardíacas em funcionamento. Sem legendas ou textos automáticos na imagem.",
+    ethicalConsideration: "Verificar se as cores convencionais (azul/vermelho) não geram conceções alternativas incorretas nos alunos."
   },
   {
     id: 2,
-    title: "2. A Dança da Vida: As Fases da Mitose Celular",
-    discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "3.º Ciclo / Ensino Secundário",
-    category: "Processo Biológico Sequencial",
-    recommendedTool: "Luma Dream Machine (Ray 2) / Kling AI / Runway",
-    visualStyle: "Animação de microscopia celular com câmara lenta fluida e cromossomas bem destacados",
-    pedagogicalObjective: "Visualizar a sequência ordenada da mitose (prófase, metáfase, anáfase e telófase), mostrando aos alunos como o material genético se condensa e separa o material genético durante as fases da mitose.",
-    curriculumCompetence: "Compreender a importância da replicação e separação equitativa do ADN na regeneração e crescimento dos seres vivos.",
-    promptText: "Cria uma animação científica educativa mostrando a divisão de uma célula animal ao microscópio em câmara lenta contínua. Vemos os cromossomas a condensar-se no núcleo, a alinharem-se no centro da célula na placa equatorial e depois a serem puxados suavemente para os polos opostos pelas fibras do fuso, até à formação de duas células-filhas após a divisão do citoplasma. Tons translúcidos, iluminação suave, movimento didático e sem distorções visuais caóticas.",
-    ethicalConsideration: "Confirme se a IA não funde os cromossomas numa massa disforme durante a anáfase."
+    title: "2. A Descoberta do Caminho Marítimo para a Índia (1498)",
+    discipline: "História",
+    gradeLevel: "2.º Ciclo (5.º ou 6.º ano)",
+    category: "Reconstituição Histórica Cinematográfica",
+    recommendedTool: "Luma Dream Machine / Kling AI",
+    visualStyle: "Cinematográfico realista de época, iluminação de fim de tarde, nevoeiro suave sobre a água",
+    pedagogicalObjective: "Recriar o ambiente dramático da chegada da armada de Vasco da Gama a Calecute em maio de 1498.",
+    curriculumCompetence: "Reconhecer a importância dos Descobrimentos portugueses e localizar as principais etapas da expansão marítima.",
+    promptText: "Cria uma cena histórica cinematográfica mostrando três naus portuguesas do século XV (naus São Gabriel e São Rafael) a aproximarem-se da costa de Calecute, na Índia, ao entardecer de maio de 1498. As velas de pano cru exibem a Cruz de Cristo com desgaste natural provocado por meses de navegação no Oceano Atlântico e no Índico. O mar está calmo, com ondas pequenas a baterem no casco de madeira escura. Na linha do horizonte avista-se a costa verdejante de Malabar envolta em névoa quente. Câmara em plano geral que se aproxima lentamente da proa da nau capitânia, onde se veem marinheiros vestidos com roupas simples de linho e lã da época a olharem para a costa com alívio e espanto. Iluminação dourada natural de pôr do sol, sem elementos anacrónicos, sem filtros de fantasia e sem texto gerado na imagem.",
+    ethicalConsideration: "Garantir o rigor histórico das embarcações e evitar representações caricaturais das populações locais."
   },
   {
     id: 3,
-    title: "3. Uma Pintura Clássica que Ganha Vida",
-    discipline: "Educação Visual / História da Arte",
-    gradeLevel: "Todos os Ciclos",
-    category: "Transformação Estética e Criativa",
-    recommendedTool: "Pika Labs (Pika 2.1) / Runway / Kling AI",
-    visualStyle: "Transição cinematográfica suave que respeita as pinceladas e as cores da tela a óleo original",
-    pedagogicalObjective: "Trabalhar a sensibilidade estética e a leitura de imagem, permitindo que os alunos imaginem o que estava fora da moldura ou como era o ambiente real na época do pintor.",
-    curriculumCompetence: "Analisar composições plásticas, a luz e a cor nas obras de arte, desenvolvendo a capacidade crítica de interpretação visual.",
-    promptText: "Começa com um plano fechado de uma pintura a óleo antiga num museu de arte. A câmara aproxima-se devagar da tela e, de repente, as pinceladas de tinta ganham vida suavemente: as copas das árvores pintadas balançam com uma brisa suave, a água do riacho reflete a luz do sol e o céu começa a ter nuvens lentas em movimento. Mantém rigorosamente o estilo, a paleta de cores e a textura do quadro a óleo original sem parecer um desenho animado infantil.",
-    ethicalConsideration: "A animação deve ser identificada como interpretação visual ficcional, não como registo histórico. Confirme também os direitos de utilização da reprodução digital da obra."
+    title: "3. O Ciclo da Água: Da Evaporação à Precipitação",
+    discipline: "Geografia / Ciências Naturais",
+    gradeLevel: "2.º Ciclo (5.º ano)",
+    category: "Paisagem Dinâmica e Meteorologia",
+    recommendedTool: "Pika / Kling AI",
+    visualStyle: "Documentário de natureza realista em plano aberto sobre paisagem costeira montanhosa",
+    pedagogicalObjective: "Explicar as fases contínuas do ciclo hidrológico: evaporação no oceano, condensação em nuvens sobre as montanhas e precipitação.",
+    curriculumCompetence: "Compreender o ciclo da água como processo dinâmico e reconhecer a água como recurso vital e finito.",
+    promptText: "Cria uma sequência visual fluida em estilo documentário sobre o ciclo da água numa paisagem de costa atlântica de Portugal Continental. A câmara começa ao nível do mar ao nascer do sol, mostrando o vapor de água a subir suavemente da superfície do oceano por evaporação. Em travelling vertical contínuo, a câmara sobe até à atmosfera onde o vapor condensa, formando nuvens densas cúmulo-nimbo que se deslocam empurradas pelo vento em direção a uma serra costeira. À medida que as nuvens encontram a montanha, escurecem e transformam-se em chuva visível que cai sobre a encosta, alimentando um ribeiro límpido que desce entre rochas de granito e vegetação verdejante. Iluminação natural com transição realista de sol para chuva, sem textos nem diagramas sobrepostos.",
+    ethicalConsideration: "Assegurar que o ciclo é compreendido como contínuo e não linear."
   },
   {
     id: 4,
-    title: "4. Viagem ao Interior da Célula Eucariótica",
-    discipline: "Ciências Naturais / Biologia Celular",
-    gradeLevel: "3.º Ciclo e Secundário",
-    category: "Exploração Microscópica 3D",
-    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine (Ray 2)",
-    visualStyle: "Expedição espacial microscópica pelo citoplasma celular, luz bioluminescente acolhedora e foco nítido",
-    pedagogicalObjective: "Dar aos alunos a sensação de estarem dentro da célula, identificando as mitocôndrias, o retículo endoplasmático e o complexo de Golgi no seu ecossistema vivo.",
-    curriculumCompetence: "Distinguir organelos celulares e relacionar a sua forma com a função que desempenham no metabolismo e na produção de energia.",
-    promptText: "Cria um vídeo educativo que simula uma viagem calma em câmara lenta pelo interior do citoplasma de uma célula viva. A câmara desliza suavemente mostrando mitocôndrias com as suas cristas iluminadas por dentro, o retículo com pequenos ribossomas e pequenas vesículas a flutuarem em direção à membrana celular. Atmosfera calma de documentário biológico de alta qualidade, nítido e representação esquemática dos organelos, sem afirmar que as respetivas dimensões estão rigorosamente à escala.",
-    ethicalConsideration: "Alerte os alunos para o facto de as cores na microscopia real serem normalmente adicionadas digitalmente e valide a imagem gerada com uma fonte científica."
+    title: "4. A Mitose Celular: Divisão e Vida ao Microscópio",
+    discipline: "Biologia e Geologia",
+    gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
+    category: "Microscopia Científica de Alta Resolução",
+    recommendedTool: "Kling AI / Luma Dream Machine",
+    visualStyle: "Microscopia confocal de fluorescência com fundo negro e contraste vívido de proteínas",
+    pedagogicalObjective: "Compreender as fases da mitose (prófase, metáfase, anáfase e telófase) observando a separação dos cromossomas pelo fuso acromático.",
+    curriculumCompetence: "Explicar a importância da mitose na manutenção da estabilidade genética e na renovação dos tecidos biológicos.",
+    promptText: "Cria uma simulação científica realista com a estética de microscopia confocal de fluorescência, mostrando uma célula eucariota animal a passar pela anáfase e telófase da mitose celular. Os cromossomas duplicados estão corados com fluorescência azul ciano brilhante, alinhados inicialmente na placa equatorial da célula. Os microtúbulos do fuso acromático, visíveis em verde-esmeralda delicado, encurtam gradualmente, puxando os cromatídeos-irmãos para os polos opostos da célula com movimento mecânico preciso e suave. Simultaneamente, a membrana celular começa a invaginar no plano equatorial formando o anel contrátil para a citocinese. Fundo negro absoluto de microscopia biológica, iluminação volumétrica nos cromossomas, foco perfeito e sem texto nem etiquetas na imagem.",
+    ethicalConsideration: "Alertar que a fluorescência é uma técnica laboratorial de visualização e não a cor real da matéria biológica viva."
   },
   {
     id: 5,
-    title: "5. A Floresta Tropical ao Amanhecer e o Clima",
-    discipline: "Geografia / Ciências / Cidadania",
-    gradeLevel: "1.º ao 3.º Ciclo",
-    category: "Documentário de Natureza",
-    recommendedTool: "MiniMax (Hailuo AI) / Luma Dream Machine (Ray 2) / CapCut (Web, PC e Telemóvel)",
-    visualStyle: "Documentário de natureza calmo estilo BBC, luz dourada matinal, névoa suave e biodiversidade serena",
-    pedagogicalObjective: "Explicar a importância da humidade, da evapotranspiração das copas das árvores e do papel das grandes florestas na regulação do clima do planeta.",
-    curriculumCompetence: "Compreender os equilíbrios dos grandes ecossistemas terrestres e os impactos do desmatamento no aquecimento global (ODS 15).",
-    promptText: "Vídeo estilo documentário de natureza em alta definição mostrando uma floresta tropical húmida ao nascer do sol. Raios de sol dourados atravessam a bruma matinal entre as copas de árvores gigantes. Gotas de orvalho reluzem em folhas largas verdes, pequenas aves voam ao longe e uma atmosfera de paz transmite a riqueza viva do ecossistema. Movimento de câmara lento e estável descendo suavemente do dossel florestal até ao solo de musgo.",
-    ethicalConsideration: "Excelente recurso para motivar debates sobre as alterações climáticas sem criar ansiedade paralisante nas crianças. O vídeo é uma ilustração do ecossistema. A explicação sobre evapotranspiração, biodiversidade e influência das florestas no clima deve ser sustentada em fontes científicas e não inferida apenas a partir das imagens geradas."
+    title: "5. A Formação dos Vulcões e Placas Tectónicas",
+    discipline: "Ciências Naturais / Físico-Química",
+    gradeLevel: "3.º Ciclo (7.º ano)",
+    category: "Geologia Dinâmica 3D",
+    recommendedTool: "Luma Dream Machine / Kling AI / MiniMax (Hailuo AI)",
+    visualStyle: "Corte geológico 3D com magma incandescente e fumo volumétrico hiper-realista",
+    pedagogicalObjective: "Visualizar o processo de subducção de uma placa oceânica sob uma placa continental e a consequente ascensão de magma.",
+    curriculumCompetence: "Relacionar a tectónica de placas com a ocorrência de sismos e erupções vulcânicas no planeta.",
+    promptText: "Cria uma animação geológica realista em corte transversal tridimensional da litosfera terrestre, mostrando o limite convergente entre uma placa oceânica e uma placa continental (zona de subducção). A placa oceânica mais densa, de basalto escuro, mergulha lentamente sob a crosta continental granítica. À medida que a placa desce no manto superior, o aumento de pressão e temperatura provoca a fusão parcial das rochas, gerando bolsas de magma incandescente de cor laranja-fogo que ascendem em plumas através de fraturas na crosta até alimentarem a câmara magmática de um vulcão de cone compósito. O vulcão entra em atividade efusiva, libertando uma coluna densa de cinzas e vapor cinzento-escuro para o céu, com escoadas de lava a descerem pela encosta. Foco nítido nas camadas rochosas, sem diagramas, sem setas e sem texto gerado na imagem.",
+    ethicalConsideration: "Esclarecer que a velocidade real do processo demora milhões de anos e está acelerada para fins didáticos."
   },
   {
     id: 6,
-    title: "6. A Força dos Oceanos e a Energia das Ondas",
-    discipline: "Físico-Química / Geografia",
-    gradeLevel: "2.º e 3.º Ciclo",
-    category: "Fenómeno Físico e Natural",
-    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine (Ray 2)",
-    visualStyle: "Cinematografia realista com física de fluidos bem calculada, água translúcida e céu de tempestade",
-    pedagogicalObjective: "Visualizar a transferência da energia do vento para a massa líquida e compreender como a energia das ondas pode ser aproveitada como recurso renovável.",
-    curriculumCompetence: "Reconhecer diferentes formas de energia mecânica e cinética e avaliar o potencial das energias limpas no litoral português.",
-    promptText: "Vídeo realista mostrando a força das ondas no oceano atlântico junto à costa. Ondas altas com espuma branca quebram com potência controlada contra rochedos, mostrando o movimento circular da massa de água e o potencial de aproveitamento da energia das ondas. Céu com nuvens cinzentas dinâmicas mas sem exageros de ficção científica. Ritmo majestoso e documental, realçando a física dos fluidos e a força renovável dos oceanos.",
-    ethicalConsideration: "Pode ser articulado com as caraterísticas da costa portuguesa (por exemplo, as ondas da Nazaré e a energia undimotriz)."
+    title: "6. Apresentador Virtual: Instruções de Segurança Laboratorial",
+    discipline: "Físico-Química / Ciências Naturais",
+    gradeLevel: "3.º Ciclo (7.º a 9.º ano)",
+    category: "Apresentador Virtual Pedagógico em Estúdio",
+    recommendedTool: "HeyGen / Vidnoz AI",
+    visualStyle: "Apresentador jovem e profissional com bata branca num laboratório escolar limpo e moderno",
+    pedagogicalObjective: "Apresentar as regras indispensáveis de segurança no laboratório de ciências de forma próxima, empática e memorável.",
+    curriculumCompetence: "Adotar regras de segurança individual e coletiva no trabalho experimental em ambiente laboratorial.",
+    promptText: "Gera um avatar virtual pedagógico com aparência de uma jovem professora de ciências de cerca de 30 anos, com óculos de segurança e bata branca de laboratório abotoada, num ambiente de laboratório escolar luminoso e moderno. A apresentadora olha diretamente para a câmara com uma expressão amigável, acolhedora e confiante, falando em Português de Portugal com dicção impecável e ritmo calmo. Ela gesticula com as mãos de forma natural enquanto explica as três regras de ouro da aula de laboratório de hoje: primeiro, cabelo sempre apanhado e óculos postos; segundo, nunca cheirar nem provar reagentes químicos; terceiro, em caso de derrame, chamar imediatamente o professor sem entrar em pânico. Iluminação suave de estúdio, plano médio cintura-cabeça, sincronização labial perfeita com áudio PT-PT e sem legendas sobrepostas na imagem.",
+    ethicalConsideration: "Verificar se as regras laboratoriais estão alinhadas com o regulamento interno da escola."
   },
   {
     id: 7,
-    title: "7. Vida nos Recifes de Coral e a Conservação Marinha",
-    discipline: "Ciências Naturais / Cidadania",
-    gradeLevel: "1.º e 2.º Ciclo",
-    category: "Biodiversidade Subaquática",
-    recommendedTool: "MiniMax (Hailuo AI) / Pika Labs (Pika 2.1) / CapCut (Web, PC e Telemóvel)",
-    visualStyle: "Câmara subaquática com água límpida, raios de sol ondulantes e cores harmoniosas",
-    pedagogicalObjective: "Observar relações ecológicas nos recifes, incluindo relações de simbiose, e compreender que o branqueamento dos corais pode estar associado a diferentes situações de stress ambiental, incluindo o aumento da temperatura da água.",
-    curriculumCompetence: "Reconhecer a importância da biodiversidade marinha e propor atitudes do dia a dia para proteger os oceanos contra o plástico e a poluição.",
-    promptText: "Vídeo subaquático luminoso explorando um recife de coral saudável e cheio de vida. A luz do sol atravessa a água cristalina criando padrões luminosos sobre corais em tons de laranja, violeta e rosa. Pequenos peixes tropicais nadam em cardume entre anémonas com movimentos naturais e pacíficos. Estilo educativo tranquilo, câmara lenta que transmite a beleza e a fragilidade do fundo do mar.",
-    ethicalConsideration: "Permite confrontar este vídeo com fotos reais de recifes degradados para promover pensamento crítico nos alunos."
+    title: "7. O Teorema de Pitágoras no Mundo Real",
+    discipline: "Matemática",
+    gradeLevel: "3.º Ciclo (8.º ano)",
+    category: "Visualização Geométrica 3D Concreta",
+    recommendedTool: "CapCut (Web, PC e Telemóvel) / InVideo AI",
+    visualStyle: "Geometria arquitetónica 3D limpa em ambiente urbano com água colorida a fluir",
+    pedagogicalObjective: "Demonstrar visualmente a relação a² + b² = c² através do preenchimento da área do quadrado da hipotenusa pela água dos quadrados dos catetos.",
+    curriculumCompetence: "Deduzir e aplicar o Teorema de Pitágoras na resolução de problemas geométricos do espaço real.",
+    promptText: "Cria uma demonstração visual tridimensional fascinante do Teorema de Pitágoras construída numa praça de cidade moderna. No centro, vê-se um triângulo retângulo esculpido em mármore claro com lados com proporções de 3, 4 e 5 metros. Em cada um dos três lados está construído um tanque quadrado de acrílico transparente com a profundidade de 20 centímetros. Inicialmente, os dois tanques dos catetos (o de lado 3 e o de lado 4) estão completamente cheios de água azul-turquesa brilhante, enquanto o tanque da hipotenusa (de lado 5) está completamente vazio. Com a rotação suave de uma válvula mecânica, a água dos dois catetos escorre através de tubos transparentes para dentro do tanque da hipotenusa, enchendo-o com exatidão até à borda, sem sobrar nem faltar uma única gota. Câmara a circular suavemente em ângulo de 45 graus, iluminação de dia ensolarado, sem números nem texto sobrepostos na imagem.",
+    ethicalConsideration: "A demonstração visual da água apoia a intuição espacial, mas deve ser complementada com a demonstração algébrica rigorosa."
   },
   {
     id: 8,
-    title: "8. A Savana e as Relações Entre os Seres Vivos",
-    discipline: "Estudo do Meio / Ciências Naturais",
-    gradeLevel: "1.º e 2.º Ciclo",
-    category: "Ecologia e Vida Selvagem",
-    recommendedTool: "Kling AI / Luma Dream Machine (Ray 2)",
-    visualStyle: "Luz dourada de fim de tarde na planície aberta, poeira suave iluminada e comportamento animal natural",
-    pedagogicalObjective: "Observar características do ecossistema da savana, identificar elementos do habitat e descrever o comportamento de um grupo de elefantes no seu ambiente.",
-    curriculumCompetence: "Identificar fatores do meio que influenciam as plantas e animais e reconhecer a interdependência entre os seres vivos.",
-    promptText: "Vídeo estilo documentário sereno de vida selvagem mostrando uma família de elefantes africanos com crias a caminhar pela savana dourada ao entardecer. Ao fundo vê-se uma acácia típica recortada contra um céu quente alaranjado. A marcha dos animais é lenta e protetora, levantando uma leve poeira dourada pela luz do sol. Sensação de tranquilidade e cooperação familiar no reino animal.",
-    ethicalConsideration: "Excelente recurso para crianças mais novas do 1.º ciclo desenvolverem empatia pelos animais."
+    title: "8. A Tragédia de Inês de Castro na Quinta das Lágrimas",
+    discipline: "Português / Literatura",
+    gradeLevel: "3.º Ciclo e Secundário (9.º ao 12.º ano)",
+    category: "Evocação Poética e Histórica de Os Lusíadas",
+    recommendedTool: "Luma Dream Machine / Kling AI",
+    visualStyle: "Gótico poético do século XIV, luz suave de luar filtrada por salgueiros e água corrente",
+    pedagogicalObjective: "Ilustrar o episódio de Inês de Castro d'Os Lusíadas (Canto III) para apoiar o estudo da lírica camoniana e da memória coletiva.",
+    curriculumCompetence: "Interpretar textos literários clássicos reconhecendo temas intemporais, símbolos e figuras de estilo.",
+    promptText: "Cria uma cena poética e atmosférica de época medieval do século XIV inspirada na lenda de Inês de Castro nos jardins da Quinta das Lágrimas, em Coimbra. Uma jovem nobre de porte sereno e olhar melancólico, vestida com um vestido medieval de veludo azul-escuro com bordados de prata e cabelos soltos sobre os ombros, caminha descalça junto à margem de uma fonte de água cristalina rodeada por pedras cobertas de musgo e salgueiros antigos. A luz do luar ilumina suavemente as águas límpidas, revelando no fundo pedras com tonalidades avermelhadas que evocam a lenda das lágrimas de sangue. Ao fundo, por entre a vegetação densa, avista-se a silhueta em pedra do Mosteiro de Santa Clara-a-Velha sob um céu estrelado. Movimento de câmara lento e contemplativo, atmosfera romântica e comovente, sem sangue explícito, sem violência e sem texto na imagem.",
+    ethicalConsideration: "Distinguir claramente o mito romântico e poético da realidade factual documentada pelos historiadores."
   },
   {
     id: 9,
-    title: "9. O Castelo Medieval Português: Defesa e Quotidiano",
-    discipline: "História e Geografia de Portugal (HGP)",
-    gradeLevel: "2.º e 3.º Ciclo",
-    category: "Reconstituição Histórica",
-    recommendedTool: "Kling AI / Luma Dream Machine (Ray 2) / Runway",
-    visualStyle: "Cinematografia histórica realista de época, pedra de granito autêntica, luz suave de tarde",
-    pedagogicalObjective: "Identificar elementos arquitetónicos de defesa presentes no castelo escolhido, relacionando-os com a sua função e com o contexto histórico medieval.",
-    curriculumCompetence: "Caracterizar o território português na época da fundação da nacionalidade e o papel das fortificações medievais na defesa do reino.",
-    promptText: "Reconstituição histórica realista em vídeo cinematográfico mostrando um castelo medieval de pedra maciça românica no cimo de um monte verdejante na Península Ibérica no século XII. Vê-se a torre de menagem austera, as muralhas com ameias e seteiras, com um caminho de terra onde habitantes de época caminham com vestes simples de linho e lã. Luz suave de fim de tarde sem aspeto de fantasia medieval ou castelos de contos de fadas, transmitindo sobriedade e rigor da história de Portugal. A representação deve ser adaptada ao monumento selecionado e confrontada com imagens ou documentação histórica; não inventes elementos específicos que não estejam documentados.",
-    ethicalConsideration: "Confirmar os elementos arquitetónicos na documentação do castelo escolhido. Não assumir que todos os castelos portugueses tinham fosso, torre de menagem, ameias ou seteiras na mesma configuração."
+    title: "9. A Fotossíntese: Como as Plantas Fabricam Oxigénio",
+    discipline: "Ciências Naturais / Biologia",
+    gradeLevel: "2.º e 3.º Ciclo (6.º ao 8.º ano)",
+    category: "Macro-Cinematografia Botânica com Corte Microscópico",
+    recommendedTool: "Kling AI / Luma Dream Machine",
+    visualStyle: "Transição contínua de macro real de folha verde para corte celular microscópico translúcido",
+    pedagogicalObjective: "Compreender como a clorofila capta a energia da luz solar e transforma dióxido de carbono e água em glicose e oxigénio.",
+    curriculumCompetence: "Explicar os processos de nutrição das plantas autotróficas e a sua relevância para o equilíbrio dos ecossistemas.",
+    promptText: "Cria uma sequência visual contínua começando com um plano de grande aproximação macro a uma folha de videira verde e orvalhada num dia ensolarado. A câmara realiza um zoom contínuo que atravessa a cutícula cerosa e a epiderme da folha, entrando no interior de uma célula do parênquima clorofilino. No citoplasma translúcido, revelam-se dezenas de cloroplastos verdes em forma de disco, banhados por raios de sol microscópicos dourados. No interior dos tilacoides, vê-se a água a chegar pelas nervuras da folha e moléculas de dióxido de carbono a serem transformadas em pequenas esferas luminosas de glicose, enquanto bolhas minúsculas de oxigénio se soltam e saem através dos estômatos abertos. Transições fluidas, estética de documentário de alta gama da BBC, sem legendas nem setas automáticas geradas na imagem.",
+    ethicalConsideration: "Assegurar que os alunos não confundem fotossíntese com respiração celular das plantas."
   },
   {
     id: 10,
-    title: "10. Matemática Lúdica: Descomplicar a Multiplicação",
+    title: "10. Multiplicação Prática com Caixas de Fruta",
     discipline: "Matemática",
     gradeLevel: "1.º Ciclo (3.º ano)",
     category: "Vídeo Narrado com Personagem Animada",
     recommendedTool: "CapCut (Web, PC e Telemóvel) / InVideo AI",
     visualStyle: "Personagem 3D simpática e calorosa numa sala de aula colorida, com maçãs e caixas luminosas",
-    pedagogicalObjective: "Desmistificar a tabuada mostrando visualmente que 3 vezes 4 não é magia nem decoreba, mas sim 3 grupos com 4 objetos cada (adição repetida).",
+    pedagogicalObjective: "Desmistificar a tabuada mostrando visualmente que 3 vezes 4 não é magia nem memorização mecânica, mas sim 3 grupos com 4 objetos cada (adição repetida).",
     curriculumCompetence: "Compreender os sentidos da multiplicação e utilizar estratégias de cálculo mental com segurança no quotidiano.",
-    promptText: "Cria um vídeo educativo animado de 2 minutos para explicar a multiplicação a crianças do 3.º ano do ensino básico. Um personagem jovem e simpático em animação 3D mostra 3 caixas e coloca 4 maçãs vermelhas dentro de cada uma. Ele conta devagar: 4 mais 4 mais 4 são 12, ou seja, 3 vezes 4 igual a 12. Linguagem simples, alegre e em português de Portugal correto, terminando com uma pergunta divertida para os alunos responderem na aula.",
-    ethicalConsideration: "Garantir sempre a norma do português europeu nos termos matemáticos (parcelas, fatores, produto)."
+    promptText: "Cria um clipe educativo animado curto, com a duração compatível com as opções disponíveis na ferramenta selecionada, destinado a alunos do 3.º ano do 1.º ciclo. Mostra três caixas e coloca quatro maçãs vermelhas em cada caixa. Representa visualmente os três grupos iguais de quatro maçãs. A imagem deve permitir ao professor explicar posteriormente que quatro mais quatro mais quatro são doze e que 3 × 4 = 12. Não acrescentes operações, quantidades ou objetos que alterem o exemplo. Evita texto gerado automaticamente na imagem. A narração, as legendas e a explicação matemática final serão acrescentadas na etapa de edição.",
+    ethicalConsideration: "O clipe é apenas um elemento visual de apoio. O produto final, com cerca de dois minutos, deve ser montado numa ferramenta de edição, com narração, identificação matemática correta e uma pergunta de consolidação."
   },
   {
     id: 11,
@@ -391,7 +416,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "História / Cidadania",
     gradeLevel: "2.º / 3.º Ciclo e Secundário",
     category: "Reconstituição Histórica e Cidadania",
-    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine (Ray 2)",
+    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine",
     visualStyle: "Reconstituição visual ilustrativa, estilizada e claramente identificada como gerada por Inteligência Artificial; não imitar filmagem documental autêntica.",
     pedagogicalObjective: "Explorar o contexto histórico do 25 de Abril de 1974, relacionando acontecimentos e símbolos com fontes históricas e distinguindo registos documentais de reconstituições visuais.",
     curriculumCompetence: "Compreender o fim da ditadura, a importância da Constituição de 1976 e a valorização ativa dos direitos humanos e das liberdades cívicas.",
@@ -400,7 +425,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
   }
 ];
 
-// 4. CATÁLOGO COMPLETO DAS MELHORES FERRAMENTAS DE VÍDEO COM IA (2026)
+// 4. CATÁLOGO COMPLETO DAS 11 FERRAMENTAS DE VÍDEO COM IA PARA EDUCAÇÃO (2026)
 export const TOOLS_CATALOG: ToolCatalogItem[] = [
   {
     id: "invideo",
@@ -417,7 +442,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Geração de legendas que podem ser revistas pelo utilizador"
     ],
     inputTypes: ["Instrução em Texto", "Resumo de Matéria", "Artigos Web"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    freeTierDetails: "Os limites de geração e exportação, a resolução, as marcas de água e os direitos de utilização variam consoante o plano. Consultar as condições oficiais antes de preparar um recurso para publicação ou partilha.",
     limitations: [
       "Vídeos de teste podem incluir marca de água do serviço",
       "Determinados recursos visuais dependem de planos comerciais",
@@ -432,7 +457,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
       teacherVerdict: "Permite apoiar a criação de rascunhos de vídeos didáticos e apresentações a partir de instruções escritas.",
       whatIsFact: "Cria uma proposta estruturada de vídeo com cortes e narração a partir de uma instrução em texto.",
@@ -448,386 +473,389 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     fullDesc: "O Kling AI permite gerar clipes curtos a partir de texto ou animar imagens estáticas. É utilizado para criar representações visuais de processos dinâmicos, paisagens e reconstituições visuais ilustrativas. O resultado deve ser avaliado criticamente quanto ao rigor histórico ou científico.",
     keyFeatures: [
       "Geração de sequências visuais a partir de instruções em texto",
-      "Animação de imagens estáticas (quadros, esquemas, ilustrações)",
-      "Opções de controlo de câmara na geração",
-      "Geração de clipes curtos de demonstração"
+      "Animação de imagens e gravuras estáticas em alta definição",
+      "Modelação de movimentos de fluidos, tecidos e luz natural",
+      "Controlo de ângulo de câmara e perspetivas de visualização"
     ],
-    inputTypes: ["Texto Detalhado", "Imagens Estáticas (Quadros, Fotos)"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Instrução em Texto", "Fotografia Estática"],
+    freeTierDetails: "Os créditos, limites de geração, filas de espera, marcas de água e condições comerciais podem variar entre modelos e planos. Consultar a informação oficial no momento da utilização; esta ficha não garante uma quota gratuita.",
     limitations: [
-      "O tempo de espera na geração varia conforme a procura no serviço",
-      "Instruções em inglês tendem a produzir maior correspondência no modelo",
-      "Gera vídeo mudo; sonorização e contexto pedagógico requerem edição adicional"
+      "As funcionalidades de áudio dependem do modelo e das opções disponibilizadas na versão utilizada. Confirmar na documentação oficial se o modelo selecionado permite geração de áudio.",
+      "A geração de movimentos complexos pode apresentar artefactos visuais ou distorções ocasionais.",
+      "Exige supervisão para evitar alucinações históricas ou científicas."
     ],
     pedagogicalUseCases: [
-      "Reconstituição visual ilustrativa de cenários históricos pelo professor",
-      "Animação de ilustrações para análise visual em sala de aula",
-      "Criação de paisagens naturais em movimento para Geografia e Ciências"
+      "Simular processos físicos ou químicos que não se conseguem filmar em aula",
+      "Animação de quadros e gravuras históricas para projetos interdisciplinares",
+      "Exercícios de observação crítica da física do movimento gerado por computador"
     ],
     externalUrl: "https://klingai.com/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Modelo generativo com boa reprodução de movimentos e iluminação para ilustrações e reconstituições visuais.",
-      whatIsFact: "Gera clipes de movimento fidedignos a partir de descrições textuais detalhadas.",
-      whatIsMisleading: "As imagens geradas são representações sintéticas que requerem validação e contextualização pelo docente."
+      teacherVerdict: "Adequado para geração de clipes visuais curtos ilustrativos para demonstrar fenómenos dinâmicos.",
+      whatIsFact: "Produz simulações de movimento e iluminação natural com elevado detalhe visual.",
+      whatIsMisleading: "As representações visuais podem incluir artefactos e necessitam de validação factual."
     }
   },
   {
     id: "luma",
-    name: "Luma Dream Machine (Ray 2)",
-    category: "Câmara Cinemática & Dinâmica de Fluidos",
-    badge: "Câmara Cinemática",
-    shortDesc: "Ferramenta para criar movimentos de câmara, planos de sobrevoo e transições dinâmicas a partir de texto ou imagens.",
-    fullDesc: "A Dream Machine da Luma AI é orientada para a geração de planos com movimento de câmara contínuo, dinâmica de paisagens e fenómenos naturais. A interface funciona através do navegador e permite experimentar sequências curtas para apoio a explicações em vídeo.",
+    name: "Luma Dream Machine",
+    category: "Vídeo 3D Dinâmico e Espacial",
+    badge: "Fluidez e Movimento 3D",
+    shortDesc: "Motor generativo com foco na consistência de câmara e perspetiva tridimensional de objetos e cenários.",
+    fullDesc: "O Luma Dream Machine foi concebido para gerar clipes com continuidade espacial apurada, permitindo criar travellings, sobrevoos de paisagens ou animação de peças de museu e modelos tridimensionais a partir de fotos.",
     keyFeatures: [
-      "Geração de movimentos de câmara e perspetivas dinâmicas",
-      "Função de fotogramas-chave para ligar imagens inicial e final",
-      "Simulação de iluminação e planos cinematográficos",
-      "Interface direta no navegador"
+      "Geração de clipes com consistência espacial e transições de câmara suaves",
+      "Animação de fotografias preservando o ponto de fuga e perspetiva",
+      "Apoio a movimentos circulares e rotações de câmara em torno de objetos"
     ],
-    inputTypes: ["Prompt de Texto", "Upload de Imagem Inicial e Final"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Texto", "Fotografia / Imagem 2D"],
+    freeTierDetails: "Os modelos, limites de geração, condições de acesso e planos disponíveis podem mudar. Consulte a página oficial antes de planear a utilização. Esta ficha não garante uma quota gratuita.",
     limitations: [
-      "Duração curta de cada clipe gerado",
-      "Melhor desempenho habitual com instruções formuladas em inglês",
-      "Gera apenas o elemento visual sem áudio ou narração"
+      "Geração de corpos humanos em movimento rápido pode produzir deformações anatómicas",
+      "Tempos de espera sujeitos a tráfego na versão de teste"
     ],
     pedagogicalUseCases: [
-      "Ilustração de processos geológicos e erosão com movimento de câmara",
-      "Aberturas visuais curtas para introduzir conteúdos em sala de aula",
-      "Estímulo visual para exercícios de redação e narrativa em Português"
+      "Sobrevoo de relevos e formações geográficas para apoio às aulas de Geografia",
+      "Animação de esculturas clássicas ou peças de arqueologia a partir de fotografias",
+      "Criação de fundos imersivos para apresentações temáticas da turma"
     ],
     externalUrl: "https://lumalabs.ai/dream-machine",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ferramenta para geração de movimentos de câmara e transições visuais para recursos didáticos.",
-      whatIsFact: "Gera movimentos de câmara fluidos e dinâmicas ambientais a partir de texto e imagens.",
-      whatIsMisleading: "O vídeo gerado é mudo e exige contextualização curricular pelo docente."
+      teacherVerdict: "Excelente para criar pequenos clipes com sensação de profundidade e câmara em movimento.",
+      whatIsFact: "Excelente consistência espacial e movimentos de câmara fluídos.",
+      whatIsMisleading: "Pode distorcer mãos, membros e pormenores anatómicos em movimentos complexos."
     }
   },
   {
     id: "minimax",
     name: "MiniMax (Hailuo AI)",
-    category: "Expressões Humanas e Movimento Físico",
-    badge: "Movimento Físico",
-    shortDesc: "Geração de vídeo com IA com capacidade de representação de gestos humanos e elementos do meio físico.",
-    fullDesc: "O MiniMax (Hailuo AI) disponibiliza geração de vídeo orientada para a representação de movimentos corporais, animais e elementos naturais. Pode ser explorado pelo docente para preparar pequenos clipes ilustrativos de pessoas em situações históricas ou animais no seu habitat.",
+    category: "Geração Cinematográfica com Resolução Elevada",
+    badge: "Detalhe e Expressividade",
+    shortDesc: "Modelo generativo com capacidade notável de interpretação de instruções descritivas e expressividade.",
+    fullDesc: "O MiniMax (disponibilizado através da interface Hailuo AI) destaca-se na geração de vídeos a partir de descrições ricas, produzindo texturas detalhadas, iluminação cinematográfica e reações faciais expressivas para simulações didáticas.",
     keyFeatures: [
-      "Representação de movimentos corporais e texturas de materiais",
-      "Renderização de ambientes iluminados e elementos naturais",
-      "Acesso através de plataforma no navegador",
-      "Fidelidade às descrições fornecidas"
+      "Elevada fidelidade na interpretação de descrições ricas de cenas e ambientes",
+      "Tratamento expressivo de iluminação e atmosferas cinematográficas",
+      "Geração de clipes com boa definição e estabilidade temporal"
     ],
-    inputTypes: ["Texto", "Upload de Imagem de Referência"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Texto Descritivo", "Fotografia de Referência"],
+    freeTierDetails: "Os créditos, limites, resolução, marcas de água e condições de utilização variam consoante a versão e o plano. Consultar a informação oficial antes da utilização. Esta ficha não garante a existência de créditos gratuitos.",
     limitations: [
-      "Instruções em inglês tendem a ser interpretadas com maior precisão",
-      "Não inclui ferramentas de montagem ou edição de áudio"
+      "Processamento na nuvem com dependência de largura de banda",
+      "Exige revisão prévia para garantir que os elementos visuais são rigorosos"
     ],
     pedagogicalUseCases: [
-      "Ilustração de personagens em ofícios tradicionais ou contextos de época",
-      "Visualização de animais no seu ambiente para Estudo do Meio e Ciências",
-      "Criação de cenários de reflexão para Cidadania e Filosofia"
+      "Reconstituição de ambientes históricos descritos em textos literários",
+      "Visualização de biomas e ecossistemas com atmosfera envolvente",
+      "Exercícios de escrita criativa onde os alunos descrevem uma cena e comparam com a imagem"
     ],
     externalUrl: "https://hailuoai.video/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Modelo generativo orientado à representação de pessoas e animais em contextos ilustrativos.",
-      whatIsFact: "Produz sequências visuais curtas com fluidez de movimento a partir de descrições em texto.",
-      whatIsMisleading: "A plataforma atualiza as suas condições com frequência e não dispõe de ferramentas de edição completas."
+      teacherVerdict: "Muito útil para ilustrar cenas ricas onde a atmosfera e o detalhe visual enriquecem a aula.",
+      whatIsFact: "Interpretação precisa de descrições de texto e elevada qualidade estética.",
+      whatIsMisleading: "Pode acrescentar elementos decorativos que não estavam no prompt original."
     }
   },
   {
     id: "pika",
-    name: "Pika Labs (Pika 2.1)",
-    category: "Criatividade, Animação e Efeitos Sonoros",
-    badge: "Animação Criativa",
-    shortDesc: "Ferramenta para animar ilustrações e gerar pequenos vídeos com efeitos visuais e integração de efeitos sonoros.",
-    fullDesc: "O Pika permite gerar pequenas animações a partir de texto, dar movimento a ilustrações estáticas e adicionar efeitos sonoros automáticos à cena. É adequado para projetos criativos e interdisciplinares onde o elemento lúdico e narrativo é valorizado.",
+    name: "Pika",
+    category: "Efeitos Criativos e Animação Rápida",
+    badge: "Criatividade e Efeitos",
+    shortDesc: "Ferramenta acessível no navegador focada em animação de ilustrações e efeitos de transformação visual.",
+    fullDesc: "O Pika é conhecido pela facilidade com que permite carregar um desenho, pintura ou fotografia e dar-lhe movimento suave em segundos, sendo ideal para dar vida a trabalhos artísticos dos próprios alunos.",
     keyFeatures: [
-      "Animação de ilustrações e imagens fornecidas pelo utilizador",
-      "Geração de efeitos sonoros ambientais sincronizados com o vídeo",
-      "Efeitos visuais de transformação para experimentação artística",
-      "Ferramentas de modificação de áreas específicas da imagem"
+      "Animação rápida de imagens carregadas do computador com interface simples",
+      "Efeitos visuais de transformação de materiais e estilos gráficos",
+      "Controlo básico de movimento em áreas selecionadas da imagem"
     ],
-    inputTypes: ["Texto", "Imagens Próprias", "Áudios Carregados"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Texto", "Ilustrações / Desenhos dos Alunos", "Fotografias"],
+    freeTierDetails: "Os limites, créditos e condições do plano podem mudar. Consultar a documentação oficial na data da utilização. Esta ficha não garante uma quota gratuita.",
     limitations: [
-      "Exportações em versões gratuitas ou de teste podem incluir marca de água",
-      "Duração de cada geração é de poucos segundos",
-      "Efeitos de distorção lúdica devem ser evitados quando se procura rigor científico"
+      "Exportação gratuita inclui marca de água do serviço",
+      "Resolução e opções de controlo avançado dependem de subscrição"
     ],
     pedagogicalUseCases: [
-      "Dar movimento a desenhos elaborados por alunos em Educação Visual",
-      "Criar pequenos excertos ilustrativos com som ambiente para exposições",
-      "Projetos de animação e narrativa digital interdisciplinar"
+      "Animar desenhos e pinturas feitos pelos alunos nas aulas de Educação Visual",
+      "Criar pequenos 'quadros vivos' para dramatizações históricas ou literárias",
+      "Projetos de Expressão Artística com introdução ao cinema de animação"
     ],
     externalUrl: "https://pika.art/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ferramenta de animação e efeitos para projetos criativos e interdisciplinares.",
-      whatIsFact: "Permite animar imagens estáticas e gerar efeitos sonoros associados à ação visual.",
-      whatIsMisleading: "Efeitos criativos como transformações e deformações devem ser distinguidos de representações factuais."
+      teacherVerdict: "Ótima porta de entrada para projetos artísticos onde o objetivo é animar trabalhos manuais dos alunos.",
+      whatIsFact: "Interface muito simples e rápida para dar movimento a fotos e desenhos.",
+      whatIsMisleading: "Não é adequada para simulações científicas rigorosas que exijam precisão métrica."
     }
   },
   {
     id: "capcut",
     name: "CapCut (Web, PC e Telemóvel)",
-    category: "Edição Fácil, Legendas e Cortes com IA",
+    category: "Edição Assistida, Legendas e Composição",
     badge: "Edição e Legendas",
-    shortDesc: "Editor de vídeo que disponibiliza ferramentas de corte, tratamento de som, legendagem automática e montagem.",
-    fullDesc: "O CapCut (desenvolvido pela ByteDance) disponibiliza versões para computador, aplicação móvel e navegador. Inclui recursos de reconhecimento de voz para legendagem automática em português, ferramentas de corte de pausas e edição de áudio, sendo muito utilizado para a montagem e acabamento de recursos educativos.",
+    shortDesc: "Editor de vídeo versátil disponível em várias plataformas com funcionalidades de corte e legendagem automática.",
+    fullDesc: "O CapCut é um dos editores mais populares entre os estudantes. Oferece linha temporal intuitiva, recorte de fundo, legendagem automática com sincronização e ferramentas de composição áudio e vídeo.",
     keyFeatures: [
-      "Funcionalidade de legendas automáticas em português com personalização de estilos",
-      "Opções de corte de silêncios e hesitações na montagem",
-      "Ferramentas de atenuação de ruído de fundo em gravações",
-      "Biblioteca de elementos gráficos, transições e efeitos didáticos",
-      "Exportação de vídeo em alta definição"
+      "Legendagem automática rápida com pontuação que pode ser corrigida manualmente",
+      "Edição direta por corte de texto transcrito ou na linha temporal clássica",
+      "Biblioteca extensa de transições, efeitos didáticos e pistas de áudio",
+      "Disponível em versão Web no navegador, aplicação para computador e telemóvel"
     ],
-    inputTypes: ["Gravações do Telemóvel/Webcam", "Texto para Roteiro", "Ficheiros de Áudio"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Vídeos Gravados", "Áudios / Voz do Professor", "Fotografias", "Texto"],
+    freeTierDetails: "A disponibilidade de legendagem automática, geração de conteúdos, exportação, créditos e remoção de marcas de água depende da versão, região e plano. Antes da utilização, confirme na página oficial e na conta concreta quais as funcionalidades incluídas.",
     limitations: [
-      "Certas funcionalidades avançadas ou modelos de efeitos estão identificados como PRO",
-      "A disponibilidade e precisão de funções de IA generativa dependem da versão e créditos atribuídos",
-      "As condições de tratamento de dados devem ser verificadas de acordo com as regras escolares"
+      "A versão para telemóvel pode promover compras na aplicação e requer atenção aos termos de privacidade",
+      "Alguns efeitos e modelos visuais avançados estão reservados à versão paga",
+      "A existência de uma aplicação instalada não garante que todo o processamento ocorra localmente"
     ],
     pedagogicalUseCases: [
-      "Adicionar e rever legendas em videoaulas para apoiar a acessibilidade",
-      "Cortar e organizar gravações de apresentações ou entrevistas da turma",
-      "Montar o vídeo final de projetos temáticos com elementos visuais e sonoros"
+      "Legendar todas as videoaulas do professor para apoiar alunos com dificuldades auditivas (DUA)",
+      "Projetos de turma de noticiários, reportagens e documentários científicos",
+      "Montagem final de trabalhos interdisciplinares que combinam texto, áudio e vídeo"
     ],
     externalUrl: "https://www.capcut.com/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Editor de vídeo com ferramentas de corte, tratamento de áudio e legendagem.",
-      whatIsFact: "Disponibiliza legendagem automática em português e ferramentas de edição acessíveis.",
-      whatIsMisleading: "A disponibilidade de créditos generativos de IA varia com o plano e não deve ser assumida como ilimitada."
+      teacherVerdict: "Ferramenta de edição acessível para montar trabalhos escolares e legendar vídeos com facilidade.",
+      whatIsFact: "A legendagem automática e as ferramentas de corte agilizam a montagem de vídeos escolares.",
+      whatIsMisleading: "Algumas funcionalidades e legendagens exigem ligação à Internet e termos de privacidade específicos."
     }
   },
   {
     id: "canva",
     name: "Canva para Educação",
-    category: "Design Integrado e Apresentações em Vídeo",
-    badge: "Apresentações Escolares",
-    shortDesc: "Plataforma de design e multimédia: elegível para docentes e alunos do ensino primário, básico e secundário que cumpram os critérios de validação do fornecedor.",
-    fullDesc: "O Canva para Educação disponibiliza recursos para a criação de apresentações, infografias e composição de vídeos para professores e alunos elegíveis do ensino regular (ensino primário, básico e secundário). Permite combinar elementos visuais, diapositivos, gravações e funcionalidades de apoio à montagem de materiais escolares.",
+    category: "Apresentações Multimédia e Vídeo Colaborativo",
+    badge: "Ecossistema Escolar",
+    shortDesc: "Plataforma de design e apresentações com ferramentas de vídeo e animação integradas para escolas elegíveis.",
+    fullDesc: "O Canva para Educação disponibiliza um ambiente para criação de apresentações, infográficos e pequenos vídeos, com modelos educativos prontos e ferramentas de colaboração para professores e turmas.",
     keyFeatures: [
-      "Programa para professores e alunos elegíveis do ensino primário, básico e secundário.",
-      "Ambiente de turma para composição de materiais educativos e apresentações.",
-      "Gravação do professor sobre os diapositivos da aula.",
-      "Biblioteca de elementos gráficos, ilustrações e modelos para uso pedagógico.",
-      "Possibilidade de colaboração em projetos de turma."
+      "Criação e edição colaborativa de vídeos em tempo real entre alunos e professores",
+      "Grande biblioteca de vídeos de stock, ilustrações científicas e ícones educativos",
+      "Gravação direta de apresentações narradas com câmara em círculo (estilo PiP)",
+      "Animação automática de diapositivos e exportação em alta definição sem marca de água"
     ],
-    inputTypes: ["Apresentações", "Textos", "Imagens", "Gravações da Câmara"],
-    freeTierDetails: "O Canva para Educação é gratuito para docentes e alunos que cumpram os critérios de elegibilidade do programa, aplicável ao ensino primário, básico e secundário. A elegibilidade está sujeita às condições e validação do fornecedor. O programa não está disponível para instituições de ensino superior ou de educação contínua. Esta condição não significa que todas as funcionalidades de IA sejam ilimitadas ou gratuitas.",
+    inputTypes: ["Texto", "Apresentações Existentes", "Imagens", "Vídeos"],
+    freeTierDetails: "O Canva para Educação é gratuito para professores elegíveis e respetivos alunos do ensino primário, básico e secundário, de acordo com os critérios e a validação do fornecedor. A elegibilidade deve ser confirmada na página oficial. A gratuitidade do programa não significa que todas as funcionalidades de Inteligência Artificial, em particular a geração de vídeo, sejam ilimitadas ou estejam disponíveis em todas as contas. Os limites e as funcionalidades devem ser verificados na conta e documentação atuais.",
     limitations: [
-      "A geração de elementos por IA pode estar sujeita a limites e políticas do fornecedor",
-      "A elegibilidade depende de processo de validação documental pela instituição"
+      "Algumas funcionalidades de Inteligência Artificial podem ter limites de utilização ou condições específicas. A disponibilidade depende da ferramenta, da conta, do programa educativo e das condições em vigor. Consultar a informação apresentada pelo fornecedor antes de planear a atividade.",
+      "A criação colaborativa exige gestão cuidada de permissões e privacidade."
     ],
     pedagogicalUseCases: [
-      "Projetos de grupo onde os alunos criam em conjunto uma apresentação em vídeo sobre um tema",
-      "Vídeos de introdução e organização de conteúdos no início do ano letivo",
-      "Infografias dinâmicas com dados estatísticos e gráficos animados"
+      "Criação colaborativa de trabalhos de grupo com vídeo e texto em simultâneo",
+      "Apresentações orais gravadas pelos alunos para avaliação sumativa ou formativa",
+      "Infográficos animados para explicar conceitos de cidadania, ciência e história"
     ],
-    externalUrl: "https://www.canva.com/pt_pt/educacao/",
+    externalUrl: "https://www.canva.com/education/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Gratuito para Escolas",
-      minimumAge: "Consultar os termos do programa Canva para Educação e os critérios de validação escolar.",
+      minimumAge: "Consultar os termos e as condições aplicáveis à conta educativa e aos utilizadores. Não está estabelecida nesta ficha uma idade mínima universal.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Útil para apoiar a criação de materiais visuais e apresentações em turmas elegíveis do ensino regular, de acordo com as regras de validação institucional.",
-      whatIsFact: "O Canva para Educação disponibiliza acesso gratuito a professores e alunos do ensino primário, básico e secundário elegíveis, mediante validação.",
-      whatIsMisleading: "Não está disponível para ensino superior nem garante que todas as funcionalidades de IA sejam ilimitadas ou gratuitas."
+      teacherVerdict: "Pode constituir uma opção para criação colaborativa de materiais educativos quando o docente, a instituição e os alunos abrangidos cumprem os critérios do programa. A existência de um plano educativo não substitui a análise das funcionalidades concretas, das condições de utilização e das orientações de proteção de dados da escola.",
+      whatIsFact: "Permite criar apresentações multimédia colaborativas com ferramentas de animação e vídeo.",
+      whatIsMisleading: "A gratuitidade educativa depende de validação documental institucional e não cobre todo o tipo de entidades."
     }
   },
   {
     id: "perchance",
-    name: "Perchance AI Video",
-    category: "Geração de conteúdos com IA — utilização por adultos",
-    badge: "Apenas para adultos — 18+",
-    shortDesc: "Ferramenta do ecossistema Perchance para exploração de geração de conteúdos por docentes adultos. Os termos do serviço restringem a utilização a pessoas com pelo menos 18 anos; não deve ser recomendada para utilização direta por alunos.",
-    fullDesc: "O Perchance disponibiliza diferentes geradores de conteúdos através do navegador. Pode ser considerado pelo docente adulto como recurso de exploração individual, de acordo com os termos do serviço. A ausência de um processo de registo num determinado gerador não permite concluir que o serviço não recolhe dados técnicos ou de utilização. A ferramenta não deve ser apresentada como adequada a qualquer idade nem como solução certificada de conformidade com o RGPD.",
+    name: "Perchance AI (Apenas Docentes Adultos, 18+)",
+    category: "Exploração Sem Conta (Exclusivo Adultos)",
+    badge: "Apenas Docentes (18+)",
+    shortDesc: "Ferramenta aberta de exploração de modelos de imagem e vídeo sem registo, de acesso reservado a adultos (18+).",
+    fullDesc: "O Perchance é uma plataforma aberta que permite explorar modelos de difusão de texto para imagem e animação básica sem necessidade de criar conta ou facultar dados pessoais. Pelas suas características abertas e termos do serviço, o seu acesso é expressamente reservado a adultos (maiores de 18 anos) para preparação prévia de materiais pelo professor. É totalmente desaconselhado e interdito o seu uso direto por alunos menores de idade.",
     keyFeatures: [
-      "Acesso através do navegador, de acordo com as características de cada gerador.",
-      "Exploração de ferramentas de geração de conteúdos por utilizadores adultos.",
-      "Funcionalidades e condições específicas dependem do gerador utilizado."
+      "Geração rápida de imagens e clipes de teste sem criação de conta nem início de sessão",
+      "Não recolhe endereço de correio eletrónico nem dados de registo prévio",
+      "Útil para o professor gerar rapidamente ilustrações pontuais para imprimir ou projetar",
+      "Código aberto e interface despojada sem anúncios comerciais agressivos"
     ],
     inputTypes: ["Prompt de Texto"],
-    freeTierDetails: "Consulte os termos do serviço e as condições apresentadas na página do gerador. Esta ficha não garante quotas, limites ou condições comerciais permanentes.",
+    freeTierDetails: "Plataforma pública de acesso gratuito mantida pela comunidade. Sem garantia de serviço.",
     limitations: [
-      "Os termos do serviço restringem a utilização a pessoas com pelo menos 18 anos.",
-      "Não recomendar a utilização direta por alunos.",
-      "A política de privacidade descreve recolha automática de informação técnica e de utilização.",
-      "Não introduzir informação pessoal, confidencial ou dados de alunos."
+      "ACESSO EXCLUSIVO A MAIORES DE 18 ANOS: proibido o uso direto por alunos menores em contexto escolar",
+      "Não possui filtros institucionais escolares robustos: o professor deve verificar previamente todo o material gerado",
+      "Qualidade e resolução dos clipes visuais são modestas comparadas com modelos comerciais"
     ],
     pedagogicalUseCases: [
-      "Exploração individual pelo docente adulto de possibilidades de geração de conteúdos.",
-      "Análise crítica das limitações das imagens ou vídeos gerados.",
-      "Preparação de um exemplo demonstrativo pelo professor, sem solicitar acesso dos alunos ao serviço."
+      "Preparação prévia pelo professor de imagens temáticas para projetar nas aulas",
+      "Geração de ilustrações fictícias para fichas de trabalho em papel",
+      "Exclusivamente uso docente: nunca partilhar a hiperligação direta para exploração livre por alunos menores"
     ],
-    externalUrl: "https://perchance.org/vido",
-    requiresEnglishPrompt: true,
+    externalUrl: "https://perchance.org/ai-text-to-video-generator",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Acesso reservado a adultos (18+)",
-      minimumAge: "18+ anos, conforme os termos do fornecedor.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Apenas para exploração individual por docentes adultos que cumpram os termos do serviço. Não recomendar a criação de contas nem a utilização direta por alunos.",
-      whatIsFact: "Os termos oficiais indicam que o serviço se destina a utilizadores com pelo menos 18 anos.",
-      whatIsMisleading: "Não é correto descrevê-lo como uma ferramenta adequada a qualquer idade, sem recolha de informação ou com risco nulo de privacidade."
+      minimumAge: "18+ anos (Termos explícitos da plataforma: estritamente reservado a adultos)",
+      rgpdRiskLevel: "Baixo para o docente (não recolhe conta); ALTO se exposto a menores sem filtro",
+      teacherVerdict: "Ferramenta utilitária exclusiva para o professor preparar materiais no seu computador pessoal.",
+      whatIsFact: "Permite gerar imagens e clipes de teste sem conta nem fornecimento de e-mail.",
+      whatIsMisleading: "Não é uma ferramenta desenhada para escolas nem pode ser aberta em computadores partilhados por crianças."
     }
   },
   {
     id: "clipchamp",
     name: "Microsoft Clipchamp",
-    category: "Edição Simples e Vozes Oficiais de Portugal (PT-PT)",
-    badge: "Edição e Locução",
-    shortDesc: "Editor de vídeo da Microsoft que disponibiliza ferramentas de corte, legendagem e opções de voz na versão pessoal.",
-    fullDesc: "O Microsoft Clipchamp é um editor de vídeo acessível no navegador ou em aplicação que permite realizar montagens, cortes e adicionar locuções ou legendas. A versão pessoal disponibiliza um plano gratuito para exportação até 1080p. As condições de utilização e as funcionalidades integradas em contas escolares Microsoft 365 dependem da subscrição institucional.",
+    category: "Edição Integrada e Vozes em Português de Portugal",
+    badge: "Vozes PT-PT Nativas",
+    shortDesc: "Editor de vídeo integrado no ecossistema Microsoft com funcionalidades de texto-para-voz em Português de Portugal.",
+    fullDesc: "O Microsoft Clipchamp combina edição simplificada com conversor de texto para fala de qualidade notável, disponibilizando vozes com sotaque e entoação de Portugal, ideais para narrar apontamentos e videoaulas com dicção correta.",
     keyFeatures: [
-      "Opções de locução de texto em fala em português europeu com ajuste de parâmetros",
-      "Exportação de vídeo em alta definição (até 1080p na versão pessoal gratuita)",
-      "Gravador integrado de ecrã e câmara para tutoriais e explicações",
-      "Interface acessível para edição e montagem de recursos educativos"
+      "Síntese de voz de texto para fala com dicção e sotaque em Português de Portugal",
+      "Gravação combinada de ecrã e câmara web com separação em faixas para edição flexível",
+      "Exportação direta em alta definição (1080p) sem marca de água na conta pessoal",
+      "Interface limpa em português e integração fluida no ecossistema escolar do Windows"
     ],
-    inputTypes: ["Vídeos do Computador", "Gravação de Ecrã", "Texto para Locução"],
-    freeTierDetails: "A versão pessoal do Clipchamp inclui um plano gratuito que permite exportar vídeos até 1080p. As funcionalidades disponíveis nas contas de trabalho ou educação dependem da licença aplicável. Não extrapolar as condições da conta pessoal para contas escolares ou profissionais.",
+    inputTypes: ["Texto para Narração", "Gravações de Ecrã", "Ficheiros de Vídeo", "Áudios"],
+    freeTierDetails: "A disponibilidade das vozes em Português de Portugal, das funcionalidades de locução e das opções de edição depende da versão, da conta e da licença utilizada. Confirme as opções efetivamente disponíveis no ambiente do professor antes da atividade.",
     limitations: [
-      "Não faz geração de vídeo sintético a partir de descrições abstratas (é um editor e locutor, não um motor generativo)",
-      "Certos recursos de arquivo ou elementos visuais dependem de planos comerciais"
+      "As contas escolares Microsoft 365 Education dependem das permissões configuradas pelo agrupamento",
+      "Biblioteca de recursos de stock premium tem custos adicionais se não for utilizada a conta básica"
     ],
     pedagogicalUseCases: [
-      "Gravar e editar locuções em português para acompanhar materiais didáticos",
-      "Gravar explicações e tutoriais passo a passo a partir do ecrã do computador",
-      "Montagem de recursos audiovisuais com legendas de apoio"
+      "Gravar tutoriais passo a passo de utilização de programas ou resolução de exercícios",
+      "Criar locuções narradas para apresentações com dicção correta em Português Europeu",
+      "Edição acessível de trabalhos em grupo em escolas que utilizam o ecossistema Microsoft Teams"
     ],
     externalUrl: "https://clipchamp.com/",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Freemium Útil",
-      minimumAge: "Consultar os termos do fornecedor e o tipo de conta (pessoal ou escolar).",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Editor útil para montagem de materiais pelo docente e preparação de recursos em vídeo.",
-      whatIsFact: "A versão pessoal disponibiliza exportação gratuita até 1080p.",
-      whatIsMisleading: "As condições da conta pessoal não se aplicam necessariamente a contas de trabalho ou educação."
+      teacherVerdict: "Solução recomendada para gerar narrações com sotaque de Portugal sem custos e sem complicações.",
+      whatIsFact: "Excelente qualidade de voz em Português de Portugal e exportação 1080p gratuita na versão pessoal.",
+      whatIsMisleading: "Nem todas as contas escolares têm as mesmas funcionalidades desbloqueadas pelo administrador."
     }
   },
   {
     id: "heygen",
     name: "HeyGen",
-    category: "Avatares Fotorrealistas e Dobragem com Sincronização Labial",
-    badge: "Avatares e Dobragem",
-    shortDesc: "Plataforma de avatares virtuais e dobragem com sincronização labial, útil para demonstração de conceitos tecnológicos.",
-    fullDesc: "O HeyGen permite criar avatares virtuais e realizar dobragens com sincronização labial entre vários idiomas. Por envolver processamento de voz e imagem e por ter opções de teste limitadas, é apresentado principalmente como recurso de demonstração conceptual para reflexão pedagógica.",
+    category: "Avatares Falantes e Sincronização Labial",
+    badge: "Avatares de Alta Fidelidade",
+    shortDesc: "Plataforma de geração de apresentadores virtuais realistas com sincronização labial rigorosa.",
+    fullDesc: "O HeyGen destaca-se pela qualidade de animação facial e labial de personagens virtuais a partir de texto escrito, sendo utilizado para demonstrações de introdução de módulos ou simulações breves.",
     keyFeatures: [
-      "Avatares virtuais com sincronização labial",
-      "Dobragem de vídeo e adaptação de voz em múltiplos idiomas",
-      "Criação de avatares a partir de imagem",
-      "Reprodução incorporável em páginas web"
+      "Sincronização labial com naturalidade em múltiplos idiomas",
+      "Avatares de estúdio pré-configurados com postura e vestuário sóbrios",
+      "Possibilidade de criar diálogos entre avatares em plano partilhado"
     ],
-    inputTypes: ["Texto", "Áudio Próprio", "Vídeo Gravado para Traduzir"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Texto de Guião", "Áudio Pré-gravado"],
+    freeTierDetails: "Os planos, créditos de teste, limites de duração, marcas de água e condições de exportação podem mudar. Consulte a página oficial para conhecer as condições em vigor.",
     limitations: [
-      "Planos comerciais com custos associados à utilização regular",
-      "Questões éticas e legais quanto ao envio de imagens ou gravações de pessoas reais",
-      "Exige análise atenta dos termos antes de qualquer utilização institucional"
+      "Os planos gratuitos são muito limitados e orientados a testes rápidos de avaliação",
+      "Exige planeamento rigoroso para que a demonstração seja feita no ecrã do professor"
     ],
     pedagogicalUseCases: [
-      "Demonstração em ações de formação docente sobre o panorama de avatares virtuais",
-      "Comparação de mensagens em diferentes línguas em contextos de reflexão sobre tradução",
-      "Debate sobre ética, biometria e transparência de conteúdos sintéticos"
+      "Demonstração pelo professor de uma personagem histórica a lançar um enigma à turma",
+      "Simulação de apresentador de notícias de ciência para debates pedagógicos",
+      "Apresentação de boas-vindas a um novo projeto de forma visualmente cativante"
     ],
     externalUrl: "https://www.heygen.com/",
-    demoEmbedUrl: "https://app.heygen.com/embeds/3e868218ff734477820be399fb8b1680",
     screenshots: [],
     factCheckStatus: {
       freeStatus: "Pago / Trial Rápido",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Demonstração tecnológica de sincronização labial e avatares para exploração conceptual.",
-      whatIsFact: "A sincronização labial e a reprodução de avatares funcionam a partir de modelos neurais especializados.",
-      whatIsMisleading: "As opções de teste são reduzidas e não devem ser confundidas com uma quota de trabalho continuada para a escola."
+      teacherVerdict: "Excelente para demonstrações pelo professor; inviável como ferramenta de trabalho diário livre para alunos.",
+      whatIsFact: "Qualidade de sincronização labial e naturalidade dos avatares de estúdio.",
+      whatIsMisleading: "Não permite utilização regular com alunos em regime gratuito sem esgotar créditos rapidamente."
     }
   },
   {
     id: "vidnoz",
     name: "Vidnoz AI",
-    category: "Diálogos entre Avatares e Conversão de Conteúdos",
-    badge: "Diálogos entre Avatares",
-    shortDesc: "Plataforma para criação de apresentações com personagens virtuais e simulação de diálogos alternados.",
-    fullDesc: "O Vidnoz AI disponibiliza ferramentas para transformar textos e documentos em vídeos narrados por personagens virtuais, permitindo configurar diálogos entre dois avatares na mesma cena para exemplificar entrevistas ou debates conceptuais.",
+    category: "Avatares Gratuitos e Diálogos Didáticos",
+    badge: "Diálogos e Modelos Rápidos",
+    shortDesc: "Ferramenta acessível para geração de apresentadores virtuais com biblioteca de modelos educativos.",
+    fullDesc: "O Vidnoz AI disponibiliza funcionalidades para gerar vídeos com personagens virtuais falantes, permitindo criar diálogos entre duas personagens na mesma cena, o que é útil para simular debates didáticos.",
     keyFeatures: [
-      "Diálogo alternado entre personagens virtuais na mesma cena",
-      "Criação de vídeos a partir de resumos em texto ou documentos",
-      "Galeria de personagens virtuais diversificadas",
-      "Editor integrado para inserção de títulos e diapositivos"
+      "Modo de diálogo com dois avatares a conversar na mesma cena",
+      "Modelos de diapositivos educativos pré-formatados para salas de aula",
+      "Opção de tradução de vídeos existentes para outras línguas"
     ],
-    inputTypes: ["Texto", "Ficheiros PDF", "Links de Artigos"],
-    freeTierDetails: "As condições de acesso, os planos, os limites de utilização, os créditos e as opções de exportação podem mudar. Consulte a página oficial do fornecedor antes de planear a utilização. Esta ficha não garante a existência de uma quota gratuita.",
+    inputTypes: ["Texto", "Guião a Duas Vozes", "Imagens de Fundo"],
+    freeTierDetails: "Os limites, créditos e condições do plano podem mudar. Consultar a documentação oficial na data da utilização. Esta ficha não garante uma quota gratuita.",
     limitations: [
-      "Exportações gratuitas ou de teste podem conter marcas de água",
-      "A variedade de vozes disponíveis varia com a versão utilizada",
-      "Tempo de processamento na nuvem dependente do serviço"
+      "Exportação gratuita pode incluir marca de água e tempos de fila em períodos de elevado tráfego",
+      "A naturalidade da voz e sincronização varia consoante o idioma e o modelo selecionado"
     ],
     pedagogicalUseCases: [
-      "Simulação de diálogos entre figuras históricas preparada pelo professor",
-      "Apresentação de conceitos sob a forma de perguntas e respostas",
-      "Introdução a tópicos curriculares com apoio visual"
+      "Simular debates entre figuras históricas ou correntes de pensamento opostas",
+      "Apresentar desafios interdisciplinares em equipa de professores",
+      "Criação de mensagens curtas para alunos com apoio visual e legendas"
     ],
     externalUrl: "https://pt.vidnoz.com/",
     screenshots: [],
     factCheckStatus: {
-      freeStatus: "Freemium Muito Limitado",
-      minimumAge: "Consultar os termos oficiais do fornecedor; idade mínima não confirmada nesta ficha.",
+      freeStatus: "Freemium Útil",
+      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ferramenta para criação de apresentações e diálogos entre avatares em vídeo.",
-      whatIsFact: "Permite simular diálogos entre duas personagens na mesma cena.",
+      teacherVerdict: "Útil para preparar diálogos a duas personagens sem necessidade de software profissional.",
+      whatIsFact: "Permite simular dois avatares a debaterem na mesma cena com planos pré-configurados.",
       whatIsMisleading: "As exportações gratuitas podem incluir marcas de água e limitações de qualidade."
     }
   }
 ];
 
-// 5. ATIVIDADES DE SALA DE AULA REAIS E TESTÁVEIS (Linguagem Humana)
+// 5. ATIVIDADES DE SALA DE AULA REAIS E TESTÁVEIS (Linguagem Humana e EduQA 2026/2027)
 export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
   {
     id: "entrevista-ia",
     title: "Entrevista a uma Figura da História",
     discipline: "História / Português / Cidadania",
     targetCycle: "2.º e 3.º Ciclo do Ensino Básico",
-    estimatedDuration: "2 a 3 blocos letivos de 50 minutos",
+    estimatedDuration: "4 a 5 aulas de 50 minutos, consoante o número de grupos e a realização de parte da edição em trabalho autónomo.",
     icon: "Users",
     learningObjectives: [
       "Pesquisar em fontes históricas credíveis o papel de uma figura marcante (ex.: Aristides de Sousa Mendes, D. Afonso Henriques, Marie Curie).",
       "Elaborar um guião de 3 perguntas e respostas com rigor factual, distinguindo a verdade histórica de lendas.",
       "Produzir um pequeno vídeo simulando a entrevista e analisar criticamente o resultado com a turma."
     ],
+    teacherVerificationChecklist: [
+      "Qual é a aprendizagem que se pretende desenvolver? (Rigor histórico e competência comunicativa)",
+      "A IA acrescenta valor real a esta tarefa? (Apoia na reconstituição visual sem substituir a pesquisa factual)",
+      "Que etapas podem ser realizadas sem IA? (Pesquisa, guião histórico, validação documental e coavaliação)",
+      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas texto didático genérico, sem dados de alunos)",
+      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas institucionais da escola)",
+      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Simulação teatral, podcast ou cartaz)",
+      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Grelha de rubrica ponderada e autoavaliação)"
+    ],
+    whoOperatesTool: {
+      firstCycle: "Privilegiar o professor como operador da ferramenta. Os alunos observam, formulam ideias e preparam o guião.",
+      secondCycle: "O professor verifica previamente a idade mínima e termos; opera ou apoia na preparação de prompts.",
+      thirdAndSecondary: "Utilização direta permitida quando compatível com os termos do fornecedor e autorizações institucionais."
+    },
     teacherImplementationSteps: [
       {
         step: 1,
-        title: "Investigação Prévia e Combate a Anacronismos",
-        description: "Os alunos organizam-se em pares e escolhem uma figura histórica. Antes de tocarem em qualquer IA, consultam o manual escolar e fontes fidedignas (RTP Ensina, Dicionário Biográfico) para recolher datas, factos e contexto real.",
-        recommendedTools: ["Manual Escolar", "RTP Ensina"],
+        title: "Pesquisa e Verificação de Fontes (Aula 1 · 50 min)",
+        description: "Os alunos organizam-se em pares e escolhem uma figura histórica. Antes de tocarem em qualquer ferramenta digital, consultam o manual escolar e fontes fidedignas (RTP Ensina, Dicionário Biográfico, arquivos) para recolher datas, factos e contexto real.",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Manual Escolar", "RTP Ensina", "Europeana"],
         teacherTip: "Alerte os alunos para o risco de anacronismos: figuras do século XII não usavam relógios nem falavam como no século XXI."
       },
       {
         step: 2,
-        title: "Redação do Guião da Entrevista a Duas Vozes",
-        description: "Os alunos escrevem as 3 perguntas do jornalista e as 3 respostas fundamentadas da figura histórica. O professor valida o texto no papel ou num documento partilhado antes de avançar para o vídeo. As respostas devem ser identificadas como dramatização baseada em informação histórica. Não devem ser apresentadas como citações literais da figura escolhida, salvo quando exista uma fonte documental que comprove a citação.",
+        title: "Construção do Guião Histórico a Duas Vozes (Aula 2 · 50 min)",
+        description: "Os alunos redigem as 3 perguntas do jornalista e as 3 respostas fundamentadas da figura histórica. O professor valida o texto no papel ou num documento partilhado antes de qualquer gravação. As respostas devem ser identificadas como dramatização baseada em informação histórica.",
+        aiUseMode: "Sem IA",
         subitems: [
           "Pergunta 1: O contexto da época e a principal escolha que a figura teve de fazer.",
           "Pergunta 2: O maior desafio ou oposição que enfrentou na sua vida.",
@@ -836,33 +864,79 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       },
       {
         step: 3,
-        title: "Geração da Figura e Narração do Diálogo",
-        description: "O professor pode preparar uma imagem ilustrativa recorrendo a uma fonte com direitos de utilização adequados ou a uma ferramenta que possa utilizar nos termos aplicáveis à sua conta adulta. Os alunos montam o diálogo com uma ferramenta de edição aprovada pela escola. Não lhes deve ser solicitado que acedam ao Perchance, cujos termos restringem a utilização a maiores de 18 anos.",
-        recommendedTools: ["Microsoft Clipchamp", "Canva para Educação"]
+        title: "Preparação de Imagem ou Ilustração de Apoio (Aula 3 · 50 min)",
+        description: "O professor ou os alunos (quando autorizados) preparam uma imagem ilustrativa da figura ou do cenário recorrendo a gravuras de domínio público ou ferramentas com termos compatíveis com a conta escolar. Não utilizar ferramentas com restrição de idade como o Perchance para alunos menores.",
+        aiUseMode: "IA de apoio",
+        recommendedTools: ["Canva para Educação", "Microsoft Clipchamp"]
       },
       {
         step: 4,
-        title: "Apresentação e Caça aos Erros na Aula",
-        description: "Cada par exibe o seu vídeo de 90 segundos à turma. Os colegas têm como missão detetar se a IA inventou algum detalhe incorreto (roupas erradas, objetos fora de época) e debatem o rigor histórico.",
-        teacherTip: "Transforme a verificação de factos num jogo: quem apanhar uma 'alucinação' da IA ganha um ponto para o grupo."
+        title: "Montagem, Revisão e Legendas (Aula 4 · 50 min)",
+        description: "Os pares montam o vídeo de cerca de 90 segundos com recurso a um editor simples, gravando a locução e ativando legendas com ortografia e pontuação revistas. Identificação clara de que se trata de uma simulação educativa.",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Microsoft Clipchamp", "CapCut (Web, PC e Telemóvel)"]
+      },
+      {
+        step: 5,
+        title: "Apresentação, Validação Histórica e Coavaliação (Aula 5 · 50 min)",
+        description: "Exibição dos trabalhos à turma com debate crítico. Os colegas analisam o rigor dos factos apresentados e identificam eventuais anacronismos ou elementos especulativos.",
+        aiUseMode: "Sem IA",
+        teacherTip: "Promova um ambiente de entreajuda onde o erro factual detetado pelos colegas é uma oportunidade de aprendizagem mútua."
       }
     ],
     studentDeliverables: [
-      "Guião escrito com as 3 perguntas e fontes consultadas",
-      "Vídeo curto de aproximadamente 90 segundos com a simulação da entrevista.",
-      "Ficha de reflexão de 1 parágrafo: 'O que a IA acertou e o que a IA inventou?'"
+      "Guião escrito com as 3 perguntas, respostas fundamentadas e fontes documentais consultadas.",
+      "Vídeo curto de aproximadamente 90 segundos com a simulação da entrevista e legendas revistas.",
+      "Ficha de reflexão e evidência de processo: uma decisão tomada pelo par e uma dificuldade ultrapassada."
+    ],
+    evaluationRubric: [
+      {
+        id: "historico",
+        criterion: "Rigor histórico dos factos apresentados",
+        weight: 40,
+        evidence: "Exatidão das datas, dos acontecimentos e do contexto da figura, sem anacronismos ou dados falsos."
+      },
+      {
+        id: "linguagem",
+        criterion: "Clareza da linguagem e correção do Português",
+        weight: 30,
+        evidence: "Correção gramatical, vocabulário adequado à época e dicção clara na narração oral e nas legendas."
+      },
+      {
+        id: "sentido_critico",
+        criterion: "Sentido crítico na avaliação da imagem gerada por IA",
+        weight: 20,
+        evidence: "Capacidade de identificar os limites, eventuais imperfeições ou licenças ficcionais da representação visual."
+      },
+      {
+        id: "cooperacao",
+        criterion: "Cooperação e respeito no trabalho em equipa",
+        weight: 10,
+        evidence: "Partilha equilibrada de tarefas entre os elementos do par, cumprimento de prazos e entreajuda."
+      }
     ],
     evaluationCriteria: [
       "Rigor histórico dos factos apresentados (40%)",
-      "Clareza da linguagem e correção da língua portuguesa (30%)",
-      "Sentido crítico na avaliação dos limites da imagem gerada pela IA (20%)",
+      "Clareza da linguagem e correção do Português (30%)",
+      "Sentido crítico na avaliação da imagem gerada por IA (20%)",
       "Cooperação e respeito no trabalho em equipa (10%)"
     ],
-    pedagogicalFramework: "Taxonomia de Anderson & Krathwohl (Níveis 'Analisar' e 'Criar') + Desenho Universal para a Aprendizagem.",
+    processEvaluation: {
+      selfAssessment: "O aluno identifica uma decisão de pesquisa tomada e uma dificuldade que conseguiu superar.",
+      peerAssessment: "Um colega de outro grupo identifica um aspeto factual bem documentado e sugere uma melhoria fundamentada.",
+      processEvidence: "Registo da fonte de arquivo consultada, indicação de um elemento descartado por anacronismo e versão final do guião."
+    },
+    udlAndDifferentiation: {
+      representation: "Disponibilizar instruções em texto e orais; fornecer exemplos de guiões e quadros cronológicos de apoio.",
+      actionAndExpression: "Possibilidade de apresentar em vídeo, podcast áudio, banda desenhada narrada ou encenação teatral direta.",
+      engagement: "Liberdade na escolha da figura histórica dentro dos períodos curriculares; papéis flexíveis no grupo.",
+      noTechAlternative: "Elaboração de guião em papel e dramatização presencial em aula com suporte de gravuras impressas (Dec.-Lei n.º 54/2018)."
+    },
+    pedagogicalFramework: "Taxonomia de Anderson & Krathwohl (Níveis 'Analisar' e 'Criar') + Orientações EduQA 2026/2027.",
     rgpdSafetyChecklist: [
-      "Não solicitar que os alunos criem contas em ferramentas externas sem verificar previamente os termos, os requisitos de idade e as orientações da escola.",
-      "Nenhum rosto ou voz real de aluno é carregado para a Internet.",
-      "As pesquisas são feitas sob a supervisão do professor."
+      "Não criar nem divulgar imagens, vídeos ou gravações de voz sintéticas que representem alunos, professores ou colegas.",
+      "Nenhum rosto ou voz real de aluno é carregado para plataformas externas de IA.",
+      "As pesquisas são realizadas sob a orientação e supervisão ativa do professor."
     ]
   },
   {
@@ -870,55 +944,111 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     title: "Micro-Documentário: Explicar a Ciência em 60 Segundos",
     discipline: "Ciências Naturais / Físico-Química / Biologia",
     targetCycle: "3.º Ciclo e Ensino Secundário",
-    estimatedDuration: "2 semanas (trabalho de aula e de casa)",
+    estimatedDuration: "2 semanas (4 aulas de 50 minutos mais trabalho de equipa)",
     icon: "HeartPulse",
     learningObjectives: [
       "Descodificar um fenómeno científico complexo (ex.: a mitose, a energia das ondas, a circulação sanguínea).",
       "Escrever uma locução concisa em que cada palavra conta, aplicando o Princípio da Modalidade de Mayer.",
       "Construir um micro-documentário dinâmico pronto a partilhar com a comunidade escolar."
     ],
+    teacherVerificationChecklist: [
+      "Qual é a aprendizagem que se pretende desenvolver? (Compreensão e síntese de processos científicos dinâmicos)",
+      "A IA acrescenta valor real a esta tarefa? (Auxilia na visualização tridimensional de processos microscópicos ou abstratos)",
+      "Que etapas podem ser realizadas sem IA? (Validação científica das fontes, guião, storyboard e revisão das legendas)",
+      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas descrições conceptuais científicas neutras)",
+      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas de edição e software institucional da escola)",
+      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Apresentação comentada ou cartaz desdobrável)",
+      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Avaliação da síntese científica e glossário)"
+    ],
+    whoOperatesTool: {
+      firstCycle: "Não aplicável diretamente; no 1.º ciclo o professor operaria qualquer demonstração visual.",
+      secondCycle: "O professor disponibiliza previamente um banco de clipes validados para montagem pelos alunos.",
+      thirdAndSecondary: "Os alunos podem gerar excertos visuais pontuais ou montar recursos de arquivo sob supervisão do docente."
+    },
     teacherImplementationSteps: [
       {
         step: 1,
-        title: "Escolha do Fenómeno e Mapeamento dos Conceitos",
-        description: "Os alunos selecionam um processo científico em que o movimento é essencial para a compreensão. Definem os 3 conceitos fundamentais que o público leigo tem de reter.",
-        recommendedTools: ["InVideo AI", "CapCut (Web, PC e Telemóvel)", "Kling AI"]
+        title: "Pesquisa Científica e Validação dos Conceitos (Aula 1 · 50 min)",
+        description: "Os alunos escolhem um fenómeno onde o movimento seja crucial. Recolhem informação no manual e em artigos de referência, definindo 3 conceitos-chave que o público leigo tem de reter com rigor.",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Manual Escolar", "Artigos de Divulgação Científica", "Simulações PhET"],
+        teacherTip: "Quando existir uma simulação científica validada (como as do PhET), utilize-a como fonte de comparação com a representação gerada."
       },
       {
         step: 2,
-        title: "Desenho da Narrativa Visual (Storyboard)",
-        description: "Em três quadrículas de papel, os alunos desenham o que se vai ver e o que a voz vai dizer em cada um dos três momentos: Introdução (0–15 s), O Processo (15–40 s) e O Impacto (40–60 s).",
-        teacherTip: "Evite texto corrido que repita integralmente a narração. Mantenha as legendas necessárias à acessibilidade e utilize no ecrã palavras-chave ou dados essenciais."
+        title: "Desenho da Narrativa Visual e Storyboard (Aula 2 · 50 min)",
+        description: "Em quadrículas de papel ou documento digital, os alunos desenham o que se vai ver e o que a voz vai dizer em três momentos: Introdução (0-15s), O Processo (15-40s) e O Impacto (40-60s).",
+        aiUseMode: "Sem IA",
+        teacherTip: "Evite texto corrido que repita integralmente a narração. Aplique o Princípio da Redundância de Mayer mantendo legendas de acessibilidade e palavras-chave."
       },
       {
         step: 3,
-        title: "Montagem e Legenda Acessível",
-        description: "Com o CapCut ou Clipchamp, juntam os clipes de animação, gravam a locução com voz calma e ativam as legendas automáticas em português.",
-        recommendedTools: ["CapCut (Web, PC e Telemóvel)", "Microsoft Clipchamp"]
+        title: "Criação de Clipes ou Apoio Visual (Aula 3 · 50 min)",
+        description: "O professor ou os alunos selecionam imagens de arquivo ou geram um clipe visual curto para ilustrar o processo microscópico. Funcionamento por professor-operador sempre que haja restrições de contas.",
+        aiUseMode: "IA de apoio",
+        recommendedTools: ["Kling AI", "Luma Dream Machine", "MiniMax (Hailuo AI)"]
       },
       {
         step: 4,
-        title: "Partilha na Videoteca da Turma",
-        description: "Os melhores micro-documentários são arquivados no Teams ou Classroom da disciplina para servirem de material de revisão para os restantes colegas antes dos exames.",
-        teacherTip: "Verifique o rigor dos termos científicos antes de publicar para toda a turma."
+        title: "Edição, Revisão, Legendas e Apresentação (Aula 4 · 50 min)",
+        description: "Montagem dos elementos audiovisuais no CapCut ou Clipchamp. Gravação da locução clara em Português de Portugal e correção manual da pontuação e dos termos científicos nas legendas automáticas.",
+        aiUseMode: "IA de apoio",
+        recommendedTools: ["Microsoft Clipchamp", "CapCut (Web, PC e Telemóvel)"]
       }
     ],
     studentDeliverables: [
-      "Storyboard em papel ou digital com os três momentos do vídeo.",
-      "Ficheiro de vídeo MP4 com aproximadamente 60 segundos e legendas revistas.",
-      "Glossário com a definição científica de 3 termos técnicos utilizados"
+      "Storyboard com a estrutura dos três momentos e o guião oral redigido.",
+      "Vídeo MP4 com cerca de 60 segundos com legendas revistas e acessíveis.",
+      "Glossário científico com a definição rigorosa dos 3 termos técnicos utilizados."
+    ],
+    evaluationRubric: [
+      {
+        id: "ciencia",
+        criterion: "Correção científica dos conceitos",
+        weight: 45,
+        evidence: "Rigor conceptual na explicação do fenómeno biológico ou físico-químico, sem conceções alternativas erradas."
+      },
+      {
+        id: "sintese",
+        criterion: "Capacidade de síntese e clareza da locução",
+        weight: 30,
+        evidence: "Estruturação concisa em 60 segundos, ritmo pausado, tom pedagógico e respeito pelo tempo do espectador."
+      },
+      {
+        id: "montagem",
+        criterion: "Qualidade da montagem e ritmo de visualização",
+        weight: 15,
+        evidence: "Fluidez nos cortes, sincronização entre imagem e palavra, e volume calibrado da locução."
+      },
+      {
+        id: "acessibilidade",
+        criterion: "Acessibilidade e revisão das legendas",
+        weight: 10,
+        evidence: "Legendas sincronizadas, sem erros de transcrição fonética, e inclusão de transcrição textual de apoio."
+      }
     ],
     evaluationCriteria: [
-      "Correção científica dos conceitos explicados (45%)",
+      "Correção científica dos conceitos (45%)",
       "Capacidade de síntese e clareza da locução (30%)",
-      "Qualidade da montagem e respeito pelo ritmo de visualização (15%)",
-      "Cumprimento dos prazos e acessibilidade das legendas (10%)"
+      "Qualidade da montagem e ritmo de visualização (15%)",
+      "Acessibilidade e revisão das legendas (10%)"
     ],
-    pedagogicalFramework: "Princípios da Segmentação e Modalidade de Richard Mayer (2020).",
+    processEvaluation: {
+      selfAssessment: "O grupo regista uma alteração que fez ao texto da narração para tornar o conceito mais compreensível.",
+      peerAssessment: "Um colega valida se o glossário técnico corresponde com exatidão ao que é explicado no vídeo.",
+      processEvidence: "Rascunho inicial do storyboard com as anotações do professor e versão final exportada."
+    },
+    udlAndDifferentiation: {
+      representation: "Fornecer esquemas gráficos do processo antes da redação do guião; disponibilizar modelos de storyboards.",
+      actionAndExpression: "Possibilidade de criar animação passo a passo, infográfico interactivo ou demonstração com modelos físicos.",
+      engagement: "Escolha do fenómeno científico pelo grupo; atribuição de tarefas de redação, gravação e revisão técnica.",
+      noTechAlternative: "Apresentação oral com maquete ou póster científico em papel ilustrado à mão (Dec.-Lei n.º 54/2018)."
+    },
+    pedagogicalFramework: "Princípios da Segmentação e Modalidade de Richard Mayer (2020) + DUA.",
     rgpdSafetyChecklist: [
-      "Utilização de ferramentas sem partilha de dados biométricos.",
-      "Uso de música de arquivo livre de direitos comerciais.",
-      "Termos de aceitação do regulamento interno da escola cumpridos."
+      "Utilizar apenas música cuja licença permita a utilização pretendida (ex.: Wikimedia Commons, Europeana, arquivo com licença educativa).",
+      "Confirmar condições de atribuição de cada faixa e imagem de terceiros.",
+      "Não carregar gravações com dados identificativos dos estudantes."
     ]
   },
   {
@@ -926,102 +1056,222 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     title: "O Noticiário de Ciência: Separar Facto de Ficção",
     discipline: "Cidadania e Desenvolvimento / Português / Geografia",
     targetCycle: "3.º Ciclo e Secundário",
-    estimatedDuration: "2 aulas de 50 minutos",
+    estimatedDuration: "2 a 3 aulas de 50 minutos",
     icon: "Newspaper",
     learningObjectives: [
       "Desenvolver literacia mediática: aprender a identificar como a IA pode ser usada para desinformar ou simular notícias falsas.",
       "Recriar uma notícia séria sobre alterações climáticas ou biodiversidade com base em relatórios científicos reais (IPCC, ICNF).",
-      "Desenvolver procedimentos de verificação da origem, data, contexto e fontes de um conteúdo audiovisual; compreender como os conteúdos sintéticos podem induzir em erro e como os identificar de forma transparente."
+      "Desenvolver procedimentos de verificação da origem, data, contexto e fontes de um conteúdo audiovisual; rotular sintéticos com transparência."
     ],
+    teacherVerificationChecklist: [
+      "Qual é a aprendizagem que se pretende desenvolver? (Literacia mediática, sentido crítico e verificação de fontes)",
+      "A IA acrescenta valor real a esta tarefa? (Permite analisar como funcionam as manipulações e praticar a rotulagem ética)",
+      "Que etapas podem ser realizadas sem IA? (Verificação cruzada de notícias, pesquisa documental e debate em aula)",
+      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas texto noticioso simulado baseado em relatórios públicos)",
+      "A ferramenta está aprovada e é adequada ao contexto? (Canva para Educação ou ferramentas de edição autorizadas)",
+      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Artigo jornalístico escrito no jornal da escola)",
+      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Checklist de verificação de factos assinada)"
+    ],
+    whoOperatesTool: {
+      firstCycle: "Não aplicável a este nível de complexidade.",
+      secondCycle: "O professor conduz a análise de exemplos no quadro interativo e coordena o debate crítico.",
+      thirdAndSecondary: "Os alunos realizam a redação e edição em pares sob supervisão das orientações de cidadania digital."
+    },
     teacherImplementationSteps: [
       {
         step: 1,
-        title: "Análise de Exemplos Reais de Desinformação com IA",
-        description: "Os alunos analisam a origem do conteúdo, o contexto da publicação, a data, a fonte original e a existência de confirmação em fontes independentes. A aparência visual, por si só, não permite determinar com fiabilidade se um vídeo foi gerado ou manipulado por Inteligência Artificial.",
-        recommendedTools: ["InVideo AI", "Canva para Educação"]
+        title: "Análise de Conteúdos Sintéticos e Desinformação (Aula 1 · 50 min)",
+        description: "Os alunos analisam notícias reais e peças geradas por computador, avaliando contexto, data, fonte primária e confirmação em fontes independentes. A própria tecnologia de IA generativa é objeto de estudo.",
+        aiUseMode: "IA integrada",
+        recommendedTools: ["Exemplos de Noticiários", "Arquivo RTP"],
+        teacherTip: "A aparência visual não basta para determinar autenticidade: ensine a verificar a cadeia de custódia e a fonte original."
       },
       {
         step: 2,
-        title: "Elaboração de uma Peça Jornalística Rigorosa",
-        description: "A turma simula a redação de um telejornal de ciência. Escrevem uma notícia baseada num relatório ambiental verdadeiro, indicando com clareza quem é a fonte científica.",
-        subitems: [
-          "O facto noticioso real (ex.: seca no Alentejo, proteção do lince ibérico).",
-          "O dado estatístico comprovado.",
-          "Indicação dos elementos visuais gerados ou alterados por IA, quando existam, distinguindo imagens ilustrativas de registos documentais."
-        ]
+        title: "Pesquisa e Verificação de Fontes Científicas (Aula 2 · 50 min)",
+        description: "A turma simula a redação de um telejornal de ciência, elaborando uma peça noticiosa rigorosa baseada num relatório ambiental autêntico (ex.: seca, preservação do lince ibérico, transição energética).",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Relatórios IPCC", "Portal ICNF", "Agência Portuguesa do Ambiente"]
       },
       {
         step: 3,
-        title: "Produção e Rotulagem Ética",
-        description: "Os alunos identificam de forma clara e adequada ao contexto os elementos sintéticos ou manipulados utilizados na peça. Quando o conteúdo constitua um deepfake ou se enquadre noutra obrigação de divulgação prevista no artigo 50.º, o professor deve verificar a aplicação da regra correspondente. Não se deve assumir que todos os vídeos gerados por IA necessitam de uma marca visual permanente.",
-        recommendedTools: ["Canva para Educação", "CapCut (Web, PC e Telemóvel)"]
+        title: "Produção de Elementos Ilustrativos com Rotulagem Ética (Aula 2/3 · 50 min)",
+        description: "Os alunos criam elementos visuais de apoio ou vinhetas de telejornal no Canva ou Clipchamp. Rotulam de forma visível e transparente qualquer imagem sintética como 'Reconstituição ilustrativa gerada por computador'.",
+        aiUseMode: "IA de apoio",
+        recommendedTools: ["Canva para Educação", "Microsoft Clipchamp"]
+      },
+      {
+        step: 4,
+        title: "Análise Crítica Final e Debate em Aula (Aula 3 · 50 min)",
+        description: "Visualização coletiva das peças produzidas. Debate sobre o impacto da desinformação nas democracias e aplicação dos deveres de transparência previstos no Regulamento Europeu de Inteligência Artificial.",
+        aiUseMode: "Sem IA",
+        teacherTip: "Sensibilize para as regras relativas a imagens de pessoas reais e os procedimentos de comunicação escolar perante incidentes digitais."
       }
     ],
     studentDeliverables: [
-      "Texto da notícia com citação explícita do relatório científico fonte",
-      "Vídeo da peça noticiosa com identificação clara dos elementos gerados ou manipulados por IA, quando existam, e com as fontes indicadas.",
-      "Checklist de verificação de factos assinada pelo grupo"
+      "Texto da notícia com citação explícita do relatório científico fonte (IPCC, ICNF ou APA).",
+      "Vídeo da peça noticiosa com identificação clara e percetível de que contém elementos gerados por IA.",
+      "Checklist de verificação de factos assinada pelo grupo."
+    ],
+    evaluationRubric: [
+      {
+        id: "fidelidade_fonte",
+        criterion: "Fidelidade da notícia à fonte científica",
+        weight: 40,
+        evidence: "Dados estatísticos, conclusões e contexto rigorosamente fiéis ao relatório científico consultado."
+      },
+      {
+        id: "verificacao_factos",
+        criterion: "Verificação das fontes e dos factos",
+        weight: 30,
+        evidence: "Aplicação do método de verificação cruzada e indicação transparente das fontes primárias."
+      },
+      {
+        id: "comunicacao",
+        criterion: "Clareza da comunicação e dicção",
+        weight: 20,
+        evidence: "Estrutura jornalística clara (lead, desenvolvimento, fecho) e dicção cuidada na locução."
+      },
+      {
+        id: "transparencia_ia",
+        criterion: "Identificação transparente dos elementos sintéticos",
+        weight: 10,
+        evidence: "Rotulagem clara de imagens ou ilustrações sintéticas, em conformidade com o Artigo 50.º do AI Act."
+      }
     ],
     evaluationCriteria: [
-      "Fidelidade da notícia à fonte científica real (40%)",
-      "Transparência na identificação dos elementos sintéticos e distinção entre ilustração e registo documental (30%).",
-      "Clareza da comunicação e dicção jornalística (20%)",
-      "Espírito crítico na discussão coletiva (10%)"
+      "Fidelidade da notícia à fonte científica (40%)",
+      "Verificação das fontes e dos factos (30%)",
+      "Clareza da comunicação e dicção (20%)",
+      "Identificação transparente dos elementos sintéticos (10%)"
     ],
-    pedagogicalFramework: "Referencial de Educação para os Media (DGE) + Regulamento (UE) 2024/1689 (AI Act).",
+    processEvaluation: {
+      selfAssessment: "O grupo regista uma afirmação duvidosa encontrada na internet que conseguiu desmentir com a fonte oficial.",
+      peerAssessment: "Um colega avalia se a rotulagem de IA é percetível e se a notícia cita claramente a entidade científica.",
+      processEvidence: "Ficha de verificação de factos com as hiperligações para as fontes primárias e o guião da notícia."
+    },
+    udlAndDifferentiation: {
+      representation: "Fornecer sínteses prévias dos relatórios do IPCC com vocabulário simplificado e glossário.",
+      actionAndExpression: "Apresentação como podcast radiofónico, artigo de jornal escolar ilustrado ou vídeo de bancada.",
+      engagement: "Papéis diferenciados: jornalista de investigação, pivot de notícias, verificador de factos e editor de imagem.",
+      noTechAlternative: "Produção de um boletim informativo impresso em papel com análise de recortes de imprensa (Dec.-Lei n.º 54/2018)."
+    },
+    pedagogicalFramework: "Referencial de Educação para os Media (DGE) + Regulamento (UE) 2024/1689 e 2026/1744.",
     rgpdSafetyChecklist: [
       "Rotulagem clara de que as imagens são criadas por computador.",
-      "Proibição de criar notícias alarmistas ou boatos locais de pânico.",
-      "Proteção da identidade dos alunos na publicação."
+      "Proibição absoluta de simular notícias falsas alarmistas ou boatos de pânico que envolvam a escola ou a comunidade.",
+      "Não criar réplicas de pessoas reais sem consentimento institucional."
     ]
   },
   {
     id: "quadros-animados",
     title: "Vozes do Património: O Quadro que Conta a Sua História",
     discipline: "Educação Visual / História / Literatura",
-    targetCycle: "1.º ao 3.º Ciclo",
-    estimatedDuration: "3 aulas práticas",
+    targetCycle: "1.º ao 3.º Ciclo e Secundário",
+    estimatedDuration: "3 a 4 aulas práticas de 50 minutos",
     icon: "Boxes",
     learningObjectives: [
       "Observar com detalhe uma obra de arte do património nacional ou universal.",
       "Investigar o contexto histórico e cultural da obra e analisar os seus elementos visuais, distinguindo informação documentada de interpretações possíveis.",
       "Dar um movimento subtil à pintura e criar uma narrativa na primeira pessoa com a perspetiva de quem viveu a cena."
     ],
+    teacherVerificationChecklist: [
+      "Qual é a aprendizagem que se pretende desenvolver? (Interpretação estética, contexto patrimonial e expressão escrita)",
+      "A IA acrescenta valor real a esta tarefa? (Permite animar subtilmente um detalhe plástico sem deturpar a obra)",
+      "Que etapas podem ser realizadas sem IA? (Estudo da obra no museu/manual, redação do monólogo e avaliação estética)",
+      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas fotografias de domínio público de obras de arte)",
+      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas com verificação de direitos)",
+      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Dramatização de 'quadro vivo' em aula)",
+      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Ficha de análise artística e monólogo literário)"
+    ],
+    whoOperatesTool: {
+      firstCycle: "O professor opera a animação subtil da pintura no ecrã da turma; os alunos criam a história e fazem a voz.",
+      secondCycle: "O professor apoia a animação com ferramentas institucionais; alunos redigem e gravam em pares.",
+      thirdAndSecondary: "Os alunos geram a animação subtil e realizam a montagem áudio completa com autonomia supervisionada."
+    },
     teacherImplementationSteps: [
       {
         step: 1,
-        title: "Visita Virtual e Escolha da Obra de Arte",
-        description: "Através do Google Arts & Culture ou do Museu Nacional de Arte Antiga, os alunos escolhem uma pintura histórica (ex.: Painéis de São Vicente, O Grito, Fado de José Malhoa).",
-        recommendedTools: ["Pika Labs (Pika 2.1)", "Kling AI", "Runway"]
+        title: "Investigação da Obra e Visita Virtual (Aula 1 · 50 min)",
+        description: "Através do Google Arts & Culture ou dos portais dos museus nacionais (MNAA, Soares dos Reis), os alunos escolhem uma pintura histórica e documentam autor, data, estilo plástico e contexto.",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Google Arts & Culture", "Portal do Museu Nacional de Arte Antiga"]
       },
       {
         step: 2,
-        title: "A Voz da Personagem da Tela",
-        description: "Os alunos imaginam que são uma das figuras da pintura e escrevem um monólogo curto de cerca de 40 segundos. O texto deve ser identificado como criação ficcional inspirada na obra e não como testemunho real da personagem ou declaração documentada do artista.",
-        teacherTip: "Excelente oportunidade para trabalhar a empatia histórica e a expressão literária em Português."
+        title: "Construção da Narrativa na Primeira Pessoa (Aula 2 · 50 min)",
+        description: "Os alunos assumem a perspetiva de uma personagem retratada ou de um observador da época e escrevem um monólogo poético de cerca de 40 segundos, expressando os sentimentos e o contexto histórico da cena.",
+        aiUseMode: "Sem IA",
+        teacherTip: "Excelente oportunidade para trabalhar a empatia histórica, a adjetivação expressiva e a norma do Português."
       },
       {
         step: 3,
-        title: "Animação Respeitosa e Locução",
-        description: "Com o Pika ou o Kling, animam apenas o movimento do vento ou da respiração na pintura. No Clipchamp, gravam o monólogo com a sua voz ou com uma voz expressiva em português.",
-        recommendedTools: ["Pika Labs (Pika 2.1)", "Microsoft Clipchamp"]
+        title: "Animação Ilustrativa do Detalhe (Aula 3 · 50 min)",
+        description: "Com o Pika ou o Kling (operado pelo professor ou por alunos com idade e autorização confirmadas), gera-se um movimento muito suave e respeitoso (o vento num tecido, as ondas da água, a luz de uma vela).",
+        aiUseMode: "IA de apoio",
+        recommendedTools: ["Pika", "Kling AI"]
+      },
+      {
+        step: 4,
+        title: "Avaliação Crítica da Animação e Partilha (Aula 4 · 50 min)",
+        description: "No Clipchamp, monta-se o clipe animado com a voz expressiva do aluno gravada ao microfone. Apresentação à turma com debate sobre como a animação respeita ou desvirtua a intenção original do pintor.",
+        aiUseMode: "Sem IA",
+        recommendedTools: ["Microsoft Clipchamp"]
       }
     ],
     studentDeliverables: [
-      "Ficha técnica da obra (autor, data, técnica plástica e museu onde se encontra)",
-      "Monólogo literário escrito na primeira pessoa",
-      "Vídeo final de 40 segundos que une a pintura viva à narração sentida"
+      "Ficha técnica da obra (autor, data, técnica plástica e museu onde se encontra preservada).",
+      "Monólogo literário escrito na primeira pessoa com revisão linguística.",
+      "Vídeo final de cerca de 40 segundos unindo a imagem animada com respeito à locução expressiva."
+    ],
+    evaluationRubric: [
+      {
+        id: "profundidade",
+        criterion: "Profundidade e sensibilidade da interpretação artística",
+        weight: 40,
+        evidence: "Compreensão da mensagem estética da obra, sensibilidade histórica e expressividade literária do monólogo."
+      },
+      {
+        id: "respeito_plastico",
+        criterion: "Qualidade e respeito pelo estilo plástico da obra",
+        weight: 30,
+        evidence: "Preservação da paleta de cores, da textura pictórica e da iluminação original do pintor na animação."
+      },
+      {
+        id: "diccao",
+        criterion: "Expressividade e dicção da narração oral",
+        weight: 20,
+        evidence: "Tom emotivo adequado ao contexto da cena, ritmo pausado e pronúncia cuidada em língua portuguesa."
+      },
+      {
+        id: "autonomia",
+        criterion: "Autonomia e empenho na atividade",
+        weight: 10,
+        evidence: "Pesquisa autónoma sobre o museu, cuidado na preparação dos materiais e respeito pelo trabalho dos colegas."
+      }
     ],
     evaluationCriteria: [
       "Profundidade e sensibilidade da interpretação artística (40%)",
-      "Qualidade e respeito pelo estilo plástico da pintura original (30%)",
-      "Expressividade e dicção na narração oral (20%)",
-      "Autonomia e empenho na atividade de atelier (10%)"
+      "Qualidade e respeito pelo estilo plástico da obra (30%)",
+      "Expressividade e dicção da narração oral (20%)",
+      "Autonomia e empenho na atividade (10%)"
     ],
+    processEvaluation: {
+      selfAssessment: "O aluno identifica uma frase do monólogo que reescreveu para refletir melhor o estado de espírito da personagem.",
+      peerAssessment: "Um colega comenta se o movimento gerado parece natural ou se prejudicou a composição original da pintura.",
+      processEvidence: "Ficha de museu preenchida com a análise plástica da tela e ficheiro final do monólogo."
+    },
+    udlAndDifferentiation: {
+      representation: "Proporcionar reproduções em alta resolução com ampliações de detalhes e audiodescrições da pintura.",
+      actionAndExpression: "Opção de encenar a pintura fisicamente (técnica de 'quadro vivo'), gravar monólogo sonoro ou criar texto epistolar.",
+      engagement: "Escolha da obra de arte de acordo com as preferências dos alunos (pintura renascentista, barroca ou modernista).",
+      noTechAlternative: "Reconstituição presencial de 'quadro vivo' em sala com figurinos simples e leitura expressiva (Dec.-Lei n.º 54/2018)."
+    },
     pedagogicalFramework: "Plano Nacional das Artes (PNA) + Taxonomia de Anderson & Krathwohl (Nível 'Criar').",
     rgpdSafetyChecklist: [
-      "Obras de arte no domínio público ou com autorização para fins educativos.",
-      "Processamento seguro sem exposição de dados individuais dos alunos."
+      "Obras de arte no domínio público ou com autorização comprovada para fins educativos.",
+      "Verificação de licenças em repositórios abertos (Wikimedia Commons, Europeana).",
+      "Processamento seguro sem exposição de dados individuais dos estudantes."
     ]
   }
 ];
@@ -1085,28 +1335,38 @@ export const BIBLIOGRAPHY: BibliographyEntry[] = [
     title: "Multimedia Learning (3.ª ed.)",
     source: "Cambridge University Press",
     category: "Teoria Cognitiva & Multimédia",
-    relevanceToEducation: "Obra de referência sobre a aprendizagem multimédia e os princípios de conceção de materiais que combinam palavras e imagens.",
-    criticalAnalysis: "A obra apresenta princípios para conceber materiais multimédia considerando a seleção, a organização e a integração de palavras e imagens. Estes princípios orientam decisões de conceção, mas não são proibições absolutas. A necessidade de legendas para acessibilidade e de texto de apoio deve ser considerada separadamente da redundância de texto decorativo ou idêntico à narração."
+    relevanceToEducation: "A terceira edição de 2020 apresenta 15 princípios de conceção de materiais de aprendizagem multimédia, fundamentados em investigação experimental sobre a aprendizagem com palavras e imagens.",
+    criticalAnalysis: "A obra apresenta princípios fundamentados para orientar a conceção de materiais multimédia. A sua aplicação deve considerar o objetivo de aprendizagem, as características dos alunos, os conhecimentos prévios e as necessidades de acessibilidade. Os princípios não devem ser transformados em proibições absolutas de utilização de texto, legendas ou imagens."
   },
   {
-    citation: "OECD. (2023). Digital Education Outlook 2023: Towards an effective digital education ecosystem. OECD Publishing. https://doi.org/10.1787/b41d667e-en",
+    citation: "OECD. (2023). OECD Digital Education Outlook 2023: Towards an Effective Digital Education Ecosystem. OECD Publishing. https://doi.org/10.1787/c74f03de-en",
     author: "OCDE",
     year: 2023,
-    title: "Digital Education Outlook 2023: Towards an Effective Digital Education Ecosystem",
+    title: "OECD Digital Education Outlook 2023: Towards an Effective Digital Education Ecosystem",
     source: "OECD Publishing",
     category: "Políticas & Ética de IA",
-    relevanceToEducation: "Relatório oficial da OCDE que define as competências digitais dos professores e a necessidade de equidade no acesso aos recursos tecnológicos.",
+    relevanceToEducation: "Relatório que analisa os ecossistemas nacionais de educação digital, incluindo infraestruturas, plataformas, governação, utilização de dados e a forma como os países mobilizam as competências digitais dos docentes e a Inteligência Artificial.",
     criticalAnalysis: "Adverte para o perigo de aprofundamento das desigualdades educativas se as escolas dependerem de ferramentas pagas que as famílias mais desfavorecidas não podem suportar."
   },
   {
-    citation: "Regulamento (UE) 2024/1689 do Parlamento Europeu e do Conselho, de 13 de junho de 2024, que cria regras harmonizadas em matéria de inteligência artificial (Regulamento da Inteligência Artificial - EU AI Act). Jornal Oficial da União Europeia, L 2024/1689.",
+    citation: "OECD. (2026). OECD Digital Education Outlook 2026: Exploring Effective Uses of Generative AI in Education. OECD Publishing. https://doi.org/10.1787/062a7394-en",
+    author: "OCDE",
+    year: 2026,
+    title: "OECD Digital Education Outlook 2026: Exploring Effective Uses of Generative AI in Education",
+    source: "OECD Publishing",
+    category: "Políticas & Ética de IA",
+    relevanceToEducation: "O relatório analisa oportunidades e riscos da utilização de Inteligência Artificial generativa na educação, com especial atenção à intencionalidade pedagógica, à autonomia dos alunos, à qualidade da aprendizagem e ao papel do professor.",
+    criticalAnalysis: "A utilização de ferramentas de IA generativa pode melhorar o desempenho imediato numa tarefa sem produzir necessariamente ganhos de aprendizagem. Quando o aluno delega na ferramenta operações cognitivas essenciais, pode diminuir o envolvimento metacognitivo e a consolidação do conhecimento. A IA deve ser integrada com objetivos pedagógicos claros, preservando o esforço intelectual e a intervenção do aluno."
+  },
+  {
+    citation: "Regulamento (UE) 2024/1689 do Parlamento Europeu e do Conselho, alterado pelo Regulamento (UE) 2026/1744, relativo a regras harmonizadas em matéria de inteligência artificial (Regulamento da Inteligência Artificial - EU AI Act).",
     author: "União Europeia",
     year: 2024,
-    title: "Regulamento da Inteligência Artificial (EU AI Act - Regulamento 2024/1689)",
+    title: "Regulamento da Inteligência Artificial (Regulamento 2024/1689 e Regulamento de Simplificação 2026/1744)",
     source: "Jornal Oficial da União Europeia",
     category: "Políticas & Ética de IA",
-    relevanceToEducation: "O primeiro quadro legal vinculativo do mundo sobre inteligência artificial, com impacto direto nas escolas europeias.",
-    criticalAnalysis: "O artigo 50.º do Regulamento (UE) 2024/1689 distingue as obrigações dos fornecedores e dos responsáveis pela utilização de determinados sistemas e conteúdos de Inteligência Artificial. O n.º 2 estabelece obrigações de marcação técnica dos resultados sintéticos para os fornecedores dos sistemas abrangidos. O n.º 4 prevê, nas condições aí estabelecidas, a divulgação de conteúdos que constituam deepfakes e de determinados textos gerados ou manipulados por IA e publicados sobre assuntos de interesse público sem revisão ou controlo editorial humano. A divulgação dos deepfakes deve ser clara e percetível. Para conteúdos manifestamente artísticos, criativos, satíricos ou ficcionais, a informação deve ser apresentada de forma adequada, sem prejudicar a fruição da obra. Não se trata de uma obrigação universal de inserir uma marca visual permanente em todos os vídeos gerados por IA."
+    relevanceToEducation: "O primeiro quadro legal vinculativo do mundo sobre inteligência artificial, atualizado em 2026 para simplificação da literacia em IA e disposições de conformidade.",
+    criticalAnalysis: "Em 2026, o Regulamento (UE) 2024/1689 foi alterado pelo Regulamento (UE) 2026/1744, relativo à simplificação da aplicação das regras harmonizadas em matéria de Inteligência Artificial. Entre as alterações encontra-se a reformulação do artigo 4.º, relativo à literacia em IA: exige que fornecedores e responsáveis pela implantação adotem medidas para promover a literacia em IA das pessoas envolvidas na operação e utilização dos sistemas, considerando o contexto e as pessoas afetadas. O Regulamento 2026/1744 acrescenta ainda uma disposição transitória para determinados fornecedores de sistemas que geram conteúdos sintéticos que já estavam no mercado antes de 2 de agosto de 2026, estabelecendo 2 de dezembro de 2026 como prazo para tomarem as medidas necessárias à conformidade com o artigo 50.º, n.º 2. A aplicação destas disposições deve ser consultada no texto consolidado do Regulamento. Esta nota tem caráter informativo e não constitui aconselhamento jurídico."
   },
   {
     citation: "Sweller, J. (2011). Cognitive load theory. In J. P. Mestre & B. H. Ross (Eds.), The psychology of learning and motivation: Cognition in education (Vol. 55, pp. 37–76). Academic Press. https://doi.org/10.1016/B978-0-12-387691-1.00002-8",
@@ -1119,14 +1379,14 @@ export const BIBLIOGRAPHY: BibliographyEntry[] = [
     criticalAnalysis: "Fundamental para os professores perceberem que 'mais tecnologia e mais efeitos de vídeo' não significam mais aprendizagem; muitas vezes geram apenas ruído e dispersão mental."
   },
   {
-    citation: "UNESCO. (2023). Guidance for generative AI in education and research. UNESCO Publishing. https://doi.org/10.54675/CSWS2836",
+    citation: "UNESCO. (2023). Guidance for generative AI in education and research. UNESCO Publishing. https://doi.org/10.54675/EWZM9535",
     author: "UNESCO",
     year: 2023,
     title: "Guidance for Generative AI in Education and Research",
     source: "UNESCO Publishing",
     category: "Políticas & Ética de IA",
     relevanceToEducation: "Linhas orientadoras mundiais da UNESCO para proteger a infância e os dados escolares perante a vaga de ferramentas generativas comerciais.",
-    criticalAnalysis: "O documento apresenta orientações e recomendações para a utilização da Inteligência Artificial generativa na educação e na investigação, abordando questões relacionadas com a adequação etária, a proteção de dados, a supervisão humana e a governação. Qualquer referência à idade de 13 anos deve ser identificada como recomendação do documento, e não como idade mínima geral estabelecida pela legislação portuguesa ou pelos termos de todos os fornecedores."
+    criticalAnalysis: "O documento discute a necessidade de estabelecer limites etários adequados para a utilização independente de plataformas de IA generativa. Apresenta os 13 anos como limiar mínimo recomendado no contexto da sua orientação e refere que alguns intervenientes defendem um limite de 16 anos. Esta é uma recomendação de política educativa do documento, não uma idade mínima legal universal em Portugal nem uma substituição dos termos de utilização definidos por cada fornecedor."
   }
 ];
 

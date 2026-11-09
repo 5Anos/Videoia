@@ -2,5 +2,5 @@
   "name": "IA na Educação - Ferramentas de Vídeo (Módulo 3)",
   "description": "Plataforma de formação para professores sobre Inteligência Artificial na Educação: Ferramentas de Vídeo, Avatares, Prompts Pedagógicos e Atividades Práticas por Carla Oliveira.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

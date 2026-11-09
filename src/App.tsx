@@ -19,6 +19,14 @@ export default function App() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const [toolFilterFromAdvantage, setToolFilterFromAdvantage] = useState<string | undefined>(undefined);
 
+  const handleTabChange = (tab: string) => {
+    if (tab !== activeTab) {
+      setSearchQuery('');
+      setToolFilterFromAdvantage(undefined);
+    }
+    setActiveTab(tab);
+  };
+
   const handleOpenGenerator = (prompt?: EducationalPrompt) => {
     setSelectedPromptForGenerator(prompt || null);
     setIsGeneratorOpen(true);
@@ -26,26 +34,24 @@ export default function App() {
 
   const handleSelectToolFromAdvantage = (toolName: string) => {
     setToolFilterFromAdvantage(toolName);
+    setSearchQuery('');
     setActiveTab('tools');
   };
 
   return (
-    <div className="min-h-screen bg-[#071321] text-stone-100 flex font-sans antialiased selection:bg-[#FACC15] selection:text-[#071321]">
+    <div className="min-h-screen bg-[#041D3A] text-slate-800 flex font-sans antialiased selection:bg-[#FACC15] selection:text-[#041D3A]">
       {/* Left Sidebar Navigation (Desktop Fixed, Mobile Slide-out) */}
       <Sidebar
         activeTab={activeTab}
-        setActiveTab={(tab) => {
-          setActiveTab(tab);
-          setToolFilterFromAdvantage(undefined);
-        }}
+        setActiveTab={handleTabChange}
         onOpenPromptGenerator={() => handleOpenGenerator()}
         isMobileOpen={isMobileSidebarOpen}
         setIsMobileOpen={setIsMobileSidebarOpen}
       />
 
-      {/* Main Workspace (Offset by Sidebar on Desktop) */}
-      <div className="flex-1 lg:ml-64 flex flex-col min-w-0 bg-[#071321]">
-        {/* Top Navigation Bar with Pill Search */}
+      {/* Main Workspace (Offset by Sidebar on Desktop, Blue-Sky Theme Matching Mockup) */}
+      <div className="flex-1 lg:ml-64 flex flex-col min-w-0 bg-[#F0F5FA] text-[#08203E] min-h-screen">
+        {/* Top Navigation Bar with Pill Search, Assistant Trigger and Avatar */}
         <TopNav
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -56,7 +62,7 @@ export default function App() {
         {/* Dynamic Content Views */}
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 space-y-10">
           {activeTab === 'overview' && (
-            <OverviewSection onNavigate={(tab) => setActiveTab(tab)} />
+            <OverviewSection onNavigate={handleTabChange} />
           )}
 
           {activeTab === 'advantages' && (
@@ -89,6 +95,11 @@ export default function App() {
             <BibliographySection />
           )}
         </main>
+
+        {/* Clean Footer without Internal Development Notes */}
+        <footer className="border-t border-[#DCE8F6] bg-white/70 px-4 sm:px-8 py-4 text-center text-xs text-slate-500 font-medium">
+          <p>Autora e Formadora: Carla Oliveira · Formação 2026</p>
+        </footer>
       </div>
 
       {/* Global Interactive Prompt Generator Modal */}

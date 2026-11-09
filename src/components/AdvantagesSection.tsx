@@ -6,15 +6,15 @@ import {
   UserCheck, 
   Sliders, 
   CheckCircle2, 
-  Sparkles, 
-  ArrowRight,
-  ShieldAlert,
-  Clock,
-  Layers,
-  Brain
+  Target,
+  GraduationCap,
+  ShieldCheck,
+  Laptop,
+  BarChart3,
+  Clapperboard,
+  ArrowUpRight
 } from 'lucide-react';
 import { TEACHER_ADVANTAGES, EducationalAdvantage } from '../data/presentationData';
-import teacherStudentImg from '../assets/images/teacher_student_video_collaboration_1794113537076.jpg';
 
 interface AdvantagesSectionProps {
   onSelectTool?: (toolName: string) => void;
@@ -36,56 +36,9 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
   const CurrentIcon = ADVANTAGE_ICONS[currentAdvantage.id] || Video;
 
   return (
-    <div className="space-y-10 animate-in fade-in duration-300">
-      {/* Editorial Header Split with Classroom Collaboration Visual */}
-      <section className="bg-[#0B1E33] rounded-3xl border border-[#143657] p-6 sm:p-10 shadow-xl overflow-hidden">
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-cyan-400 uppercase font-mono">
-              <Layers className="w-4 h-4 text-cyan-400" />
-              <span>Enquadramento pedagógico · Teoria Multimédia de Mayer</span>
-            </div>
-            
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-serif-display leading-tight">
-              5 Vantagens Pedagógicas do Vídeo com IA na Educação
-            </h1>
-            
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
-              Nenhum modelo de difusão substitui a presença atenta e a mediação humana de um professor. 
-              O propósito destas ferramentas é estritamente utilitário: poupar horas de trabalho repetitivo, 
-              diferenciar o ensino para quem tem dificuldades de leitura ou língua e devolver ao docente 
-              o seu bem mais precioso — tempo para estar com os alunos.
-            </p>
-
-            <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
-              <span className="text-cyan-400 font-semibold">5 Pilares Didáticos</span>
-              <span className="text-slate-600">/</span>
-              <span>Conforme CTML (Mayer, 2020)</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-amber-400 font-semibold">Proteção de dados e transparência</span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 relative">
-            <div className="rounded-2xl overflow-hidden border border-[#143657] shadow-lg relative group">
-              <img
-                src={teacherStudentImg}
-                alt="Professora e alunas a reverem projeto de vídeo num tablet na sala de aula"
-                className="w-full h-[240px] sm:h-[280px] object-cover transition-transform duration-500 group-hover:scale-102"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071321]/90 via-black/30 to-transparent" />
-              <div className="absolute bottom-3 left-4 right-4 text-white text-xs">
-                <p className="font-serif-display italic text-slate-200 leading-snug">
-                  "Menos tempo a cortar vídeo, mais tempo a escutar perguntas e a guiar o pensamento crítico dos estudantes."
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Advantage Selector Tabs */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+    <div className="space-y-8 animate-in fade-in duration-300">
+      {/* Advantage Selector Pill Tabs */}
+      <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
         {TEACHER_ADVANTAGES.map((adv) => {
           const Icon = ADVANTAGE_ICONS[adv.id] || Video;
           const isSelected = adv.id === selectedAdvantageId;
@@ -94,146 +47,167 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
             <button
               key={adv.id}
               onClick={() => setSelectedAdvantageId(adv.id)}
-              className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
+              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#FACC15] text-[#071526] border-transparent shadow-lg shadow-amber-400/20 font-bold'
-                  : 'bg-[#0B1E33] hover:bg-[#0E243A] border-[#143657] text-slate-300 hover:text-white'
+                  ? 'bg-[#0966C2] text-white border-[#0966C2] shadow-sm font-bold'
+                  : 'bg-white hover:bg-slate-50 border-[#DCE8F6] text-slate-700 hover:text-[#0966C2]'
               }`}
             >
-              <div className="flex items-center justify-between w-full">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                  isSelected ? 'bg-[#071526] text-[#FACC15]' : 'bg-[#07172A] text-cyan-400 border border-[#143657]'
-                }`}>
-                  <Icon className="w-4.5 h-4.5" />
-                </div>
-                <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${
-                  isSelected ? 'bg-[#071526]/20 text-[#071526]' : 'bg-[#07172A] text-slate-400 border border-[#143657]'
-                }`}>
-                  0{adv.id}
-                </span>
-              </div>
-              <div className={`text-xs sm:text-sm line-clamp-2 leading-snug ${isSelected ? 'font-bold text-[#071526]' : 'font-medium text-slate-200'}`}>
-                {adv.shortTitle || adv.title.replace(/^\d+\.\s*/, '')}
-              </div>
+              <Icon className={`w-4 h-4 ${isSelected ? 'text-amber-300' : 'text-[#0966C2]'}`} />
+              <span>0{adv.id}. {adv.shortTitle || adv.title.replace(/^\d+\.\s*/, '')}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Detailed Card for Selected Advantage */}
-      <section className="bg-[#0B1E33] rounded-3xl border border-[#143657] shadow-xl overflow-hidden">
-        {/* Banner */}
-        <div className="bg-[#07172A] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#143657]">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-950/60 border border-cyan-800/80 flex items-center justify-center text-cyan-300">
-              <CurrentIcon className="w-6 h-6" />
+      {/* Main Banner Card (As in User Attachment Screenshot) */}
+      <section className="bg-gradient-to-r from-[#EBF5FE] via-[#F4F9FE] to-[#E3F1FD] border border-[#CDE3F7] p-6 sm:p-8 rounded-3xl relative overflow-hidden shadow-xs">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+            {/* Blue Rounded Square with Video Camera Icon */}
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#D6EAFE] border border-[#BBDCFB] text-[#0966C2] flex items-center justify-center shrink-0 shadow-xs">
+              <CurrentIcon className="w-7 h-7 sm:w-8 sm:h-8 text-[#0966C2]" />
             </div>
+
             <div>
-              <span className="text-[11px] text-amber-400 font-semibold tracking-wider uppercase font-mono">
-                Pilar de Aplicação Pedagógica 0{currentAdvantage.id} de 05
+              <span className="text-[11px] font-mono font-bold text-[#0966C2] tracking-wider uppercase block">
+                PILAR DE APLICAÇÃO PEDAGÓGICA 0{currentAdvantage.id} DE 05
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5 font-serif-display">
-                {currentAdvantage.title}
-              </h2>
-            </div>
-          </div>
-          <span className="text-xs text-cyan-300 bg-cyan-950/70 px-3.5 py-1.5 rounded-xl border border-cyan-800 font-medium font-mono">
-            Foco na Sala de Aula
-          </span>
-        </div>
-
-        <div className="p-6 sm:p-8 space-y-7">
-          <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal">
-            {currentAdvantage.description}
-          </p>
-
-          {/* Theoretical & Legal Grounding Grid */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#07172A] border border-cyan-800/60 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-400 font-mono">
-                <Brain className="w-4 h-4 text-cyan-400" />
-                <span>Enquadramento Cognitivo (Mayer, 2020)</span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                {currentAdvantage.cognitivePrinciple}
-              </p>
-            </div>
-
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#07172A] border border-amber-800/60 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                <ShieldAlert className="w-4 h-4 text-amber-400" />
-                <span>Proteção de dados e utilização responsável</span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                {currentAdvantage.rgpdNote}
-              </p>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#08203E] font-serif-display mt-0.5">
+                <span className="border-b-4 border-[#FACC15] pb-0.5 inline-block">
+                  {currentAdvantage.title}
+                </span>
+              </h1>
             </div>
           </div>
 
-          {/* 3 Practical Columns */}
-          <div className="grid md:grid-cols-3 gap-6 pt-2">
-            {/* Column 1: O que a IA faz */}
-            <div className="space-y-3 bg-[#07172A] p-5 rounded-2xl border border-[#143657]">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-400 font-mono">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
-                <span>O que a IA Consegue Fazer</span>
-              </div>
-              <ul className="space-y-2.5 pt-1 text-xs text-slate-300">
-                {currentAdvantage.capabilities.map((cap, i) => (
-                  <li key={i} className="flex items-start gap-2 bg-[#0B1E33] p-3 rounded-xl border border-[#143657]">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span className="leading-snug">{cap}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="flex items-center gap-3 self-end lg:self-center">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#BBDCFB] text-[#0966C2] text-xs font-bold shadow-2xs">
+              <Target className="w-3.5 h-3.5 text-[#0966C2]" />
+              <span>Foco na Sala de Aula</span>
+            </span>
 
-            {/* Column 2: Ferramentas de Referência */}
-            <div className="space-y-3 bg-[#07172A] p-5 rounded-2xl border border-[#143657]">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                <Video className="w-4 h-4 text-amber-400" />
-                <span>Ferramentas de Referência</span>
-              </div>
-              <div className="space-y-2.5 pt-1">
-                {currentAdvantage.usefulTools.map((tool, i) => (
-                  <div key={i} className="p-3.5 rounded-xl bg-[#0B1E33] border border-[#143657] shadow-sm">
-                    <div className="font-bold text-xs text-white flex items-center justify-between">
-                      <span className="font-serif-display text-sm">{tool.name}</span>
-                      {onSelectTool && (
-                        <button
-                          onClick={() => onSelectTool(tool.name)}
-                          className="text-[11px] text-cyan-400 hover:text-cyan-300 flex items-center gap-0.5 cursor-pointer font-bold"
-                        >
-                          Ver no catálogo <ArrowRight className="w-2.5 h-2.5" />
-                        </button>
-                      )}
-                    </div>
-                    <p className="text-xs text-slate-300 mt-1 leading-normal">
-                      {tool.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Column 3: Impacto na Prática Docente */}
-            <div className="space-y-3 bg-[#07172A] p-5 rounded-2xl border border-[#143657]">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400 font-mono">
-                <Clock className="w-4 h-4 text-emerald-400" />
-                <span>Impacto na Prática Docente</span>
-              </div>
-              <ul className="space-y-2.5 pt-1 text-xs text-slate-300">
-                {currentAdvantage.teacherBenefits.map((ben, i) => (
-                  <li key={i} className="flex items-start gap-2 bg-[#0B1E33] p-3 rounded-xl border border-[#143657]">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
-                    <span className="font-medium text-slate-200 text-xs leading-relaxed">{ben}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* Blue Clapperboard Graphic Icon */}
+            <div className="w-10 h-10 rounded-xl bg-white/80 border border-[#BBDCFB] flex items-center justify-center text-[#0966C2] shadow-2xs">
+              <Clapperboard className="w-5 h-5 text-[#0966C2]" />
             </div>
           </div>
         </div>
+
+        {/* Ambient Subtle Glow */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-400/10 rounded-full blur-2xl pointer-events-none" />
       </section>
+
+      {/* Introductory Editorial Text */}
+      <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal px-1">
+        {currentAdvantage.description}
+      </p>
+
+      {/* Two Side-by-Side Cards (Mayer Framework & Data Protection) */}
+      <div className="grid md:grid-cols-2 gap-5">
+        {/* Cognitive Framework Card (Soft Blue) */}
+        <div className="bg-[#EAF3FD] border border-[#CEE2F7] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#D6EAFE] text-[#0966C2] flex items-center justify-center shrink-0">
+              <GraduationCap className="w-4 h-4 text-[#0966C2]" />
+            </div>
+            <h2 className="text-xs font-mono font-bold tracking-wider text-[#0B4B82] uppercase">
+              ENQUADRAMENTO COGNITIVO (MAYER, 2020)
+            </h2>
+          </div>
+          <div className="text-xs text-[#132B47] leading-relaxed whitespace-pre-line font-medium">
+            {currentAdvantage.cognitivePrinciple}
+          </div>
+        </div>
+
+        {/* Data Protection Card (Soft Amber / Cream) */}
+        <div className="bg-[#FEF8E7] border border-[#FDE5B5] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#FDECBF] text-[#874A07] flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-4 h-4 text-[#874A07]" />
+            </div>
+            <h2 className="text-xs font-mono font-bold tracking-wider text-[#874A07] uppercase">
+              PROTEÇÃO DE DADOS E UTILIZAÇÃO RESPONSÁVEL
+            </h2>
+          </div>
+          <p className="text-xs text-[#2A1E0E] leading-relaxed font-medium">
+            {currentAdvantage.rgpdNote}
+          </p>
+        </div>
+      </div>
+
+      {/* Three Practical Columns (As in Reference Mockup) */}
+      <div className="grid md:grid-cols-3 gap-5 pt-2">
+        {/* Column 1: O que a IA consegue fazer */}
+        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+              <Target className="w-4 h-4 text-[#0966C2]" />
+              <span>O QUE A IA CONSEGUE FAZER</span>
+            </div>
+            <ul className="space-y-2.5 pt-3">
+              {currentAdvantage.capabilities.map((cap, i) => (
+                <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                  <span className="text-xs text-slate-800 leading-snug">{cap}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Column 2: Ferramentas de referência */}
+        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+              <Laptop className="w-4 h-4 text-[#0966C2]" />
+              <span>FERRAMENTAS DE REFERÊNCIA</span>
+            </div>
+            <div className="space-y-2.5 pt-3">
+              {currentAdvantage.usefulTools.map((tool, i) => (
+                <div key={i} className="p-3.5 rounded-xl bg-white border border-[#DCE8F6] shadow-2xs flex flex-col justify-between gap-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="font-bold text-xs text-[#08203E] font-serif-display">
+                      {tool.name}
+                    </span>
+                    {onSelectTool && (
+                      <button
+                        onClick={() => onSelectTool(tool.name)}
+                        className="bg-[#D7ECFC] hover:bg-[#C2E2FB] text-[#085294] font-bold px-2.5 py-1 rounded-lg text-[11px] inline-flex items-center gap-1 transition-all shrink-0 cursor-pointer"
+                        title={`Ver ${tool.name} no catálogo`}
+                      >
+                        <span>Ver no catálogo</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-600 leading-normal">
+                    {tool.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3: Impacto na prática docente */}
+        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+              <BarChart3 className="w-4 h-4 text-[#0966C2]" />
+              <span>IMPACTO NA PRÁTICA DOCENTE</span>
+            </div>
+            <ul className="space-y-2.5 pt-3">
+              {currentAdvantage.teacherBenefits.map((ben, i) => (
+                <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
+                  <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                  <span className="text-xs text-slate-800 leading-snug">{ben}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
