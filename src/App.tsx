@@ -7,7 +7,6 @@ import { AdvantagesSection } from './components/AdvantagesSection';
 import { ToolsCatalogSection } from './components/ToolsCatalogSection';
 import { PromptsBankSection } from './components/PromptsBankSection';
 import { ActivitiesSection } from './components/ActivitiesSection';
-import { ToolsComparatorSection } from './components/ToolsComparatorSection';
 import { BibliographySection } from './components/BibliographySection';
 
 export default function App() {
@@ -70,10 +69,6 @@ export default function App() {
 
           {activeTab === 'activities' && (
             <ActivitiesSection />
-          )}
-
-          {activeTab === 'comparator' && (
-            <ToolsComparatorSection />
           )}
 
           {activeTab === 'bibliography' && (

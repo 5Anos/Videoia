@@ -6,7 +6,6 @@ import {
   Video, 
   MessageSquare, 
   CheckSquare, 
-  Scale, 
   FileText, 
   Film,
   X
@@ -32,7 +31,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'tools', label: 'Ferramentas de Vídeo', icon: Video },
     { id: 'prompts', label: 'Banco de Prompts', icon: MessageSquare },
     { id: 'activities', label: 'Atividades na Aula', icon: CheckSquare },
-    { id: 'comparator', label: 'Comparador Funcional', icon: Scale },
     { id: 'bibliography', label: 'Bibliografia & Limites', icon: FileText },
   ];
 
