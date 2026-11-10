@@ -11,13 +11,11 @@ import { BibliographySection } from './components/BibliographySection';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('overview');
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const [toolFilterFromAdvantage, setToolFilterFromAdvantage] = useState<string | undefined>(undefined);
 
   const handleTabChange = (tab: string) => {
     if (tab !== activeTab) {
-      setSearchQuery('');
       setToolFilterFromAdvantage(undefined);
     }
     setActiveTab(tab);
@@ -25,7 +23,6 @@ export default function App() {
 
   const handleSelectToolFromAdvantage = (toolName: string) => {
     setToolFilterFromAdvantage(toolName);
-    setSearchQuery('');
     setActiveTab('tools');
   };
 
@@ -39,12 +36,10 @@ export default function App() {
         setIsMobileOpen={setIsMobileSidebarOpen}
       />
 
-      {/* Main Workspace (Offset by Sidebar on Desktop, Blue-Sky Theme Matching Mockup) */}
+      {/* Main Workspace */}
       <div className="flex-1 lg:ml-64 flex flex-col min-w-0 bg-[#F0F5FA] text-[#08203E] min-h-screen">
-        {/* Top Navigation Bar with Pill Search and User Profile */}
+        {/* Mobile Header (Hidden on Desktop) */}
         <TopNav
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
         />
 
@@ -60,15 +55,12 @@ export default function App() {
 
           {activeTab === 'tools' && (
             <ToolsCatalogSection 
-              searchQuery={searchQuery} 
               selectedToolFilter={toolFilterFromAdvantage}
             />
           )}
 
           {activeTab === 'prompts' && (
-            <PromptsBankSection 
-              searchQuery={searchQuery} 
-            />
+            <PromptsBankSection />
           )}
 
           {activeTab === 'activities' && (
@@ -84,7 +76,7 @@ export default function App() {
           )}
         </main>
 
-        {/* Clean Footer without Internal Development Notes */}
+        {/* Clean Footer */}
         <footer className="border-t border-[#DCE8F6] bg-white/70 px-4 sm:px-8 py-4 text-center text-xs text-slate-500 font-medium">
           <p>Autora e Formadora: Carla Oliveira · Formação 2026</p>
         </footer>
