@@ -7,14 +7,14 @@ import {
   Sliders, 
   CheckCircle2, 
   Target,
-  GraduationCap,
-  ShieldCheck,
   Laptop,
   BarChart3,
-  Clapperboard,
-  ArrowUpRight
+  AlertTriangle,
+  Info,
+  ArrowUpRight,
+  Sparkles
 } from 'lucide-react';
-import { TEACHER_ADVANTAGES, EducationalAdvantage } from '../data/presentationData';
+import { TEACHER_ADVANTAGES, TOOLS_CATALOG, EducationalAdvantage } from '../data/presentationData';
 
 interface AdvantagesSectionProps {
   onSelectTool?: (toolName: string) => void;
@@ -37,6 +37,40 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
+      {/* Top Header Card */}
+      <section className="bg-gradient-to-br from-[#08203E] via-[#0B3B60] to-[#0966C2] text-white p-6 sm:p-8 rounded-3xl relative overflow-hidden shadow-md">
+        <div className="relative z-10 max-w-4xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-amber-300 uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Vídeo com IA</span>
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-serif-display tracking-tight text-white">
+            5 Vantagens do Vídeo com IA na Prática Docente
+          </h1>
+
+          <div className="space-y-3 text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
+            <p>
+              A Inteligência Artificial abre novas possibilidades para a criação e edição de vídeos educativos. Desde a produção de videoaulas à legendagem, tradução, criação de avatares e edição automática, existem ferramentas que podem simplificar o trabalho docente e enriquecer os recursos utilizados na aprendizagem.
+            </p>
+            <p>
+              Explore estas possibilidades, conheça as ferramentas e descubra como integrá-las na sua prática pedagógica, sempre com intencionalidade educativa e supervisão do professor.
+            </p>
+          </div>
+        </div>
+
+        {/* Ambient subtle glow */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-sky-400/15 rounded-full blur-3xl pointer-events-none" />
+      </section>
+
+      {/* Introduction Callout */}
+      <div className="bg-[#EBF5FE] border border-[#CDE3F7] rounded-2xl p-4 sm:p-5 text-sm sm:text-base text-[#08203E] font-medium leading-relaxed shadow-2xs flex items-start gap-3">
+        <Info className="w-5 h-5 text-[#0966C2] shrink-0 mt-0.5" />
+        <p>
+          As ferramentas de vídeo com IA podem apoiar a criação, adaptação e edição de recursos educativos. A sua utilidade depende do objetivo pedagógico e da revisão do professor.
+        </p>
+      </div>
+
       {/* Advantage Selector Pill Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
         {TEACHER_ADVANTAGES.map((adv) => {
@@ -47,129 +81,82 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
             <button
               key={adv.id}
               onClick={() => setSelectedAdvantageId(adv.id)}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 isSelected
                   ? 'bg-[#0966C2] text-white border-[#0966C2] shadow-sm font-bold'
                   : 'bg-white hover:bg-slate-50 border-[#DCE8F6] text-slate-700 hover:text-[#0966C2]'
               }`}
             >
               <Icon className={`w-4 h-4 ${isSelected ? 'text-amber-300' : 'text-[#0966C2]'}`} />
-              <span>0{adv.id}. {adv.shortTitle || adv.title.replace(/^\d+\.\s*/, '')}</span>
+              <span>0{adv.id}. {adv.shortTitle}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Main Banner Card (As in User Attachment Screenshot) */}
-      <section className="bg-gradient-to-r from-[#EBF5FE] via-[#F4F9FE] to-[#E3F1FD] border border-[#CDE3F7] p-6 sm:p-8 rounded-3xl relative overflow-hidden shadow-xs">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
-          <div className="flex items-start sm:items-center gap-4 sm:gap-5">
-            {/* Blue Rounded Square with Video Camera Icon */}
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#D6EAFE] border border-[#BBDCFB] text-[#0966C2] flex items-center justify-center shrink-0 shadow-xs">
-              <CurrentIcon className="w-7 h-7 sm:w-8 sm:h-8 text-[#0966C2]" />
-            </div>
-
-            <div>
-              <span className="text-[11px] font-mono font-bold text-[#0966C2] tracking-wider uppercase block">
-                PILAR DE APLICAÇÃO PEDAGÓGICA 0{currentAdvantage.id} DE 05
-              </span>
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-[#08203E] font-serif-display mt-0.5">
-                <span className="border-b-4 border-[#FACC15] pb-0.5 inline-block">
-                  {currentAdvantage.title}
-                </span>
-              </h1>
-            </div>
+      {/* Active Advantage Header Banner */}
+      <section className="bg-white border border-[#DCE8F6] p-6 sm:p-7 rounded-2xl shadow-xs space-y-4">
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#D6EAFE] border border-[#BBDCFB] text-[#0966C2] flex items-center justify-center shrink-0 shadow-2xs">
+            <CurrentIcon className="w-6 h-6 sm:w-7 sm:h-7 text-[#0966C2]" />
           </div>
-
-          <div className="flex items-center gap-3 self-end lg:self-center">
-            {/* Blue Clapperboard Graphic Icon */}
-            <div className="w-10 h-10 rounded-xl bg-white/80 border border-[#BBDCFB] flex items-center justify-center text-[#0966C2] shadow-2xs">
-              <Clapperboard className="w-5 h-5 text-[#0966C2]" />
-            </div>
+          <div>
+            <span className="text-xs font-mono font-bold text-[#0966C2] tracking-wider uppercase block">
+              VANTAGEM 0{currentAdvantage.id} DE 05
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[#08203E] font-serif-display mt-0.5">
+              {currentAdvantage.title}
+            </h2>
           </div>
         </div>
 
-        {/* Ambient Subtle Glow */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-400/10 rounded-full blur-2xl pointer-events-none" />
+        {/* 1. Descrição breve */}
+        <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal pt-1 border-t border-slate-100">
+          {currentAdvantage.description}
+        </p>
       </section>
 
-      {/* Introductory Editorial Text */}
-      <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal px-1">
-        {currentAdvantage.description}
-      </p>
-
-      {/* Two Side-by-Side Cards (Mayer Framework & Data Protection) */}
-      <div className="grid md:grid-cols-2 gap-5">
-        {/* Cognitive Framework Card (Soft Blue) */}
-        <div className="bg-[#EAF3FD] border border-[#CEE2F7] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#D6EAFE] text-[#0966C2] flex items-center justify-center shrink-0">
-              <GraduationCap className="w-4 h-4 text-[#0966C2]" />
-            </div>
-            <h2 className="text-xs font-mono font-bold tracking-wider text-[#0B4B82] uppercase">
-              ENQUADRAMENTO COGNITIVO (MAYER, 2020)
-            </h2>
+      {/* Three Main Practical Columns */}
+      <div className="grid md:grid-cols-3 gap-5">
+        {/* 2. O QUE PERMITE FAZER */}
+        <div className="bg-[#F4F9FE] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+            <Target className="w-4 h-4 text-[#0966C2]" />
+            <span>O QUE PERMITE FAZER</span>
           </div>
-          <div className="text-xs text-[#132B47] leading-relaxed whitespace-pre-line font-medium">
-            {currentAdvantage.cognitivePrinciple}
-          </div>
+          <ul className="space-y-2.5 pt-2 flex-1">
+            {currentAdvantage.capabilities.map((cap, i) => (
+              <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                <span className="text-xs sm:text-sm text-slate-800 leading-snug">{cap}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Data Protection Card (Soft Amber / Cream) */}
-        <div className="bg-[#FEF8E7] border border-[#FDE5B5] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#FDECBF] text-[#874A07] flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4 text-[#874A07]" />
-            </div>
-            <h2 className="text-xs font-mono font-bold tracking-wider text-[#874A07] uppercase">
-              PROTEÇÃO DE DADOS E UTILIZAÇÃO RESPONSÁVEL
-            </h2>
+        {/* 3. FERRAMENTAS PARA EXPERIMENTAR */}
+        <div className="bg-[#F4F9FE] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+            <Laptop className="w-4 h-4 text-[#0966C2]" />
+            <span>FERRAMENTAS PARA EXPERIMENTAR</span>
           </div>
-          <p className="text-xs text-[#2A1E0E] leading-relaxed font-medium">
-            {currentAdvantage.rgpdNote}
-          </p>
-        </div>
-      </div>
+          <div className="space-y-2.5 pt-2 flex-1">
+            {currentAdvantage.usefulTools.map((tool, i) => {
+              const catalogMatch = TOOLS_CATALOG.find(
+                t => t.name.toLowerCase().trim() === tool.name.toLowerCase().trim()
+              );
 
-      {/* Three Practical Columns (As in Reference Mockup) */}
-      <div className="grid md:grid-cols-3 gap-5 pt-2">
-        {/* Column 1: O que a IA consegue fazer */}
-        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
-              <Target className="w-4 h-4 text-[#0966C2]" />
-              <span>O QUE A IA CONSEGUE FAZER</span>
-            </div>
-            <ul className="space-y-2.5 pt-3">
-              {currentAdvantage.capabilities.map((cap, i) => (
-                <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
-                  <span className="text-xs text-slate-800 leading-snug">{cap}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Column 2: Ferramentas de referência */}
-        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
-              <Laptop className="w-4 h-4 text-[#0966C2]" />
-              <span>FERRAMENTAS DE REFERÊNCIA</span>
-            </div>
-            <div className="space-y-2.5 pt-3">
-              {currentAdvantage.usefulTools.map((tool, i) => (
-                <div key={i} className="p-3.5 rounded-xl bg-white border border-[#DCE8F6] shadow-2xs flex flex-col justify-between gap-2">
+              return (
+                <div key={i} className="p-3.5 rounded-xl bg-white border border-[#DCE8F6] shadow-2xs flex flex-col justify-between gap-2.5">
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-bold text-xs text-[#08203E] font-serif-display">
+                    <span className="font-bold text-xs sm:text-sm text-[#08203E] font-serif-display">
                       {tool.name}
                     </span>
-                    {onSelectTool && (
+                    {catalogMatch && onSelectTool && (
                       <button
-                        onClick={() => onSelectTool(tool.name)}
-                        className="bg-[#D7ECFC] hover:bg-[#C2E2FB] text-[#085294] font-bold px-2.5 py-1 rounded-lg text-[11px] inline-flex items-center gap-1 transition-all shrink-0 cursor-pointer"
-                        title={`Ver ${tool.name} no catálogo`}
+                        onClick={() => onSelectTool(catalogMatch.name)}
+                        className="bg-[#D7ECFC] hover:bg-[#C2E2FB] text-[#085294] font-bold px-2 py-1 rounded-lg text-[11px] inline-flex items-center gap-1 transition-all shrink-0 cursor-pointer"
+                        title={`Ver ${catalogMatch.name} no catálogo`}
                       >
                         <span>Ver no catálogo</span>
                         <ArrowUpRight className="w-3 h-3" />
@@ -180,28 +167,49 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
                     {tool.description}
                   </p>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Column 3: Impacto na prática docente */}
-        <div className="bg-[#EAF3FD] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
-              <BarChart3 className="w-4 h-4 text-[#0966C2]" />
-              <span>IMPACTO NA PRÁTICA DOCENTE</span>
-            </div>
-            <ul className="space-y-2.5 pt-3">
-              {currentAdvantage.teacherBenefits.map((ben, i) => (
-                <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
-                  <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
-                  <span className="text-xs text-slate-800 leading-snug">{ben}</span>
-                </li>
-              ))}
-            </ul>
+        {/* 4. VANTAGENS PARA O PROFESSOR */}
+        <div className="bg-[#F4F9FE] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
+            <BarChart3 className="w-4 h-4 text-[#0966C2]" />
+            <span>VANTAGENS PARA O PROFESSOR</span>
           </div>
+          <ul className="space-y-2.5 pt-2 flex-1">
+            {currentAdvantage.teacherBenefits.map((ben, i) => (
+              <li key={i} className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-[#DCE8F6] shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                <span className="text-xs sm:text-sm text-slate-800 leading-snug">{ben}</span>
+              </li>
+            ))}
+          </ul>
         </div>
+      </div>
+
+      {/* 5. ATENÇÃO PEDAGÓGICA */}
+      <div className="bg-[#FEF8E7] border border-[#FDE5B5] rounded-2xl p-5 sm:p-6 shadow-xs space-y-2.5">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-[#FDECBF] text-[#874A07] flex items-center justify-center shrink-0">
+            <AlertTriangle className="w-4 h-4 text-[#874A07]" />
+          </div>
+          <h3 className="text-xs font-mono font-bold tracking-wider text-[#874A07] uppercase">
+            ATENÇÃO PEDAGÓGICA
+          </h3>
+        </div>
+        <p className="text-xs sm:text-sm text-[#2A1E0E] leading-relaxed font-medium pl-10 sm:pl-10.5">
+          {currentAdvantage.pedagogicalNote}
+        </p>
+      </div>
+
+      {/* General Final Note */}
+      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2.5">
+        <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+        <p className="leading-relaxed">
+          As funcionalidades podem variar consoante a ferramenta, a versão, o idioma, a conta e o plano. Confirme as condições de utilização antes de planificar a atividade.
+        </p>
       </div>
     </div>
   );

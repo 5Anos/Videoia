@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { 
   ExternalLink, 
   Check, 
-  AlertTriangle, 
-  UserCheck, 
   Info,
   Maximize2,
   X,
   ShieldCheck,
   ShieldAlert,
-  ChevronDown,
-  ChevronUp,
   Compass,
   ArrowRight,
   Sparkles,
@@ -21,7 +17,7 @@ import {
 } from 'lucide-react';
 import { TOOLS_CATALOG, NON_AI_TOOLS, ToolCatalogItem, FreeAccessType } from '../data/presentationData';
 import { matchesSearch } from '../utils/pedagogyLogic';
-import { ToolLogo, ToolShowcaseBanner } from './ToolLogos';
+import { ToolLogo } from './ToolLogos';
 import studioWorkspaceImg from '../assets/images/ai_video_creative_studio_workspace_1794113537764.jpg';
 
 interface ToolsCatalogSectionProps {
@@ -36,14 +32,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedToolModal, setSelectedToolModal] = useState<ToolCatalogItem | null>(null);
   const [activeImageZoom, setActiveImageZoom] = useState<{ url: string; title: string } | null>(null);
-  const [expandedFactChecks, setExpandedFactChecks] = useState<Record<string, boolean>>({});
-
-  const toggleFactCheck = (toolId: string) => {
-    setExpandedFactChecks(prev => ({
-      ...prev,
-      [toolId]: !prev[toolId]
-    }));
-  };
 
   const categories = [
     { id: 'all', label: 'Todas as Ferramentas' },
@@ -108,14 +96,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       targetCategory: 'screen-recording',
       icon: '🖥️',
       note: 'O OBS Studio é especialmente indicado para gravação de ecrã, câmara e áudio. O Clipchamp e o Canva disponibilizam opções de gravação e integração em projetos, conforme a conta e a versão. O OBS não é um editor de vídeo.'
-    },
-    {
-      id: 6,
-      title: 'Quero explorar um gerador comunitário como docente adulto',
-      tools: ['Perchance — geradores comunitários'],
-      targetCategory: 'community-generator',
-      icon: '🧪',
-      note: 'O Perchance é uma plataforma de geradores comunitários com funcionalidades variáveis e termos que restringem a utilização a maiores de 18 anos. Destina-se exclusivamente à exploração individual por docentes adultos; não deve ser utilizado diretamente por alunos.'
     }
   ];
 
@@ -255,7 +235,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
             </div>
           </div>
           <span className="text-xs text-slate-500 font-mono">
-            6 cenários práticos de sala de aula
+            {decisionScenarios.length} cenários práticos de sala de aula
           </span>
         </div>
 
@@ -312,9 +292,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map((tool) => {
-            const isFactCheckOpen = expandedFactChecks[tool.id] || false;
-            const accessBadge = getAccessBadgeInfo(tool.accessType);
-
             return (
               <div 
                 key={tool.id}
@@ -329,16 +306,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                           <ToolLogo toolId={tool.id} size="md" className="w-full h-full" />
                         </div>
                         <div>
-                          <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                            {tool.badge && (
-                              <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-[#FEF8E7] text-[#92400E] border border-[#FDE5B5] font-mono">
-                                {tool.badge}
-                              </span>
-                            )}
-                            <span className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-semibold border ${accessBadge.style}`}>
-                              {accessBadge.label}
-                            </span>
-                          </div>
                           <h2 className="text-lg font-bold text-[#08203E] group-hover:text-[#0284C7] transition-colors font-serif-display">
                             {tool.name}
                           </h2>
@@ -378,8 +345,8 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                     )}
                   </div>
 
-                  {/* Screenshots or Official Branded Showcase Banner */}
-                  {tool.screenshots && tool.screenshots.length > 0 ? (
+                  {/* Screenshots if available */}
+                  {tool.screenshots && tool.screenshots.length > 0 && (
                     <div className="relative bg-[#041D3A] aspect-video overflow-hidden">
                       <img 
                         src={tool.screenshots[0].url} 
@@ -395,8 +362,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                         <Maximize2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                  ) : (
-                    <ToolShowcaseBanner toolId={tool.id} toolName={tool.name} category={tool.category} />
                   )}
 
                   {/* Badges / Key Specs */}
@@ -449,51 +414,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                       )}
                     </div>
 
-                    {/* Fact Check Toggle Drawer */}
-                    <div className="pt-2 border-t border-[#EEF2F6]">
-                      <button
-                        onClick={() => toggleFactCheck(tool.id)}
-                        className="w-full flex items-center justify-between py-2 text-xs font-bold text-[#08203E] hover:text-[#0284C7] cursor-pointer"
-                      >
-                        <span className="flex items-center gap-1.5 font-mono text-[11px] text-[#0B4B82]">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Auditoria Pedagógica & Fact-Check</span>
-                        </span>
-                        {isFactCheckOpen ? (
-                          <ChevronUp className="w-4 h-4 text-[#0B4B82]" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4 text-slate-400" />
-                        )}
-                      </button>
-
-                      {isFactCheckOpen && (
-                        <div className="mt-2 space-y-2.5 text-xs animate-in fade-in duration-150">
-                          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-1">
-                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase text-emerald-800">
-                              <Check className="w-3 h-3" />
-                              <span>O que é Realidade Comprovada:</span>
-                            </div>
-                            <p className="text-[11px] text-emerald-800 leading-snug">{tool.factCheckStatus.whatIsFact}</p>
-                          </div>
-
-                          <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 space-y-1">
-                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase text-amber-800">
-                              <AlertTriangle className="w-3 h-3" />
-                              <span>Mito / Exagero de Marketing:</span>
-                            </div>
-                            <p className="text-[11px] text-amber-800 leading-snug">{tool.factCheckStatus.whatIsMisleading}</p>
-                          </div>
-
-                          <div className="p-3 rounded-xl bg-[#EAF3FD] border border-[#CEE2F7] text-[#08203E] space-y-1">
-                            <div className="font-bold flex items-center gap-1 font-mono text-[10px] uppercase text-[#0B4B82]">
-                              <UserCheck className="w-3 h-3" />
-                              <span>Parecer para Professores:</span>
-                            </div>
-                            <p className="text-[11px] leading-snug text-[#1E293B]">{tool.factCheckStatus.teacherVerdict}</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
                   </div>
                 </div>
 

@@ -13,8 +13,7 @@ export interface EducationalAdvantage {
   capabilities: string[];
   usefulTools: { name: string; description: string }[];
   teacherBenefits: string[];
-  cognitivePrinciple: string;
-  rgpdNote: string;
+  pedagogicalNote: string;
 }
 
 export interface EducationalPrompt {
@@ -198,120 +197,113 @@ export const MODULE_OVERVIEW = {
 export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
   {
     id: 1,
-    title: "1. Criar Videoaulas Explicativas Sem Precisar de Estúdio",
-    shortTitle: "Videoaulas em Minutos",
-    description: "As ferramentas de geração de vídeo podem apoiar a criação de rascunhos audiovisuais a partir de instruções escritas e materiais de referência. O professor deve rever o guião, as imagens, a narração e a informação antes de utilizar o vídeo.",
+    title: "1. Criar videoaulas",
+    shortTitle: "Videoaulas",
+    description: "Permite preparar vídeos explicativos a partir de um texto, guião ou apresentação, recorrendo a imagens, narração e, em algumas ferramentas, apresentadores virtuais.",
     capabilities: [
-      "Algumas ferramentas permitem criar rascunhos audiovisuais a partir de instruções escritas ou guiões. A estrutura das cenas, a narração e a fidelidade ao texto dependem da ferramenta e devem ser revistas pelo professor.",
-      "Algumas ferramentas disponibilizam síntese de voz. A língua, a variante do Português e a qualidade da locução dependem do serviço e do modelo utilizados e devem ser confirmadas antes da utilização. O professor pode optar por gravar a própria voz.",
-      "Criar clipes curtos ou montar um vídeo final com a duração definida pelo professor. A duração e a sequência dependem da ferramenta e podem exigir edição posterior.",
-      "Gravar explicações uma única vez e reutilizá-las com alunos que faltaram ou precisam de reforço."
+      "Transformar um texto ou guião num rascunho de vídeo.",
+      "Criar explicações narradas com voz sintética ou gravação do próprio professor.",
+      "Preparar vídeos curtos para introduzir, explicar ou rever conteúdos."
     ],
     usefulTools: [
-      { name: "InVideo AI", description: "Pode apoiar a criação de um rascunho audiovisual a partir de instruções escritas ou guiões." },
-      { name: "CapCut", description: "Edição simples, legendas automáticas e recursos visuais." },
-      { name: "Canva para Educação", description: "Perfeito para integrar vídeos e animações em apresentações já habituais na escola." }
+      { name: "Synthesia", description: "Criar vídeos com apresentadores virtuais a partir de guiões." },
+      { name: "HeyGen", description: "Criar vídeos com avatares e narração gerada por IA." },
+      { name: "Pictory", description: "Apoiar a transformação de textos ou conteúdos longos em vídeos." }
     ],
     teacherBenefits: [
-      "Pode reduzir algumas tarefas de preparação técnica e edição, libertando tempo para a planificação pedagógica.",
-      "Permite criar uma videoteca de apoio que os alunos podem consultar ao seu próprio ritmo em casa (sala de aula invertida).",
-      "Reduz a ansiedade de quem não se sente confortável a expor a sua própria imagem em vídeo."
+      "Reduzir parte do tempo necessário à gravação e montagem.",
+      "Disponibilizar explicações para consulta e revisão ao ritmo dos alunos.",
+      "Reutilizar e atualizar recursos sempre que necessário."
     ],
-    cognitivePrinciple: "Princípio da Modalidade de Mayer: a combinação de imagens relevantes com explicação oral pode apoiar a aprendizagem. A sua eficácia depende da organização da informação, da complexidade do conteúdo e dos conhecimentos prévios dos alunos.",
-    rgpdNote: "Não introduza dados pessoais de alunos, nomes, classificações ou situações identificáveis em ferramentas externas que não estejam aprovadas para essa finalidade. Privilegie exemplos fictícios, anonimização e minimização dos dados."
+    pedagogicalNote: "O vídeo deve responder a um objetivo de aprendizagem claro. O professor deve rever o guião, as imagens, a narração e a duração antes de o partilhar."
   },
   {
     id: 2,
-    title: "2. Legendar e Tornar os Materiais Acessíveis a Todos (DUA)",
-    shortTitle: "Inclusão e Acessibilidade",
-    description: "Numa turma típica de 25 ou 28 alunos, temos alunos que leem devagar, alunos com défice auditivo e, cada vez mais em Portugal, alunos recém-chegados de outros países que ainda não dominam a nossa língua. As funcionalidades de legendagem, transcrição e tradução podem apoiar o acesso à informação, mas não garantem, por si só, a inclusão de todos os alunos.",
+    title: "2. Legendar, traduzir e dobrar vídeos",
+    shortTitle: "Legendas e tradução",
+    description: "Permite criar legendas e transcrições, traduzir o texto e, em algumas ferramentas, gerar uma locução noutra língua para um vídeo existente.",
     capabilities: [
-      "Algumas ferramentas permitem gerar legendas automáticas. A sincronização, a pontuação e a identificação de termos científicos devem ser revistas pelo professor.",
-      "Corrigir rapidamente no texto palavras técnicas ou vocabulário científico mal transcrito.",
-      "Algumas ferramentas disponibilizam tradução ou dobragem automática para idiomas selecionados. A disponibilidade varia e o resultado deve ser revisto por alguém com conhecimento da língua e do conteúdo.",
-      "Produzir materiais com suporte bimodal (áudio + texto simultâneo) que apoiam a literacia."
+      "Gerar legendas automáticas e transcrições de fala.",
+      "Corrigir palavras mal reconhecidas, pontuação e termos específicos da disciplina.",
+      "Traduzir legendas e, quando disponível, gerar dobragem ou sincronização da voz."
     ],
     usefulTools: [
-      { name: "CapCut", description: "Editor de vídeo com funcionalidades de edição e recursos de IA. A disponibilidade e a qualidade das ferramentas de reconhecimento de fala e legendagem devem ser confirmadas na versão utilizada." },
-      { name: "Microsoft Clipchamp", description: "A Microsoft disponibiliza um plano gratuito na versão pessoal do Clipchamp. As funcionalidades e as condições das contas escolares ou profissionais dependem da licença utilizada." }
+      { name: "Descript", description: "Apoiar a edição de áudio e vídeo através da transcrição." },
+      { name: "Kapwing AI", description: "Apoiar a criação de legendas, tradução e edição de vídeo." },
+      { name: "HeyGen Video Translate", description: "Criar versões traduzidas com dobragem por IA, quando disponível." }
     ],
     teacherBenefits: [
-      "A legendagem e a disponibilização de alternativas textuais podem apoiar a acessibilidade, mas não significam, por si só, que a atividade cumpra os princípios do DUA.",
-      "A tradução automática pode apoiar a compreensão inicial, mas deve ser revista e adaptada ao contexto linguístico e disciplinar.",
-      "Apoio direto a alunos com dificuldades de concentração ou processamento auditivo."
+      "Disponibilizar uma versão escrita do conteúdo falado.",
+      "Preparar versões linguísticas de um recurso.",
+      "Facilitar a consulta e a compreensão dos vídeos por alunos com diferentes necessidades linguísticas ou de acesso."
     ],
-    cognitivePrinciple: "Princípio da Redundância de Mayer: a apresentação simultânea de gráficos, narração e texto impresso idêntico pode, em determinadas condições, aumentar a carga de processamento. Este princípio não justifica retirar legendas necessárias à acessibilidade. É importante distinguir legendas de acessibilidade de texto redundante utilizado como elemento visual.",
-    rgpdNote: "A gravação da voz do professor é um dado pessoal. Em ferramentas externas, utilize ferramentas institucionais da escola sempre que possível."
+    pedagogicalNote: "Legendas, transcrições e traduções automáticas podem conter erros. Rever a sincronização, a pontuação, os termos técnicos e o sentido da mensagem. As legendas podem apoiar a acessibilidade, mas não garantem, por si só, uma abordagem DUA."
   },
   {
     id: 3,
-    title: "3. Transformar Aulas ou Gravações Longas em Pílulas Curtas",
-    shortTitle: "Pílulas e Resumos Curtos",
-    description: "Uma gravação extensa pode dificultar a localização de uma explicação específica. A criação de excertos com objetivos claros pode facilitar a consulta e a revisão, desde que os segmentos mantenham o contexto necessário.",
+    title: "3. Transformar vídeos longos em resumos e excertos curtos",
+    shortTitle: "Resumos e excertos",
+    description: "A IA pode ajudar a identificar ideias principais e a selecionar momentos de uma gravação extensa, permitindo preparar resumos e excertos mais curtos para consulta ou revisão.",
     capabilities: [
-      "Alguns editores permitem pesquisar uma transcrição e localizar excertos de vídeo. Esta funcionalidade depende da ferramenta, da versão e do plano.",
-      "Os silêncios, pausas ou momentos de espera podem ser cortados manualmente ou através de funcionalidades assistidas, quando disponíveis. A edição deve preservar o contexto necessário à compreensão.",
-      "A criação de clipes curtos e a atribuição automática de títulos dependem das funcionalidades de cada ferramenta. O professor deve rever a seleção dos excertos e acrescentar ou corrigir os títulos.",
-      "Disponibilizar pequenos clipes didáticos antes de começar um novo capítulo para despertar o interesse."
+      "Gerar um resumo inicial com base no vídeo ou na transcrição.",
+      "Identificar momentos relevantes e criar excertos curtos por tema.",
+      "Sugerir títulos e destaques para organizar os excertos."
     ],
     usefulTools: [
-      { name: "CapCut", description: "Algumas versões e planos disponibilizam funcionalidades de edição assistida por transcrição. Quando essa opção não estiver disponível, a edição pode ser realizada através da linha temporal." },
-      { name: "InVideo AI", description: "O InVideo AI pode apoiar a preparação de um rascunho audiovisual a partir de texto fornecido pelo utilizador. O resumo, a seleção das imagens e a duração final devem ser revistos pelo professor." }
+      { name: "Opus Clip", description: "Identificar momentos de um vídeo e preparar clipes curtos." },
+      { name: "Pictory", description: "Apoiar a criação de vídeos-resumo a partir de conteúdos fornecidos." },
+      { name: "Descript", description: "Editar vídeo através da transcrição e selecionar excertos." }
     ],
     teacherBenefits: [
-      "Materiais organizados por tema ou conceito, facilitando a consulta de partes específicas.",
-      "Fácil consulta rápida no telemóvel antes de fichas de avaliação e momentos de síntese.",
-      "Possibilidade de reutilizar e disponibilizar excertos revistos, adequados aos objetivos de cada atividade."
+      "Facilitar a localização de explicações numa gravação extensa.",
+      "Preparar materiais breves para retomar conceitos e apoiar a revisão.",
+      "Partilhar excertos em plataformas de aprendizagem, como Teams, Moodle ou Classroom."
     ],
-    cognitivePrinciple: "Princípio da Segmentação de Mayer: a informação pode ser organizada em partes significativas, permitindo ao aluno controlar o ritmo, pausar e rever. O benefício depende do conteúdo e da forma como os segmentos são estruturados.",
-    rgpdNote: "Não carregue gravações com rostos, vozes, nomes ou outros dados identificáveis de alunos em ferramentas externas que não estejam aprovadas para essa finalidade. Sempre que possível, utilize gravações sem identificação de alunos, materiais anonimizados ou exemplos fictícios e confirme as condições de tratamento com a escola."
+    pedagogicalNote: "Confirmar se o resumo mantém as ideias essenciais e se cada excerto conserva o contexto. Um vídeo mais curto não é necessariamente mais claro ou mais adequado à aprendizagem."
   },
   {
     id: 4,
-    title: "4. Apresentadores Virtuais para Manter a Consistência e Proximidade",
-    shortTitle: "Avatares Pedagógicos",
-    description: "Um avatar virtual pode parecer artificial à primeira vista, mas quando bem utilizado é uma ferramenta complementar: serve para dar as boas-vindas a um módulo, colocar uma questão desafiadora ou simular uma dramatização com uma figura histórica.",
+    title: "4. Criar avatares digitais do professor",
+    shortTitle: "Avatares digitais",
+    description: "Permite preparar uma representação digital do professor para apresentar conteúdos a partir de um guião. Depois de criado o avatar, algumas ferramentas permitem produzir novas versões sem voltar a gravar toda a apresentação.",
     capabilities: [
-      "Criar uma personagem virtual que lê as instruções de um trabalho com clareza e ritmo pausado.",
-      "Algumas ferramentas permitem construir apresentações ou diálogos com dois ou mais avatares, dependendo do modelo e das funcionalidades disponíveis.",
-      "Quando a ferramenta permite guardar e reutilizar um avatar ou uma voz, o docente pode procurar manter alguma consistência entre materiais. Essa continuidade não é garantida em todos os planos ou modelos.",
-      "Preparar comunicações breves e avisos pedagógicos sem necessidade de montagem de estúdio."
+      "Criar um avatar a partir da própria imagem e, quando disponível, da voz do professor.",
+      "Gerar vídeos de apresentação a partir de textos ou guiões.",
+      "Atualizar uma explicação alterando o guião, sem repetir toda a gravação."
     ],
     usefulTools: [
-      { name: "Vidnoz AI", description: "Algumas funcionalidades permitem criar apresentações com avatares e diálogos, de acordo com o modelo e as opções disponibilizadas pela ferramenta." },
-      { name: "HeyGen", description: "Permite criar vídeos com apresentadores virtuais. A qualidade da sincronização labial e a disponibilidade de vozes e idiomas dependem do modelo, da conta e do plano." },
-      { name: "Canva para Educação", description: "Personagens animadas e elementos ilustrativos prontos para apresentações escolares." }
+      { name: "Synthesia Personal Avatar", description: "Criar um avatar pessoal para produzir vídeos de apresentação." },
+      { name: "HeyGen Personal Avatar", description: "Criar um avatar pessoal e gerar vídeos a partir de guiões." }
     ],
     teacherBenefits: [
-      "Permite atualizar um guião no ano seguinte sem ter de regravar o vídeo do início.",
-      "Pode introduzir uma personagem ou voz diferente, quando essa opção serve o objetivo pedagógico; não se deve presumir um aumento automático da motivação.",
-      "Pode permitir preparar previamente uma mensagem ou explicação narrada, que o professor revê e contextualiza."
+      "Preparar explicações e mensagens breves.",
+      "Atualizar recursos sem regravar cada versão.",
+      "Manter uma apresentação visual consistente entre vários materiais."
     ],
-    cognitivePrinciple: "Princípio da Personalização: as pessoas podem aprender melhor quando a narração utiliza uma linguagem conversacional, em vez de um registo excessivamente formal.\n\nPrincípio da Voz: a investigação clássica de Mayer encontrou vantagens na utilização de uma voz humana padrão em comparação com uma voz de máquina. Contudo, esta evidência não permite afirmar que todas as vozes sintéticas modernas prejudicam a aprendizagem. A qualidade da síntese, a inteligibilidade e o contexto de utilização devem ser considerados.\n\nPrincípio da Imagem: a presença da imagem do apresentador no ecrã não melhora necessariamente a aprendizagem. A inclusão de um avatar ou de uma personagem deve ter uma finalidade pedagógica e não ser apresentada como garantia de maior compreensão, atenção ou motivação.",
-    rgpdNote: "Não criar nem divulgar imagens, vídeos ou gravações de voz sintéticas que representem alunos, professores, colegas ou outras pessoas identificáveis sem autorização, validação institucional e verificação das condições legais aplicáveis. Não clonar a voz ou a aparência de pessoas reais para criar conteúdos que possam ser confundidos com declarações ou registos autênticos."
+    pedagogicalNote: "Utilizar apenas a própria imagem e voz, ou as de outra pessoa com autorização explícita. Informar os destinatários quando o avatar sintético possa ser confundido com uma gravação real. Rever sempre a expressão, a pronúncia e o conteúdo."
   },
   {
     id: 5,
-    title: "5. Edição Intuitiva sem Precisar de Tirar um Curso de Audiovisual",
-    shortTitle: "Edição Descomplicada",
-    description: "A maioria dos professores não tem tempo para aprender programas profissionais pesados como o Premiere ou o DaVinci. Alguns editores permitem realizar operações a partir de uma transcrição, mas essa funcionalidade depende do produto e do plano. Noutros casos, a edição continua a ser feita na linha temporal.",
+    title: "5. Editar vídeos com apoio de IA",
+    shortTitle: "Edição de vídeo",
+    description: "Permite utilizar funcionalidades de IA para simplificar algumas tarefas de edição e melhorar a qualidade técnica de um vídeo. Dependendo da ferramenta, é possível trabalhar com cortes, áudio, imagem ou transcrição.",
     capabilities: [
-      "Eliminar gafes e remover apenas hesitações prolongadas, repetições involuntárias e ruídos que prejudiquem a compreensão, preservando conectores discursivos e formulações relevantes para o raciocínio.",
-      "Equilibrar o volume do microfone e atenuar ruídos da sala com funcionalidades integradas.",
-      "Adicionar transições simples e destaques gráficos sem ter de recorrer a software complexo.",
-      "As opções de exportação, resolução e marca de água dependem da ferramenta, da conta e do plano. Antes de preparar um recurso para partilha, o professor deve confirmar as condições de exportação."
+      "Eliminar pausas excessivas, erros de gravação e segmentos desnecessários, preservando o sentido.",
+      "Reduzir ruído de fundo e ajustar o áudio ou a iluminação, quando a ferramenta disponibiliza essas opções.",
+      "Editar partes do vídeo através da transcrição ou de comandos, nas ferramentas que oferecem essas funcionalidades."
     ],
     usefulTools: [
-      { name: "CapCut", description: "Editor de vídeo com funcionalidades de corte, legendagem e recursos de composição." },
-      { name: "Microsoft Clipchamp", description: "Editor de vídeo com plano pessoal gratuito e suporte institucional dependente da licença da escola." }
+      { name: "Descript", description: "Permitir edição de áudio e vídeo com apoio da transcrição." },
+      { name: "Runway ML", description: "Disponibilizar ferramentas de IA para edição e transformação de vídeo." },
+      { name: "Kapwing AI", description: "Apoiar cortes, legendagem e edição simplificada." },
+      { name: "CapCut", description: "Reunir ferramentas de edição de vídeo e funcionalidades automáticas." }
     ],
     teacherBenefits: [
-      "Algumas tarefas de edição podem tornar-se mais simples, embora o tempo necessário dependa do recurso e da ferramenta.",
-      "Acabamento limpo que transmite cuidado pedagógico e respeito pelo tempo do estudante.",
-      "Redução da frustração técnica que por vezes afasta docentes das tecnologias digitais."
+      "Tornar algumas tarefas de edição mais simples.",
+      "Melhorar a clareza do som e da imagem antes da partilha.",
+      "Libertar tempo para rever o conteúdo e a finalidade pedagógica do vídeo."
     ],
-    cognitivePrinciple: "Princípio da Coerência de Mayer: consiste em excluir elementos, palavras, imagens ou sons que não contribuem para o objetivo da aprendizagem, reduzindo informação desnecessária. A remoção de ruídos de fundo, pausas excessivas ou elementos irrelevantes pode contribuir para este princípio quando melhora a compreensão.\n\nPrincípio da Sinalização de Mayer: consiste em acrescentar pistas visuais ou verbais que orientam a atenção para os elementos essenciais e ajudam a compreender a organização da informação, por exemplo através de setas, destaques de cor, títulos ou palavras-chave.\n\nOs dois princípios são distintos. A simples remoção de hesitações não corresponde, por si só, à aplicação da Sinalização.",
-    rgpdNote: "A existência de uma aplicação instalada no computador não garante que todas as funcionalidades sejam processadas localmente. As funções de IA podem envolver serviços externos. Confirme as condições de processamento, armazenamento e utilização dos ficheiros na documentação aplicável."
+    pedagogicalNote: "Rever o vídeo completo depois da edição. Confirmar que nenhum corte retirou informação essencial ou alterou o significado. Verificar a resolução, o formato de exportação e a eventual marca de água."
   }
 ];
 
