@@ -31,6 +31,36 @@ export interface EducationalPrompt {
   ethicalConsideration?: string;
 }
 
+export type CapabilityTag = 
+  | 'text-to-video'
+  | 'image-to-video'
+  | 'video-editing'
+  | 'avatars'
+  | 'subtitles'
+  | 'screen-recording'
+  | 'text-to-speech'
+  | 'presentation-video'
+  | 'video-to-video'
+  | 'community-generator';
+
+export type FreeAccessType =
+  | 'recurring-free-credits'
+  | 'limited-free-plan'
+  | 'one-time-free-trial'
+  | 'free-editor'
+  | 'education-eligibility'
+  | 'paid-or-unconfirmed'
+  | 'community-experimental';
+
+export interface NonAiToolItem {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  externalUrl: string;
+  pedagogicalUseCases: string[];
+}
+
 export interface ToolCatalogItem {
   id: string;
   name: string;
@@ -48,6 +78,13 @@ export interface ToolCatalogItem {
   requiresEnglishPrompt?: boolean;
   creditSystem?: string;
   screenshots: { name: string; url: string; caption?: string }[];
+  capabilityTags: (CapabilityTag | string)[];
+  accessType?: FreeAccessType | string;
+  officialSources?: {
+    label: string;
+    url: string;
+  }[];
+  lastVerified: string; // '2026-11-09'
   factCheckStatus: {
     freeStatus: '100% Gratuito (Sem Conta)' | 'Gratuito para Escolas' | 'Freemium Útil' | 'Freemium Muito Limitado' | 'Pago / Trial Rápido' | 'Acesso reservado a adultos (18+)' | string;
     minimumAge: string;
@@ -163,16 +200,16 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     id: 1,
     title: "1. Criar Videoaulas Explicativas Sem Precisar de Estúdio",
     shortTitle: "Videoaulas em Minutos",
-    description: "Todos nós sabemos a vergonha que muitos sentem em frente a uma câmara ou as horas perdidas a montar tripés e microfones. A IA permite transformar um resumo ou apontamento numa explicação narrada com clareza, mantendo o foco no conteúdo e não na técnica.",
+    description: "As ferramentas de geração de vídeo podem apoiar a criação de rascunhos audiovisuais a partir de instruções escritas e materiais de referência. O professor deve rever o guião, as imagens, a narração e a informação antes de utilizar o vídeo.",
     capabilities: [
       "Transformar sumários ou textos curriculares em vídeos estruturados com imagem e narração.",
-      "Gerar locuções com voz natural em português de Portugal, sem a necessidade de gravação.",
-      "Criar pequenos vídeos de 1 a 2 minutos, ideais para introduzir, consolidar ou rever conteúdos.",
+      "Algumas ferramentas disponibilizam síntese de voz. A língua, a variante do Português e a qualidade da locução dependem do serviço e do modelo utilizados e devem ser confirmadas antes da utilização. O professor pode optar por gravar a própria voz.",
+      "Criar clipes curtos ou montar um vídeo final com a duração definida pelo professor. A duração e a sequência dependem da ferramenta e podem exigir edição posterior.",
       "Gravar explicações uma única vez e reutilizá-las com alunos que faltaram ou precisam de reforço."
     ],
     usefulTools: [
       { name: "InVideo AI", description: "Pode apoiar a criação de um rascunho audiovisual a partir de instruções escritas ou guiões." },
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Edição simples, legendas automáticas e recursos visuais." },
+      { name: "CapCut", description: "Edição simples, legendas automáticas e recursos visuais." },
       { name: "Canva para Educação", description: "Perfeito para integrar vídeos e animações em apresentações já habituais na escola." }
     ],
     teacherBenefits: [
@@ -189,13 +226,13 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Inclusão e Acessibilidade",
     description: "Numa turma típica de 25 ou 28 alunos, temos alunos que leem devagar, alunos com défice auditivo e, cada vez mais em Portugal, alunos recém-chegados de outros países que ainda não dominam a nossa língua. As funcionalidades de legendagem, transcrição e tradução podem apoiar o acesso à informação, mas não garantem, por si só, a inclusão de todos os alunos.",
     capabilities: [
-      "Criar legendas automáticas sincronizadas e com pontuação adequada em poucos segundos.",
+      "Algumas ferramentas permitem gerar legendas automáticas. A sincronização, a pontuação e a identificação de termos científicos devem ser revistas pelo professor.",
       "Corrigir rapidamente no texto palavras técnicas ou vocabulário científico mal transcrito.",
-      "Traduzir o áudio de uma aula para dezenas de línguas, preservando a clareza e entoação.",
+      "Algumas ferramentas disponibilizam tradução ou dobragem automática para idiomas selecionados. A disponibilidade varia e o resultado deve ser revisto por alguém com conhecimento da língua e do conteúdo.",
       "Produzir materiais com suporte bimodal (áudio + texto simultâneo) que apoiam a literacia."
     ],
     usefulTools: [
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Editor de vídeo com funcionalidades de edição e recursos de IA. A disponibilidade e a qualidade das ferramentas de reconhecimento de fala e legendagem devem ser confirmadas na versão utilizada." },
+      { name: "CapCut", description: "Editor de vídeo com funcionalidades de edição e recursos de IA. A disponibilidade e a qualidade das ferramentas de reconhecimento de fala e legendagem devem ser confirmadas na versão utilizada." },
       { name: "Microsoft Clipchamp", description: "A Microsoft disponibiliza um plano gratuito na versão pessoal do Clipchamp. As funcionalidades e as condições das contas escolares ou profissionais dependem da licença utilizada." }
     ],
     teacherBenefits: [
@@ -218,8 +255,8 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Disponibilizar pequenos clipes didáticos antes de começar um novo capítulo para despertar o interesse."
     ],
     usefulTools: [
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Permite cortar partes do vídeo diretamente selecionando o texto transcrito, sem ter de procurar manualmente na linha de tempo." },
-      { name: "InVideo AI", description: "Resume artigos ou capítulos extensos num vídeo dinâmico de 90 segundos com os tópicos essenciais." }
+      { name: "CapCut", description: "Algumas versões e planos disponibilizam funcionalidades de edição assistida por transcrição. Quando essa opção não estiver disponível, a edição pode ser realizada através da linha temporal." },
+      { name: "InVideo AI", description: "O InVideo AI pode apoiar a preparação de um rascunho audiovisual a partir de texto fornecido pelo utilizador. O resumo, a seleção das imagens e a duração final devem ser revistos pelo professor." }
     ],
     teacherBenefits: [
       "Materiais organizados por tema ou conceito, facilitando a consulta de partes específicas.",
@@ -241,7 +278,7 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Preparar comunicações breves e avisos pedagógicos sem necessidade de montagem de estúdio."
     ],
     usefulTools: [
-      { name: "Vidnoz AI", description: "Permite colocar dois avatares a dialogar na mesma cena, o que é útil para simulações didáticas." },
+      { name: "Vidnoz AI", description: "Algumas funcionalidades permitem criar apresentações com avatares e diálogos, de acordo com o modelo e as opções disponibilizadas pela ferramenta." },
       { name: "HeyGen", description: "Avatares virtuais com sincronização labial avançada, ideal para demonstrações breves do professor." },
       { name: "Canva para Educação", description: "Personagens animadas e elementos ilustrativos prontos para apresentações escolares." }
     ],
@@ -262,10 +299,10 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Eliminar gafes e remover apenas hesitações prolongadas, repetições involuntárias e ruídos que prejudiquem a compreensão, preservando conectores discursivos e formulações relevantes para o raciocínio.",
       "Equilibrar o volume do microfone e atenuar ruídos da sala com funcionalidades integradas.",
       "Adicionar transições simples e destaques gráficos sem ter de recorrer a software complexo.",
-      "Exportar com qualidade em alta definição pronto a partilhar com os alunos."
+      "As opções de exportação, resolução e marca de água dependem da ferramenta, da conta e do plano. Antes de preparar um recurso para partilha, o professor deve confirmar as condições de exportação."
     ],
     usefulTools: [
-      { name: "CapCut (Web, PC e Telemóvel)", description: "Editor de vídeo com funcionalidades de corte, legendagem e recursos de composição." },
+      { name: "CapCut", description: "Editor de vídeo com funcionalidades de corte, legendagem e recursos de composição." },
       { name: "Microsoft Clipchamp", description: "Editor de vídeo com plano pessoal gratuito e suporte institucional dependente da licença da escola." }
     ],
     teacherBenefits: [
@@ -288,10 +325,10 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     category: "Animação 3D Didática de Processo Biológico",
     recommendedTool: "Kling AI / Luma Dream Machine / MiniMax (Hailuo AI)",
     visualStyle: "Animação 3D médica translúcida, com contraste forte entre sangue oxigenado e desoxigenado",
-    pedagogicalObjective: "Visualizar o percurso do sangue no coração humano em movimento contínuo e compreender a sístole e a diástole.",
+    pedagogicalObjective: "Compreender o percurso do sangue na circulação pulmonar e sistémica e identificar, de forma esquemática, as fases de diástole e sístole cardíacas.",
     curriculumCompetence: "Identificar os constituintes do sistema cardiovascular e explicar as funções da circulação pulmonar e sistémica.",
-    promptText: "Cria uma animação médica educativa em 3D, mostrando um corte longitudinal do coração humano a bater em ritmo calmo e realista. Mostra o sangue desoxigenado (representado a azul) a entrar na aurícula direita através das veias cavas, a passar para o ventrículo direito e a ser bombeado para a artéria pulmonar. Em simultâneo, o sangue oxigenado (representado a vermelho vivo) regressa dos pulmões pelas veias pulmonares para a aurícula esquerda, passa para o ventrículo esquerdo e é ejetado pela artéria aorta. Movimento de câmara suave e contínuo, iluminação clara, fundo neutro em tons de cinzento escuro para destacar as válvulas cardíacas em funcionamento. Sem legendas ou textos automáticos na imagem.",
-    ethicalConsideration: "Verificar se as cores convencionais (azul/vermelho) não geram conceções alternativas incorretas nos alunos."
+    promptText: "Cria uma animação educativa esquemática do coração humano, em corte longitudinal, sem legendas ou texto gerado automaticamente. Mostra um ciclo cardíaco em momentos claramente separados.\n\nPrimeiro, durante a diástole ventricular, os ventrículos relaxam e enchem-se de sangue; as válvulas auriculoventriculares estão abertas.\n\nSegundo, a contração das aurículas completa o enchimento ventricular.\n\nTerceiro, durante a sístole ventricular, os ventrículos contraem-se, as válvulas auriculoventriculares fecham, as válvulas semilunares abrem e o sangue é ejetado para a artéria pulmonar e para a aorta.\n\nDistingue o lado direito, que envia sangue menos oxigenado para os pulmões, do lado esquerdo, que envia sangue oxigenado para o corpo.\n\nUtiliza azul e vermelho apenas como convenções gráficas. Estas cores não representam as cores reais do sangue.\n\nMantém as estruturas anatómicas estáveis e não inventes vasos, cavidades ou válvulas. Se a sequência não puder ser representada com rigor, apresenta planos separados, em vez de uma animação contínua enganadora.",
+    ethicalConsideration: "A animação é uma representação esquemática, não uma imagem anatómica de referência. O professor deve validar o percurso do sangue, a abertura e o fecho das válvulas e as fases cardíacas através de um esquema científico adequado. As cores azul e vermelho são convenções gráficas."
   },
   {
     id: 2,
@@ -301,10 +338,10 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     category: "Reconstituição Histórica Cinematográfica",
     recommendedTool: "Luma Dream Machine / Kling AI",
     visualStyle: "Cinematográfico realista de época, iluminação de fim de tarde, nevoeiro suave sobre a água",
-    pedagogicalObjective: "Recriar o ambiente dramático da chegada da armada de Vasco da Gama a Calecute em maio de 1498.",
+    pedagogicalObjective: "Compreender a chegada da expedição de Vasco da Gama a Calecute em 1498 e distinguir a reconstituição visual de um registo histórico.",
     curriculumCompetence: "Reconhecer a importância dos Descobrimentos portugueses e localizar as principais etapas da expansão marítima.",
-    promptText: "Cria uma cena histórica cinematográfica mostrando três naus portuguesas do século XV (naus São Gabriel e São Rafael) a aproximarem-se da costa de Calecute, na Índia, ao entardecer de maio de 1498. As velas de pano cru exibem a Cruz de Cristo com desgaste natural provocado por meses de navegação no Oceano Atlântico e no Índico. O mar está calmo, com ondas pequenas a baterem no casco de madeira escura. Na linha do horizonte avista-se a costa verdejante de Malabar envolta em névoa quente. Câmara em plano geral que se aproxima lentamente da proa da nau capitânia, onde se veem marinheiros vestidos com roupas simples de linho e lã da época a olharem para a costa com alívio e espanto. Iluminação dourada natural de pôr do sol, sem elementos anacrónicos, sem filtros de fantasia e sem texto gerado na imagem.",
-    ethicalConsideration: "Garantir o rigor histórico das embarcações e evitar representações caricaturais das populações locais."
+    promptText: "Cria uma reconstituição visual ilustrativa, não documental, da aproximação de embarcações portuguesas à costa de Calecute, na Índia, em 1498.\n\nRepresenta navios à vela de finais do século XV, marinheiros e a costa de Malabar, com materiais, velas e elementos visuais coerentes com fontes iconográficas e históricas fornecidas pelo professor.\n\nNão indiques um número exato de navios nem atribuas nomes, bandeiras, símbolos, uniformes ou detalhes específicos sem uma imagem ou fonte documental de referência.\n\nNão inventes acontecimentos, diálogos ou reações individuais. Não imites a aparência de uma filmagem histórica autêntica.\n\nNão incluas texto, rótulos ou símbolos gerados automaticamente. Os elementos históricos e a rota serão identificados posteriormente pelo professor com fontes documentais.",
+    ethicalConsideration: "A armada que partiu em 1497 deve ser distinguida da representação da chegada a Calecute. A composição da expedição, os nomes das embarcações e a rota devem ser confirmados em fontes históricas. A animação deve ser identificada como reconstituição visual ilustrativa, nunca como documento de arquivo."
   },
   {
     id: 3,
@@ -314,10 +351,10 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     category: "Paisagem Dinâmica e Meteorologia",
     recommendedTool: "Pika / Kling AI",
     visualStyle: "Documentário de natureza realista em plano aberto sobre paisagem costeira montanhosa",
-    pedagogicalObjective: "Explicar as fases contínuas do ciclo hidrológico: evaporação no oceano, condensação em nuvens sobre as montanhas e precipitação.",
+    pedagogicalObjective: "Compreender os principais processos do ciclo da água: evaporação, condensação, precipitação, escoamento e infiltração.",
     curriculumCompetence: "Compreender o ciclo da água como processo dinâmico e reconhecer a água como recurso vital e finito.",
-    promptText: "Cria uma sequência visual fluida em estilo documentário sobre o ciclo da água numa paisagem de costa atlântica de Portugal Continental. A câmara começa ao nível do mar ao nascer do sol, mostrando o vapor de água a subir suavemente da superfície do oceano por evaporação. Em travelling vertical contínuo, a câmara sobe até à atmosfera onde o vapor condensa, formando nuvens densas cúmulo-nimbo que se deslocam empurradas pelo vento em direção a uma serra costeira. À medida que as nuvens encontram a montanha, escurecem e transformam-se em chuva visível que cai sobre a encosta, alimentando um ribeiro límpido que desce entre rochas de granito e vegetação verdejante. Iluminação natural com transição realista de sol para chuva, sem textos nem diagramas sobrepostos.",
-    ethicalConsideration: "Assegurar que o ciclo é compreendido como contínuo e não linear."
+    promptText: "Cria uma animação educativa esquemática do ciclo da água numa paisagem costeira.\n\nMostra a água líquida à superfície do mar a evaporar. O vapor de água é invisível e não deve ser representado como fumo branco.\n\nMostra a subida do ar húmido, o seu arrefecimento e a condensação em pequenas gotículas de água ou cristais de gelo que contribuem para a formação das nuvens.\n\nRepresenta a precipitação e o regresso da água à superfície através do escoamento superficial e da infiltração no solo, voltando a alimentar rios e oceanos.\n\nInclui, quando adequado ao nível de ensino, a transpiração das plantas como outra entrada de vapor de água na atmosfera.\n\nMantém a sequência cíclica, sem sugerir que todos os processos ocorrem sempre numa única trajetória obrigatória.\n\nNão acrescentes textos, setas, valores ou rótulos automáticos.",
+    ethicalConsideration: "O vapor de água não é visível. As nuvens são constituídas por gotículas de água e/ou cristais de gelo. O ciclo da água representa processos interligados, não uma sequência rígida única. O professor deve validar a sequência e a terminologia."
   },
   {
     id: 4,
@@ -329,8 +366,8 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     visualStyle: "Microscopia confocal de fluorescência com fundo negro e contraste vívido de proteínas",
     pedagogicalObjective: "Compreender as fases da mitose (prófase, metáfase, anáfase e telófase) observando a separação dos cromossomas pelo fuso acromático.",
     curriculumCompetence: "Explicar a importância da mitose na manutenção da estabilidade genética e na renovação dos tecidos biológicos.",
-    promptText: "Cria uma simulação científica realista com a estética de microscopia confocal de fluorescência, mostrando uma célula eucariota animal a passar pela anáfase e telófase da mitose celular. Os cromossomas duplicados estão corados com fluorescência azul ciano brilhante, alinhados inicialmente na placa equatorial da célula. Os microtúbulos do fuso acromático, visíveis em verde-esmeralda delicado, encurtam gradualmente, puxando os cromatídeos-irmãos para os polos opostos da célula com movimento mecânico preciso e suave. Simultaneamente, a membrana celular começa a invaginar no plano equatorial formando o anel contrátil para a citocinese. Fundo negro absoluto de microscopia biológica, iluminação volumétrica nos cromossomas, foco perfeito e sem texto nem etiquetas na imagem.",
-    ethicalConsideration: "Alertar que a fluorescência é uma técnica laboratorial de visualização e não a cor real da matéria biológica viva."
+    promptText: "Cria uma animação científica esquemática de uma célula eucariótica animal a realizar a mitose, apresentando quatro fases clássicas numa sequência ordenada: prófase, metáfase, anáfase e telófase, seguida da citocinese.\n\nNa prófase, os cromossomas condensam-se e o fuso mitótico organiza-se.\n\nNa metáfase, os cromossomas alinham-se na região equatorial.\n\nNa anáfase, as cromátides-irmãs separam-se e deslocam-se para polos opostos.\n\nNa telófase, os núcleos reorganizam-se.\n\nDepois, o citoplasma divide-se por citocinese, originando duas células-filhas.\n\nNão representes a duplicação do ADN como um acontecimento da mitose: essa duplicação ocorre anteriormente, durante a interfase.\n\nNão afirmes que a animação é uma captura microscópica real. Não incluas texto ou etiquetas automáticas; estes elementos serão acrescentados posteriormente, depois de validação científica.",
+    ethicalConsideration: "A animação é um modelo simplificado do processo celular. Não deve ser apresentada como imagem microscópica real nem como representação à escala. Validar a sequência das fases e a distinção entre mitose e citocinese através de uma fonte de Biologia."
   },
   {
     id: 5,
@@ -340,10 +377,10 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     category: "Geologia Dinâmica 3D",
     recommendedTool: "Luma Dream Machine / Kling AI / MiniMax (Hailuo AI)",
     visualStyle: "Corte geológico 3D com magma incandescente e fumo volumétrico hiper-realista",
-    pedagogicalObjective: "Visualizar o processo de subducção de uma placa oceânica sob uma placa continental e a consequente ascensão de magma.",
+    pedagogicalObjective: "Compreender o movimento convergente das placas tectónicas, o processo de subducção e a formação de magma em zonas de subducção.",
     curriculumCompetence: "Relacionar a tectónica de placas com a ocorrência de sismos e erupções vulcânicas no planeta.",
-    promptText: "Cria uma animação geológica realista em corte transversal tridimensional da litosfera terrestre, mostrando o limite convergente entre uma placa oceânica e uma placa continental (zona de subducção). A placa oceânica mais densa, de basalto escuro, mergulha lentamente sob a crosta continental granítica. À medida que a placa desce no manto superior, o aumento de pressão e temperatura provoca a fusão parcial das rochas, gerando bolsas de magma incandescente de cor laranja-fogo que ascendem em plumas através de fraturas na crosta até alimentarem a câmara magmática de um vulcão de cone compósito. O vulcão entra em atividade efusiva, libertando uma coluna densa de cinzas e vapor cinzento-escuro para o céu, com escoadas de lava a descerem pela encosta. Foco nítido nas camadas rochosas, sem diagramas, sem setas e sem texto gerado na imagem.",
-    ethicalConsideration: "Esclarecer que a velocidade real do processo demora milhões de anos e está acelerada para fins didáticos."
+    promptText: "Cria uma animação geológica esquemática em corte transversal de uma zona de subducção, mostrando uma placa oceânica a convergir e a mergulhar sob uma placa continental.\n\nÀ medida que a placa oceânica desce, liberta água e outros fluidos para o manto sobrejacente.\n\nEsses fluidos favorecem a fusão parcial do manto, formando magma que pode ascender através da crosta e alimentar um vulcão.\n\nNão representes a placa subductada como se fundisse integralmente. Não expliques a formação do magma apenas pelo aumento da pressão ou da temperatura da própria placa.\n\nMostra a subducção e a formação de magma em sequências distintas e simplificadas. Não acrescentes setas, legendas ou escalas automáticas, que serão incluídas posteriormente pelo professor.",
+    ethicalConsideration: "A animação é uma representação simplificada de um processo geológico que decorre em escalas temporais muito longas. O professor deve validar a distinção entre placa subductada, cunha mantélica, fluidos libertados e fusão parcial do manto através de uma fonte científica."
   },
   {
     id: 6,
@@ -355,8 +392,8 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     visualStyle: "Apresentador jovem e profissional com bata branca num laboratório escolar limpo e moderno",
     pedagogicalObjective: "Apresentar as regras indispensáveis de segurança no laboratório de ciências de forma próxima, empática e memorável.",
     curriculumCompetence: "Adotar regras de segurança individual e coletiva no trabalho experimental em ambiente laboratorial.",
-    promptText: "Gera um avatar virtual pedagógico com aparência de uma jovem professora de ciências de cerca de 30 anos, com óculos de segurança e bata branca de laboratório abotoada, num ambiente de laboratório escolar luminoso e moderno. A apresentadora olha diretamente para a câmara com uma expressão amigável, acolhedora e confiante, falando em Português de Portugal com dicção impecável e ritmo calmo. Ela gesticula com as mãos de forma natural enquanto explica as três regras de ouro da aula de laboratório de hoje: primeiro, cabelo sempre apanhado e óculos postos; segundo, nunca cheirar nem provar reagentes químicos; terceiro, em caso de derrame, chamar imediatamente o professor sem entrar em pânico. Iluminação suave de estúdio, plano médio cintura-cabeça, sincronização labial perfeita com áudio PT-PT e sem legendas sobrepostas na imagem.",
-    ethicalConsideration: "Verificar se as regras laboratoriais estão alinhadas com o regulamento interno da escola."
+    promptText: "Cria um vídeo de apresentação com uma personagem virtual fictícia e adulta a apresentar três regras gerais de segurança num laboratório escolar.\n\nA personagem utiliza bata e óculos de proteção adequados ao contexto, mantém o cabelo comprido preso e fala de forma clara, num ritmo moderado.\n\nUtiliza o seguinte texto de fala:\n\n«Antes de iniciar uma atividade laboratorial, coloca os equipamentos de proteção indicados pelo professor e prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Se ocorrer um derrame ou outra situação inesperada, não toques no material nem tentes limpar. Afasta-te e informa imediatamente o professor, seguindo as instruções de segurança do laboratório.»\n\nNão afirmes que a voz será necessariamente em Português de Portugal nem que a sincronização labial será perfeita. Se a ferramenta não disponibilizar uma voz adequada, o professor deve gravar ou substituir a narração.\n\nNão utilizar a imagem ou voz de qualquer pessoa real.",
+    ethicalConsideration: "As regras apresentadas são orientações gerais. A versão final deve ser revista de acordo com as fichas de segurança dos produtos, o regulamento do laboratório e os procedimentos definidos pela escola. A personagem é fictícia e não substitui a explicação do professor nem as regras específicas de cada atividade."
   },
   {
     id: 7,
@@ -364,38 +401,38 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "Matemática",
     gradeLevel: "3.º Ciclo (8.º ano)",
     category: "Visualização Geométrica 3D Concreta",
-    recommendedTool: "CapCut (Web, PC e Telemóvel) / InVideo AI",
+    recommendedTool: "GeoGebra para construir e validar o diagrama; Canva para Educação ou Microsoft Clipchamp para montar a animação e a explicação.",
     visualStyle: "Geometria arquitetónica 3D limpa em ambiente urbano com água colorida a fluir",
-    pedagogicalObjective: "Demonstrar visualmente a relação a² + b² = c² através do preenchimento da área do quadrado da hipotenusa pela água dos quadrados dos catetos.",
+    pedagogicalObjective: "Compreender geometricamente o Teorema de Pitágoras através da comparação das áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
     curriculumCompetence: "Deduzir e aplicar o Teorema de Pitágoras na resolução de problemas geométricos do espaço real.",
-    promptText: "Cria uma demonstração visual tridimensional fascinante do Teorema de Pitágoras construída numa praça de cidade moderna. No centro, vê-se um triângulo retângulo esculpido em mármore claro com lados com proporções de 3, 4 e 5 metros. Em cada um dos três lados está construído um tanque quadrado de acrílico transparente com a profundidade de 20 centímetros. Inicialmente, os dois tanques dos catetos (o de lado 3 e o de lado 4) estão completamente cheios de água azul-turquesa brilhante, enquanto o tanque da hipotenusa (de lado 5) está completamente vazio. Com a rotação suave de uma válvula mecânica, a água dos dois catetos escorre através de tubos transparentes para dentro do tanque da hipotenusa, enchendo-o com exatidão até à borda, sem sobrar nem faltar uma única gota. Câmara a circular suavemente em ângulo de 45 graus, iluminação de dia ensolarado, sem números nem texto sobrepostos na imagem.",
-    ethicalConsideration: "A demonstração visual da água apoia a intuição espacial, mas deve ser complementada com a demonstração algébrica rigorosa."
+    promptText: "Utiliza como imagem de referência um diagrama de um triângulo retângulo com lados de comprimento 3, 4 e 5 e os quadrados construídos externamente sobre cada lado. O diagrama deve ser previamente criado e validado pelo professor numa ferramenta geométrica.\n\nCria uma animação simples que permita comparar as áreas dos três quadrados sem alterar a forma, os ângulos, as medidas ou a posição dos elementos.\n\nMantém os quadrados construídos sobre os catetos separados e mostra visualmente que as respetivas áreas, 9 e 16 unidades quadradas, totalizam a área do quadrado construído sobre a hipotenusa, 25 unidades quadradas.\n\nNão geres números, símbolos ou fórmulas no vídeo. Estes elementos serão inseridos no editor depois de verificados.\n\nNão uses água, volumes ou recipientes, porque esta demonstração se baseia na comparação de áreas.\n\nSe o modelo deformar a geometria, rejeita o resultado e utiliza o diagrama estático ou uma animação construída numa ferramenta geométrica.",
+    ethicalConsideration: "As medidas, os ângulos, as áreas e a igualdade matemática devem ser construídos e verificados fora do modelo generativo. A IA pode ser utilizada apenas para movimento ilustrativo, nunca como garantia de rigor geométrico."
   },
   {
     id: 8,
-    title: "8. A Tragédia de Inês de Castro na Quinta das Lágrimas",
+    title: "8. Inês de Castro: História, Lenda e Representação em Os Lusíadas",
     discipline: "Português / Literatura",
     gradeLevel: "3.º Ciclo e Secundário (9.º ao 12.º ano)",
     category: "Evocação Poética e Histórica de Os Lusíadas",
     recommendedTool: "Luma Dream Machine / Kling AI",
-    visualStyle: "Gótico poético do século XIV, luz suave de luar filtrada por salgueiros e água corrente",
-    pedagogicalObjective: "Ilustrar o episódio de Inês de Castro d'Os Lusíadas (Canto III) para apoiar o estudo da lírica camoniana e da memória coletiva.",
+    visualStyle: "Ilustração simbólica e não documental, inspirada no século XIV. Evitar representar como reconstituição factual um cenário cuja relação com o acontecimento é lendária.",
+    pedagogicalObjective: "Analisar o episódio de Inês de Castro no Canto III de Os Lusíadas, distinguindo contexto histórico, construção literária e tradições lendárias associadas ao local.",
     curriculumCompetence: "Interpretar textos literários clássicos reconhecendo temas intemporais, símbolos e figuras de estilo.",
-    promptText: "Cria uma cena poética e atmosférica de época medieval do século XIV inspirada na lenda de Inês de Castro nos jardins da Quinta das Lágrimas, em Coimbra. Uma jovem nobre de porte sereno e olhar melancólico, vestida com um vestido medieval de veludo azul-escuro com bordados de prata e cabelos soltos sobre os ombros, caminha descalça junto à margem de uma fonte de água cristalina rodeada por pedras cobertas de musgo e salgueiros antigos. A luz do luar ilumina suavemente as águas límpidas, revelando no fundo pedras com tonalidades avermelhadas que evocam a lenda das lágrimas de sangue. Ao fundo, por entre a vegetação densa, avista-se a silhueta em pedra do Mosteiro de Santa Clara-a-Velha sob um céu estrelado. Movimento de câmara lento e contemplativo, atmosfera romântica e comovente, sem sangue explícito, sem violência e sem texto na imagem.",
-    ethicalConsideration: "Distinguir claramente o mito romântico e poético da realidade factual documentada pelos historiadores."
+    promptText: "Cria uma ilustração animada, assumidamente ficcional e simbólica, inspirada na figura literária de Inês de Castro e no episódio narrado no Canto III de Os Lusíadas.\n\nRepresenta uma figura feminina medieval num jardim junto à água, sem identificar o cenário como o local historicamente comprovado do acontecimento.\n\nNão afirmes que o episódio ocorreu na Quinta das Lágrimas. A associação deste espaço à história de Pedro e Inês deve ser apresentada como tradição ou lenda, e não como facto histórico comprovado.\n\nNão representes as manchas avermelhadas das pedras como sangue real. Se forem mostradas, identifica-as como elemento de uma tradição lendária.\n\nNão inventes roupa, edifícios ou símbolos históricos específicos sem uma fonte de referência.\n\nNão incluas texto gerado automaticamente. O professor acrescentará posteriormente uma nota que distingue a história, a lenda e a representação literária de Camões.",
+    ethicalConsideration: "Distinguem-se três dimensões: informação histórica documentada, tradição lendária e representação literária. Os Lusíadas é uma epopeia. A associação da Quinta das Lágrimas ao episódio de Inês de Castro deve ser apresentada como tradição, não como localização comprovada. As manchas avermelhadas das pedras da Fonte das Lágrimas são associadas a algas vermelhas e não constituem vestígios documentais de sangue."
   },
   {
     id: 9,
-    title: "9. A Fotossíntese: Como as Plantas Fabricam Oxigénio",
+    title: "9. Fotossíntese: Como as Plantas Transformam Energia Luminosa em Energia Química",
     discipline: "Ciências Naturais / Biologia",
     gradeLevel: "2.º e 3.º Ciclo (6.º ao 8.º ano)",
     category: "Macro-Cinematografia Botânica com Corte Microscópico",
     recommendedTool: "Kling AI / Luma Dream Machine",
-    visualStyle: "Transição contínua de macro real de folha verde para corte celular microscópico translúcido",
-    pedagogicalObjective: "Compreender como a clorofila capta a energia da luz solar e transforma dióxido de carbono e água em glicose e oxigénio.",
+    visualStyle: "Animação científica esquemática, com ampliação da folha para o cloroplasto e distinção visual entre tilacoides e estroma.",
+    pedagogicalObjective: "Compreender a fotossíntese e distinguir as reações dependentes da luz, que ocorrem nas membranas dos tilacoides, do ciclo de Calvin, que decorre no estroma do cloroplasto.",
     curriculumCompetence: "Explicar os processos de nutrição das plantas autotróficas e a sua relevância para o equilíbrio dos ecossistemas.",
-    promptText: "Cria uma sequência visual contínua começando com um plano de grande aproximação macro a uma folha de videira verde e orvalhada num dia ensolarado. A câmara realiza um zoom contínuo que atravessa a cutícula cerosa e a epiderme da folha, entrando no interior de uma célula do parênquima clorofilino. No citoplasma translúcido, revelam-se dezenas de cloroplastos verdes em forma de disco, banhados por raios de sol microscópicos dourados. No interior dos tilacoides, vê-se a água a chegar pelas nervuras da folha e moléculas de dióxido de carbono a serem transformadas em pequenas esferas luminosas de glicose, enquanto bolhas minúsculas de oxigénio se soltam e saem através dos estômatos abertos. Transições fluidas, estética de documentário de alta gama da BBC, sem legendas nem setas automáticas geradas na imagem.",
-    ethicalConsideration: "Assegurar que os alunos não confundem fotossíntese com respiração celular das plantas."
+    promptText: "Cria uma animação científica esquemática da fotossíntese numa folha e num cloroplasto.\n\nComeça com a luz a incidir na folha e mostra a água a chegar através dos vasos condutores.\n\nFaz uma ampliação até um cloroplasto. Distingue claramente duas regiões.\n\nNas membranas dos tilacoides, a energia luminosa é absorvida pelos pigmentos fotossintéticos e ocorrem as reações dependentes da luz. A água é utilizada e ocorre libertação de oxigénio.\n\nNo estroma do cloroplasto decorre o ciclo de Calvin, que utiliza dióxido de carbono e a energia química produzida nas reações dependentes da luz para formar compostos orgânicos.\n\nNão mostres o dióxido de carbono a transformar-se diretamente em glicose nos tilacoides.\n\nNão representes moléculas como esferas com rótulos automáticos nem inventes estruturas celulares.\n\nA animação é esquemática e será acompanhada por uma explicação e legendas elaboradas e validadas pelo professor.",
+    ethicalConsideration: "Validar a distinção entre tilacoides e estroma, a origem do oxigénio libertado e a função do ciclo de Calvin através de uma fonte científica de Biologia. A animação gerada por IA não deve ser utilizada como fonte científica."
   },
   {
     id: 10,
@@ -407,8 +444,8 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     visualStyle: "Personagem 3D simpática e calorosa numa sala de aula colorida, com maçãs e caixas luminosas",
     pedagogicalObjective: "Desmistificar a tabuada mostrando visualmente que 3 vezes 4 não é magia nem memorização mecânica, mas sim 3 grupos com 4 objetos cada (adição repetida).",
     curriculumCompetence: "Compreender os sentidos da multiplicação e utilizar estratégias de cálculo mental com segurança no quotidiano.",
-    promptText: "Cria um clipe educativo animado curto, com a duração compatível com as opções disponíveis na ferramenta selecionada, destinado a alunos do 3.º ano do 1.º ciclo. Mostra três caixas e coloca quatro maçãs vermelhas em cada caixa. Representa visualmente os três grupos iguais de quatro maçãs. A imagem deve permitir ao professor explicar posteriormente que quatro mais quatro mais quatro são doze e que 3 × 4 = 12. Não acrescentes operações, quantidades ou objetos que alterem o exemplo. Evita texto gerado automaticamente na imagem. A narração, as legendas e a explicação matemática final serão acrescentadas na etapa de edição.",
-    ethicalConsideration: "O clipe é apenas um elemento visual de apoio. O produto final, com cerca de dois minutos, deve ser montado numa ferramenta de edição, com narração, identificação matemática correta e uma pergunta de consolidação."
+    promptText: "Utiliza como referência uma imagem estática previamente criada e verificada pelo professor, que contenha exatamente três caixas iguais, cada uma com quatro maçãs vermelhas visíveis.\n\nCria uma animação simples com um movimento de câmara ligeiro ou uma aproximação visual, preservando sem qualquer alteração o número de caixas e de maçãs.\n\nNão acrescentes, retires, dupliques ou deformes objetos.\n\nNão geres texto, números ou símbolos matemáticos.\n\nSe a ferramenta alterar a contagem dos objetos, rejeita a animação e utiliza a imagem estática original.\n\nNa fase de edição, o professor acrescentará a expressão matemática 4 + 4 + 4 = 12 e 3 × 4 = 12, depois de confirmar a correspondência entre o número de grupos e a quantidade de elementos.",
+    ethicalConsideration: "Não confiar numa geração de vídeo para produzir contagens matemáticas exatas. Criar e validar a imagem com os elementos pretendidos e inserir a notação matemática no editor."
   },
   {
     id: 11,
@@ -421,45 +458,52 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     pedagogicalObjective: "Explorar o contexto histórico do 25 de Abril de 1974, relacionando acontecimentos e símbolos com fontes históricas e distinguindo registos documentais de reconstituições visuais.",
     curriculumCompetence: "Compreender o fim da ditadura, a importância da Constituição de 1976 e a valorização ativa dos direitos humanos e das liberdades cívicas.",
     promptText: "Cria uma reconstituição visual ilustrativa, em estilo gráfico ou cinematográfico assumidamente ficcional, inspirada no 25 de Abril de 1974 em Lisboa. Mostra uma rua de Lisboa, a presença de militares e civis e um cravo vermelho como símbolo associado à Revolução dos Cravos. Não imites a aparência de uma filmagem documental autêntica, não inventes diálogos nem detalhes históricos específicos e não apresentes a cena como registo real. A composição deve ser identificada como reconstituição gerada por Inteligência Artificial e acompanhada, na atividade, por fotografias, testemunhos e fontes históricas devidamente identificados.",
-    ethicalConsideration: "Confrontar a reconstituição com fontes documentais; não usar o vídeo gerado como prova histórica."
+    ethicalConsideration: "Confrontar a representação com fotografias de arquivo, testemunhos e fontes históricas identificadas. Não utilizar a reconstituição como prova documental. Se forem representados uniformes, veículos militares, insígnias ou outros detalhes históricos específicos, estes devem ser confrontados com imagens de arquivo. Não inventar acontecimentos ou comportamentos de pessoas reais."
   }
 ];
 
-// 4. CATÁLOGO COMPLETO DAS 11 FERRAMENTAS DE VÍDEO COM IA PARA EDUCAÇÃO (2026)
+// 4. CATÁLOGO COMPLETO DAS 16 FERRAMENTAS DE VÍDEO COM IA PARA EDUCAÇÃO (2026)
 export const TOOLS_CATALOG: ToolCatalogItem[] = [
   {
     id: "invideo",
     name: "InVideo AI",
     category: "Geração de Guião e Vídeo Didático",
-    badge: "Guião e Composição",
-    shortDesc: "Escreva uma instrução pedagógica e a ferramenta apoia a criação de um rascunho de vídeo com proposta de guião, narração e planos de imagem.",
-    fullDesc: "O InVideo AI apoia a estruturação inicial de pequenos vídeos a partir de temas curriculares. Gera uma proposta de guião, seleciona elementos audiovisuais e inclui narração e legendas. O resultado gerado exige sempre revisão e adaptação pedagógica pelo docente para assegurar o rigor conceptual e a adequação ao nível etário dos alunos.",
+    badge: "Guião e Rascunho",
+    shortDesc: "Plataforma de criação de vídeos que permite preparar conteúdos audiovisuais a partir de instruções escritas e materiais fornecidos pelo utilizador.",
+    fullDesc: "O InVideo AI é uma plataforma de criação de vídeos que permite preparar conteúdos audiovisuais a partir de instruções escritas e materiais fornecidos pelo utilizador. Pode apoiar a criação de um primeiro rascunho de vídeo, que deve ser revisto e editado pelo docente.",
     keyFeatures: [
-      "Apoio à criação de rascunhos de vídeos educativos a partir de instruções escritas",
-      "Proposta de locução e opções de narração",
-      "Acesso a bibliotecas de imagens e vídeos de arquivo",
-      "Edição do guião e substituição de planos na interface",
-      "Geração de legendas que podem ser revistas pelo utilizador"
+      "Criação de rascunhos audiovisuais com IA",
+      "Preparação de sequências visuais a partir de texto",
+      "Edição posterior do vídeo",
+      "Funcionalidades de narração e transcrição, conforme plano e disponibilidade"
     ],
-    inputTypes: ["Instrução em Texto", "Resumo de Matéria", "Artigos Web"],
-    freeTierDetails: "Os limites de geração e exportação, a resolução, as marcas de água e os direitos de utilização variam consoante o plano. Consultar as condições oficiais antes de preparar um recurso para publicação ou partilha.",
+    inputTypes: ["Instrução em Texto", "Resumo Curricular", "Artigos Web"],
+    freeTierDetails: "O serviço disponibiliza um nível gratuito com utilização limitada por créditos. A geração por IA e determinadas transcrições consomem créditos; a edição manual no InVideo Editor tem condições próprias. Os limites dependem da região, do plano e do modelo utilizado. Consulte a documentação oficial antes de planear a atividade.",
     limitations: [
-      "Vídeos de teste podem incluir marca de água do serviço",
-      "Determinados recursos visuais dependem de planos comerciais",
-      "O guião gerado exige revisão cuidada pelo docente antes de qualquer utilização educativa"
+      "O resultado pode incluir imagens inadequadas ou incorretas.",
+      "O resumo de um texto não garante fidelidade ao documento original.",
+      "A geração por IA consome créditos.",
+      "Não assumir Português de Portugal ou direitos comerciais sem confirmação."
     ],
     pedagogicalUseCases: [
-      "Criar introduções breves para lançamento de temas curriculares pelo professor",
-      "Produzir sínteses de apoio para disponibilização na plataforma da escola",
+      "Apoiar a criação de um primeiro rascunho de vídeo para introdução de conteúdos",
+      "Produzir sínteses de apoio para disponibilização aos estudantes",
       "Trabalho de projeto em que os alunos redigem o guião e o professor apoia a montagem"
     ],
     externalUrl: "https://invideo.io/",
     screenshots: [],
+    capabilityTags: ["text-to-video", "video-editing", "subtitles", "text-to-speech"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Página Oficial", url: "https://invideo.io/" },
+      { label: "Documentação de Planos", url: "https://docs.invideo.io/account/plans" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Plano gratuito limitado",
+      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Permite apoiar a criação de rascunhos de vídeos didáticos e apresentações a partir de instruções escritas.",
+      teacherVerdict: "Permite apoiar a criação de um rascunho audiovisual a partir de instruções escritas, exigindo validação científica e revisão de guião.",
       whatIsFact: "Cria uma proposta estruturada de vídeo com cortes e narração a partir de uma instrução em texto.",
       whatIsMisleading: "O guião gerado automaticamente necessita de revisão pedagógica e científica pelo professor."
     }
@@ -467,33 +511,41 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
   {
     id: "kling",
     name: "Kling AI",
-    category: "Fotorrealismo e Física do Mundo Real",
+    category: "Geração de Vídeo e Movimento Físico",
     badge: "Física e Fotorrealismo",
-    shortDesc: "Modelo generativo para criação de vídeos a partir de texto ou imagem com representação de movimentos e iluminação.",
-    fullDesc: "O Kling AI permite gerar clipes curtos a partir de texto ou animar imagens estáticas. É utilizado para criar representações visuais de processos dinâmicos, paisagens e reconstituições visuais ilustrativas. O resultado deve ser avaliado criticamente quanto ao rigor histórico ou científico.",
+    shortDesc: "O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens.",
+    fullDesc: "O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens. As funcionalidades dependem do modelo e da versão selecionada.",
     keyFeatures: [
-      "Geração de sequências visuais a partir de instruções em texto",
-      "Animação de imagens e gravuras estáticas em alta definição",
+      "Geração de clipes visuais a partir de instruções em texto",
+      "Animação de fotografias e ilustrações estáticas",
       "Modelação de movimentos de fluidos, tecidos e luz natural",
-      "Controlo de ângulo de câmara e perspetivas de visualização"
+      "Controlo de câmara conforme o modelo e versão selecionados"
     ],
     inputTypes: ["Instrução em Texto", "Fotografia Estática"],
-    freeTierDetails: "Os créditos, limites de geração, filas de espera, marcas de água e condições comerciais podem variar entre modelos e planos. Consultar a informação oficial no momento da utilização; esta ficha não garante uma quota gratuita.",
+    freeTierDetails: "A plataforma disponibiliza condições de acesso gratuitas com limites e créditos próprios. Não apresentar uma quantidade fixa de créditos ou de vídeos diários sem confirmação na conta e documentação atuais. As gerações gratuitas podem ter restrições e marcas de água.",
     limitations: [
-      "As funcionalidades de áudio dependem do modelo e das opções disponibilizadas na versão utilizada. Confirmar na documentação oficial se o modelo selecionado permite geração de áudio.",
-      "A geração de movimentos complexos pode apresentar artefactos visuais ou distorções ocasionais.",
-      "Exige supervisão para evitar alucinações históricas ou científicas."
+      "A duração depende do modelo.",
+      "As funcionalidades de áudio dependem da versão.",
+      "A disponibilidade de idiomas de áudio não deve ser presumida.",
+      "O resultado requer validação visual e factual.",
+      "Os termos de utilização e a idade mínima devem ser respeitados."
     ],
     pedagogicalUseCases: [
       "Simular processos físicos ou químicos que não se conseguem filmar em aula",
       "Animação de quadros e gravuras históricas para projetos interdisciplinares",
-      "Exercícios de observação crítica da física do movimento gerado por computador"
+      "Exercícios de observação crítica do movimento gerado por IA"
     ],
-    externalUrl: "https://klingai.com/",
+    externalUrl: "https://kling.ai/",
     screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video"],
+    accessType: "recurring-free-credits",
+    officialSources: [
+      { label: "Página Oficial", url: "https://kling.ai/" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Créditos gratuitos periódicos sujeitos a limites",
+      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
       teacherVerdict: "Adequado para geração de clipes visuais curtos ilustrativos para demonstrar fenómenos dinâmicos.",
       whatIsFact: "Produz simulações de movimento e iluminação natural com elevado detalhe visual.",
@@ -502,140 +554,174 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
   },
   {
     id: "luma",
-    name: "Luma Dream Machine",
-    category: "Vídeo 3D Dinâmico e Espacial",
-    badge: "Fluidez e Movimento 3D",
-    shortDesc: "Motor generativo com foco na consistência de câmara e perspetiva tridimensional de objetos e cenários.",
-    fullDesc: "O Luma Dream Machine foi concebido para gerar clipes com continuidade espacial apurada, permitindo criar travellings, sobrevoos de paisagens ou animação de peças de museu e modelos tridimensionais a partir de fotos.",
+    name: "Luma AI — Ray3.2",
+    category: "Geração de Vídeo e Espaço 3D",
+    badge: "Movimento Espacial",
+    shortDesc: "A Luma AI disponibiliza ferramentas de criação audiovisual com modelos de Inteligência Artificial. O modelo de vídeo indicado em novembro de 2026 é o Ray3.2.",
+    fullDesc: "A Luma AI disponibiliza ferramentas de criação audiovisual com modelos de Inteligência Artificial. O modelo de vídeo indicado pela documentação consultada em novembro de 2026 é o Ray3.2. As funcionalidades e os modos de criação dependem da versão e da conta.",
     keyFeatures: [
-      "Geração de clipes com consistência espacial e transições de câmara suaves",
-      "Animação de fotografias preservando o ponto de fuga e perspetiva",
-      "Apoio a movimentos circulares e rotações de câmara em torno de objetos"
+      "Geração de vídeo a partir de texto com o modelo Ray3.2",
+      "Animação de fotografias estáticas com transições espaciais",
+      "Controlo de perspetiva e movimento de câmara tridimensional"
     ],
     inputTypes: ["Texto", "Fotografia / Imagem 2D"],
-    freeTierDetails: "Os modelos, limites de geração, condições de acesso e planos disponíveis podem mudar. Consulte a página oficial antes de planear a utilização. Esta ficha não garante uma quota gratuita.",
+    freeTierDetails: "Não apresentar uma quota gratuita recorrente de 30 gerações mensais. Consultar os planos e a disponibilidade atuais.",
     limitations: [
-      "Geração de corpos humanos em movimento rápido pode produzir deformações anatómicas",
-      "Tempos de espera sujeitos a tráfego na versão de teste"
+      "Os modelos podem mudar.",
+      "Não presumir que todas as funcionalidades estão disponíveis gratuitamente.",
+      "Não garantir precisão científica ou histórica.",
+      "Não assumir que a duração dos vídeos é fixa."
     ],
     pedagogicalUseCases: [
       "Sobrevoo de relevos e formações geográficas para apoio às aulas de Geografia",
       "Animação de esculturas clássicas ou peças de arqueologia a partir de fotografias",
-      "Criação de fundos imersivos para apresentações temáticas da turma"
+      "Criação de fundos visuais para apresentações temáticas"
     ],
-    externalUrl: "https://lumalabs.ai/dream-machine",
+    externalUrl: "https://app.lumalabs.ai/",
     screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video"],
+    accessType: "paid-or-unconfirmed",
+    officialSources: [
+      { label: "Informação Oficial de Modelos", url: "https://lumalabs.ai/llm-info" },
+      { label: "Aplicação Luma", url: "https://app.lumalabs.ai/" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Acesso gratuito variável ou pago",
+      minimumAge: "Os termos indicam utilização a partir dos 18 anos ou, entre os 13 e os 17 anos, com consentimento do progenitor ou representante legal, nos termos definidos pelo fornecedor. Utilização por alunos apenas após validação das condições institucionais e legais.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Excelente para criar pequenos clipes com sensação de profundidade e câmara em movimento.",
+      teacherVerdict: "Permite criar clipes com câmara em movimento e perspetiva 3D; verificar condições comerciais e termos etários antes de qualquer uso.",
       whatIsFact: "Excelente consistência espacial e movimentos de câmara fluídos.",
-      whatIsMisleading: "Pode distorcer mãos, membros e pormenores anatómicos em movimentos complexos."
+      whatIsMisleading: "Pode distorcer detalhes anatómicos complexos e os planos gratuitos variam sem aviso."
     }
   },
   {
     id: "minimax",
-    name: "MiniMax (Hailuo AI)",
-    category: "Geração Cinematográfica com Resolução Elevada",
-    badge: "Detalhe e Expressividade",
-    shortDesc: "Modelo generativo com capacidade notável de interpretação de instruções descritivas e expressividade.",
-    fullDesc: "O MiniMax (disponibilizado através da interface Hailuo AI) destaca-se na geração de vídeos a partir de descrições ricas, produzindo texturas detalhadas, iluminação cinematográfica e reações faciais expressivas para simulações didáticas.",
+    name: "MiniMax — Hailuo AI",
+    category: "Geração de Vídeo Cinematográfico",
+    badge: "Expressividade e Detalhe",
+    shortDesc: "A Hailuo AI disponibiliza ferramentas de geração de vídeo com Inteligência Artificial, incluindo criação a partir de instruções escritas e imagens.",
+    fullDesc: "A Hailuo AI disponibiliza ferramentas de geração de vídeo com Inteligência Artificial, incluindo criação a partir de instruções escritas e imagens, de acordo com os modelos disponíveis.",
     keyFeatures: [
-      "Elevada fidelidade na interpretação de descrições ricas de cenas e ambientes",
-      "Tratamento expressivo de iluminação e atmosferas cinematográficas",
-      "Geração de clipes com boa definição e estabilidade temporal"
+      "Geração de clipes visuais a partir de instruções escritas",
+      "Transformação de imagens de referência em vídeo dinâmico",
+      "Representação de texturas, iluminação e atmosferas expressivas"
     ],
     inputTypes: ["Texto Descritivo", "Fotografia de Referência"],
-    freeTierDetails: "Os créditos, limites, resolução, marcas de água e condições de utilização variam consoante a versão e o plano. Consultar a informação oficial antes da utilização. Esta ficha não garante a existência de créditos gratuitos.",
+    freeTierDetails: "Os termos de utilização indicam uma idade mínima de 16 anos. Podem existir créditos promocionais de boas-vindas para determinados novos registos, com condições e validade próprias. Não apresentar créditos diários permanentes nem quantidades não confirmadas.",
     limitations: [
-      "Processamento na nuvem com dependência de largura de banda",
-      "Exige revisão prévia para garantir que os elementos visuais são rigorosos"
+      "Modelos e condições variáveis.",
+      "Marcas de água e exportação dependem do plano.",
+      "Não garantir geração de vídeo com a duração de um documentário completo.",
+      "Validar os resultados antes de utilização educativa."
     ],
     pedagogicalUseCases: [
-      "Reconstituição de ambientes históricos descritos em textos literários",
+      "Reconstituição ilustrativa de ambientes históricos descritos em textos",
       "Visualização de biomas e ecossistemas com atmosfera envolvente",
-      "Exercícios de escrita criativa onde os alunos descrevem uma cena e comparam com a imagem"
+      "Exercícios de escrita criativa onde os alunos comparam descrições com a imagem gerada"
     ],
     externalUrl: "https://hailuoai.video/",
     screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Página Oficial", url: "https://hailuoai.video/" },
+      { label: "Termos de Serviço", url: "https://hailuoai.video/doc/terms-of-service.html" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Plano com créditos de teste ou promocionais",
+      minimumAge: "16+ anos (segundo os termos de serviço oficiais)",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Muito útil para ilustrar cenas ricas onde a atmosfera e o detalhe visual enriquecem a aula.",
-      whatIsFact: "Interpretação precisa de descrições de texto e elevada qualidade estética.",
-      whatIsMisleading: "Pode acrescentar elementos decorativos que não estavam no prompt original."
+      teacherVerdict: "Útil para o professor gerar pequenas ilustrações visuais expressivas; respeitar a idade mínima e rever rigor.",
+      whatIsFact: "Interpretação detalhada de descrições ricas em texto.",
+      whatIsMisleading: "Pode acrescentar elementos cenográficos não solicitados no prompt original."
     }
   },
   {
     id: "pika",
     name: "Pika",
-    category: "Efeitos Criativos e Animação Rápida",
-    badge: "Criatividade e Efeitos",
-    shortDesc: "Ferramenta acessível no navegador focada em animação de ilustrações e efeitos de transformação visual.",
-    fullDesc: "O Pika é conhecido pela facilidade com que permite carregar um desenho, pintura ou fotografia e dar-lhe movimento suave em segundos, sendo ideal para dar vida a trabalhos artísticos dos próprios alunos.",
+    category: "Animação Criativa e Efeitos Visuais",
+    badge: "Animação e Efeitos",
+    shortDesc: "O Pika disponibiliza ferramentas de criação e transformação audiovisual com Inteligência Artificial.",
+    fullDesc: "O Pika disponibiliza ferramentas de criação e transformação audiovisual com Inteligência Artificial. As funcionalidades dependem do modelo e das opções disponíveis na conta.",
     keyFeatures: [
-      "Animação rápida de imagens carregadas do computador com interface simples",
-      "Efeitos visuais de transformação de materiais e estilos gráficos",
-      "Controlo básico de movimento em áreas selecionadas da imagem"
+      "Geração de vídeo a partir de texto",
+      "Animação de imagens estáticas e ilustrações",
+      "Efeitos visuais de transformação de materiais"
     ],
-    inputTypes: ["Texto", "Ilustrações / Desenhos dos Alunos", "Fotografias"],
-    freeTierDetails: "Os limites, créditos e condições do plano podem mudar. Consultar a documentação oficial na data da utilização. Esta ficha não garante uma quota gratuita.",
+    inputTypes: ["Texto", "Ilustrações", "Fotografias"],
+    freeTierDetails: "O plano Free indicado na página oficial não inclui créditos mensais. A criação pode exigir packs de créditos pagos. Não classificar o Pika como ferramenta com créditos gratuitos recorrentes.",
     limitations: [
-      "Exportação gratuita inclui marca de água do serviço",
-      "Resolução e opções de controlo avançado dependem de subscrição"
+      "Não garantir uma quota mensal gratuita.",
+      "Não garantir funcionalidades ou durações específicas sem confirmação.",
+      "A licença comercial não deve ser presumida no plano gratuito."
     ],
     pedagogicalUseCases: [
-      "Animar desenhos e pinturas feitos pelos alunos nas aulas de Educação Visual",
-      "Criar pequenos 'quadros vivos' para dramatizações históricas ou literárias",
-      "Projetos de Expressão Artística com introdução ao cinema de animação"
+      "Animar ilustrações para projetos visuais",
+      "Criar efeitos pontuais para introdução de tópicos",
+      "Exploração de técnicas visuais em contexto de formação docente"
     ],
     externalUrl: "https://pika.art/",
     screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video"],
+    accessType: "paid-or-unconfirmed",
+    officialSources: [
+      { label: "Página Oficial", url: "https://pika.art/" },
+      { label: "Preços Oficiais", url: "https://creation.pika.art/pricing" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Plano gratuito sem créditos mensais garantidos",
+      minimumAge: "18+ anos (segundo termos consultados)",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ótima porta de entrada para projetos artísticos onde o objetivo é animar trabalhos manuais dos alunos.",
-      whatIsFact: "Interface muito simples e rápida para dar movimento a fotos e desenhos.",
-      whatIsMisleading: "Não é adequada para simulações científicas rigorosas que exijam precisão métrica."
+      teacherVerdict: "Ferramenta para criação e efeitos visuais; confirmar condições de acesso previamente.",
+      whatIsFact: "Interface ágil para efeitos de transformação e animação de imagens.",
+      whatIsMisleading: "Não disponibiliza quota mensal gratuita garantida no plano base."
     }
   },
   {
     id: "capcut",
-    name: "CapCut (Web, PC e Telemóvel)",
-    category: "Edição Assistida, Legendas e Composição",
+    name: "CapCut",
+    category: "Edição de Vídeo e Legendas Automáticas",
     badge: "Edição e Legendas",
-    shortDesc: "Editor de vídeo versátil disponível em várias plataformas com funcionalidades de corte e legendagem automática.",
-    fullDesc: "O CapCut é um dos editores mais populares entre os estudantes. Oferece linha temporal intuitiva, recorte de fundo, legendagem automática com sincronização e ferramentas de composição áudio e vídeo.",
+    shortDesc: "O CapCut é um editor de vídeo que disponibiliza ferramentas de montagem, efeitos, áudio, legendagem e funcionalidades de Inteligência Artificial, conforme a versão e o plano.",
+    fullDesc: "O CapCut é um editor de vídeo que disponibiliza ferramentas de montagem, efeitos, áudio, legendagem e funcionalidades de Inteligência Artificial, conforme a versão e o plano.",
     keyFeatures: [
-      "Legendagem automática rápida com pontuação que pode ser corrigida manualmente",
-      "Edição direta por corte de texto transcrito ou na linha temporal clássica",
-      "Biblioteca extensa de transições, efeitos didáticos e pistas de áudio",
-      "Disponível em versão Web no navegador, aplicação para computador e telemóvel"
+      "Edição de vídeo em linha temporal e corte de faixas",
+      "Legendagem automática (conforme versão e plano)",
+      "Recorte de fundo e efeitos visuais",
+      "Exportação para múltiplos formatos"
     ],
-    inputTypes: ["Vídeos Gravados", "Áudios / Voz do Professor", "Fotografias", "Texto"],
-    freeTierDetails: "A disponibilidade de legendagem automática, geração de conteúdos, exportação, créditos e remoção de marcas de água depende da versão, região e plano. Antes da utilização, confirme na página oficial e na conta concreta quais as funcionalidades incluídas.",
+    inputTypes: ["Vídeos Gravados", "Áudios", "Fotografias", "Texto"],
+    freeTierDetails: "O plano gratuito inclui ferramentas básicas de edição. O plano Pro apresenta funcionalidades adicionais de IA e créditos, de acordo com as condições comerciais e a região. Não assumir que a legendagem automática, a geração de vídeo ou todas as funcionalidades de IA são gratuitas. Não apresentar 300 créditos como oferta permanente.",
     limitations: [
-      "A versão para telemóvel pode promover compras na aplicação e requer atenção aos termos de privacidade",
-      "Alguns efeitos e modelos visuais avançados estão reservados à versão paga",
-      "A existência de uma aplicação instalada não garante que todo o processamento ocorra localmente"
+      "A disponibilidade das funções varia por região, versão e plano.",
+      "As legendas automáticas têm de ser revistas.",
+      "As funcionalidades processadas por IA podem recorrer a serviços externos.",
+      "Não afirmar que a instalação local significa que todos os ficheiros são processados localmente."
     ],
     pedagogicalUseCases: [
-      "Legendar todas as videoaulas do professor para apoiar alunos com dificuldades auditivas (DUA)",
-      "Projetos de turma de noticiários, reportagens e documentários científicos",
-      "Montagem final de trabalhos interdisciplinares que combinam texto, áudio e vídeo"
+      "Legendar videoaulas e rever a transcrição para garantir acessibilidade",
+      "Montagem de projetos em vídeo preparados pelos estudantes ou docentes",
+      "Corte de hesitações e organização de sequências pedagógicas"
     ],
     externalUrl: "https://www.capcut.com/",
     screenshots: [],
+    capabilityTags: ["video-editing", "subtitles", "text-to-video"],
+    accessType: "free-editor",
+    officialSources: [
+      { label: "Página Oficial", url: "https://www.capcut.com/" },
+      { label: "Preços Oficiais", url: "https://www.capcut.com/pricing/" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Editor gratuito com funcionalidades Pro pagas",
+      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ferramenta de edição acessível para montar trabalhos escolares e legendar vídeos com facilidade.",
-      whatIsFact: "A legendagem automática e as ferramentas de corte agilizam a montagem de vídeos escolares.",
-      whatIsMisleading: "Algumas funcionalidades e legendagens exigem ligação à Internet e termos de privacidade específicos."
+      teacherVerdict: "Editor funcional para montagem e legendas; rever termos de privacidade e exportação antes de partilhar.",
+      whatIsFact: "Disponibiliza ferramentas de montagem áudio e vídeo em múltiplas plataformas.",
+      whatIsMisleading: "Nem todas as funções de IA ou legendagem são gratuitas em todas as versões."
     }
   },
   {
@@ -643,174 +729,473 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     name: "Canva para Educação",
     category: "Apresentações Multimédia e Vídeo Colaborativo",
     badge: "Ecossistema Escolar",
-    shortDesc: "Plataforma de design e apresentações com ferramentas de vídeo e animação integradas para escolas elegíveis.",
-    fullDesc: "O Canva para Educação disponibiliza um ambiente para criação de apresentações, infográficos e pequenos vídeos, com modelos educativos prontos e ferramentas de colaboração para professores e turmas.",
+    shortDesc: "O Canva para Educação é um programa gratuito para professores e instituições elegíveis do ensino primário, básico e secundário, nos termos definidos pelo fornecedor.",
+    fullDesc: "O Canva para Educação é um programa gratuito para professores e instituições elegíveis do ensino primário, básico e secundário, nos termos definidos pelo fornecedor. Permite criar apresentações, materiais visuais e conteúdos audiovisuais, incluindo funcionalidades assistidas por IA quando disponibilizadas na conta.",
     keyFeatures: [
-      "Criação e edição colaborativa de vídeos em tempo real entre alunos e professores",
-      "Grande biblioteca de vídeos de stock, ilustrações científicas e ícones educativos",
-      "Gravação direta de apresentações narradas com câmara em círculo (estilo PiP)",
-      "Animação automática de diapositivos e exportação em alta definição sem marca de água"
+      "Criação e edição colaborativa de apresentações e vídeos",
+      "Biblioteca de modelos, imagens de arquivo e elementos gráficos",
+      "Gravação de apresentações narradas com câmara integrada",
+      "Exportação em alta definição sem marca de água na conta educativa"
     ],
-    inputTypes: ["Texto", "Apresentações Existentes", "Imagens", "Vídeos"],
-    freeTierDetails: "O Canva para Educação é gratuito para professores elegíveis e respetivos alunos do ensino primário, básico e secundário, de acordo com os critérios e a validação do fornecedor. A elegibilidade deve ser confirmada na página oficial. A gratuitidade do programa não significa que todas as funcionalidades de Inteligência Artificial, em particular a geração de vídeo, sejam ilimitadas ou estejam disponíveis em todas as contas. Os limites e as funcionalidades devem ser verificados na conta e documentação atuais.",
+    inputTypes: ["Texto", "Apresentações", "Imagens", "Vídeos"],
+    freeTierDetails: "A elegibilidade depende dos critérios do fornecedor e da respetiva validação. A gratuitidade do Canva para Educação não significa que todas as funcionalidades de IA ou todas as ferramentas de geração de vídeo estejam disponíveis sem limites.",
     limitations: [
-      "Algumas funcionalidades de Inteligência Artificial podem ter limites de utilização ou condições específicas. A disponibilidade depende da ferramenta, da conta, do programa educativo e das condições em vigor. Consultar a informação apresentada pelo fornecedor antes de planear a atividade.",
-      "A criação colaborativa exige gestão cuidada de permissões e privacidade."
+      "Não afirmar '100% gratuito sem restrições'.",
+      "Não garantir que todas as funcionalidades de IA estão incluídas.",
+      "Não apresentar o Canva como ferramenta automaticamente segura para qualquer turma.",
+      "A utilização com alunos deve respeitar os termos, a idade, as configurações institucionais e as orientações da escola."
     ],
     pedagogicalUseCases: [
-      "Criação colaborativa de trabalhos de grupo com vídeo e texto em simultâneo",
-      "Apresentações orais gravadas pelos alunos para avaliação sumativa ou formativa",
-      "Infográficos animados para explicar conceitos de cidadania, ciência e história"
+      "Criação de apresentações multimédia colaborativas com vídeo e texto",
+      "Gravação de explicações pelo professor para apoio ao estudo",
+      "Trabalhos de grupo com modelos visuais orientados a temas curriculares"
     ],
-    externalUrl: "https://www.canva.com/education/",
+    externalUrl: "https://www.canva.com/pt_pt/educacao/",
     screenshots: [],
+    capabilityTags: ["video-editing", "presentation-video", "screen-recording"],
+    accessType: "education-eligibility",
+    officialSources: [
+      { label: "Canva Educação", url: "https://www.canva.com/pt_pt/educacao/" },
+      { label: "Critérios de Elegibilidade", url: "https://www.canva.com/pt_pt/educacao/elegibilidade/" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Gratuito para Escolas",
+      freeStatus: "Gratuito para professores e escolas elegíveis",
       minimumAge: "Consultar os termos e as condições aplicáveis à conta educativa e aos utilizadores. Não está estabelecida nesta ficha uma idade mínima universal.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Pode constituir uma opção para criação colaborativa de materiais educativos quando o docente, a instituição e os alunos abrangidos cumprem os critérios do programa. A existência de um plano educativo não substitui a análise das funcionalidades concretas, das condições de utilização e das orientações de proteção de dados da escola.",
-      whatIsFact: "Permite criar apresentações multimédia colaborativas com ferramentas de animação e vídeo.",
+      teacherVerdict: "Opção estruturada para trabalho colaborativo escolar quando cumpridos os critérios de elegibilidade.",
+      whatIsFact: "Permite criar apresentações multimédia com animação e gravação integrada.",
       whatIsMisleading: "A gratuitidade educativa depende de validação documental institucional e não cobre todo o tipo de entidades."
     }
   },
   {
     id: "perchance",
-    name: "Perchance AI (Apenas Docentes Adultos, 18+)",
-    category: "Exploração Sem Conta (Exclusivo Adultos)",
-    badge: "Apenas Docentes (18+)",
-    shortDesc: "Ferramenta aberta de exploração de modelos de imagem e vídeo sem registo, de acesso reservado a adultos (18+).",
-    fullDesc: "O Perchance é uma plataforma aberta que permite explorar modelos de difusão de texto para imagem e animação básica sem necessidade de criar conta ou facultar dados pessoais. Pelas suas características abertas e termos do serviço, o seu acesso é expressamente reservado a adultos (maiores de 18 anos) para preparação prévia de materiais pelo professor. É totalmente desaconselhado e interdito o seu uso direto por alunos menores de idade.",
+    name: "Perchance — geradores comunitários",
+    category: "Experimentação de conteúdos por docentes adultos",
+    badge: "Apenas Adultos (18+)",
+    shortDesc: "O Perchance disponibiliza diferentes geradores criados no seu ecossistema comunitário. As funcionalidades, condições de acesso e características de privacidade podem variar entre geradores.",
+    fullDesc: "O Perchance disponibiliza diferentes geradores criados no seu ecossistema comunitário. As funcionalidades, condições de acesso e características de privacidade podem variar entre geradores. Os termos gerais consultados restringem a utilização a maiores de 18 anos. Pode ser apresentado apenas como exemplo de exploração individual por docentes adultos, não como ferramenta escolar validada.",
     keyFeatures: [
-      "Geração rápida de imagens e clipes de teste sem criação de conta nem início de sessão",
-      "Não recolhe endereço de correio eletrónico nem dados de registo prévio",
-      "Útil para o professor gerar rapidamente ilustrações pontuais para imprimir ou projetar",
-      "Código aberto e interface despojada sem anúncios comerciais agressivos"
+      "Exploração experimental de geradores da comunidade",
+      "Geração pontual sem início de sessão obrigatório em alguns casos",
+      "Uso exclusivamente preparatório por docentes adultos"
     ],
-    inputTypes: ["Prompt de Texto"],
-    freeTierDetails: "Plataforma pública de acesso gratuito mantida pela comunidade. Sem garantia de serviço.",
+    inputTypes: ["Instrução em Texto"],
+    freeTierDetails: "Os termos do serviço indicam idade mínima de 18 anos. A ausência de registo em determinados geradores não permite concluir que não exista recolha de informação técnica ou de utilização.",
     limitations: [
-      "ACESSO EXCLUSIVO A MAIORES DE 18 ANOS: proibido o uso direto por alunos menores em contexto escolar",
-      "Não possui filtros institucionais escolares robustos: o professor deve verificar previamente todo o material gerado",
-      "Qualidade e resolução dos clipes visuais são modestas comparadas com modelos comerciais"
+      "Não recomendado para utilização direta por alunos.",
+      "Não é um produto institucional único de geração de vídeo.",
+      "Não garantir estabilidade, moderação ou funcionalidades uniformes nos geradores da comunidade.",
+      "Não afirmar que não recolhe dados.",
+      "Não afirmar que é seguro, ilimitado ou conforme com o RGPD."
     ],
     pedagogicalUseCases: [
-      "Preparação prévia pelo professor de imagens temáticas para projetar nas aulas",
-      "Geração de ilustrações fictícias para fichas de trabalho em papel",
-      "Exclusivamente uso docente: nunca partilhar a hiperligação direta para exploração livre por alunos menores"
+      "Exploração pessoal prévia pelo docente para criação de exemplos ilustrativos",
+      "Discussão em formação de adultos sobre geradores abertos e moderação comunitária"
     ],
     externalUrl: "https://perchance.org/ai-text-to-video-generator",
     screenshots: [],
+    capabilityTags: ["community-generator", "text-to-video"],
+    accessType: "community-experimental",
+    officialSources: [
+      { label: "Gerador Comunitário de Vídeo", url: "https://perchance.org/ai-text-to-video-generator" },
+      { label: "Termos de Serviço", url: "https://perchance.org/terms-of-service" },
+      { label: "Política de Privacidade", url: "https://perchance.org/privacy-policy" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Acesso reservado a adultos (18+)",
-      minimumAge: "18+ anos (Termos explícitos da plataforma: estritamente reservado a adultos)",
-      rgpdRiskLevel: "Baixo para o docente (não recolhe conta); ALTO se exposto a menores sem filtro",
-      teacherVerdict: "Ferramenta utilitária exclusiva para o professor preparar materiais no seu computador pessoal.",
-      whatIsFact: "Permite gerar imagens e clipes de teste sem conta nem fornecimento de e-mail.",
-      whatIsMisleading: "Não é uma ferramenta desenhada para escolas nem pode ser aberta em computadores partilhados por crianças."
+      freeStatus: "Acesso experimental comunitário (18+)",
+      minimumAge: "18+ anos (Termos explícitos da plataforma: restrito a adultos)",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Exclusivo para exploração individual por docentes adultos; não utilizar em ambiente escolar com alunos.",
+      whatIsFact: "Plataforma comunitária de scripts e geradores com comportamento variável.",
+      whatIsMisleading: "A ausência de registo prévio não significa ausência de recolha de dados nem conformidade legal para menores."
     }
   },
   {
     id: "clipchamp",
     name: "Microsoft Clipchamp",
-    category: "Edição Integrada e Vozes em Português de Portugal",
-    badge: "Vozes PT-PT Nativas",
-    shortDesc: "Editor de vídeo integrado no ecossistema Microsoft com funcionalidades de texto-para-voz em Português de Portugal.",
-    fullDesc: "O Microsoft Clipchamp combina edição simplificada com conversor de texto para fala de qualidade notável, disponibilizando vozes com sotaque e entoação de Portugal, ideais para narrar apontamentos e videoaulas com dicção correta.",
+    category: "Edição de Vídeo e Narração Assistida",
+    badge: "Edição e Narração",
+    shortDesc: "O Microsoft Clipchamp é um editor de vídeo que permite organizar sequências, gravar, editar áudio e vídeo e utilizar funcionalidades como legendagem e texto para voz, de acordo com a conta e as opções disponíveis.",
+    fullDesc: "O Microsoft Clipchamp é um editor de vídeo que permite organizar sequências, gravar, editar áudio e vídeo e utilizar funcionalidades como legendagem e texto para voz, de acordo com a conta e as opções disponíveis.",
     keyFeatures: [
-      "Síntese de voz de texto para fala com dicção e sotaque em Português de Portugal",
-      "Gravação combinada de ecrã e câmara web com separação em faixas para edição flexível",
-      "Exportação direta em alta definição (1080p) sem marca de água na conta pessoal",
-      "Interface limpa em português e integração fluida no ecossistema escolar do Windows"
+      "Edição de vídeo em linha temporal e gravação combinada de ecrã e câmara",
+      "Funcionalidade de texto para voz (conforme versão e conta)",
+      "Legendagem automática com edição manual",
+      "Exportação até 1080p sem marca de água na versão pessoal gratuita"
     ],
-    inputTypes: ["Texto para Narração", "Gravações de Ecrã", "Ficheiros de Vídeo", "Áudios"],
-    freeTierDetails: "A disponibilidade das vozes em Português de Portugal, das funcionalidades de locução e das opções de edição depende da versão, da conta e da licença utilizada. Confirme as opções efetivamente disponíveis no ambiente do professor antes da atividade.",
+    inputTypes: ["Gravações de Ecrã", "Ficheiros de Vídeo", "Áudios", "Texto para Voz"],
+    freeTierDetails: "A versão pessoal gratuita permite exportar até 1080p sem marca de água. As funcionalidades disponíveis nas contas de trabalho ou educação dependem da licença Microsoft 365 e da configuração institucional.",
     limitations: [
-      "As contas escolares Microsoft 365 Education dependem das permissões configuradas pelo agrupamento",
-      "Biblioteca de recursos de stock premium tem custos adicionais se não for utilizada a conta básica"
+      "A disponibilidade de vozes em Português de Portugal deve ser confirmada na interface e na conta concreta. A existência de uma funcionalidade de texto para voz não garante que todas as variantes linguísticas ou vozes estejam disponíveis.",
+      "Recursos adicionais de stock podem exigir subscrição complementar."
     ],
     pedagogicalUseCases: [
-      "Gravar tutoriais passo a passo de utilização de programas ou resolução de exercícios",
-      "Criar locuções narradas para apresentações com dicção correta em Português Europeu",
-      "Edição acessível de trabalhos em grupo em escolas que utilizam o ecossistema Microsoft Teams"
+      "Gravar tutoriais de ecrã e explicações pedagógicas com a câmara do docente",
+      "Editar e montar sequências de vídeo com legendas acessíveis",
+      "Criação de narrações de apoio a apresentações educativas"
     ],
     externalUrl: "https://clipchamp.com/",
     screenshots: [],
+    capabilityTags: ["video-editing", "screen-recording", "subtitles", "text-to-speech"],
+    accessType: "free-editor",
+    officialSources: [
+      { label: "Página Oficial", url: "https://clipchamp.com/" },
+      { label: "Documentação de Texto para Voz", url: "https://support.microsoft.com/pt-pt/clipchamp/how-to-use-the-text-to-speech-feature" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Editor gratuito na versão pessoal (exportação 1080p)",
+      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Solução recomendada para gerar narrações com sotaque de Portugal sem custos e sem complicações.",
-      whatIsFact: "Excelente qualidade de voz em Português de Portugal e exportação 1080p gratuita na versão pessoal.",
-      whatIsMisleading: "Nem todas as contas escolares têm as mesmas funcionalidades desbloqueadas pelo administrador."
+      teacherVerdict: "Ferramenta acessível para gravar ecrã e montar videoaulas; verificar disponibilidade de vozes na conta utilizada.",
+      whatIsFact: "Permite exportar até 1080p sem marca de água na versão pessoal e oferece gravação de ecrã.",
+      whatIsMisleading: "A disponibilidade de vozes em Português de Portugal depende da conta e do ambiente configurado."
     }
   },
   {
     id: "heygen",
     name: "HeyGen",
-    category: "Avatares Falantes e Sincronização Labial",
-    badge: "Avatares de Alta Fidelidade",
-    shortDesc: "Plataforma de geração de apresentadores virtuais realistas com sincronização labial rigorosa.",
-    fullDesc: "O HeyGen destaca-se pela qualidade de animação facial e labial de personagens virtuais a partir de texto escrito, sendo utilizado para demonstrações de introdução de módulos ou simulações breves.",
+    category: "Apresentadores Virtuais e Avatares",
+    badge: "Avatares Falantes",
+    shortDesc: "O HeyGen permite criar vídeos com apresentadores virtuais e avatares, a partir de textos e materiais fornecidos pelo utilizador.",
+    fullDesc: "O HeyGen permite criar vídeos com apresentadores virtuais e avatares, a partir de textos e materiais fornecidos pelo utilizador.",
     keyFeatures: [
-      "Sincronização labial com naturalidade em múltiplos idiomas",
-      "Avatares de estúdio pré-configurados com postura e vestuário sóbrios",
-      "Possibilidade de criar diálogos entre avatares em plano partilhado"
+      "Geração de vídeos com personagens virtuais falantes",
+      "Sincronização labial a partir de guião em texto",
+      "Modelos de apresentador para estúdio e demonstrações"
     ],
-    inputTypes: ["Texto de Guião", "Áudio Pré-gravado"],
-    freeTierDetails: "Os planos, créditos de teste, limites de duração, marcas de água e condições de exportação podem mudar. Consulte a página oficial para conhecer as condições em vigor.",
+    inputTypes: ["Texto de Guião", "Áudio"],
+    freeTierDetails: "O plano gratuito consultado apresenta três vídeos por mês, até um minuto cada, com marca de água. Os termos indicam utilização a partir dos 18 anos.",
     limitations: [
-      "Os planos gratuitos são muito limitados e orientados a testes rápidos de avaliação",
-      "Exige planeamento rigoroso para que a demonstração seja feita no ecrã do professor"
+      "Não recomendar utilização direta por menores.",
+      "Não garantir sincronização labial perfeita.",
+      "Não utilizar imagens ou vozes de pessoas reais sem as autorizações e validações aplicáveis.",
+      "As funcionalidades variam conforme o plano."
     ],
     pedagogicalUseCases: [
-      "Demonstração pelo professor de uma personagem histórica a lançar um enigma à turma",
-      "Simulação de apresentador de notícias de ciência para debates pedagógicos",
-      "Apresentação de boas-vindas a um novo projeto de forma visualmente cativante"
+      "Simulação de introdução de um tema pelo professor através de um avatar fictício",
+      "Demonstração de regras gerais ou avisos em ambiente de formação de professores"
     ],
     externalUrl: "https://www.heygen.com/",
     screenshots: [],
+    capabilityTags: ["avatars", "text-to-speech"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Página Oficial", url: "https://www.heygen.com/" },
+      { label: "Preços Oficiais", url: "https://www.heygen.com/pricing" },
+      { label: "Termos de Serviço", url: "https://www.heygen.com/terms" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Pago / Trial Rápido",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Plano gratuito muito limitado (3 vídeos/mês de 1 min)",
+      minimumAge: "18+ anos (segundo os termos oficiais do serviço)",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Excelente para demonstrações pelo professor; inviável como ferramenta de trabalho diário livre para alunos.",
-      whatIsFact: "Qualidade de sincronização labial e naturalidade dos avatares de estúdio.",
-      whatIsMisleading: "Não permite utilização regular com alunos em regime gratuito sem esgotar créditos rapidamente."
+      teacherVerdict: "Adequado para pequenas demonstrações preparadas pelo docente adulto; plano gratuito restrito.",
+      whatIsFact: "Gera personagens virtuais animadas a partir de texto.",
+      whatIsMisleading: "Não deve ser utilizado diretamente por alunos nem garante sincronização labial perfeita."
     }
   },
   {
     id: "vidnoz",
     name: "Vidnoz AI",
-    category: "Avatares Gratuitos e Diálogos Didáticos",
-    badge: "Diálogos e Modelos Rápidos",
-    shortDesc: "Ferramenta acessível para geração de apresentadores virtuais com biblioteca de modelos educativos.",
-    fullDesc: "O Vidnoz AI disponibiliza funcionalidades para gerar vídeos com personagens virtuais falantes, permitindo criar diálogos entre duas personagens na mesma cena, o que é útil para simular debates didáticos.",
+    category: "Avatares Virtuais e Apresentações",
+    badge: "Avatares e Modelos",
+    shortDesc: "O Vidnoz AI disponibiliza ferramentas de criação de vídeo com avatares e funcionalidades assistidas por Inteligência Artificial.",
+    fullDesc: "O Vidnoz AI disponibiliza ferramentas de criação de vídeo com avatares e funcionalidades assistidas por Inteligência Artificial.",
     keyFeatures: [
-      "Modo de diálogo com dois avatares a conversar na mesma cena",
-      "Modelos de diapositivos educativos pré-formatados para salas de aula",
-      "Opção de tradução de vídeos existentes para outras línguas"
+      "Criação de vídeos com avatares e diapositivos didáticos",
+      "Opções de diálogo com personagens virtuais (conforme o plano)",
+      "Biblioteca de modelos temáticos"
     ],
-    inputTypes: ["Texto", "Guião a Duas Vozes", "Imagens de Fundo"],
-    freeTierDetails: "Os limites, créditos e condições do plano podem mudar. Consultar a documentação oficial na data da utilização. Esta ficha não garante uma quota gratuita.",
+    inputTypes: ["Texto", "Guião Didático", "Imagens"],
+    freeTierDetails: "Os termos consultados indicam que a criação de uma conta exige pelo menos 18 anos. A página de preços apresenta opções gratuitas e pagas, mas não deve ser apresentada nesta ficha uma quota diária fixa que não esteja confirmada na documentação oficial.",
     limitations: [
-      "Exportação gratuita pode incluir marca de água e tempos de fila em períodos de elevado tráfego",
-      "A naturalidade da voz e sincronização varia consoante o idioma e o modelo selecionado"
+      "Utilização individual pelo professor adulto.",
+      "Não recomendar a criação de contas por alunos.",
+      "Confirmar limites, resolução, marca de água e exportação na conta concreta.",
+      "Não garantir funcionalidades não documentadas."
     ],
     pedagogicalUseCases: [
-      "Simular debates entre figuras históricas ou correntes de pensamento opostas",
-      "Apresentar desafios interdisciplinares em equipa de professores",
-      "Criação de mensagens curtas para alunos com apoio visual e legendas"
+      "Criação de simulações com avatares didáticos para abertura de módulos",
+      "Apresentações curtas em vídeo preparadas pelo docente"
     ],
     externalUrl: "https://pt.vidnoz.com/",
     screenshots: [],
+    capabilityTags: ["avatars", "text-to-speech"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Página Oficial", url: "https://pt.vidnoz.com/" },
+      { label: "Termos de Serviço", url: "https://pt.vidnoz.com/termos.html" }
+    ],
+    lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Freemium Útil",
-      minimumAge: "Idade mínima: consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
+      freeStatus: "Opções gratuitas com limites e opções pagas",
+      minimumAge: "18+ anos para criação de conta (termos oficiais)",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Útil para preparar diálogos a duas personagens sem necessidade de software profissional.",
-      whatIsFact: "Permite simular dois avatares a debaterem na mesma cena com planos pré-configurados.",
-      whatIsMisleading: "As exportações gratuitas podem incluir marcas de água e limitações de qualidade."
+      teacherVerdict: "Ferramenta para criação de avatares didáticos por docentes adultos; verificar limites de exportação.",
+      whatIsFact: "Oferece criação de vídeos com personagens virtuais a partir de texto.",
+      whatIsMisleading: "As contas e opções gratuitas têm restrições de resolução e marcas de água."
     }
+  },
+  {
+    id: "google-flow",
+    name: "Google Flow",
+    category: "Geração de vídeo com IA",
+    badge: "Google Labs",
+    shortDesc: "O Google Flow é um espaço de criação audiovisual com Inteligência Artificial que permite gerar e trabalhar com clipes a partir de instruções escritas, imagens e outros elementos de referência.",
+    fullDesc: "O Google Flow é um espaço de criação audiovisual com Inteligência Artificial que permite gerar e trabalhar com clipes a partir de instruções escritas, imagens e outros elementos de referência. As opções disponíveis dependem do modelo selecionado.",
+    keyFeatures: [
+      "Geração de vídeo a partir de texto",
+      "Geração de vídeo a partir de imagens",
+      "Utilização de imagens de referência, conforme o modelo",
+      "Ferramentas de organização e continuidade de cenas, conforme a versão"
+    ],
+    inputTypes: ["Instrução em Texto", "Imagens de Referência"],
+    freeTierDetails: "A documentação oficial consultada em 9 de novembro de 2026 indica 50 créditos gratuitos por dia, para utilizadores com ou sem subscrição. O número de créditos consumidos varia conforme o modelo e a geração. Em períodos de maior utilização, a geração de vídeo pode ficar temporariamente indisponível para utilizadores sem subscrição.",
+    limitations: [
+      "Os créditos são consumidos de forma diferente consoante o modelo.",
+      "Não garantir um número fixo de vídeos por dia.",
+      "A ferramenta não assegura rigor científico ou histórico.",
+      "O professor deve validar os resultados.",
+      "Não recomendar utilização autónoma por menores."
+    ],
+    pedagogicalUseCases: [
+      "Geração de clipes visuais ilustrativos para conceitos científicos ou históricos pelo docente",
+      "Exploração de continuidade visual a partir de imagens de referência"
+    ],
+    externalUrl: "https://labs.google/fx/pt-pt/tools/flow",
+    screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video", "video-to-video"],
+    accessType: "recurring-free-credits",
+    officialSources: [
+      { label: "Página Oficial Google Flow", url: "https://labs.google/fx/pt-pt/tools/flow" },
+      { label: "Documentação de Créditos", url: "https://support.google.com/flow/answer/16526234?hl=en" },
+      { label: "Disponibilidade e Línguas", url: "https://support.google.com/flow/answer/16353544?hl=en" }
+    ],
+    lastVerified: "2026-11-09",
+    factCheckStatus: {
+      freeStatus: "50 créditos diários gratuitos (sujeito a disponibilidade)",
+      minimumAge: "18+ anos",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Espaço de experimentação generativa para professores adultos; útil para criar clipes curtos ilustrativos com imagens de apoio.",
+      whatIsFact: "Disponibiliza modelos generativos da Google com créditos diários renováveis.",
+      whatIsMisleading: "Em picos de utilização a geração sem subscrição pode estar temporariamente suspensa; requer validação factual."
+    }
+  },
+  {
+    id: "google-vids",
+    name: "Google Vids",
+    category: "Criação e edição de vídeo assistida por IA",
+    badge: "Google Workspace",
+    shortDesc: "O Google Vids é uma ferramenta de criação e edição de vídeos que integra funcionalidades de Inteligência Artificial. Permite organizar cenas e gerar pequenos clipes para projetos.",
+    fullDesc: "O Google Vids é uma ferramenta de criação e edição de vídeos que integra funcionalidades de Inteligência Artificial. Permite organizar cenas, trabalhar com materiais audiovisuais e gerar pequenos clipes para integrar em projetos de vídeo.",
+    keyFeatures: [
+      "Criação e edição de vídeos",
+      "Organização de cenas",
+      "Integração de elementos visuais e audiovisuais",
+      "Geração de pequenos clipes com modelos disponibilizados pela Google"
+    ],
+    inputTypes: ["Documentos", "Guiões", "Imagens", "Vídeos"],
+    freeTierDetails: "Em 5 de novembro de 2026, a Google anunciou que utilizadores com uma conta Google ou subscrição Google Workspace podem gerar gratuitamente até três vídeos de 15 segundos por mês com o modelo Omni 1.2 Flash. A disponibilidade em contas escolares pode depender da licença e das configurações do administrador.",
+    limitations: [
+      "A quantidade mensal de vídeos é limitada.",
+      "O clipe gerado não equivale a um vídeo educativo completo.",
+      "O professor deve montar, rever e contextualizar o resultado.",
+      "Não assumir que todas as funcionalidades estão disponíveis em qualquer conta escolar."
+    ],
+    pedagogicalUseCases: [
+      "Preparação de apresentações e vídeos didáticos com estrutura por cenas",
+      "Integração de rascunhos audiovisuais a partir de documentos de trabalho"
+    ],
+    externalUrl: "https://vids.new/",
+    screenshots: [],
+    capabilityTags: ["video-editing", "presentation-video", "text-to-video"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Aplicação Google Vids", url: "https://vids.new/" },
+      { label: "Anúncio Oficial", url: "https://blog.google/products-and-platforms/products/workspace/omni-1-2-flash-google-vids/" }
+    ],
+    lastVerified: "2026-11-09",
+    factCheckStatus: {
+      freeStatus: "Até 3 vídeos de 15s por mês com modelo Omni 1.2 Flash",
+      minimumAge: "Consultar termos da conta Google/Workspace escolar aplicável.",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Ferramenta de criação de apresentações em vídeo integrada no ecossistema Google; verificar permissões da conta escolar.",
+      whatIsFact: "Permite estruturar guiões por cenas e gerar pequenos clipes com IA no ecossistema Google Workspace.",
+      whatIsMisleading: "A quota gratuita mensal de geração por IA é reduzida e não substitui a montagem e revisão pedagógica."
+    }
+  },
+  {
+    id: "pixverse",
+    name: "PixVerse",
+    category: "Geração de vídeo com IA",
+    badge: "Créditos Diários",
+    shortDesc: "O PixVerse é uma plataforma de criação de vídeos com IA, com funcionalidades de geração a partir de texto e imagem e diferentes opções de transformação audiovisual.",
+    fullDesc: "O PixVerse é uma plataforma de criação de vídeos com IA, com funcionalidades de geração a partir de texto e imagem e diferentes opções de transformação audiovisual.",
+    keyFeatures: [
+      "Geração de vídeo a partir de instruções em texto",
+      "Transformação de fotografias e ilustrações em vídeo dinâmico",
+      "Opções de controlo de movimento e efeitos audiovisuais"
+    ],
+    inputTypes: ["Texto", "Imagens estáticas"],
+    freeTierDetails: "A documentação oficial consultada indica 30 créditos diários gratuitos para utilizadores não membros e 60 créditos para membros. Os créditos são renovados às 00:00 UTC e os créditos não utilizados expiram no final do dia. O custo de cada vídeo depende do modelo, resolução e duração selecionados.",
+    limitations: [
+      "Os créditos não transitam para o dia seguinte.",
+      "Não garantir o número de vídeos produzidos com os créditos.",
+      "A duração e a resolução consomem quantidades diferentes.",
+      "As saídas devem ser revistas pelo professor."
+    ],
+    pedagogicalUseCases: [
+      "Criação de pequenos clipes ilustrativos para enriquecer explicações em sala",
+      "Dar movimento a ilustrações didáticas preparadas pelo professor"
+    ],
+    externalUrl: "https://pixverse.ai/en",
+    screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video", "video-to-video"],
+    accessType: "recurring-free-credits",
+    officialSources: [
+      { label: "Página Oficial PixVerse", url: "https://pixverse.ai/en" },
+      { label: "FAQ Oficial", url: "https://docs.pixverse.ai/FAQ-PixVerse-App-1533e99bf35080888cb5effee85f8289" },
+      { label: "Termos de Serviço", url: "https://pixverse.ai/en/terms-of-service" }
+    ],
+    lastVerified: "2026-11-09",
+    factCheckStatus: {
+      freeStatus: "30 créditos diários gratuitos (renovados diariamente às 00:00 UTC)",
+      minimumAge: "16+ anos (segundo os termos oficiais; supervisão parental prevista para menores de 16)",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Plataforma acessível para o professor adulto gerar clipes curtos diários; validar os conteúdos antes da aula.",
+      whatIsFact: "Disponibiliza créditos gratuitos que renovam diariamente para criação de pequenos vídeos.",
+      whatIsMisleading: "Os créditos diários não acumulam e o consumo varia com a resolução e o modelo selecionados."
+    }
+  },
+  {
+    id: "adobe-firefly",
+    name: "Adobe Firefly — Vídeo",
+    category: "Geração e edição de vídeo com IA",
+    badge: "Adobe Creative",
+    shortDesc: "O Adobe Firefly disponibiliza ferramentas generativas de imagem e vídeo, incluindo criação de vídeo a partir de texto e imagem.",
+    fullDesc: "O Adobe Firefly disponibiliza ferramentas generativas de imagem e vídeo, incluindo criação de vídeo a partir de texto e imagem. A disponibilidade de modelos e operações depende da conta e dos créditos generativos.",
+    keyFeatures: [
+      "Texto para vídeo",
+      "Imagem para vídeo",
+      "Ferramentas generativas de vídeo, de acordo com o modelo",
+      "Integração com outras ferramentas Adobe, conforme a conta"
+    ],
+    inputTypes: ["Texto", "Fotografias e Imagens de Referência"],
+    freeTierDetails: "Os utilizadores gratuitos têm acesso limitado a funcionalidades generativas, com limites diários que podem mudar. Não está indicada nesta ficha uma quota fixa específica para geração de vídeo. Os créditos consumidos dependem da funcionalidade e do modelo.",
+    limitations: [
+      "Não apresentar um número fixo de gerações de vídeo gratuitas.",
+      "Algumas funcionalidades exigem plano ou créditos.",
+      "Alguns modelos pertencem a fornecedores parceiros; não generalizar a todos as condições de utilização e direitos dos modelos próprios da Adobe.",
+      "Confirmar as condições de carregamento de conteúdos e idade mínima aplicável.",
+      "Não recomendar o carregamento de materiais pessoais de alunos."
+    ],
+    pedagogicalUseCases: [
+      "Geração de clipes visuais temáticos com controlo estético pelo docente",
+      "Criação de fundos e atmosferas visuais para projetos multimédia"
+    ],
+    externalUrl: "https://firefly.adobe.com/",
+    screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video", "video-to-video"],
+    accessType: "limited-free-plan",
+    officialSources: [
+      { label: "Adobe Firefly", url: "https://firefly.adobe.com/" },
+      { label: "Gerador de Vídeo Firefly", url: "https://www.adobe.com/pt/products/firefly/features/ai-video-generator.html" },
+      { label: "FAQ de Créditos Generativos", url: "https://helpx.adobe.com/creative-cloud/apps/generative-ai/generative-credits-faq.html" }
+    ],
+    lastVerified: "2026-11-09",
+    factCheckStatus: {
+      freeStatus: "Acesso gratuito limitado com créditos generativos",
+      minimumAge: "Consultar os termos de utilização da Adobe Creative Cloud.",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Opção para criação generativa com foco visual; verificar créditos e termos da conta institucional.",
+      whatIsFact: "Permite gerar clipes a partir de texto e imagens no ambiente criativo da Adobe.",
+      whatIsMisleading: "Nem todas as funções ou modelos de vídeo estão disponíveis sem limites nas contas gratuitas."
+    }
+  },
+  {
+    id: "runway",
+    name: "Runway",
+    category: "Geração e transformação de vídeo com IA",
+    badge: "Geração e Efeitos",
+    shortDesc: "O Runway é uma plataforma de criação audiovisual com Inteligência Artificial, com ferramentas de geração, transformação e edição de vídeo.",
+    fullDesc: "O Runway é uma plataforma de criação audiovisual com Inteligência Artificial, com ferramentas de geração, transformação e edição de vídeo.",
+    keyFeatures: [
+      "Geração de vídeo a partir de texto e de imagem",
+      "Ferramentas de transformação de estilo e composição de movimento",
+      "Edição e efeitos visuais com modelos generativos"
+    ],
+    inputTypes: ["Texto", "Imagens", "Vídeos"],
+    freeTierDetails: "O plano gratuito consultado disponibiliza 125 créditos uma única vez e 5 GB de armazenamento. Os créditos não são renovados mensalmente. Os vídeos produzidos no plano gratuito incluem marca de água. Os modelos disponíveis no plano podem mudar.",
+    limitations: [
+      "Trata-se de uma experiência gratuita pontual, não de uma quota gratuita recorrente.",
+      "Não apresentar os 125 créditos como créditos mensais ou diários.",
+      "Não assumir que os modelos atuais permanecerão disponíveis.",
+      "Confirmar direitos de utilização e condições antes de publicar materiais."
+    ],
+    pedagogicalUseCases: [
+      "Exploração pontual de técnicas generativas audiovisuais pelo docente",
+      "Análise de transformação e movimento de vídeo em formação de professores"
+    ],
+    externalUrl: "https://runwayml.com/",
+    screenshots: [],
+    capabilityTags: ["text-to-video", "image-to-video", "video-to-video"],
+    accessType: "one-time-free-trial",
+    officialSources: [
+      { label: "Página Oficial Runway", url: "https://runwayml.com/" },
+      { label: "Detalhes do Plano Gratuito", url: "https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details" }
+    ],
+    lastVerified: "2026-11-09",
+    factCheckStatus: {
+      freeStatus: "125 créditos pontuais de teste (não recorrentes)",
+      minimumAge: "Consultar os termos oficiais de serviço do Runway.",
+      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      teacherVerdict: "Adequado para experimentação pontual pelo docente; não conta com créditos recorrentes gratuitos.",
+      whatIsFact: "Disponibiliza 125 créditos uma única vez para experimentar a plataforma.",
+      whatIsMisleading: "Os créditos não se renovam mensalmente e os vídeos no plano de teste incluem marca de água."
+    }
+  }
+];
+
+// ALTERNATIVAS GRATUITAS DE EDIÇÃO E GRAVAÇÃO — SEM GERAÇÃO DE IA (Secção Separada)
+export const NON_AI_TOOLS: NonAiToolItem[] = [
+  {
+    id: "shotcut",
+    name: "Shotcut",
+    category: "Edição de vídeo — sem geração de IA",
+    description: "Editor de vídeo gratuito e de código aberto, disponível para diferentes sistemas operativos. Permite organizar sequências de vídeo e áudio e produzir um ficheiro final sem depender de créditos de geração de IA.",
+    externalUrl: "https://shotcut.org/",
+    pedagogicalUseCases: [
+      "Editar vídeos produzidos pelos alunos ou pelo professor",
+      "Montar excertos e ajustar faixas de áudio",
+      "Organizar sequências audiovisuais completas com rigor"
+    ]
+  },
+  {
+    id: "openshot",
+    name: "OpenShot",
+    category: "Edição de vídeo — sem geração de IA",
+    description: "Editor de vídeo gratuito e de código aberto, com funcionalidades de montagem de vídeo, imagem, áudio, títulos e transições.",
+    externalUrl: "https://www.openshot.org/pt/",
+    pedagogicalUseCases: [
+      "Montar pequenos documentários escolares",
+      "Editar entrevistas e apresentações narradas",
+      "Vídeos realizados em contexto de projeto de turma"
+    ]
+  },
+  {
+    id: "obs",
+    name: "OBS Studio",
+    category: "Gravação de ecrã, câmara e áudio — sem geração de IA",
+    description: "Software gratuito e de código aberto para gravação de ecrã, câmara e áudio e transmissão em direto. Não é um editor de vídeo.",
+    externalUrl: "https://obsproject.com/",
+    pedagogicalUseCases: [
+      "Gravar tutoriais e demonstrações de software educativo",
+      "Explicar a resolução de exercícios ou problemas no ecrã",
+      "Apresentações e explicações narradas pelo professor"
+    ]
   }
 ];
 
@@ -1103,7 +1488,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       {
         step: 4,
         title: "Análise Crítica Final e Debate em Aula (Aula 3 · 50 min)",
-        description: "Visualização coletiva das peças produzidas. Debate sobre o impacto da desinformação nas democracias e aplicação dos deveres de transparência previstos no Regulamento Europeu de Inteligência Artificial.",
+        description: "Visualização coletiva das peças produzidas. Debate sobre o impacto da desinformação, a distinção entre divulgação pedagógica e obrigações jurídicas concretas do artigo 50.º e a importância da verificação de fontes. Não apresentar a rotulagem na atividade como dever legal universal dos alunos.",
         aiUseMode: "Sem IA",
         teacherTip: "Sensibilize para as regras relativas a imagens de pessoas reais e os procedimentos de comunicação escolar perante incidentes digitais."
       }
@@ -1136,7 +1521,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
         id: "transparencia_ia",
         criterion: "Identificação transparente dos elementos sintéticos",
         weight: 10,
-        evidence: "Rotulagem clara de imagens ou ilustrações sintéticas, em conformidade com o Artigo 50.º do AI Act."
+        evidence: "Identifica de forma clara os elementos visuais gerados ou alterados por IA, distingue ilustração de registo documental e indica as fontes utilizadas. A avaliação incide na transparência pedagógica e na literacia mediática, não numa certificação do cumprimento jurídico do artigo 50.º."
       }
     ],
     evaluationCriteria: [
@@ -1179,7 +1564,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       "Qual é a aprendizagem que se pretende desenvolver? (Interpretação estética, contexto patrimonial e expressão escrita)",
       "A IA acrescenta valor real a esta tarefa? (Permite animar subtilmente um detalhe plástico sem deturpar a obra)",
       "Que etapas podem ser realizadas sem IA? (Estudo da obra no museu/manual, redação do monólogo e avaliação estética)",
-      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas fotografias de domínio público de obras de arte)",
+      "Verificar os direitos de autor da obra e as condições de utilização da respetiva reprodução digital. A disponibilidade pública de uma imagem não significa automaticamente que esteja no domínio público ou que possa ser reutilizada sem restrições.",
       "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas com verificação de direitos)",
       "Existem alternativas para alunos sem equipamento, conta ou autorização? (Dramatização de 'quadro vivo' em aula)",
       "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Ficha de análise artística e monólogo literário)"
@@ -1200,7 +1585,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       {
         step: 2,
         title: "Construção da Narrativa na Primeira Pessoa (Aula 2 · 50 min)",
-        description: "Os alunos assumem a perspetiva de uma personagem retratada ou de um observador da época e escrevem um monólogo poético de cerca de 40 segundos, expressando os sentimentos e o contexto histórico da cena.",
+        description: "Os alunos assumem a perspetiva de uma personagem retratada ou de um observador da época e escrevem um monólogo poético de cerca de 40 segundos, expressando os sentimentos e o contexto histórico da cena. O monólogo é uma criação ficcional dos alunos. Não deve ser apresentado como testemunho real da personagem nem como declaração documentada do artista.",
         aiUseMode: "Sem IA",
         teacherTip: "Excelente oportunidade para trabalhar a empatia histórica, a adjetivação expressiva e a norma do Português."
       },
@@ -1214,7 +1599,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       {
         step: 4,
         title: "Avaliação Crítica da Animação e Partilha (Aula 4 · 50 min)",
-        description: "No Clipchamp, monta-se o clipe animado com a voz expressiva do aluno gravada ao microfone. Apresentação à turma com debate sobre como a animação respeita ou desvirtua a intenção original do pintor.",
+        description: "No Clipchamp, monta-se o clipe animado com a voz expressiva do aluno gravada ao microfone. Apresentação à turma com debate sobre como a animação preserva ou altera a composição, os elementos visuais e a leitura possível da obra. Não atribuir uma intenção ao artista sem uma fonte documental que a sustente.",
         aiUseMode: "Sem IA",
         recommendedTools: ["Microsoft Clipchamp"]
       }
@@ -1269,7 +1654,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     },
     pedagogicalFramework: "Plano Nacional das Artes (PNA) + Taxonomia de Anderson & Krathwohl (Nível 'Criar').",
     rgpdSafetyChecklist: [
-      "Obras de arte no domínio público ou com autorização comprovada para fins educativos.",
+      "Verificar os direitos de autor da obra e as condições de utilização da respetiva reprodução digital. A disponibilidade pública de uma imagem não significa automaticamente que esteja no domínio público ou que possa ser reutilizada sem restrições.",
       "Verificação de licenças em repositórios abertos (Wikimedia Commons, Europeana).",
       "Processamento seguro sem exposição de dados individuais dos estudantes."
     ]

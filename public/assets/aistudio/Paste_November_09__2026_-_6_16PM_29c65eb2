@@ -1,0 +1,1735 @@
+# ORDEM DE TRABALHO — CORREÇÃO E ATUALIZAÇÃO DA PLATAFORMA
+## IA NA EDUCAÇÃO — FERRAMENTAS DE VÍDEO | MÓDULO 3
+
+Trabalha diretamente sobre a versão atual do projeto que está aberta no Google AI Studio.
+
+Esta plataforma destina-se a **professores e formadores de professores**, em Portugal. O seu objetivo é apoiar a exploração pedagógica de ferramentas de vídeo com Inteligência Artificial, ajudar os docentes a escolher ferramentas adequadas e disponibilizar exemplos e atividades que possam adaptar à sua prática letiva.
+
+Não é uma plataforma de utilização autónoma por alunos.
+
+A tua tarefa é executar as alterações especificadas neste documento. Não te limites a apresentar recomendações.
+
+# 0. REGRAS FUNDAMENTAIS — LER ANTES DE ALTERAR
+
+## 0.1. Preservar o trabalho que já está correto
+
+A versão atual já recebeu várias correções importantes. Não as desfaças.
+
+Preserva expressamente:
+
+- O design, a identidade visual, a paleta cromática e a tipografia.
+- A organização e navegação da plataforma.
+- As cinco vantagens pedagógicas.
+- Os onze temas do banco de prompts.
+- As quatro atividades.
+- As grelhas de avaliação ponderadas que já estão implementadas.
+- A calculadora e a respetiva fórmula de cálculo ponderado.
+- A bibliografia e as fontes que estão corretas.
+- As orientações do EduQA que já foram introduzidas.
+- As três modalidades de utilização da IA: Sem IA, IA de apoio e IA integrada.
+- A normalização da pesquisa sem acentos.
+- A cópia assíncrona dos prompts.
+- O atributo `lang="pt-PT"`.
+- As importações das imagens compatíveis com Vite.
+- A configuração de publicação no GitHub Pages.
+- O comando de testes existente.
+- As melhorias de acessibilidade já implementadas.
+
+Não reconstruas a aplicação de raiz.
+
+Não mudes todos os textos apenas para dar uma aparência diferente à plataforma.
+
+Não elimines conteúdos pedagógicos válidos.
+
+## 0.2. Âmbito das alterações
+
+Executa apenas:
+
+1. Correções do banco de prompts.
+2. Atualização e complementação do catálogo de ferramentas.
+3. Correções da coerência do comparador.
+4. Correções pontuais das cinco vantagens pedagógicas.
+5. Pequenas correções nas atividades.
+6. Retirada do gerador de prompts atualmente defeituoso.
+7. Acréscimo de um pequeno apoio à escolha de ferramentas para professores.
+8. Correções pontuais do README e dos elementos de desenvolvimento que possam ser publicados.
+
+Não acrescentes outras funcionalidades.
+
+## 0.3. Critério de rigor
+
+Não inventes informações sobre ferramentas.
+
+Não inventes:
+- Preços.
+- Créditos.
+- Quotas diárias ou mensais.
+- Duração máxima dos vídeos.
+- Resoluções.
+- Marcas de água.
+- Idades mínimas.
+- Línguas de locução.
+- Funcionalidades.
+- Direitos comerciais.
+- Garantias de privacidade.
+
+Sempre que um dado não estiver confirmado na página oficial, não o apresentes como facto.
+
+Para cada ficha, utiliza uma ligação oficial que permita ao professor verificar a informação.
+
+A data de verificação das condições comerciais e funcionalidades deve ser indicada como **9 de novembro de 2026**. Não afirmes que essas condições são permanentes.
+
+## 0.4. Público e linguagem
+
+Toda a plataforma deve utilizar Português de Portugal.
+
+A linguagem deve ser profissional, natural, clara e adequada à formação de professores.
+
+Os prompts dirigidos às ferramentas podem utilizar o imperativo neutro: "Cria", "Representa", "Mostra".
+
+Os textos dirigidos aos docentes devem manter um tratamento coerente e respeitoso.
+
+Não utilizes linguagem publicitária, superlativos sem evidência ou promessas de resultados garantidos.
+
+---
+
+# 1. BANCO DE PROMPTS PEDAGÓGICOS — REVISÃO DOS 11 PROMPTS
+
+Esta é uma intervenção prioritária.
+
+Mantém os onze temas, a apresentação em cartões, os botões de cópia e a organização da página.
+
+Não elimines o banco.
+
+Substitui os textos dos prompts indicados abaixo pelos textos completos fornecidos. Não te limites a acrescentar notas de cautela aos textos antigos.
+
+A IA generativa não deve ser apresentada como fonte científica, histórica ou matemática.
+
+## 1.1. PROMPT 1 — CORAÇÃO E CIRCULAÇÃO SANGUÍNEA
+
+Mantém o tema, a disciplina e o ano de escolaridade.
+
+O objetivo atual inclui o percurso do sangue e as fases de sístole e diástole, mas o prompt não representa suficientemente as duas fases.
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender o percurso do sangue na circulação pulmonar e sistémica e identificar, de forma esquemática, as fases de diástole e sístole cardíacas."
+
+### Substituir `promptText` por:
+
+"Cria uma animação educativa esquemática do coração humano, em corte longitudinal, sem legendas ou texto gerado automaticamente. Mostra um ciclo cardíaco em momentos claramente separados.
+
+Primeiro, durante a diástole ventricular, os ventrículos relaxam e enchem-se de sangue; as válvulas auriculoventriculares estão abertas.
+
+Segundo, a contração das aurículas completa o enchimento ventricular.
+
+Terceiro, durante a sístole ventricular, os ventrículos contraem-se, as válvulas auriculoventriculares fecham, as válvulas semilunares abrem e o sangue é ejetado para a artéria pulmonar e para a aorta.
+
+Distingue o lado direito, que envia sangue menos oxigenado para os pulmões, do lado esquerdo, que envia sangue oxigenado para o corpo.
+
+Utiliza azul e vermelho apenas como convenções gráficas. Estas cores não representam as cores reais do sangue.
+
+Mantém as estruturas anatómicas estáveis e não inventes vasos, cavidades ou válvulas. Se a sequência não puder ser representada com rigor, apresenta planos separados, em vez de uma animação contínua enganadora."
+
+### Substituir `ethicalConsideration` por:
+
+"A animação é uma representação esquemática, não uma imagem anatómica de referência. O professor deve validar o percurso do sangue, a abertura e o fecho das válvulas e as fases cardíacas através de um esquema científico adequado. As cores azul e vermelho são convenções gráficas."
+
+---
+
+## 1.2. PROMPT 2 — DESCOBERTA DO CAMINHO MARÍTIMO PARA A ÍNDIA
+
+O texto atual refere três naus, mas identifica apenas duas embarcações.
+
+A armada que partiu de Portugal em 1497 era constituída por quatro embarcações: duas naus, a caravela Bérrio e uma naveta de mantimentos. Não se deve, contudo, inventar o número de navios presentes num determinado momento da chegada a Calecute.
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender a chegada da expedição de Vasco da Gama a Calecute em 1498 e distinguir a reconstituição visual de um registo histórico."
+
+### Substituir `promptText` por:
+
+"Cria uma reconstituição visual ilustrativa, não documental, da aproximação de embarcações portuguesas à costa de Calecute, na Índia, em 1498.
+
+Representa navios à vela de finais do século XV, marinheiros e a costa de Malabar, com materiais, velas e elementos visuais coerentes com fontes iconográficas e históricas fornecidas pelo professor.
+
+Não indiques um número exato de navios nem atribuas nomes, bandeiras, símbolos, uniformes ou detalhes específicos sem uma imagem ou fonte documental de referência.
+
+Não inventes acontecimentos, diálogos ou reações individuais. Não imites a aparência de uma filmagem histórica autêntica.
+
+Não incluas texto, rótulos ou símbolos gerados automaticamente. Os elementos históricos e a rota serão identificados posteriormente pelo professor com fontes documentais."
+
+### Substituir `ethicalConsideration` por:
+
+"A armada que partiu em 1497 deve ser distinguida da representação da chegada a Calecute. A composição da expedição, os nomes das embarcações e a rota devem ser confirmados em fontes históricas. A animação deve ser identificada como reconstituição visual ilustrativa, nunca como documento de arquivo."
+
+Não inventes a composição da armada no momento da chegada.
+
+---
+
+## 1.3. PROMPT 3 — CICLO DA ÁGUA
+
+O texto atual representa o vapor de água como se fosse visível a subir do oceano.
+
+Isto está cientificamente incorreto.
+
+O vapor de água é invisível. As nuvens são constituídas por pequenas gotículas de água e/ou cristais de gelo.
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender os principais processos do ciclo da água: evaporação, condensação, precipitação, escoamento e infiltração."
+
+### Substituir `promptText` por:
+
+"Cria uma animação educativa esquemática do ciclo da água numa paisagem costeira.
+
+Mostra a água líquida à superfície do mar a evaporar. O vapor de água é invisível e não deve ser representado como fumo branco.
+
+Mostra a subida do ar húmido, o seu arrefecimento e a condensação em pequenas gotículas de água ou cristais de gelo que contribuem para a formação das nuvens.
+
+Representa a precipitação e o regresso da água à superfície através do escoamento superficial e da infiltração no solo, voltando a alimentar rios e oceanos.
+
+Inclui, quando adequado ao nível de ensino, a transpiração das plantas como outra entrada de vapor de água na atmosfera.
+
+Mantém a sequência cíclica, sem sugerir que todos os processos ocorrem sempre numa única trajetória obrigatória.
+
+Não acrescentes textos, setas, valores ou rótulos automáticos."
+
+### Substituir `ethicalConsideration` por:
+
+"O vapor de água não é visível. As nuvens são constituídas por gotículas de água e/ou cristais de gelo. O ciclo da água representa processos interligados, não uma sequência rígida única. O professor deve validar a sequência e a terminologia."
+
+---
+
+## 1.4. PROMPT 4 — MITOSE CELULAR
+
+O objetivo atual inclui as quatro fases clássicas, mas o texto da animação não desenvolve toda a sequência de forma clara.
+
+### Substituir `promptText` por:
+
+"Cria uma animação científica esquemática de uma célula eucariótica animal a realizar a mitose, apresentando quatro fases clássicas numa sequência ordenada: prófase, metáfase, anáfase e telófase, seguida da citocinese.
+
+Na prófase, os cromossomas condensam-se e o fuso mitótico organiza-se.
+
+Na metáfase, os cromossomas alinham-se na região equatorial.
+
+Na anáfase, as cromátides-irmãs separam-se e deslocam-se para polos opostos.
+
+Na telófase, os núcleos reorganizam-se.
+
+Depois, o citoplasma divide-se por citocinese, originando duas células-filhas.
+
+Não representes a duplicação do ADN como um acontecimento da mitose: essa duplicação ocorre anteriormente, durante a interfase.
+
+Não afirmes que a animação é uma captura microscópica real. Não incluas texto ou etiquetas automáticas; estes elementos serão acrescentados posteriormente, depois de validação científica."
+
+### Substituir `ethicalConsideration` por:
+
+"A animação é um modelo simplificado do processo celular. Não deve ser apresentada como imagem microscópica real nem como representação à escala. Validar a sequência das fases e a distinção entre mitose e citocinese através de uma fonte de Biologia."
+
+---
+
+## 1.5. PROMPT 5 — FORMAÇÃO DOS VULCÕES E SUBDUCÇÃO
+
+O texto atual atribui a fusão parcial das rochas ao aumento da pressão e da temperatura da placa subductada.
+
+Esta explicação não representa corretamente o mecanismo característico da formação de magma em muitas zonas de subducção.
+
+A libertação de água e outros fluidos pela placa em subducção favorece a fusão parcial do manto sobrejacente.
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender o movimento convergente das placas tectónicas, o processo de subducção e a formação de magma em zonas de subducção."
+
+### Substituir `promptText` por:
+
+"Cria uma animação geológica esquemática em corte transversal de uma zona de subducção, mostrando uma placa oceânica a convergir e a mergulhar sob uma placa continental.
+
+À medida que a placa oceânica desce, liberta água e outros fluidos para o manto sobrejacente.
+
+Esses fluidos favorecem a fusão parcial do manto, formando magma que pode ascender através da crosta e alimentar um vulcão.
+
+Não representes a placa subductada como se fundisse integralmente. Não expliques a formação do magma apenas pelo aumento da pressão ou da temperatura da própria placa.
+
+Mostra a subducção e a formação de magma em sequências distintas e simplificadas. Não acrescentes setas, legendas ou escalas automáticas, que serão incluídas posteriormente pelo professor."
+
+### Substituir `ethicalConsideration` por:
+
+"A animação é uma representação simplificada de um processo geológico que decorre em escalas temporais muito longas. O professor deve validar a distinção entre placa subductada, cunha mantélica, fluidos libertados e fusão parcial do manto através de uma fonte científica."
+
+---
+
+## 1.6. PROMPT 6 — SEGURANÇA LABORATORIAL COM APRESENTADOR VIRTUAL
+
+O texto atual promete dicção impecável e sincronização labial perfeita. Estas características não podem ser garantidas pela IA.
+
+A instrução relativa a derrames também deve ser mais clara.
+
+### Substituir `promptText` por:
+
+"Cria um vídeo de apresentação com uma personagem virtual fictícia e adulta a apresentar três regras gerais de segurança num laboratório escolar.
+
+A personagem utiliza bata e óculos de proteção adequados ao contexto, mantém o cabelo comprido preso e fala de forma clara, num ritmo moderado.
+
+Utiliza o seguinte texto de fala:
+
+«Antes de iniciar uma atividade laboratorial, coloca os equipamentos de proteção indicados pelo professor e prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Se ocorrer um derrame ou outra situação inesperada, não toques no material nem tentes limpar. Afasta-te e informa imediatamente o professor, seguindo as instruções de segurança do laboratório.»
+
+Não afirmes que a voz será necessariamente em Português de Portugal nem que a sincronização labial será perfeita. Se a ferramenta não disponibilizar uma voz adequada, o professor deve gravar ou substituir a narração.
+
+Não utilizar a imagem ou voz de qualquer pessoa real."
+
+### Substituir `ethicalConsideration` por:
+
+"As regras apresentadas são orientações gerais. A versão final deve ser revista de acordo com as fichas de segurança dos produtos, o regulamento do laboratório e os procedimentos definidos pela escola. A personagem é fictícia e não substitui a explicação do professor nem as regras específicas de cada atividade."
+
+---
+
+## 1.7. PROMPT 7 — TEOREMA DE PITÁGORAS
+
+O texto atual pede ao modelo generativo que represente áreas, dimensões e volumes exatos. Não se deve confiar na IA generativa para construir demonstrações geométricas precisas.
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender geometricamente o Teorema de Pitágoras através da comparação das áreas dos quadrados construídos sobre os lados de um triângulo retângulo."
+
+### Substituir `promptText` por:
+
+"Utiliza como imagem de referência um diagrama de um triângulo retângulo com lados de comprimento 3, 4 e 5 e os quadrados construídos externamente sobre cada lado. O diagrama deve ser previamente criado e validado pelo professor numa ferramenta geométrica.
+
+Cria uma animação simples que permita comparar as áreas dos três quadrados sem alterar a forma, os ângulos, as medidas ou a posição dos elementos.
+
+Mantém os quadrados construídos sobre os catetos separados e mostra visualmente que as respetivas áreas, 9 e 16 unidades quadradas, totalizam a área do quadrado construído sobre a hipotenusa, 25 unidades quadradas.
+
+Não geres números, símbolos ou fórmulas no vídeo. Estes elementos serão inseridos no editor depois de verificados.
+
+Não uses água, volumes ou recipientes, porque esta demonstração se baseia na comparação de áreas.
+
+Se o modelo deformar a geometria, rejeita o resultado e utiliza o diagrama estático ou uma animação construída numa ferramenta geométrica."
+
+### Substituir `recommendedTool` por:
+
+"GeoGebra para construir e validar o diagrama; Canva para Educação ou Microsoft Clipchamp para montar a animação e a explicação."
+
+### Substituir `ethicalConsideration` por:
+
+"As medidas, os ângulos, as áreas e a igualdade matemática devem ser construídos e verificados fora do modelo generativo. A IA pode ser utilizada apenas para movimento ilustrativo, nunca como garantia de rigor geométrico."
+
+---
+
+## 1.8. PROMPT 8 — INÊS DE CASTRO
+
+O título atual associa diretamente a tragédia à Quinta das Lágrimas como se a localização do acontecimento fosse um facto histórico demonstrado.
+
+Também não se deve referir Os Lusíadas como obra lírica: trata-se de uma epopeia.
+
+### Substituir o título por:
+
+"8. Inês de Castro: História, Lenda e Representação em Os Lusíadas"
+
+### Substituir `pedagogicalObjective` por:
+
+"Analisar o episódio de Inês de Castro no Canto III de Os Lusíadas, distinguindo contexto histórico, construção literária e tradições lendárias associadas ao local."
+
+### Substituir `visualStyle` por:
+
+"Ilustração simbólica e não documental, inspirada no século XIV. Evitar representar como reconstituição factual um cenário cuja relação com o acontecimento é lendária."
+
+### Substituir `promptText` por:
+
+"Cria uma ilustração animada, assumidamente ficcional e simbólica, inspirada na figura literária de Inês de Castro e no episódio narrado no Canto III de Os Lusíadas.
+
+Representa uma figura feminina medieval num jardim junto à água, sem identificar o cenário como o local historicamente comprovado do acontecimento.
+
+Não afirmes que o episódio ocorreu na Quinta das Lágrimas. A associação deste espaço à história de Pedro e Inês deve ser apresentada como tradição ou lenda, e não como facto histórico comprovado.
+
+Não representes as manchas avermelhadas das pedras como sangue real. Se forem mostradas, identifica-as como elemento de uma tradição lendária.
+
+Não inventes roupa, edifícios ou símbolos históricos específicos sem uma fonte de referência.
+
+Não incluas texto gerado automaticamente. O professor acrescentará posteriormente uma nota que distingue a história, a lenda e a representação literária de Camões."
+
+### Substituir `ethicalConsideration` por:
+
+"Distinguem-se três dimensões: informação histórica documentada, tradição lendária e representação literária. Os Lusíadas é uma epopeia. A associação da Quinta das Lágrimas ao episódio de Inês de Castro deve ser apresentada como tradição, não como localização comprovada. As manchas avermelhadas das pedras da Fonte das Lágrimas são associadas a algas vermelhas e não constituem vestígios documentais de sangue."
+
+---
+
+## 1.9. PROMPT 9 — FOTOSSÍNTESE
+
+Este é um erro científico particularmente grave na versão atual.
+
+O prompt representa a conversão de dióxido de carbono em glicose no interior dos tilacoides.
+
+É necessário distinguir corretamente as reações dependentes da luz e o ciclo de Calvin.
+
+### Substituir o título por:
+
+"9. Fotossíntese: Como as Plantas Transformam Energia Luminosa em Energia Química"
+
+### Substituir `pedagogicalObjective` por:
+
+"Compreender a fotossíntese e distinguir as reações dependentes da luz, que ocorrem nas membranas dos tilacoides, do ciclo de Calvin, que decorre no estroma do cloroplasto."
+
+### Substituir `visualStyle` por:
+
+"Animação científica esquemática, com ampliação da folha para o cloroplasto e distinção visual entre tilacoides e estroma."
+
+### Substituir `promptText` por:
+
+"Cria uma animação científica esquemática da fotossíntese numa folha e num cloroplasto.
+
+Começa com a luz a incidir na folha e mostra a água a chegar através dos vasos condutores.
+
+Faz uma ampliação até um cloroplasto. Distingue claramente duas regiões.
+
+Nas membranas dos tilacoides, a energia luminosa é absorvida pelos pigmentos fotossintéticos e ocorrem as reações dependentes da luz. A água é utilizada e ocorre libertação de oxigénio.
+
+No estroma do cloroplasto decorre o ciclo de Calvin, que utiliza dióxido de carbono e a energia química produzida nas reações dependentes da luz para formar compostos orgânicos.
+
+Não mostres o dióxido de carbono a transformar-se diretamente em glicose nos tilacoides.
+
+Não representes moléculas como esferas com rótulos automáticos nem inventes estruturas celulares.
+
+A animação é esquemática e será acompanhada por uma explicação e legendas elaboradas e validadas pelo professor."
+
+### Substituir `ethicalConsideration` por:
+
+"Validar a distinção entre tilacoides e estroma, a origem do oxigénio libertado e a função do ciclo de Calvin através de uma fonte científica de Biologia. A animação gerada por IA não deve ser utilizada como fonte científica."
+
+---
+
+## 1.10. PROMPT 10 — MULTIPLICAÇÃO
+
+O raciocínio matemático das três caixas com quatro maçãs está correto.
+
+O problema é que um gerador de vídeo não garante a contagem exata de objetos.
+
+Mantém o exemplo matemático, mas altera a forma de produzir a imagem.
+
+### Substituir `promptText` por:
+
+"Utiliza como referência uma imagem estática previamente criada e verificada pelo professor, que contenha exatamente três caixas iguais, cada uma com quatro maçãs vermelhas visíveis.
+
+Cria uma animação simples com um movimento de câmara ligeiro ou uma aproximação visual, preservando sem qualquer alteração o número de caixas e de maçãs.
+
+Não acrescentes, retires, dupliques ou deformes objetos.
+
+Não geres texto, números ou símbolos matemáticos.
+
+Se a ferramenta alterar a contagem dos objetos, rejeita a animação e utiliza a imagem estática original.
+
+Na fase de edição, o professor acrescentará a expressão matemática 4 + 4 + 4 = 12 e 3 × 4 = 12, depois de confirmar a correspondência entre o número de grupos e a quantidade de elementos."
+
+### Substituir `ethicalConsideration` por:
+
+"Não confiar numa geração de vídeo para produzir contagens matemáticas exatas. Criar e validar a imagem com os elementos pretendidos e inserir a notação matemática no editor."
+
+---
+
+## 1.11. PROMPT 11 — 25 DE ABRIL DE 1974
+
+Este prompt já foi corrigido na versão atual. Não o reescrevas.
+
+Mantém a redação que identifica o vídeo como reconstituição visual ilustrativa e ficcional e que proíbe a imitação de filmagens documentais autênticas.
+
+Apenas complementa `ethicalConsideration` com:
+
+"Confrontar a representação com fotografias de arquivo, testemunhos e fontes históricas identificadas. Não utilizar a reconstituição como prova documental. Se forem representados uniformes, veículos militares, insígnias ou outros detalhes históricos específicos, estes devem ser confrontados com imagens de arquivo. Não inventar acontecimentos ou comportamentos de pessoas reais."
+
+---
+
+# 2. BANCO DE PROMPTS — MELHORIAS DE APRESENTAÇÃO
+
+Na página `PromptsBankSection.tsx`, mantém o título e os cartões.
+
+Substitui a descrição atual por:
+
+"Explora onze propostas de criação audiovisual para diferentes áreas disciplinares. Cada prompt foi estruturado para apoiar a preparação de recursos educativos, mas deve ser adaptado à ferramenta escolhida e validado pelo professor antes da sua utilização."
+
+Acrescenta imediatamente abaixo:
+
+"Importante: os resultados gerados por Inteligência Artificial podem conter erros científicos, históricos, matemáticos ou visuais. Os prompts não garantem a exatidão do resultado. Sempre que possível, utiliza imagens, diagramas ou fontes de referência previamente validados e compara o vídeo gerado com esses materiais."
+
+Mantém o botão **«Copiar Prompt»**.
+
+Não apresentes os prompts como "testados em sala de aula" se não existirem registos que comprovem essa aplicação.
+
+Não mostres um selo de garantia de rigor.
+
+Não elimines nenhum dos onze cartões.
+
+---
+
+# 3. RETIRAR O GERADOR DE PROMPTS PEDAGÓGICOS DA INTERFACE
+
+A funcionalidade atual intitulada:
+
+"Gerador de Prompts Pedagógicos para Vídeo"
+
+tem erros estruturais que tornam os resultados pouco fiáveis.
+
+A correção não deve ser feita com alterações cosméticas.
+
+Os problemas são:
+
+1. Quando o professor seleciona "Personalizar no Gerador", o formulário recebe apenas disciplina, nível e título, mas não recebe o prompt original completo.
+2. A ferramenta predefinida é CapCut, que é sobretudo um editor de vídeo e não um gerador de clipes.
+3. A mesma estrutura de prompt é aplicada a geradores de vídeo, editores e ferramentas de avatares.
+4. São disponibilizadas durações de produto final como se fossem necessariamente durações de um único clipe gerado.
+5. O gerador promete resultados que dependem da ferramenta, como Português de Portugal, sincronização labial, legendas e locução.
+6. As sequências temporais construídas no código podem ser incoerentes com a duração escolhida.
+7. A funcionalidade não consegue garantir rigor científico ou histórico.
+
+**Decisão: retirar temporariamente o gerador da versão publicada.**
+
+Executa estas alterações:
+
+- Em `App.tsx`, retira a importação e utilização de `PromptGeneratorModal`.
+- Retira o estado `isGeneratorOpen`.
+- Retira o estado `selectedPromptForGenerator`.
+- Retira as funções usadas exclusivamente para abrir o gerador.
+- Retira as propriedades associadas ao gerador passadas a `Sidebar` e `TopNav`.
+- Em `Sidebar.tsx`, elimina o botão de abertura do gerador.
+- Em `TopNav.tsx`, elimina o botão de abertura do gerador.
+- Em `PromptsBankSection.tsx`, elimina o botão "Personalizar no Gerador".
+- Remove a propriedade `onUsePromptInGenerator` e a função de encaminhamento correspondente.
+- Mantém integralmente o botão "Copiar Prompt" e a funcionalidade de cópia.
+- Retira os indicadores ou contadores que anunciem um gerador de prompts.
+
+Depois de pesquisar todas as referências, elimina o componente `PromptGeneratorModal.tsx` e a função `generateEducationalPrompt()` se deixarem de ter qualquer utilização.
+
+Não elimines `EDUCATIONAL_PROMPTS`, `copyPrompt` ou qualquer parte do banco de prompts.
+
+Não cries um gerador novo nesta intervenção.
+
+Não substituas esta funcionalidade por uma segunda versão experimental.
+
+O objetivo é retirar uma funcionalidade que está a induzir os professores em erro, sem afetar o restante website.
+
+---
+
+# 4. ATUALIZAR O CATÁLOGO DE FERRAMENTAS
+
+O catálogo atual tem onze entradas. Mantém todas as ferramentas que continuam relevantes, mas corrige as informações comerciais, as idades, as descrições e as funcionalidades.
+
+Acrescenta cinco ferramentas de IA com utilidade pedagógica:
+
+1. Google Flow.
+2. Google Vids.
+3. PixVerse.
+4. Adobe Firefly.
+5. Runway.
+
+O catálogo de IA passará a ter dezasseis entradas.
+
+Acrescenta ainda três alternativas gratuitas sem geração de IA, numa área separada, não contabilizada como ferramentas de geração de vídeo.
+
+## 4.1. Estrutura comum das fichas
+
+Mantém o modelo de dados atual de `ToolCatalogItem`, adaptando-o apenas quando necessário.
+
+Cada ficha deve apresentar:
+
+- Nome.
+- Categoria funcional.
+- Descrição.
+- Funcionalidades confirmadas.
+- Possível utilização pedagógica.
+- Limitações.
+- Condições de acesso.
+- Idade indicada pelo fornecedor, quando confirmada.
+- Ligação oficial.
+- Data de verificação.
+
+Acrescenta ao tipo, se ainda não existirem, os campos:
+
+```ts
+capabilityTags: string[];
+officialSources?: {
+  label: string;
+  url: string;
+}[];
+lastVerified: string;
+```
+
+Os campos de fonte e data devem ser preenchidos para todas as ferramentas.
+
+Utiliza a data:
+
+`2026-11-09`
+
+As `capabilityTags` devem usar identificadores estruturados, não texto livre.
+
+Utiliza apenas estes identificadores:
+
+- `text-to-video`
+- `image-to-video`
+- `video-editing`
+- `avatars`
+- `subtitles`
+- `screen-recording`
+- `text-to-speech`
+- `presentation-video`
+- `video-to-video`
+- `community-generator`
+
+Atribui apenas as funcionalidades que estejam confirmadas na página oficial de cada ferramenta.
+
+Não elimines outras propriedades do tipo se ainda forem utilizadas por componentes.
+
+## 4.2. InVideo AI
+
+Mantém o objeto `id: "invideo"`.
+
+A ligação oficial deve apontar para:
+
+https://invideo.io/
+
+A documentação oficial dos planos é:
+
+https://docs.invideo.io/account/plans
+
+Descrição a utilizar:
+
+"O InVideo AI é uma plataforma de criação de vídeos que permite preparar conteúdos audiovisuais a partir de instruções escritas e materiais fornecidos pelo utilizador. Pode apoiar a criação de um primeiro rascunho de vídeo, que deve ser revisto e editado pelo docente."
+
+Condições de acesso:
+
+"O serviço disponibiliza um nível gratuito com utilização limitada por créditos. A geração por IA e determinadas transcrições consomem créditos; a edição manual no InVideo Editor tem condições próprias. Os limites dependem da região, do plano e do modelo utilizado. Consulte a documentação oficial antes de planear a atividade."
+
+Não inventes um número fixo de créditos.
+
+Funcionalidades:
+
+- Criação de rascunhos audiovisuais com IA.
+- Preparação de sequências visuais a partir de texto.
+- Edição posterior do vídeo.
+- Funcionalidades de narração e transcrição, conforme plano e disponibilidade.
+
+Limitações:
+
+- O resultado pode incluir imagens inadequadas ou incorretas.
+- O resumo de um texto não garante fidelidade ao documento original.
+- A geração por IA consome créditos.
+- Não assumir Português de Portugal ou direitos comerciais sem confirmação.
+
+## 4.3. Kling AI
+
+Mantém o objeto `id: "kling"`.
+
+Liga a:
+
+https://kling.ai/
+
+Descrição:
+
+"O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens. As funcionalidades dependem do modelo e da versão selecionada."
+
+Condições:
+
+"A plataforma disponibiliza condições de acesso gratuitas com limites e créditos próprios. Não apresentar uma quantidade fixa de créditos ou de vídeos diários sem confirmação na conta e documentação atuais. As gerações gratuitas podem ter restrições e marcas de água."
+
+Limitações:
+
+- A duração depende do modelo.
+- As funcionalidades de áudio dependem da versão.
+- A disponibilidade de idiomas de áudio não deve ser presumida.
+- O resultado requer validação visual e factual.
+- Os termos de utilização e a idade mínima devem ser respeitados.
+
+Não apresentar "O Melhor Realismo Visual de 2026", "líder mundial" ou outras classificações promocionais.
+
+## 4.4. Luma AI
+
+O nome atual de modelo principal não deve continuar a ser Ray 2.
+
+Substitui o nome da ficha por:
+
+"Luma AI — Ray3.2"
+
+Ligação de informação oficial:
+
+https://lumalabs.ai/llm-info
+
+Aplicação:
+
+https://app.lumalabs.ai/
+
+Descrição:
+
+"A Luma AI disponibiliza ferramentas de criação audiovisual com modelos de Inteligência Artificial. O modelo de vídeo indicado pela documentação consultada em novembro de 2026 é o Ray3.2. As funcionalidades e os modos de criação dependem da versão e da conta."
+
+Condições:
+
+"Não apresentar uma quota gratuita recorrente de 30 gerações mensais. Consultar os planos e a disponibilidade atuais."
+
+Idade:
+
+"Os termos indicam utilização a partir dos 18 anos ou, entre os 13 e os 17 anos, com consentimento do progenitor ou representante legal, nos termos definidos pelo fornecedor. Utilização por alunos apenas após validação das condições institucionais e legais."
+
+Limitações:
+
+- Os modelos podem mudar.
+- Não presumir que todas as funcionalidades estão disponíveis gratuitamente.
+- Não garantir precisão científica ou histórica.
+- Não assumir que a duração dos vídeos é fixa.
+
+## 4.5. MiniMax — Hailuo AI
+
+Mantém o objeto `id: "minimax"`.
+
+Nome:
+
+"MiniMax — Hailuo AI"
+
+Ligação:
+
+https://hailuoai.video/
+
+Termos oficiais:
+
+https://hailuoai.video/doc/terms-of-service.html
+
+Descrição:
+
+"A Hailuo AI disponibiliza ferramentas de geração de vídeo com Inteligência Artificial, incluindo criação a partir de instruções escritas e imagens, de acordo com os modelos disponíveis."
+
+Condições de acesso:
+
+"Os termos de utilização indicam uma idade mínima de 16 anos. Podem existir créditos promocionais de boas-vindas para determinados novos registos, com condições e validade próprias. Não apresentar créditos diários permanentes nem quantidades não confirmadas."
+
+Limitações:
+
+- Modelos e condições variáveis.
+- Marcas de água e exportação dependem do plano.
+- Não garantir geração de vídeo com a duração de um documentário completo.
+- Validar os resultados antes de utilização educativa.
+
+## 4.6. Pika
+
+Mantém `id: "pika"`.
+
+Ligação:
+
+https://pika.art/
+
+Página oficial de preços:
+
+https://creation.pika.art/pricing
+
+Descrição:
+
+"O Pika disponibiliza ferramentas de criação e transformação audiovisual com Inteligência Artificial. As funcionalidades dependem do modelo e das opções disponíveis na conta."
+
+Condições de acesso:
+
+"O plano Free indicado na página oficial não inclui créditos mensais. A criação pode exigir packs de créditos pagos. Não classificar o Pika como ferramenta com créditos gratuitos recorrentes."
+
+Idade:
+
+"Os termos consultados indicam utilização a partir dos 18 anos."
+
+Limitações:
+
+- Não garantir uma quota mensal gratuita.
+- Não garantir funcionalidades ou durações específicas sem confirmação.
+- A licença comercial não deve ser presumida no plano gratuito.
+
+## 4.7. CapCut
+
+Mantém `id: "capcut"`.
+
+Ligação:
+
+https://www.capcut.com/
+
+Página oficial de preços:
+
+https://www.capcut.com/pricing/
+
+Descrição:
+
+"O CapCut é um editor de vídeo que disponibiliza ferramentas de montagem, efeitos, áudio, legendagem e funcionalidades de Inteligência Artificial, conforme a versão e o plano."
+
+Condições de acesso:
+
+"O plano gratuito inclui ferramentas básicas de edição. O plano Pro apresenta funcionalidades adicionais de IA e créditos, de acordo com as condições comerciais e a região. Não assumir que a legendagem automática, a geração de vídeo ou todas as funcionalidades de IA são gratuitas."
+
+Não apresentar 300 créditos como oferta permanente.
+
+Limitações:
+
+- A disponibilidade das funções varia por região, versão e plano.
+- As legendas automáticas têm de ser revistas.
+- As funcionalidades processadas por IA podem recorrer a serviços externos.
+- Não afirmar que a instalação local significa que todos os ficheiros são processados localmente.
+
+## 4.8. Canva para Educação
+
+Mantém `id: "canva"`.
+
+Ligação:
+
+https://www.canva.com/pt_pt/educacao/
+
+Elegibilidade:
+
+https://www.canva.com/pt_pt/educacao/elegibilidade/
+
+Descrição:
+
+"O Canva para Educação é um programa gratuito para professores e instituições elegíveis do ensino primário, básico e secundário, nos termos definidos pelo fornecedor. Permite criar apresentações, materiais visuais e conteúdos audiovisuais, incluindo funcionalidades assistidas por IA quando disponibilizadas na conta."
+
+Condições:
+
+"A elegibilidade depende dos critérios do fornecedor e da respetiva validação. A gratuitidade do Canva para Educação não significa que todas as funcionalidades de IA ou todas as ferramentas de geração de vídeo estejam disponíveis sem limites."
+
+Limitações:
+
+- Não afirmar "100% gratuito sem restrições".
+- Não garantir que todas as funcionalidades de IA estão incluídas.
+- Não apresentar o Canva como ferramenta automaticamente segura para qualquer turma.
+- A utilização com alunos deve respeitar os termos, a idade, as configurações institucionais e as orientações da escola.
+
+## 4.9. Perchance
+
+Mantém `id: "perchance"`, mas não o apresentes como ferramenta recomendada para utilização direta por alunos.
+
+Termos oficiais:
+
+https://perchance.org/terms-of-service
+
+Política de privacidade:
+
+https://perchance.org/privacy-policy
+
+Ligação do gerador atualmente referenciado:
+
+https://perchance.org/ai-text-to-video-generator
+
+Nome:
+
+"Perchance — geradores comunitários"
+
+Categoria:
+
+"Experimentação de conteúdos por docentes adultos"
+
+Descrição:
+
+"O Perchance disponibiliza diferentes geradores criados no seu ecossistema comunitário. As funcionalidades, condições de acesso e características de privacidade podem variar entre geradores. Os termos gerais consultados restringem a utilização a maiores de 18 anos. Pode ser apresentado apenas como exemplo de exploração individual por docentes adultos, não como ferramenta escolar validada."
+
+Condições de acesso:
+
+"Os termos do serviço indicam idade mínima de 18 anos. A ausência de registo em determinados geradores não permite concluir que não exista recolha de informação técnica ou de utilização."
+
+Limitações:
+
+- Não recomendado para utilização direta por alunos.
+- Não é um produto institucional único de geração de vídeo.
+- Não garantir estabilidade, moderação ou funcionalidades uniformes nos geradores da comunidade.
+- Não afirmar que não recolhe dados.
+- Não afirmar que é seguro, ilimitado ou conforme com o RGPD.
+
+Eliminar todas as classificações de risco RGPD baixo ou nulo.
+
+## 4.10. Microsoft Clipchamp
+
+Mantém `id: "clipchamp"`.
+
+Ligação:
+
+https://clipchamp.com/
+
+Documentação de texto para voz:
+
+https://support.microsoft.com/pt-pt/clipchamp/how-to-use-the-text-to-speech-feature
+
+Descrição:
+
+"O Microsoft Clipchamp é um editor de vídeo que permite organizar sequências, gravar, editar áudio e vídeo e utilizar funcionalidades como legendagem e texto para voz, de acordo com a conta e as opções disponíveis."
+
+Condições:
+
+"A versão pessoal gratuita permite exportar até 1080p sem marca de água. As funcionalidades disponíveis nas contas de trabalho ou educação dependem da licença Microsoft 365 e da configuração institucional."
+
+Eliminar:
+
+- Badge "Vozes PT-PT Nativas".
+- Garantia de vozes "Duarte e Raquel" em todas as contas.
+- Garantia de locução em Português de Portugal.
+
+Substituir a informação linguística por:
+
+"A disponibilidade de vozes em Português de Portugal deve ser confirmada na interface e na conta concreta. A existência de uma funcionalidade de texto para voz não garante que todas as variantes linguísticas ou vozes estejam disponíveis."
+
+## 4.11. HeyGen
+
+Mantém `id: "heygen"`.
+
+Ligação:
+
+https://www.heygen.com/
+
+Preços:
+
+https://www.heygen.com/pricing
+
+Termos:
+
+https://www.heygen.com/terms
+
+Descrição:
+
+"O HeyGen permite criar vídeos com apresentadores virtuais e avatares, a partir de textos e materiais fornecidos pelo utilizador."
+
+Condições:
+
+"O plano gratuito consultado apresenta três vídeos por mês, até um minuto cada, com marca de água. Os termos indicam utilização a partir dos 18 anos."
+
+Limitações:
+
+- Não recomendar utilização direta por menores.
+- Não garantir sincronização labial perfeita.
+- Não utilizar imagens ou vozes de pessoas reais sem as autorizações e validações aplicáveis.
+- As funcionalidades variam conforme o plano.
+
+## 4.12. Vidnoz AI
+
+Mantém `id: "vidnoz"`.
+
+Ligação:
+
+https://pt.vidnoz.com/
+
+Termos:
+
+https://pt.vidnoz.com/termos.html
+
+Descrição:
+
+"O Vidnoz AI disponibiliza ferramentas de criação de vídeo com avatares e funcionalidades assistidas por Inteligência Artificial."
+
+Condições:
+
+"Os termos consultados indicam que a criação de uma conta exige pelo menos 18 anos. A página de preços apresenta opções gratuitas e pagas, mas não deve ser apresentada nesta ficha uma quota diária fixa que não esteja confirmada na documentação oficial."
+
+Limitações:
+
+- Utilização individual pelo professor adulto.
+- Não recomendar a criação de contas por alunos.
+- Confirmar limites, resolução, marca de água e exportação na conta concreta.
+- Não garantir funcionalidades não documentadas.
+
+---
+
+# 5. ACRESCENTAR CINCO FERRAMENTAS DE IA AO CATÁLOGO
+
+Acrescenta cinco registos novos, respeitando o modelo atual de dados.
+
+Não substituas o catálogo inteiro.
+
+## 5.1. GOOGLE FLOW
+
+Nome:
+
+"Google Flow"
+
+Categoria:
+
+"Geração de vídeo com IA"
+
+Ligação:
+
+https://labs.google/fx/pt-pt/tools/flow
+
+Documentação de créditos:
+
+https://support.google.com/flow/answer/16526234?hl=en
+
+Documentação de disponibilidade e línguas:
+
+https://support.google.com/flow/answer/16353544?hl=en
+
+Descrição:
+
+"O Google Flow é um espaço de criação audiovisual com Inteligência Artificial que permite gerar e trabalhar com clipes a partir de instruções escritas, imagens e outros elementos de referência. As opções disponíveis dependem do modelo selecionado."
+
+Funcionalidades:
+
+- Geração de vídeo a partir de texto.
+- Geração de vídeo a partir de imagens.
+- Utilização de imagens de referência, conforme o modelo.
+- Ferramentas de organização e continuidade de cenas, conforme a versão.
+
+Condições de acesso:
+
+"A documentação oficial consultada em 9 de novembro de 2026 indica 50 créditos gratuitos por dia, para utilizadores com ou sem subscrição. O número de créditos consumidos varia conforme o modelo e a geração. Em períodos de maior utilização, a geração de vídeo pode ficar temporariamente indisponível para utilizadores sem subscrição."
+
+Idade:
+
+"Utilização a partir dos 18 anos."
+
+Língua:
+
+"O Português é suportado, mas a documentação recomenda instruções em inglês para obter melhores resultados em determinados modelos. A qualidade varia com o idioma e a versão."
+
+Limitações:
+
+- Os créditos são consumidos de forma diferente consoante o modelo.
+- Não garantir um número fixo de vídeos por dia.
+- A ferramenta não assegura rigor científico ou histórico.
+- O professor deve validar os resultados.
+- Não recomendar utilização autónoma por menores.
+
+`capabilityTags`:
+
+`["text-to-video", "image-to-video", "video-to-video"]`
+
+## 5.2. GOOGLE VIDS
+
+Nome:
+
+"Google Vids"
+
+Categoria:
+
+"Criação e edição de vídeo assistida por IA"
+
+Ligação:
+
+https://vids.new/
+
+Anúncio oficial:
+
+https://blog.google/products-and-platforms/products/workspace/omni-1-2-flash-google-vids/
+
+Descrição:
+
+"O Google Vids é uma ferramenta de criação e edição de vídeos que integra funcionalidades de Inteligência Artificial. Permite organizar cenas, trabalhar com materiais audiovisuais e gerar pequenos clipes para integrar em projetos de vídeo."
+
+Funcionalidades:
+
+- Criação e edição de vídeos.
+- Organização de cenas.
+- Integração de elementos visuais e audiovisuais.
+- Geração de pequenos clipes com modelos disponibilizados pela Google.
+
+Condições de acesso:
+
+"Em 5 de novembro de 2026, a Google anunciou que utilizadores com uma conta Google ou subscrição Google Workspace podem gerar gratuitamente até três vídeos de 15 segundos por mês com o modelo Omni 1.2 Flash. A disponibilidade em contas escolares pode depender da licença e das configurações do administrador."
+
+Limitações:
+
+- A quantidade mensal de vídeos é limitada.
+- O clipe gerado não equivale a um vídeo educativo completo.
+- O professor deve montar, rever e contextualizar o resultado.
+- Não assumir que todas as funcionalidades estão disponíveis em qualquer conta escolar.
+
+`capabilityTags`:
+
+`["video-editing", "presentation-video", "text-to-video"]`
+
+## 5.3. PIXVERSE
+
+Nome:
+
+"PixVerse"
+
+Categoria:
+
+"Geração de vídeo com IA"
+
+Ligação:
+
+https://pixverse.ai/en
+
+FAQ oficial:
+
+https://docs.pixverse.ai/FAQ-PixVerse-App-1533e99bf35080888cb5effee85f8289
+
+Termos:
+
+https://pixverse.ai/en/terms-of-service
+
+Descrição:
+
+"O PixVerse é uma plataforma de criação de vídeos com IA, com funcionalidades de geração a partir de texto e imagem e diferentes opções de transformação audiovisual."
+
+Condições de acesso:
+
+"A documentação oficial consultada indica 30 créditos diários gratuitos para utilizadores não membros e 60 créditos para membros. Os créditos são renovados às 00:00 UTC e os créditos não utilizados expiram no final do dia. O custo de cada vídeo depende do modelo, resolução e duração selecionados."
+
+Idade:
+
+"Os termos indicam utilização a partir dos 16 anos. Para menores de 16 anos, os termos preveem condições de supervisão e responsabilidade parental. Em contexto escolar, a utilização deve ser previamente validada pela instituição."
+
+Limitações:
+
+- Os créditos não transitam para o dia seguinte.
+- Não garantir o número de vídeos produzidos com os créditos.
+- A duração e a resolução consomem quantidades diferentes.
+- As saídas devem ser revistas pelo professor.
+
+`capabilityTags`:
+
+`["text-to-video", "image-to-video", "video-to-video"]`
+
+## 5.4. ADOBE FIREFLY — GERAÇÃO DE VÍDEO
+
+Nome:
+
+"Adobe Firefly — Vídeo"
+
+Categoria:
+
+"Geração e edição de vídeo com IA"
+
+Ligação:
+
+https://firefly.adobe.com/
+
+Página oficial:
+
+https://www.adobe.com/pt/products/firefly/features/ai-video-generator.html
+
+Documentação de créditos:
+
+https://helpx.adobe.com/creative-cloud/apps/generative-ai/generative-credits-faq.html
+
+Descrição:
+
+"O Adobe Firefly disponibiliza ferramentas generativas de imagem e vídeo, incluindo criação de vídeo a partir de texto e imagem. A disponibilidade de modelos e operações depende da conta e dos créditos generativos."
+
+Funcionalidades:
+
+- Texto para vídeo.
+- Imagem para vídeo.
+- Ferramentas generativas de vídeo, de acordo com o modelo.
+- Integração com outras ferramentas Adobe, conforme a conta.
+
+Condições de acesso:
+
+"Os utilizadores gratuitos têm acesso limitado a funcionalidades generativas, com limites diários que podem mudar. Não está indicada nesta ficha uma quota fixa específica para geração de vídeo. Os créditos consumidos dependem da funcionalidade e do modelo."
+
+Limitações:
+
+- Não apresentar um número fixo de gerações de vídeo gratuitas.
+- Algumas funcionalidades exigem plano ou créditos.
+- Alguns modelos pertencem a fornecedores parceiros; não generalizar a todos as condições de utilização e direitos dos modelos próprios da Adobe.
+- Confirmar as condições de carregamento de conteúdos e idade mínima aplicável.
+- Não recomendar o carregamento de materiais pessoais de alunos.
+
+`capabilityTags`:
+
+`["text-to-video", "image-to-video", "video-to-video"]`
+
+## 5.5. RUNWAY
+
+Nome:
+
+"Runway"
+
+Categoria:
+
+"Geração e transformação de vídeo com IA"
+
+Ligação:
+
+https://runwayml.com/
+
+Condições do plano gratuito:
+
+https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details
+
+Descrição:
+
+"O Runway é uma plataforma de criação audiovisual com Inteligência Artificial, com ferramentas de geração, transformação e edição de vídeo."
+
+Condições de acesso:
+
+"O plano gratuito consultado disponibiliza 125 créditos uma única vez e 5 GB de armazenamento. Os créditos não são renovados mensalmente. Os vídeos produzidos no plano gratuito incluem marca de água. Os modelos disponíveis no plano podem mudar."
+
+Limitações:
+
+- Trata-se de uma experiência gratuita pontual, não de uma quota gratuita recorrente.
+- Não apresentar os 125 créditos como créditos mensais ou diários.
+- Não assumir que os modelos atuais permanecerão disponíveis.
+- Confirmar direitos de utilização e condições antes de publicar materiais.
+
+`capabilityTags`:
+
+`["text-to-video", "image-to-video", "video-to-video"]`
+
+---
+
+# 6. ACRESCENTAR ALTERNATIVAS GRATUITAS DE EDIÇÃO E GRAVAÇÃO — SEM IA
+
+Estas opções não são geradores de vídeo com IA.
+
+Devem aparecer numa área separada do catálogo, com o título:
+
+"Alternativas gratuitas para editar e gravar vídeo"
+
+Texto introdutório:
+
+"Nem todas as atividades exigem geração de vídeo com Inteligência Artificial. Existem ferramentas gratuitas que permitem gravar e editar materiais audiovisuais sem depender de créditos generativos."
+
+Acrescenta três cartões.
+
+## 6.1. SHOTCUT
+
+Nome:
+
+"Shotcut"
+
+Categoria:
+
+"Edição de vídeo — sem geração de IA"
+
+Descrição:
+
+"Editor de vídeo gratuito e de código aberto, disponível para diferentes sistemas operativos. Permite organizar sequências de vídeo e áudio e produzir um ficheiro final sem depender de créditos de geração de IA."
+
+Ligação:
+
+https://shotcut.org/
+
+Utilização pedagógica:
+
+"Editar vídeos produzidos pelos alunos ou pelo professor, montar excertos, ajustar áudio e organizar uma sequência audiovisual."
+
+## 6.2. OPENSHOT
+
+Nome:
+
+"OpenShot"
+
+Categoria:
+
+"Edição de vídeo — sem geração de IA"
+
+Descrição:
+
+"Editor de vídeo gratuito e de código aberto, com funcionalidades de montagem de vídeo, imagem, áudio, títulos e transições."
+
+Ligação:
+
+https://www.openshot.org/pt/
+
+Utilização pedagógica:
+
+"Montar pequenos documentários, entrevistas, apresentações narradas e vídeos realizados em contexto escolar."
+
+## 6.3. OBS STUDIO
+
+Nome:
+
+"OBS Studio"
+
+Categoria:
+
+"Gravação de ecrã, câmara e áudio — sem geração de IA"
+
+Descrição:
+
+"Software gratuito e de código aberto para gravação de ecrã, câmara e áudio e transmissão em direto. Não é um editor de vídeo."
+
+Ligação:
+
+https://obsproject.com/
+
+Utilização pedagógica:
+
+"Gravar tutoriais, demonstrações de software, resolução de exercícios, apresentações e explicações do professor."
+
+Não contabilizar estas três ferramentas no total dos geradores e editores de vídeo com IA.
+
+---
+
+# 7. CORRIGIR FILTROS E COMPARADOR
+
+O catálogo e o comparador devem utilizar a mesma origem de dados.
+
+Não mantenhas descrições independentes e contraditórias para a mesma ferramenta.
+
+## 7.1. Eliminar o filtro «Exploração sem registo»
+
+No `ToolsCatalogSection.tsx`, elimina o filtro denominado:
+
+"Exploração sem registo"
+
+e a respetiva lógica.
+
+A ausência de registo não constitui uma garantia de privacidade, de segurança ou de adequação etária.
+
+## 7.2. Corrigir o filtro de geração de vídeo
+
+Atualmente, o filtro procura textos exatos como `"Prompt de Texto"`, mas as fichas utilizam designações diferentes.
+
+Não utilizar expressões escritas nas descrições para determinar funcionalidades.
+
+Passa a utilizar o campo estruturado `capabilityTags`.
+
+Exemplo:
+
+```ts
+capabilityTags: [
+  "text-to-video",
+  "image-to-video",
+  "video-editing"
+]
+```
+
+O filtro `text-to-video` deve incluir todas as ferramentas que tenham essa funcionalidade confirmada.
+
+O filtro `video-editing` deve incluir os editores correspondentes.
+
+O filtro `avatars` deve incluir ferramentas com criação de avatares.
+
+Os filtros devem funcionar independentemente da descrição textual.
+
+## 7.3. Corrigir o comparador
+
+Mantém o componente, o aspeto visual e a interação.
+
+O comparador deve utilizar `TOOLS_CATALOG` como única origem dos dados relativos às ferramentas.
+
+Inclui todas as 16 ferramentas do catálogo.
+
+Remove:
+- Quotas não confirmadas.
+- Classificações de risco RGPD baixo/médio/alto.
+- Idades não confirmadas.
+- Garantias de segurança.
+- Etiquetas de superioridade comercial.
+
+Mantém colunas que permitam ao professor comparar:
+- Nome.
+- Categoria.
+- Funcionalidades.
+- Tipo de acesso gratuito.
+- Limitações.
+- Idade definida pelo fornecedor, quando confirmada.
+- Página oficial.
+
+Não preenchas campos desconhecidos com estimativas.
+
+## 7.4. Classificar os tipos de acesso
+
+Utiliza etiquetas estruturadas para diferenciar:
+
+- `recurring-free-credits`
+- `limited-free-plan`
+- `one-time-free-trial`
+- `free-editor`
+- `education-eligibility`
+- `paid-or-unconfirmed`
+- `community-experimental`
+
+Aplica-as da seguinte forma:
+
+| Ferramenta | Tipo de acesso |
+|---|---|
+| InVideo AI | `limited-free-plan` |
+| Kling AI | `recurring-free-credits` |
+| Luma AI | `paid-or-unconfirmed` |
+| Hailuo AI | `limited-free-plan` |
+| Pika | `paid-or-unconfirmed` |
+| CapCut | `free-editor` |
+| Canva para Educação | `education-eligibility` |
+| Perchance | `community-experimental` |
+| Clipchamp | `free-editor` |
+| HeyGen | `limited-free-plan` |
+| Vidnoz AI | `limited-free-plan` |
+| Google Flow | `recurring-free-credits` |
+| Google Vids | `limited-free-plan` |
+| PixVerse | `recurring-free-credits` |
+| Adobe Firefly | `limited-free-plan` |
+| Runway | `one-time-free-trial` |
+
+Estes rótulos descrevem a modalidade de acesso, não garantem uma quantidade de vídeos.
+
+Acrescenta uma nota ao comparador:
+
+"Os limites, créditos, preços e funcionalidades podem mudar. Consulte sempre a informação oficial antes de preparar uma atividade. A presença de uma opção gratuita não significa que todas as funcionalidades estejam incluídas."
+
+---
+
+# 8. CORRIGIR AS CINCO VANTAGENS PEDAGÓGICAS
+
+Não substituas integralmente as cinco vantagens.
+
+Mantém títulos, cartões e estrutura.
+
+Altera apenas as afirmações que prometem funcionalidades que dependem da ferramenta, plano ou modelo.
+
+## 8.1. Vantagem 1 — criação de vídeos
+
+Na lista `capabilities`, localiza a afirmação:
+
+"Gerar voz natural em Português de Portugal, sem necessidade de gravação do docente."
+
+Substitui por:
+
+"Algumas ferramentas disponibilizam síntese de voz. A língua, a variante do Português e a qualidade da locução dependem do serviço e do modelo utilizados e devem ser confirmadas antes da utilização. O professor pode optar por gravar a própria voz."
+
+Localiza a afirmação:
+
+"Criar vídeos pequenos (1 a 2 minutos), ideais para explicações rápidas."
+
+Substitui por:
+
+"Criar clipes curtos ou montar um vídeo final com a duração definida pelo professor. A duração e a sequência dependem da ferramenta e podem exigir edição posterior."
+
+Na descrição geral, evita afirmar que uma simples frase garante a criação de um vídeo completo e pedagogicamente correto.
+
+Utiliza:
+
+"As ferramentas de geração de vídeo podem apoiar a criação de rascunhos audiovisuais a partir de instruções escritas e materiais de referência. O professor deve rever o guião, as imagens, a narração e a informação antes de utilizar o vídeo."
+
+## 8.2. Vantagem 2 — acessibilidade
+
+Localiza a afirmação que garante legendas automáticas sincronizadas e com pontuação correta em poucos segundos.
+
+Substitui por:
+
+"Algumas ferramentas permitem gerar legendas automáticas. A sincronização, a pontuação e a identificação de termos científicos devem ser revistas pelo professor."
+
+Localiza a afirmação:
+
+"Traduzir o áudio para dezenas de idiomas, preservando a clareza e a entoação."
+
+Substitui por:
+
+"Algumas ferramentas disponibilizam tradução ou dobragem automática para idiomas selecionados. A disponibilidade varia e o resultado deve ser revisto por alguém com conhecimento da língua e do conteúdo."
+
+Mantém a explicação do DUA e a distinção entre legendas e redundância de texto.
+
+## 8.3. Vantagem 3 — edição e segmentação
+
+Na descrição do CapCut, não garantir que é sempre possível editar um vídeo diretamente a partir da transcrição.
+
+Substitui por:
+
+"Algumas versões e planos disponibilizam funcionalidades de edição assistida por transcrição. Quando essa opção não estiver disponível, a edição pode ser realizada através da linha temporal."
+
+Na descrição do InVideo AI, não garantir que qualquer artigo ou capítulo pode ser convertido num vídeo rigoroso de 90 segundos.
+
+Substitui por:
+
+"O InVideo AI pode apoiar a preparação de um rascunho audiovisual a partir de texto fornecido pelo utilizador. O resumo, a seleção das imagens e a duração final devem ser revistos pelo professor."
+
+## 8.4. Vantagem 4 — avatares
+
+Mantém a utilização de avatares como recurso de representação e dramatização.
+
+Na descrição do Vidnoz, não garantir a possibilidade de apresentar dois avatares em diálogo na mesma cena em qualquer plano.
+
+Substitui por:
+
+"Algumas funcionalidades permitem criar apresentações com avatares e diálogos, de acordo com o modelo e as opções disponibilizadas pela ferramenta."
+
+Não garantir que os avatares:
+- Aumentam automaticamente a motivação.
+- Melhoram sempre a aprendizagem.
+- Produzem sincronização labial perfeita.
+- Substituem a interação pedagógica do professor.
+
+## 8.5. Vantagem 5 — edição
+
+Onde a plataforma garante que o vídeo pode ser exportado em HD e partilhado sem limitações, substitui por:
+
+"As opções de exportação, resolução e marca de água dependem da ferramenta, da conta e do plano. Antes de preparar um recurso para partilha, o professor deve confirmar as condições de exportação."
+
+Não garantir poupança de tempo em minutos ou percentagens.
+
+Mantém as restantes vantagens e princípios de Mayer que já estejam corretos.
+
+---
+
+# 9. CORRIGIR PONTOS DAS ATIVIDADES
+
+As quatro atividades já foram revistas anteriormente. Não as reescrevas.
+
+Faz apenas as alterações seguintes.
+
+## 9.1. Atividade 3 — O Noticiário de Ciência
+
+Na propriedade `evaluationRubric`, localiza o critério cujo texto apresenta a identificação dos elementos sintéticos como cumprimento jurídico do artigo 50.º.
+
+Substitui a evidência por:
+
+"Identifica de forma clara os elementos visuais gerados ou alterados por IA, distingue ilustração de registo documental e indica as fontes utilizadas. A avaliação incide na transparência pedagógica e na literacia mediática, não numa certificação do cumprimento jurídico do artigo 50.º."
+
+No passo 4, substitui a referência a:
+
+"Debate sobre a aplicação dos deveres de transparência previstos no Regulamento Europeu da IA."
+
+Por:
+
+"Debate sobre o impacto da desinformação, a distinção entre divulgação pedagógica e obrigações jurídicas concretas do artigo 50.º e a importância da verificação de fontes. Não apresentar a rotulagem na atividade como dever legal universal dos alunos."
+
+Não alteres os pesos da grelha.
+
+## 9.2. Atividade 4 — Vozes do Património
+
+Na etapa de criação do monólogo, acrescenta:
+
+"O monólogo é uma criação ficcional dos alunos. Não deve ser apresentado como testemunho real da personagem nem como declaração documentada do artista."
+
+Na etapa de análise da animação, substitui a referência a:
+
+"Como a animação respeita ou desvirtua a intenção original do pintor."
+
+Por:
+
+"Como a animação preserva ou altera a composição, os elementos visuais e a leitura possível da obra. Não atribuir uma intenção ao artista sem uma fonte documental que a sustente."
+
+Na `teacherVerificationChecklist`, substitui:
+
+"Utilizar apenas fotografias de domínio público."
+
+Por:
+
+"Verificar os direitos de autor da obra e as condições de utilização da respetiva reprodução digital. A disponibilidade pública de uma imagem não significa automaticamente que esteja no domínio público ou que possa ser reutilizada sem restrições."
+
+Não alteres as restantes etapas nem os critérios já corrigidos.
+
+---
+
+# 10. ADICIONAR UM PEQUENO APOIO À ESCOLHA DE FERRAMENTAS
+
+A plataforma deve ajudar o professor a perceber que ferramenta poderá servir a tarefa pretendida.
+
+Não criar uma nova página complexa.
+
+Acrescenta uma secção curta no início do catálogo, antes dos cartões, com o título:
+
+"Que ferramenta escolher para a minha tarefa?"
+
+Texto de introdução:
+
+"A ferramenta adequada depende do que pretende produzir. Um gerador de clipes não substitui necessariamente um editor de vídeo, e um editor não produz obrigatoriamente imagens ou sequências a partir de um simples pedido escrito."
+
+Apresenta estas seis opções:
+
+**Quero criar pequenos clipes a partir de texto ou imagem.**
+
+Ferramentas:
+Google Flow, Kling AI, Luma AI, Hailuo AI, PixVerse, Adobe Firefly e Runway.
+
+**Quero preparar um vídeo com guião e sequência de cenas.**
+
+Ferramentas:
+InVideo AI e Google Vids.
+
+**Quero criar um apresentador ou personagem virtual.**
+
+Ferramentas:
+HeyGen e Vidnoz AI.
+
+**Quero editar vídeos e organizar sequências.**
+
+Ferramentas:
+Microsoft Clipchamp, CapCut, Canva para Educação, Shotcut e OpenShot.
+
+**Quero gravar o ecrã e explicar um procedimento.**
+
+Ferramentas:
+OBS Studio e Microsoft Clipchamp.
+
+**Quero explorar um gerador comunitário como professor adulto.**
+
+Ferramenta:
+Perchance, com restrição de 18 anos e sem recomendação de utilização direta por alunos.
+
+Não apresentes esta secção como um ranking de qualidade.
+
+Não uses "melhor ferramenta".
+
+Não afirmes que qualquer ferramenta é a mais segura.
+
+A finalidade é orientar a escolha, não promover marcas.
+
+---
+
+# 11. ADICIONAR UM CHECKLIST PRÁTICO PARA PROFESSORES
+
+Na página de visão geral ou numa caixa já existente de utilização responsável, acrescenta o seguinte texto:
+
+## Antes de utilizar uma ferramenta de vídeo com IA
+
+"Antes de preparar uma atividade, confirme:
+
+1. Qual é a aprendizagem que pretende desenvolver?
+2. A geração de vídeo acrescenta valor pedagógico ou existe uma fonte documental, uma simulação validada ou uma imagem que responde melhor ao objetivo?
+3. A ferramenta gera clipes, cria um vídeo completo, permite editar ou trabalha com avatares?
+4. Quais são os limites, créditos e condições do plano?
+5. Qual é a idade mínima definida pelo fornecedor?
+6. A escola disponibiliza uma conta ou licença institucional?
+7. Que dados serão enviados para o serviço?
+8. Os direitos das imagens, vídeos, gravações e músicas utilizadas estão acautelados?
+9. Como será validada a exatidão do resultado?
+10. Existe uma alternativa sem IA para alunos sem equipamento, conta ou autorização?"
+
+Acrescenta:
+
+"A utilização de IA deve ter uma finalidade educativa clara. A ferramenta não substitui a pesquisa, a validação de informação nem a intervenção pedagógica do professor."
+
+Não acrescentes formulários ou sistemas de registo de alunos.
+
+---
+
+# 12. CORRIGIR O README
+
+Não substituas todo o README.
+
+Mantém os requisitos técnicos, comandos e estrutura que já estão corretos.
+
+Atualiza apenas:
+
+- A lista de ferramentas.
+- A descrição do Perchance.
+- A referência às condições do Clipchamp.
+- As condições do Canva para Educação.
+- O enquadramento legal.
+- A nota de privacidade.
+- A referência ao gerador de prompts, que deve deixar de constar como funcionalidade ativa.
+- O número de ferramentas.
+
+A plataforma deve passar a indicar 16 ferramentas de IA e três alternativas gratuitas sem geração de IA.
+
+Substitui qualquer referência que associe automaticamente rosto e voz a dados biométricos de categoria especial por:
+
+"Uma imagem, gravação de voz ou vídeo identificável pode constituir dado pessoal. A classificação como dado biométrico de categoria especial depende do tratamento técnico e da finalidade de identificação inequívoca da pessoa. A utilização de ferramentas externas deve respeitar o RGPD, a Lei n.º 58/2019 e as orientações institucionais."
+
+Não afirmar que a plataforma garante conformidade com o RGPD ou certificação de segurança.
+
+Não apresentar Perchance como ferramenta sem recolha de dados.
+
+Não apresentar Clipchamp como tendo vozes PT-PT garantidas.
+
+Não afirmar que todos os planos educativos incluem todas as funcionalidades de IA.
+
+Não afirmar que o banco de prompts foi testado em sala de aula sem evidência.
+
+Não declarar que o código é open source se não existir uma licença de código aberto definida.
+
+---
+
+# 13. CORRIGIR A CONSISTÊNCIA DOS DADOS E DOS CONTADORES
+
+Depois de atualizares o catálogo, confirma estes valores:
+
+- Ferramentas de IA no catálogo: 16.
+- Alternativas gratuitas sem geração de IA: 3.
+- Prompts pedagógicos: 11.
+- Atividades práticas: 4.
+- Vantagens pedagógicas: 5.
+
+Os contadores da interface devem ser gerados a partir dos arrays, sempre que possível.
+
+O número de ferramentas no comparador deve corresponder ao catálogo.
+
+Os nomes utilizados nos cartões das vantagens, nas atividades e na página de escolha devem corresponder exatamente aos nomes do catálogo.
+
+Não manter duas descrições independentes da mesma ferramenta quando podem vir de uma única ficha.
+
+---
+
+# 14. TESTES TÉCNICOS E VALIDAÇÃO
+
+Não alterar as funcionalidades que já estão corretas.
+
+Executa no ambiente do projeto:
+
+```bash
+npm test
+```
+
+```bash
+npm run lint
+```
+
+```bash
+npm run build
+```
+
+Depois testa:
+
+1. Os onze cartões do banco de prompts.
+2. A cópia dos onze prompts.
+3. A ausência do gerador na interface e a inexistência de botões que apontem para ele.
+4. As dezasseis ferramentas no catálogo.
+5. Os três cartões de alternativas gratuitas.
+6. Os filtros por categoria e capacidade.
+7. O comparador e a correspondência com o catálogo.
+8. As ligações externas.
+9. A leitura dos textos em computador e telemóvel.
+10. A impressão da ficha existente.
+11. As imagens na compilação de produção.
+12. A navegação entre secções.
+
+Não alterar a fórmula da calculadora nem as ponderações das quatro atividades, salvo se algum teste demonstrar um erro real.
+
+Se algum teste falhar, corrige apenas a causa concreta.
+
+Não declares testes realizados quando não foram executados.
+
+Não declares a plataforma pronta para publicação se o build falhar.
+
+---
+
+# 15. RELATÓRIO FINAL
+
+Quando terminares, apresenta um relatório objetivo com quatro secções.
+
+## A. Correções realizadas
+
+Indica os ficheiros alterados e as alterações concretamente executadas.
+
+## B. Banco de prompts
+
+Confirma que os onze prompts foram atualizados e identifica eventuais questões científicas ou históricas que continuam a exigir validação pelo professor.
+
+## C. Ferramentas
+
+Apresenta o número final de fichas, as cinco ferramentas novas, as três alternativas sem IA e os dados que não foi possível confirmar nas páginas oficiais.
+
+## D. Testes
+
+Indica os comandos executados e os resultados reais.
+
+Não apresentes recomendações como se fossem alterações realizadas.
+
+Não digas que uma ferramenta foi testada na aplicação se apenas consultaste a sua página oficial.
+
+---
+
+# INSTRUÇÃO FINAL
+
+Executa as alterações no projeto atual.
+
+Não faças uma reformulação estética.
+
+Não reconstruas a plataforma.
+
+Não cries um novo gerador de prompts.
+
+Não elimines os onze temas do banco de prompts.
+
+Não elimines as quatro atividades nem alteres as grelhas de avaliação já corrigidas.
+
+Retira o gerador defeituoso da interface, preserva a possibilidade de copiar os prompts e acrescenta as ferramentas e alternativas indicadas.
+
+Substitui os textos dos onze prompts pelos textos completos fornecidos neste documento.
+
+Atualiza as fichas das ferramentas com as condições oficiais indicadas e com as ligações correspondentes.
+
+Não inventes qualquer informação para preencher campos.
+
+**O resultado deve ser uma plataforma de apoio à formação de professores, útil na escolha de ferramentas de vídeo, cientificamente rigorosa, pedagogicamente exequível, atualizada e escrita em Português de Portugal.**
+
+Prioriza a fiabilidade da informação e a preservação do trabalho já desenvolvido. 

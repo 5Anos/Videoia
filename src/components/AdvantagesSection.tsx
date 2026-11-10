@@ -82,11 +82,6 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
           </div>
 
           <div className="flex items-center gap-3 self-end lg:self-center">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#BBDCFB] text-[#0966C2] text-xs font-bold shadow-2xs">
-              <Target className="w-3.5 h-3.5 text-[#0966C2]" />
-              <span>Foco na Sala de Aula</span>
-            </span>
-
             {/* Blue Clapperboard Graphic Icon */}
             <div className="w-10 h-10 rounded-xl bg-white/80 border border-[#BBDCFB] flex items-center justify-center text-[#0966C2] shadow-2xs">
               <Clapperboard className="w-5 h-5 text-[#0966C2]" />

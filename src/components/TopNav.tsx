@@ -1,18 +1,16 @@
 import React from 'react';
-import { Search, Menu, Sparkles } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 
 interface TopNavProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onOpenMobileMenu: () => void;
-  onOpenPromptGenerator: () => void;
 }
 
 export const TopNav: React.FC<TopNavProps> = ({
   searchQuery,
   setSearchQuery,
-  onOpenMobileMenu,
-  onOpenPromptGenerator
+  onOpenMobileMenu
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-[#F0F5FA]/95 backdrop-blur-md border-b border-[#DCE8F6] px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
@@ -56,16 +54,8 @@ export const TopNav: React.FC<TopNavProps> = ({
         )}
       </div>
 
-      {/* Right: Assistente IA Pill & Profile Avatar */}
+      {/* Right: Profile Avatar */}
       <div className="flex items-center gap-3 shrink-0">
-        <button
-          onClick={onOpenPromptGenerator}
-          className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] font-bold text-xs shadow-xs transition-all cursor-pointer"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#071526]" />
-          <span>Assistente IA</span>
-        </button>
-
         <div 
           className="w-9 h-9 rounded-full bg-white border border-slate-300 flex items-center justify-center text-[#041D3A] text-xs font-bold font-mono shadow-xs" 
           title="Carla Oliveira (2026)"

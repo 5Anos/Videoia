@@ -4,9 +4,9 @@ import {
   Check, 
   Sparkles, 
   Film, 
-  Wand2, 
   Target,
-  Sparkle
+  Sparkle,
+  AlertTriangle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { EDUCATIONAL_PROMPTS, EducationalPrompt } from '../data/presentationData';
@@ -14,12 +14,10 @@ import { matchesSearch } from '../utils/pedagogyLogic';
 
 interface PromptsBankSectionProps {
   searchQuery?: string;
-  onUsePromptInGenerator?: (prompt: EducationalPrompt) => void;
 }
 
 export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({ 
-  searchQuery = '',
-  onUsePromptInGenerator
+  searchQuery = ''
 }) => {
   const [selectedDiscipline, setSelectedDiscipline] = useState<string>('all');
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -91,35 +89,48 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-1">
-            <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
-            <span>Banco de Prompts Didáticos · Para adaptação pelo docente</span>
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-1">
+              <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
+              <span>Banco de Prompts Didáticos · Para adaptação pelo docente</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#08203E] tracking-tight font-serif-display">
+              Prompts Estruturados para Recursos Visuais
+            </h2>
+            <p className="text-[#475569] text-xs sm:text-sm mt-1 max-w-3xl leading-relaxed">
+              Explora onze propostas de criação audiovisual para diferentes áreas disciplinares. Cada prompt foi estruturado para apoiar a preparação de recursos educativos, mas deve ser adaptado à ferramenta escolhida e validado pelo professor antes da sua utilização.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#08203E] tracking-tight font-serif-display">
-            Prompts Estruturados para Recursos Visuais
-          </h2>
-          <p className="text-[#475569] text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-            Instruções estruturadas para apoio à criação de recursos visuais pelo docente. Devem ser adaptadas ao contexto pedagógico e revistas criticamente quanto à sua exatidão científica e histórica.
-          </p>
+
+          {/* Filter Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 shrink-0">
+            {disciplines.map(d => (
+              <button
+                key={d.id}
+                onClick={() => setSelectedDiscipline(d.id)}
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
+                  selectedDiscipline === d.id
+                    ? 'bg-[#FACC15] text-[#071526] font-bold shadow-xs'
+                    : 'bg-white border border-[#DCE8F6] text-[#475569] hover:text-[#08203E] hover:bg-[#F0F5FA]'
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
-          {disciplines.map(d => (
-            <button
-              key={d.id}
-              onClick={() => setSelectedDiscipline(d.id)}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl whitespace-nowrap transition-all cursor-pointer ${
-                selectedDiscipline === d.id
-                  ? 'bg-[#FACC15] text-[#071526] font-bold shadow-xs'
-                  : 'bg-white border border-[#DCE8F6] text-[#475569] hover:text-[#08203E] hover:bg-[#F0F5FA]'
-              }`}
-            >
-              {d.label}
-            </button>
-          ))}
+        {/* Important Warning Note Required by Work Order Section 2 */}
+        <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-200 text-amber-900 text-xs sm:text-sm leading-relaxed flex items-start gap-3 shadow-xs">
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <span className="font-bold">Importante: </span>
+            <span>
+              os resultados gerados por Inteligência Artificial podem conter erros científicos, históricos, matemáticos ou visuais. Os prompts não garantem a exatidão do resultado. Sempre que possível, utiliza imagens, diagramas ou fontes de referência previamente validados e compara o vídeo gerado com esses materiais.
+            </span>
+          </div>
         </div>
       </div>
 
@@ -184,7 +195,7 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
 
               {/* The Prompt Box */}
               <div className="relative group pt-1">
-                <div className="p-4 rounded-2xl bg-[#041D3A] text-[#FDE68A] font-mono text-xs leading-relaxed border border-[#041D3A] selection:bg-cyan-500/30">
+                <div className="p-4 rounded-2xl bg-[#041D3A] text-[#FDE68A] font-mono text-xs leading-relaxed border border-[#041D3A] selection:bg-cyan-500/30 whitespace-pre-line">
                   {prompt.promptText}
                 </div>
               </div>
@@ -197,20 +208,10 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
             </div>
 
             {/* Actions Bar */}
-            <div className="pt-3 border-t border-[#EEF2F6] flex items-center justify-between gap-3">
-              {onUsePromptInGenerator && (
-                <button
-                  onClick={() => onUsePromptInGenerator(prompt)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#0284C7] hover:text-[#0369A1] font-bold cursor-pointer"
-                >
-                  <Wand2 className="w-3.5 h-3.5" />
-                  <span>Personalizar no Gerador</span>
-                </button>
-              )}
-
+            <div className="pt-3 border-t border-[#EEF2F6] flex items-center justify-end">
               <button
                 onClick={() => handleCopy(prompt)}
-                className={`ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   copiedId === prompt.id
                     ? 'bg-emerald-600 text-white font-bold shadow-xs'
                     : 'bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] font-bold shadow-xs'

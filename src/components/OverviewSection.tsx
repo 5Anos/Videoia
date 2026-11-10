@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Target, 
   Sparkles, 
@@ -15,15 +15,21 @@ import {
   Clapperboard,
   ShieldCheck,
   FileCheck2,
-  AlertCircle
+  AlertCircle,
+  HelpCircle,
+  Check,
+  Layers,
+  Wrench
 } from 'lucide-react';
 import { 
   MODULE_OVERVIEW, 
   TOOLS_CATALOG, 
+  NON_AI_TOOLS,
   EDUCATIONAL_PROMPTS, 
-  CLASSROOM_ACTIVITIES 
+  CLASSROOM_ACTIVITIES,
+  TEACHER_ADVANTAGES 
 } from '../data/presentationData';
-import landingHeroBannerImg from '../assets/images/landing_hero_banner.png';
+import aiVideoCreativeVisual from '../assets/images/ai_video_creative_visual_1794246803380.jpg';
 import multimediaPedagogyImg from '../assets/images/multimedia_cognitive_pedagogy_concept_1794113538329.jpg';
 
 interface OverviewSectionProps {
@@ -31,16 +37,67 @@ interface OverviewSectionProps {
 }
 
 export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) => {
+  const [checkedChecklist, setCheckedChecklist] = useState<Record<number, boolean>>({});
+
+  const toggleChecklistItem = (idx: number) => {
+    setCheckedChecklist(prev => ({
+      ...prev,
+      [idx]: !prev[idx]
+    }));
+  };
+
+  const checklistItems = [
+    {
+      title: 'Autorização Institucional & EPD',
+      desc: 'Tenho autorização do Encarregado de Proteção de Dados (EPD) ou da direção da escola para utilizar esta ferramenta com os alunos?'
+    },
+    {
+      title: 'Exigência de Conta e Idade Mínima',
+      desc: 'A ferramenta exige conta? Se sim, qual é a idade mínima indicada nos respetivos termos de utilização?'
+    },
+    {
+      title: 'Modelo de Acesso e Custos',
+      desc: 'Há opção gratuita funcional e contínua ou apenas um período experimental com pagamento posterior obrigatório?'
+    },
+    {
+      title: 'Dados Biométricos & Servidores',
+      desc: 'A ferramenta recolhe dados biométricos (rosto, voz) ou armazena os vídeos gerados em servidores situados fora da União Europeia?'
+    },
+    {
+      title: 'Proibição de Dados Pessoais de Alunos',
+      desc: 'Nunca introduzir dados pessoais de alunos (nomes completos, fotografias, amostras de voz, notas ou avaliações) nas plataformas externas.'
+    },
+    {
+      title: 'Exportação e Marca de Água',
+      desc: 'A ferramenta permite exportar o vídeo em formato aberto (MP4 standard) e sem marcas de água que prejudiquem a visibilidade pedagógica?'
+    },
+    {
+      title: 'Revisão Científica e Histórica',
+      desc: 'O conteúdo gerado pela IA foi rigorosamente revisto e validado pelo professor quanto à correção científica e histórica antes de ser projetado?'
+    },
+    {
+      title: 'Princípio da Transparência',
+      desc: 'Os alunos sabem que o vídeo foi gerado com apoio de inteligência artificial (em conformidade com o artigo 50.º do AI Act)?'
+    },
+    {
+      title: 'Alternativa Sem IA Garantida',
+      desc: 'Existe uma alternativa sem recurso a IA devidamente planeada para estudantes sem autorização de encarregados de educação ou sem acesso tecnológico?'
+    },
+    {
+      title: 'Foco na Aprendizagem do Estudante',
+      desc: 'A atividade avalia as aprendizagens e competências dos alunos e não a mera sofisticação técnica ou cosmética da ferramenta de IA.'
+    }
+  ];
+
   return (
     <div className="space-y-10 animate-in fade-in duration-300">
-      {/* Editorial Studio Hero Section Matching User Reference */}
+      {/* Editorial Studio Hero Section */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#071F3B] via-[#0B2A4E] to-[#04172C] text-white border border-[#143657] shadow-xl">
-        {/* Ambient Glows */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12 relative z-10">
-          {/* Left Column: Bold Humanist Editorial Headline */}
+          {/* Left Column */}
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wider text-amber-300 font-mono uppercase">
               <span>Formação Contínua de Professores</span>
@@ -51,27 +108,25 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
             </div>
 
             <div className="space-y-3">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.12] font-serif-display text-balance">
-                Da Curiosidade e Rigor à Criatividade,
-              </h1>
-              
               <div>
                 <span className="inline-block bg-[#FACC15] text-[#071526] font-black px-4 py-1.5 rounded-2xl shadow-xl shadow-amber-400/25 text-2xl sm:text-3xl lg:text-4xl tracking-tight transform -rotate-1">
                   Vídeo com IA
                 </span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-cyan-200 font-serif-display">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-cyan-200 font-serif-display">
                 na Prática Pedagógica
-              </h2>
+              </h1>
             </div>
 
-            <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
-              A inteligência artificial não substitui a sensibilidade do professor nem a relação humana na sala de aula. 
-              Esta plataforma foi criada para a formação de docentes: fundamenta o uso do audiovisual com base na Teoria da 
-              Aprendizagem Multimédia de Richard Mayer, desmistifica ferramentas e oferece guiões de atividades prontos para 
-              levar para a turma com intencionalidade, inclusão e segurança.
-            </p>
+            <div className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl font-normal space-y-3">
+              <p>
+                Explore o potencial da Inteligência Artificial na criação de recursos educativos! Descubra ferramentas, experimente novas possibilidades e conheça exemplos práticos para criar vídeos, animações, avatares e atividades que podem dar uma nova dinâmica às suas aulas.
+              </p>
+              <p>
+                Entre, explore cada ferramenta, experimente as suas funcionalidades e descubra tudo o que pode criar!
+              </p>
+            </div>
 
             {/* Hero Direct CTAs */}
             <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -101,55 +156,168 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
             </div>
           </div>
 
-          {/* Right Column: Visual Reference & Clapperboard Checklist */}
+          {/* Right Column: Visual Artwork Without Text */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 shadow-2xl group bg-[#071526]">
-              {/* Illustrative Classroom Visual */}
               <img
-                src={landingHeroBannerImg}
-                alt="Ambiente cinematográfico com cadeira de realizador IA na Educação, claqueta com checklist e portátil de edição"
-                className="w-full h-[320px] sm:h-[390px] object-cover transition-transform duration-700 group-hover:scale-102"
+                src={aiVideoCreativeVisual}
+                alt="Composição visual de criatividade audiovisual e Inteligência Artificial na Educação"
+                className="w-full h-[320px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-102"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071526]/90 via-[#071526]/30 to-transparent" />
-              
-              {/* Clapperboard Floating Checklist Card */}
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#071526]/90 backdrop-blur-md border border-cyan-500/40 text-white space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="font-bold text-amber-300 flex items-center gap-1.5 uppercase tracking-wider">
-                    <Clapperboard className="w-4 h-4 text-amber-300" />
-                    Plano de Produção Docente
-                  </span>
-                  <span className="text-[10px] text-cyan-300">4 Etapas</span>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <CheckSquare className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span className="font-semibold">Planear o Guião</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <CheckSquare className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span className="font-semibold">Criar com IA</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <CheckSquare className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span className="font-semibold">Editar e Legendar</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-slate-200">
-                    <CheckSquare className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span className="font-semibold">Aplicar na Turma</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="text-[11px] text-slate-400 text-center mt-2 italic">
-              Imagem ilustrativa gerada por Inteligência Artificial · Formação Contínua de Docentes
             </div>
           </div>
         </div>
       </section>
 
-      {/* ITEM 3.1: ENQUADRAMENTO NACIONAL EDUQA (OUTUBRO 2026 / JANEIRO 2027) */}
+      {/* SECTION 13: DYNAMIC MODULE STATISTICS COUNTERS */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 shadow-xs">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <button
+            onClick={() => onNavigate('tools')}
+            className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] hover:border-[#0966C2]/40 transition-all text-left group cursor-pointer"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-[#08203E] font-mono group-hover:text-[#0966C2] transition-colors">
+              {TOOLS_CATALOG.length}
+            </div>
+            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
+              Ferramentas com IA
+            </div>
+            <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+              Analisadas pedagogicamente
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigate('tools')}
+            className="p-4 rounded-2xl bg-[#F0FDF4] border border-emerald-200 hover:border-emerald-400 transition-all text-left group cursor-pointer"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-emerald-800 font-mono">
+              {NON_AI_TOOLS.length}
+            </div>
+            <div className="text-xs font-bold text-emerald-950 mt-1 font-serif-display">
+              Alternativas sem IA
+            </div>
+            <div className="text-[11px] text-emerald-700 mt-0.5 leading-snug">
+              Código aberto e livres
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigate('prompts')}
+            className="p-4 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] hover:border-amber-400 transition-all text-left group cursor-pointer"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-[#874A07] font-mono">
+              {EDUCATIONAL_PROMPTS.length}
+            </div>
+            <div className="text-xs font-bold text-[#874A07] mt-1 font-serif-display">
+              Prompts Curriculares
+            </div>
+            <div className="text-[11px] text-[#A15C07] mt-0.5 leading-snug">
+              Validados para as disciplinas
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigate('activities')}
+            className="p-4 rounded-2xl bg-[#EAF3FD] border border-[#CEE2F7] hover:border-[#0966C2] transition-all text-left group cursor-pointer"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-[#0966C2] font-mono">
+              {CLASSROOM_ACTIVITIES.length}
+            </div>
+            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
+              Guiões para a Aula
+            </div>
+            <div className="text-[11px] text-slate-600 mt-0.5 leading-snug">
+              Com rubricas de avaliação
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigate('advantages')}
+            className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] hover:border-[#0966C2]/40 transition-all text-left group cursor-pointer col-span-2 md:col-span-1"
+          >
+            <div className="text-2xl sm:text-3xl font-black text-slate-700 font-mono">
+              {TEACHER_ADVANTAGES.length}
+            </div>
+            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
+              Vantagens Docentes
+            </div>
+            <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+              Fundamentação empírica
+            </div>
+          </button>
+        </div>
+      </section>
+
+      {/* SECTION 11: 10-POINT CHECKLIST FOR TEACHERS BEFORE USING AI VIDEO */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EEF2F6] pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center shrink-0 border border-[#CEE2F7]">
+              <CheckSquare className="w-6 h-6 text-[#0966C2]" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#0966C2] font-mono">
+                Salvaguardas Éticas, Jurídicas e Didáticas
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display">
+                Checklist Rápida para o Professor: Antes de utilizar uma ferramenta de vídeo com IA
+              </h2>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#F0F5FA] text-[#08203E] border border-[#DCE8F6] shrink-0">
+            10 Pontos de Verificação
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-4xl">
+          Antes de propor uma atividade com recurso a ferramentas de inteligência artificial de vídeo ou de introduzir materiais digitais na turma, percorra este guia prático para assegurar total conformidade institucional e pedagógica:
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-3.5">
+          {checklistItems.map((item, idx) => {
+            const isChecked = checkedChecklist[idx] || false;
+
+            return (
+              <div 
+                key={idx}
+                onClick={() => toggleChecklistItem(idx)}
+                className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-start gap-3.5 ${
+                  isChecked 
+                    ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950 shadow-2xs' 
+                    : 'bg-[#F8FAFD] border-[#DCE8F6] hover:border-[#0966C2]/40 text-[#08203E]'
+                }`}
+              >
+                <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold mt-0.5 transition-all ${
+                  isChecked 
+                    ? 'bg-emerald-600 text-white' 
+                    : 'bg-white border border-[#DCE8F6] text-[#08203E]'
+                }`}>
+                  {isChecked ? <Check className="w-3.5 h-3.5" /> : idx + 1}
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold font-serif-display flex items-center gap-1.5">
+                    <span>{item.title}</span>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-start gap-3">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            <strong>Nota de responsabilidade:</strong> Esta lista destina-se a apoiar a reflexão didática do professor e não substitui os regulamentos internos do Agrupamento de Escolas nem os pareceres do Encarregado de Proteção de Dados (EPD).
+          </p>
+        </div>
+      </section>
+
+      {/* ENQUADRAMENTO NACIONAL EDUQA */}
       <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-8 shadow-xs space-y-4">
         <div className="flex items-start sm:items-center justify-between gap-4 border-b border-[#EAF2FA] pb-4">
           <div className="flex items-center gap-3">
@@ -222,7 +390,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
         </div>
       </section>
 
-      {/* 4 FOUNDATIONAL PEDAGOGICAL PILLARS (Clean Light Canvas Theme) */}
+      {/* 4 FOUNDATIONAL PEDAGOGICAL PILLARS */}
       <section className="bg-white rounded-3xl border border-[#DCE8F6] shadow-xs overflow-hidden">
         <div className="p-6 sm:p-8 border-b border-[#EAF2FA] bg-[#F8FAFD]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -312,7 +480,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
         </div>
       </section>
 
-      {/* Visual Concept Split: The Cognitive Bridge of Multimedia Pedagogy */}
+      {/* Visual Concept Split */}
       <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-[#DCE8F6] shadow-xs">
@@ -369,7 +537,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
         </div>
       </section>
 
-      {/* 2 Structural Pillars: Generative Synthesis vs Post-Production */}
+      {/* 2 Structural Pillars */}
       <section className="space-y-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#0966C2] font-mono">
@@ -416,7 +584,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
             </div>
 
             <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] text-slate-500 font-mono">InVideo AI, Kling AI, Luma Dream Machine e Hailuo AI</span>
+              <span className="text-[11px] text-slate-500 font-mono">InVideo, Kling, Luma, MiniMax, Pika, Runway</span>
               <button
                 onClick={() => onNavigate('tools')}
                 className="text-xs text-[#0966C2] font-bold hover:text-[#085294] flex items-center gap-1 cursor-pointer"

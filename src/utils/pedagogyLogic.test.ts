@@ -1,76 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { 
-  generateEducationalPrompt, 
   calculateRubricScore, 
   calculateWeightedRubricScore, 
   matchesSearch 
 } from './pedagogyLogic';
-
-test('generateEducationalPrompt differentiates clip generator tools (Kling, Luma, Pika)', () => {
-  const result = generateEducationalPrompt({
-    subject: 'Ciências Naturais',
-    gradeLevel: '3.º Ciclo (8.º ano)',
-    topic: 'Tectónica de Placas',
-    videoStyle: 'realistic',
-    toolTarget: 'kling',
-    clipDuration: '5 segundos',
-    duration: '2 minutos',
-    visualRestrictions: 'Evitar texto em inglês e mapas anacrónicos'
-  });
-
-  assert.ok(result.includes('Sujeito principal'));
-  assert.ok(result.includes('Ação visível'));
-  assert.ok(result.includes('Tectónica de Placas'));
-  assert.ok(result.includes('Restrições visuais: Evitar texto em inglês e mapas anacrónicos'));
-  assert.ok(result.includes('Nota de produção'));
-  assert.ok(!result.includes('traduzir para inglês'));
-});
-
-test('generateEducationalPrompt differentiates full video tool (InVideo AI)', () => {
-  const result = generateEducationalPrompt({
-    subject: 'História',
-    gradeLevel: '3.º Ciclo (9.º ano)',
-    topic: 'A Revolução dos Cravos',
-    videoStyle: 'documentary',
-    toolTarget: 'invideo',
-    duration: '90 segundos'
-  });
-
-  assert.ok(result.includes('Estrutura do guião'));
-  assert.ok(result.includes('Português de Portugal'));
-  assert.ok(result.includes('Legendas: Legendas completas sincronizadas'));
-});
-
-test('generateEducationalPrompt differentiates video editors (CapCut, Clipchamp, Canva)', () => {
-  const result = generateEducationalPrompt({
-    subject: 'Português',
-    gradeLevel: '2.º Ciclo (6.º ano)',
-    topic: 'Entrevista a um Poeta',
-    videoStyle: 'animation',
-    toolTarget: 'capcut',
-    duration: '2 minutos'
-  });
-
-  assert.ok(result.includes('Storyboard visual'));
-  assert.ok(result.includes('Texto da narração'));
-  assert.ok(result.includes('Instruções de montagem'));
-});
-
-test('generateEducationalPrompt differentiates avatar tools (HeyGen, Vidnoz)', () => {
-  const result = generateEducationalPrompt({
-    subject: 'Filosofia',
-    gradeLevel: 'Ensino Secundário (10.º ano)',
-    topic: 'O Mito da Caverna de Platão',
-    videoStyle: 'avatar',
-    toolTarget: 'heygen',
-    duration: '1 minuto'
-  });
-
-  assert.ok(result.includes('apresentador virtual'));
-  assert.ok(result.includes('Divisão em cenas'));
-  assert.ok(result.includes('Aviso ético e institucional'));
-});
 
 test('calculateWeightedRubricScore calculates 0-20 weighted scale rigorously', () => {
   const rubric = [

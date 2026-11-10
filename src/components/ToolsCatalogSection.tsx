@@ -7,14 +7,21 @@ import {
   Info,
   Maximize2,
   X,
-  FileVideo,
   ShieldCheck,
   ShieldAlert,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Compass,
+  ArrowRight,
+  Sparkles,
+  Calendar,
+  Layers,
+  HelpCircle,
+  FileVideo
 } from 'lucide-react';
-import { TOOLS_CATALOG, ToolCatalogItem } from '../data/presentationData';
+import { TOOLS_CATALOG, NON_AI_TOOLS, ToolCatalogItem, FreeAccessType } from '../data/presentationData';
 import { matchesSearch } from '../utils/pedagogyLogic';
+import { ToolLogo, ToolShowcaseBanner } from './ToolLogos';
 import studioWorkspaceImg from '../assets/images/ai_video_creative_studio_workspace_1794113537764.jpg';
 
 interface ToolsCatalogSectionProps {
@@ -40,10 +47,62 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
 
   const categories = [
     { id: 'all', label: 'Todas as Ferramentas' },
-    { id: 'generative', label: 'Texto-para-Vídeo (Generativo)' },
-    { id: 'editing', label: 'Edição & Legendas Automáticas' },
+    { id: 'text-to-video', label: 'Texto-para-Vídeo / Imagem-para-Vídeo' },
+    { id: 'video-editing', label: 'Edição de Vídeo' },
     { id: 'avatars', label: 'Avatares Virtuais' },
-    { id: 'free-no-login', label: 'Exploração sem registo' },
+    { id: 'subtitles', label: 'Legendagem' },
+    { id: 'screen-recording', label: 'Gravação de Ecrã' },
+  ];
+
+  const decisionScenarios = [
+    {
+      id: 1,
+      title: 'Quero criar um vídeo explicativo a partir de um texto ou guião',
+      tools: ['InVideo AI', 'Google Vids', 'Clipchamp', 'Canva'],
+      targetCategory: 'text-to-video',
+      icon: '📝',
+      note: 'Ideal para introduzir matérias novas e transformar apontamentos em clipes narrados.'
+    },
+    {
+      id: 2,
+      title: 'Quero legendar um vídeo que já gravei e cortar partes',
+      tools: ['CapCut', 'Clipchamp'],
+      targetCategory: 'video-editing',
+      icon: '✂️',
+      note: 'Foco na acessibilidade e inclusão através de legendagem automática em português.'
+    },
+    {
+      id: 3,
+      title: 'Quero ilustrar um conceito abstrato ou histórico com um clip de poucos segundos',
+      tools: ['Luma Dream Machine', 'Kling AI', 'PixVerse', 'MiniMax', 'Runway'],
+      targetCategory: 'text-to-video',
+      icon: '🎬',
+      note: 'Geração generativa com movimento para fenómenos científicos e recriações visuais.'
+    },
+    {
+      id: 4,
+      title: 'Quero um avatar virtual a apresentar a aula',
+      tools: ['HeyGen', 'Vidnoz AI'],
+      targetCategory: 'avatars',
+      icon: '👤',
+      note: 'Apresentadores digitais com sincronização labial para mensagens institucionais ou tutoriais.'
+    },
+    {
+      id: 5,
+      title: 'Quero animação gráfica e recursos educativos com modelos prontos',
+      tools: ['Canva'],
+      targetCategory: 'video-editing',
+      icon: '🎨',
+      note: 'Ambiente institucional seguro, modelos colaborativos e conformidade com privacidade escolar.'
+    },
+    {
+      id: 6,
+      title: 'Quero que os alunos editem vídeo sem IA, sem conta e em segurança',
+      tools: ['Shotcut', 'OpenShot', 'OBS Studio'],
+      targetCategory: 'non-ai',
+      icon: '🛡️',
+      note: 'Software de código aberto, 100% gratuito e offline para instalar nos computadores da escola.'
+    }
   ];
 
   const filteredTools = TOOLS_CATALOG.filter(tool => {
@@ -64,31 +123,59 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       return false;
     }
 
+    if (activeCategory === 'text-to-video') {
+      return tool.capabilityTags?.some(tag => tag === 'text-to-video' || tag === 'image-to-video');
+    }
+    if (activeCategory === 'video-editing') {
+      return tool.capabilityTags?.includes('video-editing');
+    }
     if (activeCategory === 'avatars') {
-      return tool.category.toLowerCase().includes('avatar') || tool.keyFeatures.some(f => f.toLowerCase().includes('avatar'));
+      return tool.capabilityTags?.includes('avatars');
     }
-    if (activeCategory === 'generative') {
-      return tool.inputTypes.includes('Prompt de Texto') || tool.keyFeatures.some(f => f.toLowerCase().includes('prompt'));
+    if (activeCategory === 'subtitles') {
+      return tool.capabilityTags?.includes('subtitles');
     }
-    if (activeCategory === 'editing') {
-      return tool.category.toLowerCase().includes('edição') || tool.keyFeatures.some(f => f.toLowerCase().includes('legend'));
-    }
-    if (activeCategory === 'free-no-login') {
-      return tool.id === 'perchance' || tool.freeTierDetails.toLowerCase().includes('sem registo');
+    if (activeCategory === 'screen-recording') {
+      return tool.capabilityTags?.includes('screen-recording');
     }
 
     return true;
   });
 
+  const getAccessBadgeInfo = (accessType?: string) => {
+    switch (accessType) {
+      case 'free-editor':
+      case 'completely-free':
+        return { label: 'Editor Gratuito', style: 'bg-emerald-50 text-emerald-800 border-emerald-300' };
+      case 'education-eligibility':
+        return { label: 'Gratuito para Educação', style: 'bg-blue-50 text-blue-800 border-blue-300' };
+      case 'recurring-free-credits':
+        return { label: 'Créditos Periódicos', style: 'bg-amber-50 text-amber-800 border-amber-300' };
+      case 'limited-free-plan':
+      case 'freemium':
+        return { label: 'Plano Gratuito Limitado', style: 'bg-amber-50 text-amber-800 border-amber-300' };
+      case 'one-time-free-trial':
+      case 'free-trial':
+        return { label: 'Período Experimental', style: 'bg-indigo-50 text-indigo-800 border-indigo-300' };
+      case 'community-experimental':
+        return { label: 'Comunitário / Aberto', style: 'bg-purple-50 text-purple-800 border-purple-300' };
+      case 'paid-or-unconfirmed':
+      case 'paid-only':
+        return { label: 'Pago / Não Confirmado', style: 'bg-slate-100 text-slate-800 border-slate-300' };
+      default:
+        return { label: 'Gratuito com Limitações', style: 'bg-amber-50 text-amber-800 border-amber-300' };
+    }
+  };
+
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-10 animate-in fade-in duration-300">
       {/* Editorial Studio Hero Card */}
-      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-sm overflow-hidden">
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs overflow-hidden">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Seleção Pedagógica · Análise Prática de Ferramentas</span>
+              <span>Seleção Pedagógica · 16 Ferramentas de IA Analisadas</span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] font-serif-display leading-tight">
@@ -96,8 +183,8 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
             </h1>
 
             <p className="text-[#475569] text-xs sm:text-sm leading-relaxed max-w-2xl">
-              Guia prático sobre o software de vídeo mais relevante para a escola: limites reais de utilização gratuita, 
-              idade mínima dos alunos, pontos fortes didáticos e salvaguardas de privacidade.
+              Guia factual sobre o software de vídeo mais relevante para a prática docente em Portugal: limites reais de utilização gratuita, 
+              idade mínima recomendada, pontos fortes didáticos, salvaguardas éticas e ligações à documentação oficial.
             </p>
 
             {/* Category Filter Pills */}
@@ -108,7 +195,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     activeCategory === cat.id
-                      ? 'bg-[#FACC15] text-[#071526] font-bold shadow-sm shadow-amber-300/40'
+                      ? 'bg-[#FACC15] text-[#071526] font-bold shadow-xs'
                       : 'bg-[#EAF3FD] hover:bg-[#DCEBFB] text-[#08203E] border border-[#CEE2F7]'
                   }`}
                 >
@@ -119,7 +206,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="rounded-2xl overflow-hidden border border-[#DCE8F6] shadow-sm relative group">
+            <div className="rounded-2xl overflow-hidden border border-[#DCE8F6] shadow-xs relative group">
               <img
                 src={studioWorkspaceImg}
                 alt="Estúdio criativo de edição e geração de vídeo com IA com monitores e linha temporal"
@@ -127,9 +214,9 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#041D3A]/90 via-[#041D3A]/30 to-transparent" />
               <div className="absolute bottom-3 left-4 right-4 text-white text-xs">
-                <span className="font-mono text-[#FACC15] text-[10px] uppercase font-bold">Verificação Contínua</span>
+                <span className="font-mono text-[#FACC15] text-[10px] uppercase font-bold">Verificação Periódica</span>
                 <p className="font-serif-display italic text-slate-100 mt-0.5 leading-snug">
-                  As condições e quotas de utilização variam frequentemente e devem ser confirmadas junto de cada fornecedor.
+                  As condições, créditos e quotas de utilização variam frequentemente e devem ser confirmadas na página de cada fornecedor.
                 </p>
               </div>
             </div>
@@ -137,39 +224,113 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
         </div>
       </section>
 
+      {/* SECTION 10: DECISION GUIDE "Que ferramenta escolher para a minha tarefa?" */}
+      <section className="bg-[#F8FAFD] rounded-3xl border border-[#DCE8F6] p-6 sm:p-8 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2EDF8] pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center shrink-0 border border-[#CEE2F7]">
+              <Compass className="w-5 h-5 text-[#0966C2]" />
+            </div>
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0966C2]">
+                Apoio à Decisão Docente
+              </span>
+              <h2 className="text-lg sm:text-xl font-bold text-[#08203E] font-serif-display">
+                Que ferramenta escolher para a minha tarefa?
+              </h2>
+            </div>
+          </div>
+          <span className="text-xs text-slate-500 font-mono">
+            6 cenários práticos de sala de aula
+          </span>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {decisionScenarios.map((scen) => (
+            <div 
+              key={scen.id}
+              className="p-5 rounded-2xl bg-white border border-[#DCE8F6] shadow-xs flex flex-col justify-between hover:border-[#0966C2]/40 transition-all group"
+            >
+              <div className="space-y-3">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-2xl" role="img" aria-label="ícone do cenário">{scen.icon}</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#EAF3FD] text-[#0966C2] border border-[#CEE2F7]">
+                    Cenário 0{scen.id}
+                  </span>
+                </div>
+
+                <h3 className="text-xs sm:text-sm font-bold text-[#08203E] leading-snug font-serif-display group-hover:text-[#0966C2] transition-colors">
+                  {scen.title}
+                </h3>
+
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  {scen.note}
+                </p>
+              </div>
+
+              <div className="pt-4 mt-3 border-t border-[#EEF2F6] space-y-2">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#0B4B82] block">
+                  Ferramentas recomendadas:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {scen.tools.map((t, ti) => (
+                    <span 
+                      key={ti}
+                      className="px-2 py-0.5 rounded-lg text-[11px] font-semibold bg-[#F0F5FA] text-[#08203E] border border-[#DCE8F6]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Main Tool Cards Grid */}
       {filteredTools.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-3xl border border-[#DCE8F6] p-8 shadow-sm">
+        <div className="text-center py-12 bg-white rounded-3xl border border-[#DCE8F6] p-8 shadow-xs">
           <Info className="w-10 h-10 text-slate-400 mx-auto mb-3" />
           <h3 className="text-base font-bold text-[#08203E] font-serif-display">Nenhuma ferramenta encontrada</h3>
-          <p className="text-xs text-slate-500 mt-1">Tente ajustar a sua pesquisa ou clique noutra categoria de ferramentas.</p>
+          <p className="text-xs text-slate-500 mt-1">Tente ajustar a sua pesquisa ou selecione outra categoria.</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map((tool) => {
             const isFactCheckOpen = expandedFactChecks[tool.id] || false;
+            const accessBadge = getAccessBadgeInfo(tool.accessType);
 
             return (
               <div 
                 key={tool.id}
-                className="bg-white rounded-3xl border border-[#DCE8F6] shadow-sm hover:shadow-md hover:border-[#38BDF8] transition-all flex flex-col justify-between overflow-hidden group"
+                className="bg-white rounded-3xl border border-[#DCE8F6] shadow-xs hover:shadow-sm hover:border-[#38BDF8] transition-all flex flex-col justify-between overflow-hidden group"
               >
                 <div>
                   {/* Tool Card Header */}
                   <div className="p-6 border-b border-[#EEF2F6] bg-gradient-to-b from-[#F8FAFC] to-white">
                     <div className="flex items-start justify-between gap-3">
-                      <div>
-                        {tool.badge && (
-                          <span className="inline-block px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#FEF8E7] text-[#92400E] border border-[#FDE5B5] mb-2 font-mono">
-                            {tool.badge}
-                          </span>
-                        )}
-                        <h2 className="text-lg font-bold text-[#08203E] group-hover:text-[#0284C7] transition-colors font-serif-display">
-                          {tool.name}
-                        </h2>
-                        <div className="flex items-center gap-2 text-xs text-[#64748B] font-medium mt-0.5">
-                          <span>{tool.category}</span>
-                          <span>·</span>
-                          <span className="font-semibold text-[#0B4B82]">{tool.factCheckStatus.freeStatus}</span>
+                      <div className="flex items-start gap-3.5">
+                        <div className="w-12 h-12 rounded-2xl shadow-2xs overflow-hidden shrink-0 ring-1 ring-[#DCE8F6] bg-slate-900 flex items-center justify-center">
+                          <ToolLogo toolId={tool.id} size="md" className="w-full h-full" />
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                            {tool.badge && (
+                              <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-[#FEF8E7] text-[#92400E] border border-[#FDE5B5] font-mono">
+                                {tool.badge}
+                              </span>
+                            )}
+                            <span className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-semibold border ${accessBadge.style}`}>
+                              {accessBadge.label}
+                            </span>
+                          </div>
+                          <h2 className="text-lg font-bold text-[#08203E] group-hover:text-[#0284C7] transition-colors font-serif-display">
+                            {tool.name}
+                          </h2>
+                          <div className="flex items-center gap-2 text-xs text-[#64748B] font-medium mt-0.5">
+                            <span>{tool.category}</span>
+                          </div>
                         </div>
                       </div>
 
@@ -177,7 +338,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                         href={tool.externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-xl bg-[#F0F5FA] hover:bg-[#E2EDF8] text-[#08203E] flex items-center justify-center transition-colors border border-[#DCE8F6] shrink-0 shadow-xs"
+                        className="w-9 h-9 rounded-xl bg-[#F0F5FA] hover:bg-[#E2EDF8] text-[#08203E] flex items-center justify-center transition-colors border border-[#DCE8F6] shrink-0 shadow-2xs"
                         title={`Abrir página oficial do ${tool.name}`}
                       >
                         <ExternalLink className="w-4 h-4" />
@@ -187,9 +348,23 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                     <p className="text-xs text-[#475569] mt-3 line-clamp-3 leading-relaxed">
                       {tool.shortDesc}
                     </p>
+
+                    {/* Capability Tags */}
+                    {tool.capabilityTags && tool.capabilityTags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-3">
+                        {tool.capabilityTags.map(tag => (
+                          <span 
+                            key={tag}
+                            className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-[#F1F5F9] text-slate-700 border border-slate-200"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Screenshots or Styled Fallback Container */}
+                  {/* Screenshots or Official Branded Showcase Banner */}
                   {tool.screenshots && tool.screenshots.length > 0 ? (
                     <div className="relative bg-[#041D3A] aspect-video overflow-hidden">
                       <img 
@@ -205,19 +380,9 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                       >
                         <Maximize2 className="w-3.5 h-3.5" />
                       </button>
-                      {tool.screenshots[0].caption && (
-                        <div className="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-[11px] text-slate-100 truncate">
-                          {tool.screenshots[0].caption}
-                        </div>
-                      )}
                     </div>
                   ) : (
-                    <div className="aspect-video bg-[#F8FAFC] flex items-center justify-center border-b border-[#EEF2F6] text-slate-400">
-                      <div className="text-center p-4">
-                        <FileVideo className="w-8 h-8 mx-auto mb-2 text-[#0284C7]/60" />
-                        <span className="text-xs font-mono text-slate-500">{tool.name} Studio</span>
-                      </div>
-                    </div>
+                    <ToolShowcaseBanner toolId={tool.id} toolName={tool.name} category={tool.category} />
                   )}
 
                   {/* Badges / Key Specs */}
@@ -243,6 +408,31 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                       <p className="text-xs text-[#334155] line-clamp-2 leading-relaxed">
                         {tool.pedagogicalUseCases[0] || 'Apoio à produção de conteúdos e diferenciação pedagógica.'}
                       </p>
+                    </div>
+
+                    {/* Official Sources Links & Verification Date */}
+                    <div className="pt-2 border-t border-[#EEF2F6] flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                      <div className="flex items-center gap-1.5 text-slate-500 font-mono text-[10px]">
+                        <Calendar className="w-3 h-3 text-slate-400" />
+                        <span>Verificado em 09/11/2026</span>
+                      </div>
+
+                      {tool.officialSources && tool.officialSources.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-2 text-[10px] text-[#0966C2]">
+                          {tool.officialSources.map((source, sIdx) => (
+                            <a
+                              key={sIdx}
+                              href={source.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline flex items-center gap-0.5"
+                            >
+                              <span>{source.label}</span>
+                              <span className="text-[9px]">↗</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     {/* Fact Check Toggle Drawer */}
@@ -306,7 +496,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                     href={tool.externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold transition-all shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold transition-all shadow-2xs"
                   >
                     <span>Experimentar</span>
                     <ExternalLink className="w-3 h-3" />
@@ -318,21 +508,125 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
         </div>
       )}
 
+      {/* SECTION 6: DEDICATED SECTION FOR NON-AI FREE ALTERNATIVES */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EEF2F6] pb-5">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-emerald-700 uppercase font-mono">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Alternativas Livres e de Código Aberto</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display mt-1">
+              Alternativas gratuitas para editar e gravar vídeo
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              Software gratuito, sem recurso a IA e de código aberto para montagem, gravação e edição — sem consumo de créditos, sem dependência de quotas de servidores e sem recolha de dados biométricos de docentes ou estudantes.
+            </p>
+          </div>
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shrink-0">
+            3 Ferramentas Livres
+          </span>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {NON_AI_TOOLS.map((tool) => (
+            <div 
+              key={tool.id}
+              className="rounded-2xl border border-[#DCE8F6] bg-[#F8FAFD] p-6 flex flex-col justify-between hover:border-emerald-500/40 transition-all group"
+            >
+              <div className="space-y-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-slate-900 overflow-hidden flex items-center justify-center ring-1 ring-slate-800 shrink-0">
+                      <ToolLogo toolId={tool.id} size="md" className="w-full h-full" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-[#08203E] font-serif-display group-hover:text-emerald-700 transition-colors">
+                        {tool.name}
+                      </h3>
+                      <span className="text-[11px] text-slate-500 font-mono block">
+                        {tool.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  <a
+                    href={tool.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-lg bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 flex items-center justify-center border border-[#DCE8F6] shrink-0"
+                    title={`Abrir página oficial de ${tool.name}`}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  {tool.description}
+                </p>
+
+                <div className="space-y-1.5 pt-2 border-t border-[#E2EDF8]">
+                  <span className="text-[10px] font-mono font-bold uppercase text-slate-500 block">
+                    Cenários pedagógicos:
+                  </span>
+                  <ul className="space-y-1">
+                    {tool.pedagogicalUseCases.map((useCase, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5 text-xs text-slate-700 leading-snug">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{useCase}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-4 mt-4 border-t border-[#E2EDF8] flex items-center justify-between">
+                <span className="text-[10px] font-mono text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Código Aberto / Offline
+                </span>
+
+                <a
+                  href={tool.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1"
+                >
+                  <span>Página oficial</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Tool Detail Modal */}
       {selectedToolModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[#DCE8F6] text-[#08203E]">
             <div className="p-6 sm:p-8 border-b border-[#EEF2F6] bg-[#F8FAFC] flex items-start justify-between gap-4 sticky top-0 z-10">
-              <div>
-                <span className="text-[11px] font-bold font-mono text-[#0B4B82] uppercase tracking-wider">
-                  {selectedToolModal.category}
-                </span>
-                <h2 className="text-2xl font-bold text-[#08203E] font-serif-display mt-0.5">
-                  {selectedToolModal.name}
-                </h2>
-                <p className="text-xs text-[#64748B] mt-1">
-                  {selectedToolModal.shortDesc}
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl shadow-2xs overflow-hidden shrink-0 ring-1 ring-[#DCE8F6] bg-slate-900 flex items-center justify-center">
+                  <ToolLogo toolId={selectedToolModal.id} size="lg" className="w-full h-full" />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <span className="text-[11px] font-bold font-mono text-[#0B4B82] uppercase tracking-wider">
+                      {selectedToolModal.category}
+                    </span>
+                    {selectedToolModal.accessType && (
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${getAccessBadgeInfo(selectedToolModal.accessType).style}`}>
+                        {getAccessBadgeInfo(selectedToolModal.accessType).label}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="text-2xl font-bold text-[#08203E] font-serif-display">
+                    {selectedToolModal.name}
+                  </h2>
+                  <p className="text-xs text-[#64748B] mt-0.5">
+                    {selectedToolModal.shortDesc}
+                  </p>
+                </div>
               </div>
               <button
                 onClick={() => setSelectedToolModal(null)}
@@ -391,11 +685,34 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                   Idade mínima recomendada: {selectedToolModal.factCheckStatus.minimumAge} · Avaliação de conformidade RGPD: {selectedToolModal.factCheckStatus.rgpdRiskLevel}
                 </p>
               </div>
+
+              {/* Official Sources in Modal */}
+              {selectedToolModal.officialSources && selectedToolModal.officialSources.length > 0 && (
+                <div className="p-4 rounded-2xl bg-[#F0F5FA] border border-[#DCE8F6] space-y-2">
+                  <span className="text-xs font-bold text-[#0B4B82] font-mono uppercase block">
+                    Fontes Oficiais da Ferramenta
+                  </span>
+                  <div className="flex flex-wrap gap-3 text-xs">
+                    {selectedToolModal.officialSources.map((source, sIdx) => (
+                      <a
+                        key={sIdx}
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#0966C2] hover:underline flex items-center gap-1 font-medium"
+                      >
+                        <span>{source.label}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="p-6 bg-[#F8FAFC] border-t border-[#EEF2F6] flex items-center justify-between gap-4 sticky bottom-0">
               <span className="text-xs text-[#64748B] font-mono">
-                {selectedToolModal.factCheckStatus.freeStatus}
+                {selectedToolModal.factCheckStatus.freeStatus} · Verificado em 09/11/2026
               </span>
               <div className="flex items-center gap-3">
                 <button
@@ -408,7 +725,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                   href={selectedToolModal.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold shadow-xs inline-flex items-center gap-1.5"
+                  className="px-5 py-2 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs font-bold shadow-2xs inline-flex items-center gap-1.5"
                 >
                   <span>Abrir Website Oficial</span>
                   <ExternalLink className="w-3.5 h-3.5" />

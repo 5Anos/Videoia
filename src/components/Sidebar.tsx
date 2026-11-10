@@ -7,7 +7,6 @@ import {
   CheckSquare, 
   Scale, 
   FileText, 
-  Wand2, 
   Film,
   X
 } from 'lucide-react';
@@ -15,7 +14,6 @@ import {
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  onOpenPromptGenerator: () => void;
   isMobileOpen: boolean;
   setIsMobileOpen: (open: boolean) => void;
 }
@@ -23,7 +21,6 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
   setActiveTab,
-  onOpenPromptGenerator,
   isMobileOpen,
   setIsMobileOpen
 }) => {
@@ -108,21 +105,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </nav>
 
-        {/* Bottom: Quick Assistant Button & Cyan Film Graphic */}
+        {/* Bottom Accent */}
         <div className="p-4 relative overflow-hidden bg-gradient-to-t from-[#021326] to-transparent">
           {/* Curved Cyan Wave / Film Strip Ambient Graphic */}
           <div className="absolute -bottom-10 -right-6 w-36 h-36 rounded-full bg-cyan-500/15 blur-xl pointer-events-none" />
 
-          <button
-            onClick={onOpenPromptGenerator}
-            className="w-full relative z-10 flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-full bg-[#0B3B48] hover:bg-[#0E4B5C] border border-cyan-400/40 text-cyan-200 hover:text-white text-xs font-bold transition-all shadow-md shadow-cyan-950/60 cursor-pointer"
-          >
-            <Wand2 className="w-4 h-4 text-amber-300" />
-            <span>Gerador de Prompts</span>
-          </button>
-
           {/* Film Strip Border Accent */}
-          <div className="mt-3 pt-2 flex items-center justify-center gap-1 opacity-40 text-cyan-400">
+          <div className="pt-2 flex items-center justify-center gap-1 opacity-40 text-cyan-400">
             <span className="w-2 h-1 bg-cyan-400 rounded-xs" />
             <span className="w-2 h-1 bg-cyan-400 rounded-xs" />
             <span className="w-2 h-1 bg-cyan-400 rounded-xs" />
