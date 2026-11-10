@@ -1,0 +1,530 @@
+import React, { useState } from 'react';
+import { 
+  Target, 
+  Sparkles, 
+  Film, 
+  Sliders, 
+  BookOpen, 
+  ArrowRight, 
+  CheckCircle2, 
+  Brain, 
+  Scale, 
+  Sparkle, 
+  Compass,
+  CheckSquare,
+  Clapperboard,
+  ShieldCheck,
+  FileCheck2,
+  AlertCircle,
+  HelpCircle,
+  Check,
+  Layers,
+  Wrench
+} from 'lucide-react';
+import { 
+  MODULE_OVERVIEW 
+} from '../data/presentationData';
+import aiVideoCreativeVisual from '../assets/images/ai_video_creative_visual_1794246803380.jpg';
+import multimediaPedagogyImg from '../assets/images/multimedia_cognitive_pedagogy_concept_1794113538329.jpg';
+
+interface HomePageSectionProps {
+  onNavigate: (tabId: string) => void;
+}
+
+export const HomePageSection: React.FC<HomePageSectionProps> = ({ onNavigate }) => {
+  const [checkedChecklist, setCheckedChecklist] = useState<Record<number, boolean>>({});
+
+  const toggleChecklistItem = (idx: number) => {
+    setCheckedChecklist(prev => ({
+      ...prev,
+      [idx]: !prev[idx]
+    }));
+  };
+
+  const checklistItems = [
+    {
+      title: 'Autorização Institucional & EPD',
+      desc: 'Tenho autorização do Encarregado de Proteção de Dados (EPD) ou da direção da escola para utilizar esta ferramenta com os alunos?'
+    },
+    {
+      title: 'Exigência de Conta e Idade Mínima',
+      desc: 'A ferramenta exige conta? Se sim, qual é a idade mínima indicada nos respetivos termos de utilização?'
+    },
+    {
+      title: 'Modelo de Acesso e Custos',
+      desc: 'Há opção gratuita funcional e contínua ou apenas um período experimental com pagamento posterior obrigatório?'
+    },
+    {
+      title: 'Proteção de Dados, Armazenamento e Transferências',
+      desc: 'Que dados pessoais são recolhidos, enviados ou conservados pela ferramenta? Onde são tratados e durante quanto tempo? Existem transferências de dados para países fora do Espaço Económico Europeu? Consultou a política de privacidade e as condições aplicáveis à conta utilizada?'
+    },
+    {
+      title: 'Minimização e Proteção dos Dados dos Alunos',
+      desc: 'Não introduzir dados pessoais, trabalhos identificáveis, classificações, fotografias, amostras de voz ou informação confidencial ou sensível em ferramentas externas que não estejam aprovadas para essa finalidade. Sempre que possível, utilizar exemplos fictícios, materiais anonimizados e apenas os dados estritamente necessários.'
+    },
+    {
+      title: 'Exportação e Marca de Água',
+      desc: 'A ferramenta permite exportar o vídeo em formato aberto (MP4 standard) e sem marcas de água que prejudiquem a visibilidade pedagógica?'
+    },
+    {
+      title: 'Revisão Científica e Histórica',
+      desc: 'O conteúdo gerado pela IA foi rigorosamente revisto e validado pelo professor quanto à correção científica e histórica antes de ser projetado?'
+    },
+    {
+      title: 'Princípio da Transparência',
+      desc: 'A atividade explica aos alunos quando e como foi utilizada a Inteligência Artificial, de acordo com a finalidade pedagógica e com as obrigações de transparência legalmente aplicáveis? Foi verificada a eventual aplicação do artigo 50.º do AI Act, incluindo as regras específicas relativas a conteúdos que constituam deepfakes?'
+    },
+    {
+      title: 'Alternativa Sem IA Garantida',
+      desc: 'Existe uma alternativa sem recurso a IA devidamente planeada para estudantes sem autorização de encarregados de educação ou sem acesso tecnológico?'
+    },
+    {
+      title: 'Foco na Aprendizagem do Estudante',
+      desc: 'A atividade avalia as aprendizagens e competências dos alunos e não a mera sofisticação técnica ou cosmética da ferramenta de IA.'
+    }
+  ];
+
+  return (
+    <div className="space-y-10 animate-in fade-in duration-300">
+      {/* Editorial Studio Hero Section */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#071F3B] via-[#0B2A4E] to-[#04172C] text-white border border-[#143657] shadow-xl">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12 relative z-10">
+          {/* Left Column */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wider text-amber-300 font-mono uppercase">
+              <span>Formação Contínua de Professores</span>
+              <span className="text-cyan-500">/</span>
+              <span className="text-cyan-300">Carla Oliveira (2026)</span>
+              <span className="text-cyan-500">/</span>
+              <span className="text-slate-300">Módulo 3: Ferramentas de Vídeo com IA</span>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <span className="inline-block bg-[#FACC15] text-[#071526] font-black px-4 py-1.5 rounded-2xl shadow-xl shadow-amber-400/25 text-2xl sm:text-3xl lg:text-4xl tracking-tight transform -rotate-1">
+                  Vídeo com IA
+                </span>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-cyan-200 font-serif-display">
+                na Prática Pedagógica
+              </h1>
+            </div>
+
+            <div className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl font-normal space-y-3">
+              <p>
+                Explore o potencial da Inteligência Artificial na criação de recursos educativos! Descubra ferramentas, experimente novas possibilidades e conheça exemplos práticos para criar vídeos, animações, avatares e atividades que podem dar uma nova dinâmica às suas aulas.
+              </p>
+              <p>
+                Entre, explore cada ferramenta, experimente as suas funcionalidades e descubra tudo o que pode criar!
+              </p>
+            </div>
+          </div>
+
+          {/* Right Column: Visual Artwork Without Text */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 shadow-2xl group bg-[#071526]">
+              <img
+                src={aiVideoCreativeVisual}
+                alt="Composição visual de criatividade audiovisual e Inteligência Artificial na Educação"
+                className="w-full h-[320px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-102"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 11: 10-POINT CHECKLIST FOR TEACHERS BEFORE USING AI VIDEO */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EEF2F6] pb-5">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center shrink-0 border border-[#CEE2F7]">
+              <CheckSquare className="w-6 h-6 text-[#0966C2]" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#0966C2] font-mono">
+                Salvaguardas Éticas, Jurídicas e Didáticas
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display">
+                Checklist Rápida para o Professor: Antes de utilizar uma ferramenta de vídeo com IA
+              </h2>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#F0F5FA] text-[#08203E] border border-[#DCE8F6] shrink-0">
+            10 Pontos de Verificação
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-4xl">
+          Antes de propor uma atividade com recurso a ferramentas de inteligência artificial de vídeo ou de introduzir materiais digitais na turma, percorra este guia prático para assegurar total conformidade institucional e pedagógica:
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-3.5">
+          {checklistItems.map((item, idx) => {
+            const isChecked = checkedChecklist[idx] || false;
+
+            return (
+              <div 
+                key={idx}
+                onClick={() => toggleChecklistItem(idx)}
+                className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-start gap-3.5 ${
+                  isChecked 
+                    ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950 shadow-2xs' 
+                    : 'bg-[#F8FAFD] border-[#DCE8F6] hover:border-[#0966C2]/40 text-[#08203E]'
+                }`}
+              >
+                <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold mt-0.5 transition-all ${
+                  isChecked 
+                    ? 'bg-emerald-600 text-white' 
+                    : 'bg-white border border-[#DCE8F6] text-[#08203E]'
+                }`}>
+                  {isChecked ? <Check className="w-3.5 h-3.5" /> : idx + 1}
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold font-serif-display flex items-center gap-1.5">
+                    <span>{item.title}</span>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-start gap-3">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            <strong>Nota de responsabilidade:</strong> Esta lista destina-se a apoiar a reflexão didática do professor e não substitui os regulamentos internos do Agrupamento de Escolas nem os pareceres do Encarregado de Proteção de Dados (EPD).
+          </p>
+        </div>
+      </section>
+
+      {/* ENQUADRAMENTO NACIONAL EDUQA */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-8 shadow-xs space-y-4">
+        <div className="flex items-start sm:items-center justify-between gap-4 border-b border-[#EAF2FA] pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center shrink-0">
+              <FileCheck2 className="w-5 h-5 text-[#0966C2]" />
+            </div>
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0966C2]">
+                Enquadramento das Políticas Educativas Nacionais
+              </span>
+              <h2 className="text-lg sm:text-xl font-bold text-[#08203E] font-serif-display">
+                Orientações nacionais para a utilização responsável da IA na educação
+              </h2>
+            </div>
+          </div>
+          <span className="hidden sm:inline-block px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#EAF3FD] text-[#085294] border border-[#CDE3F7]">
+            EduQA · Portugal
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          Em outubro de 2026, o EduQA colocou em consulta pública o documento «Inteligência Artificial na Educação — Orientações para a utilização responsável da IA em contexto educativo», destinado à Educação Pré-Escolar e aos Ensinos Básico e Secundário.
+        </p>
+
+        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          O documento procura apoiar as decisões dos docentes e distingue três modalidades de utilização da Inteligência Artificial nas tarefas escolares:
+        </p>
+
+        <div className="grid sm:grid-cols-3 gap-3.5 pt-1">
+          <div className="p-4 rounded-2xl bg-[#F0F5FA] border border-[#DCE8F6] space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-xs text-[#08203E] font-mono uppercase">
+              <span className="w-2 h-2 rounded-full bg-slate-500" />
+              <span>Sem IA</span>
+            </div>
+            <p className="text-xs text-slate-600 leading-snug">
+              Quando se pretende observar o desempenho autónomo do aluno.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-[#EAF3FD] border border-[#CEE2F7] space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-xs text-[#0966C2] font-mono uppercase">
+              <span className="w-2 h-2 rounded-full bg-[#0966C2]" />
+              <span>IA de apoio</span>
+            </div>
+            <p className="text-xs text-slate-700 leading-snug">
+              Quando a ferramenta pode ser utilizada apenas nas finalidades e etapas definidas pelo professor.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-xs text-[#874A07] font-mono uppercase">
+              <span className="w-2 h-2 rounded-full bg-[#874A07]" />
+              <span>IA integrada</span>
+            </div>
+            <p className="text-xs text-slate-800 leading-snug">
+              Quando a utilização da Inteligência Artificial faz parte da própria tarefa ou constitui objeto de análise e aprendizagem.
+            </p>
+          </div>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed pt-1">
+          O documento inclui também instrumentos de apoio à decisão docente, à verificação prévia de atividades, à identificação da utilização de IA e à apreciação institucional de ferramentas. A utilização de IA deve ter uma finalidade educativa clara, respeitar a idade e o desenvolvimento dos alunos, salvaguardar os dados pessoais e preservar a autonomia intelectual.
+        </p>
+
+        <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <div className="leading-relaxed">
+            <strong>Estado documental:</strong> versão colocada em consulta pública em 15 de outubro de 2026. A versão final está prevista para disponibilização às escolas a partir de 4 de janeiro de 2027. Consultar a publicação oficial para confirmar eventuais alterações.
+          </div>
+        </div>
+      </section>
+
+      {/* 4 FOUNDATIONAL PEDAGOGICAL PILLARS */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] shadow-xs overflow-hidden">
+        <div className="p-6 sm:p-8 border-b border-[#EAF2FA] bg-[#F8FAFD]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center font-bold shrink-0 border border-[#CEE2F7]">
+                <Compass className="w-6 h-6 text-[#0966C2]" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#0966C2] font-mono">
+                  Quadro Teórico e Prático da Formação
+                </span>
+                <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display">
+                  Quatro Pilares para uma Prática Audiovisual com Sentido
+                </h2>
+              </div>
+            </div>
+
+            <div className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-[#EAF3FD] text-[#085294] border border-[#CDE3F7] shrink-0 font-mono">
+              Fundamentação Pedagógica (APA 7.ª)
+            </div>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-3xl leading-relaxed">
+            Integrar vídeo com inteligência artificial na escola exige intencionalidade clara. Estes quatro princípios 
+            garantem que a tecnologia serve o desenvolvimento cognitivo e ético dos estudantes:
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#EAF2FA] p-6 sm:p-8 gap-6 md:gap-0 bg-white">
+          {/* Pillar 1: Revised Bloom's Taxonomy */}
+          <div className="space-y-3 md:px-5 first:pl-0">
+            <div className="flex items-center gap-2 text-[#085294] font-bold text-xs uppercase tracking-wider font-mono">
+              <Brain className="w-4 h-4 text-[#0966C2]" />
+              <span>Taxonomia de Bloom (2001)</span>
+            </div>
+            <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
+              O Patamar Cognitivo de 'Criar'
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Segundo a revisão de Anderson & Krathwohl (2001), <strong>Criar</strong> situa-se no topo dos processos cognitivos. 
+              Produzir um vídeo com IA desafia o aluno a sintetizar conceitos, estruturar uma narrativa e avaliar criticamente 
+              a veracidade do que o modelo gerou.
+            </p>
+          </div>
+
+          {/* Pillar 2: Mayer CTML Principles */}
+          <div className="space-y-3 md:px-5">
+            <div className="flex items-center gap-2 text-[#0966C2] font-bold text-xs uppercase tracking-wider font-mono">
+              <Sparkles className="w-4 h-4 text-[#0966C2]" />
+              <span>Carga Cognitiva (Mayer, 2020)</span>
+            </div>
+            <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
+              Modalidade e Redundância
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              A Teoria Cognitiva da Aprendizagem Multimédia demonstra que o processamento humano ocorre por canais auditivo e visual independentes. A combinação ponderada de imagens e narração oral favorece a integração de modelos mentais; contudo, a sobreposição excessiva de texto escrito idêntico à voz ou estímulos irrelevantes provoca sobrecarga cognitiva.
+            </p>
+          </div>
+
+          {/* Pillar 3: Realistic Classroom Tool Selection */}
+          <div className="space-y-3 md:px-5">
+            <div className="flex items-center gap-2 text-teal-700 font-bold text-xs uppercase tracking-wider font-mono">
+              <Film className="w-4 h-4 text-teal-600" />
+              <span>Viabilidade em Sala de Aula</span>
+            </div>
+            <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
+              Critérios de Seleção para a Turma
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Nem todo o software comercial funciona com 25 alunos em 50 minutos. A exploração didática deve priorizar ferramentas institucionais (como o Canva para Educação). Plataformas abertas para adultos (como o Perchance, restrito a maiores de 18 anos) destinam-se exclusivamente à preparação prévia pelo docente, nunca ao uso direto por menores.
+            </p>
+          </div>
+
+          {/* Pillar 4: RGPD & EU AI Act */}
+          <div className="space-y-3 md:px-5 last:pr-0">
+            <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs uppercase tracking-wider font-mono">
+              <Scale className="w-4 h-4 text-indigo-600" />
+              <span>Proteção de Dados & AI Act</span>
+            </div>
+            <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
+              Proteção de Menores e Transparência
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              O envio de imagens, gravações de voz ou outros dados identificáveis para plataformas externas exige uma análise das condições de tratamento, da finalidade, das autorizações e das regras institucionais aplicáveis. O artigo 50.º do Regulamento Europeu de Inteligência Artificial estabelece obrigações específicas de transparência: o n.º 2 prevê que os fornecedores assegurem a marcação técnica dos conteúdos sintéticos de forma detetável por máquina; o n.º 4 prevê a divulgação de conteúdos de imagem, áudio ou vídeo que constituam deepfakes, nos termos e com as exceções previstos no Regulamento. Estas disposições não equivalem a uma obrigação universal de rotular todos os conteúdos gerados por IA. A utilização pedagógica deve, além disso, ser transparente e promover a literacia crítica dos alunos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Concept Split */}
+      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs">
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-[#DCE8F6] shadow-xs">
+            <img
+              src={multimediaPedagogyImg}
+              alt="Mesa de trabalho de pedagogo com caderno de esboços, storyboard digital, lente e caneca de café"
+              className="w-full h-[280px] sm:h-[340px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#041D3A]/85 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-4 right-4 text-white text-xs">
+              <span className="font-mono text-amber-300 text-[10px] uppercase font-bold">Planeamento & Intencionalidade</span>
+              <p className="font-serif-display italic mt-0.5 text-slate-200">Antes do prompt, o guião: como desenhar aprendizagens com sentido.</p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 space-y-4">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0966C2] uppercase font-mono tracking-wider">
+              <Sparkle className="w-4 h-4 text-[#0966C2]" />
+              <span>Metas Formativas da Ação</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#08203E] font-serif-display">
+              Três Competências Essenciais para o Professor
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Ao longo deste módulo, exploramos como dominar o potencial do vídeo com IA sem nos perdermos nos aspetos técnicos: 
+              compreender os fundamentos da comunicação visual, desenhar guiões rigorosos e liderar projetos inclusivos na escola.
+            </p>
+
+            <div className="space-y-3 pt-2">
+              {MODULE_OVERVIEW.objectives.map((obj, idx) => (
+                <div 
+                  key={idx}
+                  className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] flex items-start gap-3 hover:border-[#0966C2]/40 transition-colors"
+                >
+                  <div className="w-6 h-6 rounded-lg bg-[#FACC15] text-[#071526] flex items-center justify-center text-xs font-bold font-mono shrink-0 mt-0.5 shadow-xs">
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-bold text-[#08203E]">
+                      {idx === 0 && 'Compreensão Técnica & Crítica'}
+                      {idx === 1 && 'Criação Audiovisual & Prompts Rigorosos'}
+                      {idx === 2 && 'Integração Curricular & Cidadania Digital'}
+                    </h3>
+                    <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+                      {obj}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2 Structural Pillars */}
+      <section className="space-y-4">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0966C2] font-mono">
+            Panorama Tecnológico
+          </span>
+          <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display mt-0.5">
+            Os Dois Grandes Domínios do Vídeo com IA
+          </h2>
+          <p className="text-xs text-slate-500 mt-1">
+            Diferença prática entre a síntese de novo material e a edição inteligente para acessibilidade e inclusão
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Pillar 1: Generative AI */}
+          <div className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:border-[#0966C2]/40 transition-all">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-[#FEF8E7] text-[#874A07] flex items-center justify-center border border-[#FDE5B5]">
+                  <Film className="w-5 h-5 text-[#874A07]" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-[#08203E] font-serif-display">
+                    IA Generativa de Vídeo
+                  </h3>
+                  <span className="text-xs text-[#874A07] font-semibold font-mono">Texto para vídeo & Imagem para vídeo</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Modelos que transformam descrições textuais em planos de vídeo fluidos. 
+                Permitem reconstituir momentos históricos (ex: o Terramoto de 1755 em Lisboa), fenómenos cósmicos 
+                ou reações moleculares difíceis de filmar com uma câmara normal.
+              </p>
+
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                {MODULE_OVERVIEW.videoAICategories[0].highlights.map((h, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[11px] text-slate-500 font-mono">InVideo AI, Kling AI, Luma AI — Ray3.2, MiniMax — Hailuo AI, Pika, Runway</span>
+              <button
+                onClick={() => onNavigate('tools')}
+                className="text-xs text-[#0966C2] font-bold hover:text-[#085294] flex items-center gap-1 cursor-pointer"
+              >
+                <span>Ver ferramentas</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Pillar 2: AI-Assisted Editing */}
+          <div className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:border-[#0966C2]/40 transition-all">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-[#EAF3FD] text-[#0966C2] flex items-center justify-center border border-[#CEE2F7]">
+                  <Sliders className="w-5 h-5 text-[#0966C2]" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-[#08203E] font-serif-display">
+                    Edição com IA Integrada
+                  </h3>
+                  <span className="text-xs text-[#0966C2] font-semibold font-mono">Pós-Produção & Inclusão (DUA)</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Algumas ferramentas apoiam tarefas de pós-produção, como legendagem automática, transcrição, corte assistido e tradução. A disponibilidade destas funcionalidades, as línguas suportadas e a qualidade dos resultados variam consoante o fornecedor, o modelo, a versão, o plano e a conta. A transcrição, a pontuação, as legendas e os termos técnicos devem ser revistos pelo professor.
+              </p>
+
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                {MODULE_OVERVIEW.videoAICategories[1].highlights.map((h, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[11px] text-slate-500 font-mono">CapCut, Clipchamp, Canva para Educação</span>
+              <button
+                onClick={() => onNavigate('advantages')}
+                className="text-xs text-[#0966C2] font-bold hover:text-[#085294] flex items-center gap-1 cursor-pointer"
+              >
+                <span>Ver 5 vantagens pedagógicas</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};

@@ -102,15 +102,18 @@ export const ToolsComparatorSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Mandatory Caution Notice Box (Section 7) */}
+      {/* Mandatory Caution Notice Box (Section 7 & Section 6.3) */}
       <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-amber-900 flex items-start gap-3.5 shadow-xs">
         <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <span className="font-bold font-mono text-xs uppercase tracking-wider text-amber-800 block">
             Aviso aos Professores sobre Modelos Comerciais e Preços
           </span>
           <p className="text-xs text-amber-900 leading-relaxed font-medium">
             Os limites, créditos, preços e funcionalidades podem mudar. Consulte sempre a informação oficial antes de preparar uma atividade. A presença de uma opção gratuita não significa que todas as funcionalidades estejam incluídas.
+          </p>
+          <p className="text-[11px] text-amber-800 leading-relaxed">
+            Nota: este quadro não constitui uma avaliação jurídica ou técnica de conformidade com o RGPD. A utilização de cada ferramenta exige a consulta da política de privacidade, dos termos do serviço, das condições de tratamento de dados e das regras institucionais aplicáveis. A idade indicada corresponde às condições do fornecedor e deve ser confirmada na documentação oficial.
           </p>
         </div>
       </div>
@@ -125,7 +128,7 @@ export const ToolsComparatorSection: React.FC = () => {
                 <th className="p-4 sm:p-5 min-w-[170px]">Categoria & Funcionalidades</th>
                 <th className="p-4 sm:p-5 min-w-[210px]">Tipo de Acesso & Quota</th>
                 <th className="p-4 sm:p-5 min-w-[240px]">Limitações Conhecidas</th>
-                <th className="p-4 sm:p-5 min-w-[150px]">Idade Mínima / RGPD</th>
+                <th className="p-4 sm:p-5 min-w-[150px]">Idade mínima indicada pelo fornecedor</th>
                 <th className="p-4 sm:p-5 text-center min-w-[90px]">Página Oficial</th>
               </tr>
             </thead>
@@ -199,14 +202,11 @@ export const ToolsComparatorSection: React.FC = () => {
                       </ul>
                     </td>
 
-                    {/* Age / RGPD */}
-                    <td className="p-4 sm:p-5 align-top space-y-1">
+                    {/* Idade mínima indicada pelo fornecedor */}
+                    <td className="p-4 sm:p-5 align-top">
                       <div className="font-semibold text-[#08203E] text-xs">
                         {tool.factCheckStatus.minimumAge}
                       </div>
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-700">
-                        {tool.factCheckStatus.rgpdRiskLevel}
-                      </span>
                     </td>
 
                     {/* Official External Links */}

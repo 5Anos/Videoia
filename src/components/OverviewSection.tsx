@@ -22,12 +22,7 @@ import {
   Wrench
 } from 'lucide-react';
 import { 
-  MODULE_OVERVIEW, 
-  TOOLS_CATALOG, 
-  NON_AI_TOOLS,
-  EDUCATIONAL_PROMPTS, 
-  CLASSROOM_ACTIVITIES,
-  TEACHER_ADVANTAGES 
+  MODULE_OVERVIEW 
 } from '../data/presentationData';
 import aiVideoCreativeVisual from '../assets/images/ai_video_creative_visual_1794246803380.jpg';
 import multimediaPedagogyImg from '../assets/images/multimedia_cognitive_pedagogy_concept_1794113538329.jpg';
@@ -60,12 +55,12 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
       desc: 'Há opção gratuita funcional e contínua ou apenas um período experimental com pagamento posterior obrigatório?'
     },
     {
-      title: 'Dados Biométricos & Servidores',
-      desc: 'A ferramenta recolhe dados biométricos (rosto, voz) ou armazena os vídeos gerados em servidores situados fora da União Europeia?'
+      title: 'Proteção de Dados, Armazenamento e Transferências',
+      desc: 'Que dados pessoais são recolhidos, enviados ou conservados pela ferramenta? Onde são tratados e durante quanto tempo? Existem transferências de dados para países fora do Espaço Económico Europeu? Consultou a política de privacidade e as condições aplicáveis à conta utilizada?'
     },
     {
-      title: 'Proibição de Dados Pessoais de Alunos',
-      desc: 'Nunca introduzir dados pessoais de alunos (nomes completos, fotografias, amostras de voz, notas ou avaliações) nas plataformas externas.'
+      title: 'Minimização e Proteção dos Dados dos Alunos',
+      desc: 'Não introduzir dados pessoais, trabalhos identificáveis, classificações, fotografias, amostras de voz ou informação confidencial ou sensível em ferramentas externas que não estejam aprovadas para essa finalidade. Sempre que possível, utilizar exemplos fictícios, materiais anonimizados e apenas os dados estritamente necessários.'
     },
     {
       title: 'Exportação e Marca de Água',
@@ -77,7 +72,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
     },
     {
       title: 'Princípio da Transparência',
-      desc: 'Os alunos sabem que o vídeo foi gerado com apoio de inteligência artificial (em conformidade com o artigo 50.º do AI Act)?'
+      desc: 'A atividade explica aos alunos quando e como foi utilizada a Inteligência Artificial, de acordo com a finalidade pedagógica e com as obrigações de transparência legalmente aplicáveis? Foi verificada a eventual aplicação do artigo 50.º do AI Act, incluindo as regras específicas relativas a conteúdos que constituam deepfakes?'
     },
     {
       title: 'Alternativa Sem IA Garantida',
@@ -127,33 +122,6 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
                 Entre, explore cada ferramenta, experimente as suas funcionalidades e descubra tudo o que pode criar!
               </p>
             </div>
-
-            {/* Hero Direct CTAs */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                onClick={() => onNavigate('tools')}
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#FACC15] hover:bg-[#FDE047] text-[#071526] text-xs sm:text-sm font-bold shadow-md shadow-amber-400/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
-              >
-                <span>Explorar Ferramentas de Vídeo</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={() => onNavigate('activities')}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0B3B48] hover:bg-[#0E4B5C] text-cyan-200 hover:text-white text-xs sm:text-sm font-semibold border border-cyan-400/40 backdrop-blur-xs transition-all cursor-pointer shadow-md shadow-cyan-950/40"
-              >
-                <BookOpen className="w-4 h-4 text-amber-300" />
-                <span>Guiões Práticos para a Aula</span>
-              </button>
-
-              <button
-                onClick={() => onNavigate('comparator')}
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-slate-300 hover:text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:bg-white/5"
-              >
-                <Scale className="w-4 h-4 text-cyan-400" />
-                <span>Comparador Funcional</span>
-              </button>
-            </div>
           </div>
 
           {/* Right Column: Visual Artwork Without Text */}
@@ -166,86 +134,6 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* SECTION 13: DYNAMIC MODULE STATISTICS COUNTERS */}
-      <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 shadow-xs">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <button
-            onClick={() => onNavigate('tools')}
-            className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] hover:border-[#0966C2]/40 transition-all text-left group cursor-pointer"
-          >
-            <div className="text-2xl sm:text-3xl font-black text-[#08203E] font-mono group-hover:text-[#0966C2] transition-colors">
-              {TOOLS_CATALOG.length}
-            </div>
-            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
-              Ferramentas com IA
-            </div>
-            <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-              Analisadas pedagogicamente
-            </div>
-          </button>
-
-          <button
-            onClick={() => onNavigate('tools')}
-            className="p-4 rounded-2xl bg-[#F0FDF4] border border-emerald-200 hover:border-emerald-400 transition-all text-left group cursor-pointer"
-          >
-            <div className="text-2xl sm:text-3xl font-black text-emerald-800 font-mono">
-              {NON_AI_TOOLS.length}
-            </div>
-            <div className="text-xs font-bold text-emerald-950 mt-1 font-serif-display">
-              Alternativas sem IA
-            </div>
-            <div className="text-[11px] text-emerald-700 mt-0.5 leading-snug">
-              Código aberto e livres
-            </div>
-          </button>
-
-          <button
-            onClick={() => onNavigate('prompts')}
-            className="p-4 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] hover:border-amber-400 transition-all text-left group cursor-pointer"
-          >
-            <div className="text-2xl sm:text-3xl font-black text-[#874A07] font-mono">
-              {EDUCATIONAL_PROMPTS.length}
-            </div>
-            <div className="text-xs font-bold text-[#874A07] mt-1 font-serif-display">
-              Prompts Curriculares
-            </div>
-            <div className="text-[11px] text-[#A15C07] mt-0.5 leading-snug">
-              Validados para as disciplinas
-            </div>
-          </button>
-
-          <button
-            onClick={() => onNavigate('activities')}
-            className="p-4 rounded-2xl bg-[#EAF3FD] border border-[#CEE2F7] hover:border-[#0966C2] transition-all text-left group cursor-pointer"
-          >
-            <div className="text-2xl sm:text-3xl font-black text-[#0966C2] font-mono">
-              {CLASSROOM_ACTIVITIES.length}
-            </div>
-            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
-              Guiões para a Aula
-            </div>
-            <div className="text-[11px] text-slate-600 mt-0.5 leading-snug">
-              Com rubricas de avaliação
-            </div>
-          </button>
-
-          <button
-            onClick={() => onNavigate('advantages')}
-            className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] hover:border-[#0966C2]/40 transition-all text-left group cursor-pointer col-span-2 md:col-span-1"
-          >
-            <div className="text-2xl sm:text-3xl font-black text-slate-700 font-mono">
-              {TEACHER_ADVANTAGES.length}
-            </div>
-            <div className="text-xs font-bold text-[#08203E] mt-1 font-serif-display">
-              Vantagens Docentes
-            </div>
-            <div className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-              Fundamentação empírica
-            </div>
-          </button>
         </div>
       </section>
 
@@ -474,7 +362,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               Proteção de Menores e Transparência
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              O envio de imagens ou voz de menores para plataformas terceiras coloca reservas éticas e jurídicas. O Regulamento Europeu de Inteligência Artificial (Regulamento 2024/1689 e alteração 2026/1744) estabelece deveres de transparência no artigo 50.º para conteúdos sintéticos e reforça a literacia em IA no artigo 4.º.
+              O envio de imagens, gravações de voz ou outros dados identificáveis para plataformas externas exige uma análise das condições de tratamento, da finalidade, das autorizações e das regras institucionais aplicáveis. O artigo 50.º do Regulamento Europeu de Inteligência Artificial estabelece obrigações específicas de transparência: o n.º 2 prevê que os fornecedores assegurem a marcação técnica dos conteúdos sintéticos de forma detetável por máquina; o n.º 4 prevê a divulgação de conteúdos de imagem, áudio ou vídeo que constituam deepfakes, nos termos e com as exceções previstos no Regulamento. Estas disposições não equivalem a uma obrigação universal de rotular todos os conteúdos gerados por IA. A utilização pedagógica deve, além disso, ser transparente e promover a literacia crítica dos alunos.
             </p>
           </div>
         </div>
@@ -584,7 +472,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
             </div>
 
             <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] text-slate-500 font-mono">InVideo, Kling, Luma, MiniMax, Pika, Runway</span>
+              <span className="text-[11px] text-slate-500 font-mono">InVideo AI, Kling AI, Luma AI — Ray3.2, MiniMax — Hailuo AI, Pika, Runway</span>
               <button
                 onClick={() => onNavigate('tools')}
                 className="text-xs text-[#0966C2] font-bold hover:text-[#085294] flex items-center gap-1 cursor-pointer"
@@ -611,8 +499,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               </div>
 
               <p className="text-xs text-slate-600 leading-relaxed">
-                Ferramentas que automatizam tarefas morosas da pós-produção: legendagem automática em português de Portugal, 
-                corte baseado no guião de texto e apoio multilíngue para acolhimento de alunos.
+                Algumas ferramentas apoiam tarefas de pós-produção, como legendagem automática, transcrição, corte assistido e tradução. A disponibilidade destas funcionalidades, as línguas suportadas e a qualidade dos resultados variam consoante o fornecedor, o modelo, a versão, o plano e a conta. A transcrição, a pontuação, as legendas e os termos técnicos devem ser revistos pelo professor.
               </p>
 
               <div className="space-y-2 pt-2 border-t border-slate-100">

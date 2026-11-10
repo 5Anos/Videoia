@@ -57,51 +57,65 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
   const decisionScenarios = [
     {
       id: 1,
-      title: 'Quero criar um vídeo explicativo a partir de um texto ou guião',
-      tools: ['InVideo AI', 'Google Vids', 'Clipchamp', 'Canva'],
+      title: 'Quero gerar pequenos clipes a partir de texto ou imagem',
+      tools: [
+        'Google Flow',
+        'Kling AI',
+        'Luma AI — Ray3.2',
+        'MiniMax — Hailuo AI',
+        'PixVerse',
+        'Adobe Firefly — Vídeo',
+        'Runway'
+      ],
       targetCategory: 'text-to-video',
-      icon: '📝',
-      note: 'Ideal para introduzir matérias novas e transformar apontamentos em clipes narrados.'
+      icon: '🎬',
+      note: 'Estas ferramentas permitem gerar clipes visuais a partir de instruções ou imagens, de acordo com o modelo. Os limites, a duração, a resolução e os créditos variam. A geração de clipes não equivale automaticamente à criação de um vídeo pedagógico completo.'
     },
     {
       id: 2,
-      title: 'Quero legendar um vídeo que já gravei e cortar partes',
-      tools: ['CapCut', 'Clipchamp'],
-      targetCategory: 'video-editing',
-      icon: '✂️',
-      note: 'Foco na acessibilidade e inclusão através de legendagem automática em português.'
+      title: 'Quero preparar um primeiro vídeo estruturado a partir de um guião',
+      tools: ['InVideo AI', 'Google Vids'],
+      targetCategory: 'presentation-video',
+      icon: '📝',
+      note: 'O InVideo AI pode apoiar a criação de um rascunho audiovisual a partir de texto. O Google Vids permite organizar e editar cenas e integrar pequenos clipes gerados por IA. As duas ferramentas têm funcionalidades e limites diferentes; o professor deve rever e montar o vídeo final.'
     },
     {
       id: 3,
-      title: 'Quero ilustrar um conceito abstrato ou histórico com um clip de poucos segundos',
-      tools: ['Luma Dream Machine', 'Kling AI', 'PixVerse', 'MiniMax', 'Runway'],
-      targetCategory: 'text-to-video',
-      icon: '🎬',
-      note: 'Geração generativa com movimento para fenómenos científicos e recriações visuais.'
+      title: 'Quero editar um vídeo que já gravei e rever as legendas',
+      tools: [
+        'CapCut',
+        'Microsoft Clipchamp',
+        'Canva para Educação',
+        'Shotcut',
+        'OpenShot'
+      ],
+      targetCategory: 'video-editing',
+      icon: '✂️',
+      note: 'Estas ferramentas permitem editar e organizar conteúdos audiovisuais. A legendagem automática só está disponível em determinadas ferramentas, versões, idiomas e planos. A disponibilidade de Português de Portugal deve ser confirmada na conta utilizada.'
     },
     {
       id: 4,
-      title: 'Quero um avatar virtual a apresentar a aula',
+      title: 'Quero criar um apresentador virtual ou uma personagem que comunica',
       tools: ['HeyGen', 'Vidnoz AI'],
       targetCategory: 'avatars',
       icon: '👤',
-      note: 'Apresentadores digitais com sincronização labial para mensagens institucionais ou tutoriais.'
+      note: 'Estas ferramentas permitem criar vídeos com apresentadores ou avatares virtuais. A qualidade da voz, a disponibilidade de Português de Portugal e a sincronização labial dependem do modelo, do idioma e do plano. Não são garantidas.'
     },
     {
       id: 5,
-      title: 'Quero animação gráfica e recursos educativos com modelos prontos',
-      tools: ['Canva'],
-      targetCategory: 'video-editing',
-      icon: '🎨',
-      note: 'Ambiente institucional seguro, modelos colaborativos e conformidade com privacidade escolar.'
+      title: 'Quero gravar o ecrã, uma demonstração ou uma explicação',
+      tools: ['OBS Studio', 'Microsoft Clipchamp', 'Canva para Educação'],
+      targetCategory: 'screen-recording',
+      icon: '🖥️',
+      note: 'O OBS Studio é especialmente indicado para gravação de ecrã, câmara e áudio. O Clipchamp e o Canva disponibilizam opções de gravação e integração em projetos, conforme a conta e a versão. O OBS não é um editor de vídeo.'
     },
     {
       id: 6,
-      title: 'Quero que os alunos editem vídeo sem IA, sem conta e em segurança',
-      tools: ['Shotcut', 'OpenShot', 'OBS Studio'],
-      targetCategory: 'non-ai',
-      icon: '🛡️',
-      note: 'Software de código aberto, 100% gratuito e offline para instalar nos computadores da escola.'
+      title: 'Quero explorar um gerador comunitário como docente adulto',
+      tools: ['Perchance — geradores comunitários'],
+      targetCategory: 'community-generator',
+      icon: '🧪',
+      note: 'O Perchance é uma plataforma de geradores comunitários com funcionalidades variáveis e termos que restringem a utilização a maiores de 18 anos. Destina-se exclusivamente à exploração individual por docentes adultos; não deve ser utilizado diretamente por alunos.'
     }
   ];
 
@@ -520,7 +534,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
               Alternativas gratuitas para editar e gravar vídeo
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
-              Software gratuito, sem recurso a IA e de código aberto para montagem, gravação e edição — sem consumo de créditos, sem dependência de quotas de servidores e sem recolha de dados biométricos de docentes ou estudantes.
+              Software gratuito e de código aberto para edição ou gravação local de conteúdos audiovisuais, sem consumo de créditos de geração de IA. O Shotcut e o OpenShot são editores de vídeo; o OBS Studio permite gravar o ecrã, a câmara e o áudio, mas não é um editor. A utilização de câmara e microfone pode captar dados pessoais, pelo que devem ser respeitadas as permissões, as autorizações e as regras de proteção de dados aplicáveis.
             </p>
           </div>
           <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shrink-0">
@@ -682,7 +696,7 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                   <span>Requisitos Legais, Idade e Salvaguardas</span>
                 </div>
                 <p className="text-xs text-[#78350F] leading-relaxed">
-                  Idade mínima recomendada: {selectedToolModal.factCheckStatus.minimumAge} · Avaliação de conformidade RGPD: {selectedToolModal.factCheckStatus.rgpdRiskLevel}
+                  Idade mínima recomendada: {selectedToolModal.factCheckStatus.minimumAge} · Nota sobre proteção de dados: {selectedToolModal.factCheckStatus.rgpdRiskLevel}
                 </p>
               </div>
 

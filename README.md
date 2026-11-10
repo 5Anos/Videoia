@@ -1,8 +1,8 @@
 # IA na Educação — Ferramentas de Vídeo (Módulo 3)
 
-> **Plataforma Didática Aberta para a Formação Contínua de Docentes**  
+> **Plataforma Didática para a Formação Contínua de Docentes**  
 > Autora e Formadora: **Carla Oliveira (2026)**  
-> Enquadramento: Perfil dos Alunos à Saída da Escolaridade Obrigatória · Orientações EduQA (2026) · RGPD (Art. 4.º, n.º 14, 8.º e 9.º) · Regulamento Europeu de IA (Regulamento 2024/1689 e alteração 2026/1744)
+> Enquadramento: Perfil dos Alunos à Saída da Escolaridade Obrigatória · Orientações EduQA para a utilização responsável da IA na Educação (documento colocado em consulta pública a 15 de outubro de 2026; versão final prevista para envio às escolas a partir de 4 de janeiro de 2027) · RGPD · Regulamento (UE) 2024/1689, na versão consolidada aplicável.
 
 ---
 
@@ -13,8 +13,8 @@ Esta plataforma interativa foi concebida para apoiar a formação contínua de p
 A plataforma afasta-se do fascínio técnico superficial e foca-se na **intencionalidade pedagógica**:
 - **Taxonomia Revista de Bloom (Anderson & Krathwohl, 2001):** Mobilização do patamar cognitivo mais elevado — *Criar* (*Creating*) — alicerçado na síntese e avaliação crítica da informação gerada.
 - **Teoria Cognitiva da Aprendizagem Multimédia (Richard E. Mayer, 2020):** Aplicação prática dos Princípios da Modalidade e da Redundância para gerir a carga cognitiva e apoiar a memória de trabalho dos alunos.
-- **Segurança e Proteção de Dados dos Estudantes:** O rosto e a voz constituem dados pessoais nos termos do RGPD; a sua qualificação como categoria especial de dados biométricos (art. 4.º, n.º 14 e art. 9.º) depende de tratamento técnico específico para identificação unívoca da pessoa singular. Salvaguarda-se a proibição de introdução de dados pessoais de menores em serviços externos na nuvem e o cumprimento do dever de transparência para conteúdos sintéticos (art. 50.º do AI Act).
-- **Orientações EduQA (Outubro 2026 / Janeiro 2027):** Distinção entre as três modalidades pedagógicas de trabalho com IA: *Sem IA*, *IA de apoio* e *IA integrada*.
+- **Segurança e Proteção de Dados:** As imagens, gravações de voz e vídeos que permitam identificar uma pessoa podem constituir dados pessoais. A sua qualificação como dados biométricos de categoria especial depende do tratamento técnico e da finalidade de identificação inequívoca da pessoa. Não devem ser introduzidos dados pessoais de alunos, trabalhos identificáveis, classificações, fotografias ou informação confidencial ou sensível em ferramentas externas que não estejam aprovadas para essa finalidade. Deve privilegiar-se a minimização de dados, a utilização de materiais anonimizados e a verificação das condições de tratamento e armazenamento. O artigo 50.º do AI Act estabelece obrigações específicas de transparência, não uma obrigação indiferenciada de rotular todos os conteúdos gerados por IA.
+- **Orientações EduQA:** O documento «Inteligência Artificial na Educação — Orientações para a utilização responsável da IA em contexto educativo» foi colocado em consulta pública em 15 de outubro de 2026. A versão final está prevista para envio às escolas a partir de 4 de janeiro de 2027. O documento distingue três modalidades de utilização pedagógica da IA: *Sem IA*, *IA de apoio* e *IA integrada*.
 
 ---
 
@@ -25,30 +25,29 @@ A plataforma afasta-se do fascínio técnico superficial e foca-se na **intencio
 3. **Catálogo de Ferramentas de Vídeo (16 Ferramentas de IA):**
    - *InVideo AI* (criação de rascunhos de vídeo a partir de guiões e descrições textuais)
    - *Kling AI* (geração de sequências de movimento a partir de texto e imagens)
-   - *Luma Dream Machine* (criação de vídeos curtos com movimentos de câmara)
-   - *MiniMax / Hailuo AI* (geração de planos curtos de vídeo a partir de texto ou imagens)
+   - *Luma AI — Ray3.2* (criação de vídeos curtos com movimentos de câmara)
+   - *MiniMax — Hailuo AI* (geração de planos curtos de vídeo a partir de texto ou imagens)
    - *Pika* (animação e transformação visual de imagens e descrições)
    - *CapCut (Web, PC e Telemóvel)* (edição de vídeo, legendas automáticas e recursos de montagem)
    - *Canva para Educação* (ambiente escolar com modelos educativos e ferramentas de edição e animação)
-   - *Perchance AI Video* (ferramenta aberta com acesso sem registo; apenas para docentes adultos, 18+; não recomendada para alunos)
-   - *Microsoft Clipchamp* (editor de vídeo no navegador com locução de texto e legendagem)
+   - *Perchance — geradores comunitários* (funcionalidades e condições variáveis; restrito a adultos com 18 ou mais anos; não recomendado para utilização direta por alunos).
+   - *Microsoft Clipchamp* (editor de vídeo com funcionalidades de texto para voz e legendagem, conforme a conta, o idioma, a versão e o plano; não é garantida a disponibilidade de vozes em Português de Portugal).
    - *HeyGen* (criação de vídeos com avatares e vozes sintéticas)
    - *Vidnoz AI* (geração de vídeos com avatares virtuais e modelos prontos)
    - *Google Flow* (ambiente de experimentação audiovisual da Google)
    - *Google Vids* (aplicação de criação de vídeos integrada no Google Workspace)
    - *PixVerse* (geração de pequenos vídeos a partir de texto ou imagem)
    - *Adobe Firefly Video* (geração e edição de vídeo com IA no ecossistema Adobe)
-   - *Runway Gen-3 / Gen-2* (geração e edição avançada de vídeo para exploração criativa)
-4. **Alternativas Gratuitas para Editar e Gravar Vídeo (3 Ferramentas Livres sem IA):**
+   - *Runway* (geração e transformação de vídeo com modelos cuja disponibilidade depende do plano e da conta).
+4. **Alternativas gratuitas e de código aberto para edição e gravação local de conteúdos audiovisuais.** Shotcut e OpenShot são editores de vídeo. OBS Studio é uma ferramenta de gravação de ecrã, câmara e áudio, não um editor de vídeo. A utilização de câmara e microfone pode envolver dados pessoais; devem ser verificadas as permissões e as condições de gravação:
    - *Shotcut* (editor de vídeo gratuito e de código aberto, multiplataforma e offline)
    - *OpenShot* (editor de vídeo gratuito e de código aberto para montagem e transições)
    - *OBS Studio* (software de gravação de ecrã, câmara e áudio sem recurso a IA)
 5. **Guia de Decisão Rápida:** «Que ferramenta escolher para a minha tarefa?» organizado em 6 cenários didáticos.
-6. **Banco de Prompts Didáticos:** 11 instruções curriculares completas e estruturadas, cientificamente e historicamente validadas, prontas para adaptação pelo docente.
+6. **Banco de Prompts Didáticos:** 11 propostas de prompts pedagógicos estruturadas para diferentes áreas disciplinares. Os textos foram submetidos a revisão científica, histórica e pedagógica, mas os resultados gerados pelas ferramentas exigem sempre validação pelo docente antes da sua utilização.
 7. **Guiões de Sala de Aula:** 4 atividades curriculares estruturadas passo a passo com grelhas de avaliação e simulador ponderado de notas (0 a 20 valores).
 8. **Comparador Funcional de Ferramentas:** Tabela comparativa com filtros por funcionalidade (`capabilityTags`), modalidades de acesso gratuito, limitações conhecidas e requisitos etários.
 9. **Bibliografia Académica e Salvaguardas:** Referências em norma APA (7.ª edição) e análise do Regulamento Europeu de Inteligência Artificial.
-10. **Ficha Pedagógica (PDF):** Versão sintetizada pronta para impressão e trabalho presencial em formação de docentes.
 
 ---
 

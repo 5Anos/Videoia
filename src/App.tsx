@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { TopNav } from './components/TopNav';
+import { HomePageSection } from './components/HomePageSection';
 import { OverviewSection } from './components/OverviewSection';
 import { AdvantagesSection } from './components/AdvantagesSection';
 import { ToolsCatalogSection } from './components/ToolsCatalogSection';
@@ -10,7 +11,7 @@ import { ToolsComparatorSection } from './components/ToolsComparatorSection';
 import { BibliographySection } from './components/BibliographySection';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [activeTab, setActiveTab] = useState<string>('home');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const [toolFilterFromAdvantage, setToolFilterFromAdvantage] = useState<string | undefined>(undefined);
 
@@ -45,6 +46,10 @@ export default function App() {
 
         {/* Dynamic Content Views */}
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 space-y-10">
+          {activeTab === 'home' && (
+            <HomePageSection onNavigate={handleTabChange} />
+          )}
+
           {activeTab === 'overview' && (
             <OverviewSection onNavigate={handleTabChange} />
           )}

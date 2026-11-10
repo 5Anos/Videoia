@@ -182,7 +182,7 @@ export const BibliographySection: React.FC = () => {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5" />
-                <span>Escolher ferramenta adequada à faixa etária (Perchance para menores sem login)</span>
+                <span>Escolher uma ferramenta compatível com a idade dos utilizadores e com os respetivos termos de serviço. O Perchance é restrito a maiores de 18 anos e não deve ser utilizado diretamente por alunos.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5" />

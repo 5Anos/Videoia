@@ -1,5 +1,6 @@
 import React from 'react';
 import { 
+  Home,
   Compass, 
   Layers, 
   Video, 
@@ -25,6 +26,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setIsMobileOpen
 }) => {
   const navItems = [
+    { id: 'home', label: 'Página Inicial', icon: Home },
     { id: 'overview', label: 'Visão Pedagógica', icon: Compass },
     { id: 'advantages', label: '5 Vantagens', icon: Layers },
     { id: 'tools', label: 'Ferramentas de Vídeo', icon: Video },

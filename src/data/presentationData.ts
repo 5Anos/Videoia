@@ -202,7 +202,7 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Videoaulas em Minutos",
     description: "As ferramentas de geração de vídeo podem apoiar a criação de rascunhos audiovisuais a partir de instruções escritas e materiais de referência. O professor deve rever o guião, as imagens, a narração e a informação antes de utilizar o vídeo.",
     capabilities: [
-      "Transformar sumários ou textos curriculares em vídeos estruturados com imagem e narração.",
+      "Algumas ferramentas permitem criar rascunhos audiovisuais a partir de instruções escritas ou guiões. A estrutura das cenas, a narração e a fidelidade ao texto dependem da ferramenta e devem ser revistas pelo professor.",
       "Algumas ferramentas disponibilizam síntese de voz. A língua, a variante do Português e a qualidade da locução dependem do serviço e do modelo utilizados e devem ser confirmadas antes da utilização. O professor pode optar por gravar a própria voz.",
       "Criar clipes curtos ou montar um vídeo final com a duração definida pelo professor. A duração e a sequência dependem da ferramenta e podem exigir edição posterior.",
       "Gravar explicações uma única vez e reutilizá-las com alunos que faltaram ou precisam de reforço."
@@ -218,7 +218,7 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Reduz a ansiedade de quem não se sente confortável a expor a sua própria imagem em vídeo."
     ],
     cognitivePrinciple: "Princípio da Modalidade de Mayer: a combinação de imagens relevantes com explicação oral pode apoiar a aprendizagem. A sua eficácia depende da organização da informação, da complexidade do conteúdo e dos conhecimentos prévios dos alunos.",
-    rgpdNote: "Nunca introduza dados pessoais de alunos (nomes, notas ou situações individuais) nos guiões que envia para ferramentas na nuvem."
+    rgpdNote: "Não introduza dados pessoais de alunos, nomes, classificações ou situações identificáveis em ferramentas externas que não estejam aprovadas para essa finalidade. Privilegie exemplos fictícios, anonimização e minimização dos dados."
   },
   {
     id: 2,
@@ -249,9 +249,9 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     shortTitle: "Pílulas e Resumos Curtos",
     description: "Uma gravação extensa pode dificultar a localização de uma explicação específica. A criação de excertos com objetivos claros pode facilitar a consulta e a revisão, desde que os segmentos mantenham o contexto necessário.",
     capabilities: [
-      "Localizar no vídeo os momentos onde foi colocada uma dúvida ou explicado um conceito.",
-      "Cortar os silêncios, as pausas de transição e os momentos de espera da aula.",
-      "Gerar clipes curtos com título automático focados num único problema resolvido.",
+      "Alguns editores permitem pesquisar uma transcrição e localizar excertos de vídeo. Esta funcionalidade depende da ferramenta, da versão e do plano.",
+      "Os silêncios, pausas ou momentos de espera podem ser cortados manualmente ou através de funcionalidades assistidas, quando disponíveis. A edição deve preservar o contexto necessário à compreensão.",
+      "A criação de clipes curtos e a atribuição automática de títulos dependem das funcionalidades de cada ferramenta. O professor deve rever a seleção dos excertos e acrescentar ou corrigir os títulos.",
       "Disponibilizar pequenos clipes didáticos antes de começar um novo capítulo para despertar o interesse."
     ],
     usefulTools: [
@@ -264,7 +264,7 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Possibilidade de reutilizar e disponibilizar excertos revistos, adequados aos objetivos de cada atividade."
     ],
     cognitivePrinciple: "Princípio da Segmentação de Mayer: a informação pode ser organizada em partes significativas, permitindo ao aluno controlar o ritmo, pausar e rever. O benefício depende do conteúdo e da forma como os segmentos são estruturados.",
-    rgpdNote: "Atenção máxima: se a gravação da aula contiver rostos ou perguntas com nomes de alunos, NUNCA a envie para geradores de IA públicos na Internet."
+    rgpdNote: "Não carregue gravações com rostos, vozes, nomes ou outros dados identificáveis de alunos em ferramentas externas que não estejam aprovadas para essa finalidade. Sempre que possível, utilize gravações sem identificação de alunos, materiais anonimizados ou exemplos fictícios e confirme as condições de tratamento com a escola."
   },
   {
     id: 4,
@@ -273,13 +273,13 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
     description: "Um avatar virtual pode parecer artificial à primeira vista, mas quando bem utilizado é uma ferramenta complementar: serve para dar as boas-vindas a um módulo, colocar uma questão desafiadora ou simular uma dramatização com uma figura histórica.",
     capabilities: [
       "Criar uma personagem virtual que lê as instruções de um trabalho com clareza e ritmo pausado.",
-      "Simular diálogos entre duas figuras (por exemplo, um debate fictício entre dois filósofos ou cientistas).",
-      "Manter a mesma voz e identidade visual em materiais de apoio ao estudo ao longo do ano letivo.",
+      "Algumas ferramentas permitem construir apresentações ou diálogos com dois ou mais avatares, dependendo do modelo e das funcionalidades disponíveis.",
+      "Quando a ferramenta permite guardar e reutilizar um avatar ou uma voz, o docente pode procurar manter alguma consistência entre materiais. Essa continuidade não é garantida em todos os planos ou modelos.",
       "Preparar comunicações breves e avisos pedagógicos sem necessidade de montagem de estúdio."
     ],
     usefulTools: [
       { name: "Vidnoz AI", description: "Algumas funcionalidades permitem criar apresentações com avatares e diálogos, de acordo com o modelo e as opções disponibilizadas pela ferramenta." },
-      { name: "HeyGen", description: "Avatares virtuais com sincronização labial avançada, ideal para demonstrações breves do professor." },
+      { name: "HeyGen", description: "Permite criar vídeos com apresentadores virtuais. A qualidade da sincronização labial e a disponibilidade de vozes e idiomas dependem do modelo, da conta e do plano." },
       { name: "Canva para Educação", description: "Personagens animadas e elementos ilustrativos prontos para apresentações escolares." }
     ],
     teacherBenefits: [
@@ -323,7 +323,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "Ciências Naturais / Biologia",
     gradeLevel: "3.º Ciclo (9.º ano)",
     category: "Animação 3D Didática de Processo Biológico",
-    recommendedTool: "Kling AI / Luma Dream Machine / MiniMax (Hailuo AI)",
+    recommendedTool: "Kling AI / Luma AI — Ray3.2 / MiniMax — Hailuo AI",
     visualStyle: "Animação 3D médica translúcida, com contraste forte entre sangue oxigenado e desoxigenado",
     pedagogicalObjective: "Compreender o percurso do sangue na circulação pulmonar e sistémica e identificar, de forma esquemática, as fases de diástole e sístole cardíacas.",
     curriculumCompetence: "Identificar os constituintes do sistema cardiovascular e explicar as funções da circulação pulmonar e sistémica.",
@@ -336,7 +336,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "História",
     gradeLevel: "2.º Ciclo (5.º ou 6.º ano)",
     category: "Reconstituição Histórica Cinematográfica",
-    recommendedTool: "Luma Dream Machine / Kling AI",
+    recommendedTool: "Luma AI — Ray3.2 / Kling AI",
     visualStyle: "Cinematográfico realista de época, iluminação de fim de tarde, nevoeiro suave sobre a água",
     pedagogicalObjective: "Compreender a chegada da expedição de Vasco da Gama a Calecute em 1498 e distinguir a reconstituição visual de um registo histórico.",
     curriculumCompetence: "Reconhecer a importância dos Descobrimentos portugueses e localizar as principais etapas da expansão marítima.",
@@ -362,7 +362,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "Biologia e Geologia",
     gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
     category: "Microscopia Científica de Alta Resolução",
-    recommendedTool: "Kling AI / Luma Dream Machine",
+    recommendedTool: "Kling AI / Luma AI — Ray3.2",
     visualStyle: "Microscopia confocal de fluorescência com fundo negro e contraste vívido de proteínas",
     pedagogicalObjective: "Compreender as fases da mitose (prófase, metáfase, anáfase e telófase) observando a separação dos cromossomas pelo fuso acromático.",
     curriculumCompetence: "Explicar a importância da mitose na manutenção da estabilidade genética e na renovação dos tecidos biológicos.",
@@ -375,7 +375,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "Ciências Naturais / Físico-Química",
     gradeLevel: "3.º Ciclo (7.º ano)",
     category: "Geologia Dinâmica 3D",
-    recommendedTool: "Luma Dream Machine / Kling AI / MiniMax (Hailuo AI)",
+    recommendedTool: "Luma AI — Ray3.2 / Kling AI / MiniMax — Hailuo AI",
     visualStyle: "Corte geológico 3D com magma incandescente e fumo volumétrico hiper-realista",
     pedagogicalObjective: "Compreender o movimento convergente das placas tectónicas, o processo de subducção e a formação de magma em zonas de subducção.",
     curriculumCompetence: "Relacionar a tectónica de placas com a ocorrência de sismos e erupções vulcânicas no planeta.",
@@ -402,7 +402,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     gradeLevel: "3.º Ciclo (8.º ano)",
     category: "Visualização Geométrica 3D Concreta",
     recommendedTool: "GeoGebra para construir e validar o diagrama; Canva para Educação ou Microsoft Clipchamp para montar a animação e a explicação.",
-    visualStyle: "Geometria arquitetónica 3D limpa em ambiente urbano com água colorida a fluir",
+    visualStyle: "Animação geométrica plana, limpa e rigorosa, sobre fundo neutro. Triângulo retângulo de lados 3, 4 e 5, com os três quadrados construídos externamente sobre os respetivos lados. Sem água, recipientes, volumes, perspetivas deformadas ou elementos decorativos que alterem a geometria.",
     pedagogicalObjective: "Compreender geometricamente o Teorema de Pitágoras através da comparação das áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
     curriculumCompetence: "Deduzir e aplicar o Teorema de Pitágoras na resolução de problemas geométricos do espaço real.",
     promptText: "Utiliza como imagem de referência um diagrama de um triângulo retângulo com lados de comprimento 3, 4 e 5 e os quadrados construídos externamente sobre cada lado. O diagrama deve ser previamente criado e validado pelo professor numa ferramenta geométrica.\n\nCria uma animação simples que permita comparar as áreas dos três quadrados sem alterar a forma, os ângulos, as medidas ou a posição dos elementos.\n\nMantém os quadrados construídos sobre os catetos separados e mostra visualmente que as respetivas áreas, 9 e 16 unidades quadradas, totalizam a área do quadrado construído sobre a hipotenusa, 25 unidades quadradas.\n\nNão geres números, símbolos ou fórmulas no vídeo. Estes elementos serão inseridos no editor depois de verificados.\n\nNão uses água, volumes ou recipientes, porque esta demonstração se baseia na comparação de áreas.\n\nSe o modelo deformar a geometria, rejeita o resultado e utiliza o diagrama estático ou uma animação construída numa ferramenta geométrica.",
@@ -414,7 +414,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "Português / Literatura",
     gradeLevel: "3.º Ciclo e Secundário (9.º ao 12.º ano)",
     category: "Evocação Poética e Histórica de Os Lusíadas",
-    recommendedTool: "Luma Dream Machine / Kling AI",
+    recommendedTool: "Luma AI — Ray3.2 / Kling AI",
     visualStyle: "Ilustração simbólica e não documental, inspirada no século XIV. Evitar representar como reconstituição factual um cenário cuja relação com o acontecimento é lendária.",
     pedagogicalObjective: "Analisar o episódio de Inês de Castro no Canto III de Os Lusíadas, distinguindo contexto histórico, construção literária e tradições lendárias associadas ao local.",
     curriculumCompetence: "Interpretar textos literários clássicos reconhecendo temas intemporais, símbolos e figuras de estilo.",
@@ -425,14 +425,14 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     id: 9,
     title: "9. Fotossíntese: Como as Plantas Transformam Energia Luminosa em Energia Química",
     discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "2.º e 3.º Ciclo (6.º ao 8.º ano)",
+    gradeLevel: "Aprofundamento de Biologia — selecionar apenas para os níveis em que a planificação curricular e as Aprendizagens Essenciais aplicáveis incluam estes processos e estruturas celulares. Não utilizar a versão detalhada indiscriminadamente no 6.º ano.",
     category: "Macro-Cinematografia Botânica com Corte Microscópico",
-    recommendedTool: "Kling AI / Luma Dream Machine",
+    recommendedTool: "Kling AI / Luma AI — Ray3.2",
     visualStyle: "Animação científica esquemática, com ampliação da folha para o cloroplasto e distinção visual entre tilacoides e estroma.",
     pedagogicalObjective: "Compreender a fotossíntese e distinguir as reações dependentes da luz, que ocorrem nas membranas dos tilacoides, do ciclo de Calvin, que decorre no estroma do cloroplasto.",
-    curriculumCompetence: "Explicar os processos de nutrição das plantas autotróficas e a sua relevância para o equilíbrio dos ecossistemas.",
+    curriculumCompetence: "Compreender o papel da fotossíntese na nutrição das plantas e, em níveis de aprofundamento, relacionar as reações dependentes da luz nos tilacoides com o ciclo de Calvin no estroma.",
     promptText: "Cria uma animação científica esquemática da fotossíntese numa folha e num cloroplasto.\n\nComeça com a luz a incidir na folha e mostra a água a chegar através dos vasos condutores.\n\nFaz uma ampliação até um cloroplasto. Distingue claramente duas regiões.\n\nNas membranas dos tilacoides, a energia luminosa é absorvida pelos pigmentos fotossintéticos e ocorrem as reações dependentes da luz. A água é utilizada e ocorre libertação de oxigénio.\n\nNo estroma do cloroplasto decorre o ciclo de Calvin, que utiliza dióxido de carbono e a energia química produzida nas reações dependentes da luz para formar compostos orgânicos.\n\nNão mostres o dióxido de carbono a transformar-se diretamente em glicose nos tilacoides.\n\nNão representes moléculas como esferas com rótulos automáticos nem inventes estruturas celulares.\n\nA animação é esquemática e será acompanhada por uma explicação e legendas elaboradas e validadas pelo professor.",
-    ethicalConsideration: "Validar a distinção entre tilacoides e estroma, a origem do oxigénio libertado e a função do ciclo de Calvin através de uma fonte científica de Biologia. A animação gerada por IA não deve ser utilizada como fonte científica."
+    ethicalConsideration: "Validar a distinção entre tilacoides e estroma, a origem do oxigénio libertado e a função do ciclo de Calvin através de uma fonte científica de Biologia. A animação gerada por IA não deve ser utilizada como fonte científica. Para alunos do 6.º ano, utilizar uma explicação introdutória adaptada às aprendizagens previstas: a planta utiliza água, dióxido de carbono e energia luminosa para produzir matéria orgânica e liberta oxigénio. Não exigir a identificação dos tilacoides, do estroma ou das etapas do ciclo de Calvin quando esses conteúdos não façam parte da planificação curricular do ano."
   },
   {
     id: 10,
@@ -453,7 +453,7 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     discipline: "História / Cidadania",
     gradeLevel: "2.º / 3.º Ciclo e Secundário",
     category: "Reconstituição Histórica e Cidadania",
-    recommendedTool: "Kling AI / MiniMax (Hailuo AI) / Luma Dream Machine",
+    recommendedTool: "Kling AI / MiniMax — Hailuo AI / Luma AI — Ray3.2",
     visualStyle: "Reconstituição visual ilustrativa, estilizada e claramente identificada como gerada por Inteligência Artificial; não imitar filmagem documental autêntica.",
     pedagogicalObjective: "Explorar o contexto histórico do 25 de Abril de 1974, relacionando acontecimentos e símbolos com fontes históricas e distinguindo registos documentais de reconstituições visuais.",
     curriculumCompetence: "Compreender o fim da ditadura, a importância da Constituição de 1976 e a valorização ativa dos direitos humanos e das liberdades cívicas.",
@@ -623,14 +623,14 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     externalUrl: "https://hailuoai.video/",
     screenshots: [],
     capabilityTags: ["text-to-video", "image-to-video"],
-    accessType: "limited-free-plan",
+    accessType: "one-time-free-trial",
     officialSources: [
       { label: "Página Oficial", url: "https://hailuoai.video/" },
       { label: "Termos de Serviço", url: "https://hailuoai.video/doc/terms-of-service.html" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Plano com créditos de teste ou promocionais",
+      freeStatus: "Créditos promocionais de utilização pontual, sujeitos a elegibilidade, validade e condições do fornecedor. Não equivale a um plano gratuito com créditos recorrentes.",
       minimumAge: "16+ anos (segundo os termos de serviço oficiais)",
       rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
       teacherVerdict: "Útil para o professor gerar pequenas ilustrações visuais expressivas; respeitar a idade mínima e rever rigor.",
@@ -1348,7 +1348,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     whoOperatesTool: {
       firstCycle: "Não aplicável diretamente; no 1.º ciclo o professor operaria qualquer demonstração visual.",
       secondCycle: "O professor disponibiliza previamente um banco de clipes validados para montagem pelos alunos.",
-      thirdAndSecondary: "Os alunos podem gerar excertos visuais pontuais ou montar recursos de arquivo sob supervisão do docente."
+      thirdAndSecondary: "Os alunos podem desenvolver o storyboard, preparar instruções, selecionar referências e avaliar criticamente os resultados. A operação direta das ferramentas de geração de vídeo só pode ocorrer quando a idade mínima, os termos do fornecedor, os requisitos de consentimento e as regras institucionais o permitirem. Quando essas condições não estiverem reunidas, a geração é realizada pelo professor, que apresenta o resultado aos alunos para análise."
     },
     teacherImplementationSteps: [
       {
@@ -1369,9 +1369,9 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       {
         step: 3,
         title: "Criação de Clipes ou Apoio Visual (Aula 3 · 50 min)",
-        description: "O professor ou os alunos selecionam imagens de arquivo ou geram um clipe visual curto para ilustrar o processo microscópico. Funcionamento por professor-operador sempre que haja restrições de contas.",
+        description: "Os alunos selecionam imagens de arquivo ou preparam instruções para a criação de um clipe ilustrativo. A operação da ferramenta é feita pelo professor sempre que a idade, a conta, o consentimento ou as regras institucionais não permitam a utilização direta pelos alunos. A escolha da ferramenta deve respeitar os termos de utilização: o Hailuo exige idade mínima de 16 anos; a Luma permite a utilização entre os 13 e os 17 anos apenas com consentimento do progenitor ou representante legal nos termos do fornecedor. As condições do Kling devem ser confirmadas nos termos atuais antes de autorizar a utilização pelos alunos.",
         aiUseMode: "IA de apoio",
-        recommendedTools: ["Kling AI", "Luma Dream Machine", "MiniMax (Hailuo AI)"]
+        recommendedTools: ["Kling AI", "Luma AI — Ray3.2", "MiniMax — Hailuo AI"]
       },
       {
         step: 4,
@@ -1572,7 +1572,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     whoOperatesTool: {
       firstCycle: "O professor opera a animação subtil da pintura no ecrã da turma; os alunos criam a história e fazem a voz.",
       secondCycle: "O professor apoia a animação com ferramentas institucionais; alunos redigem e gravam em pares.",
-      thirdAndSecondary: "Os alunos geram a animação subtil e realizam a montagem áudio completa com autonomia supervisionada."
+      thirdAndSecondary: "Os alunos podem preparar o storyboard, selecionar os elementos visuais, escrever o monólogo e realizar a edição e gravação áudio. A geração da animação deve ser operada pelo professor sempre que a ferramenta escolhida tenha restrições de idade ou a escola não autorize a utilização direta pelos alunos. O Pika exige utilizadores com pelo menos 18 anos; por isso, não deve ser indicado como ferramenta de utilização direta por alunos menores, mesmo com autorização parental. A utilização do Kling pelos alunos só pode ocorrer depois de confirmadas as condições etárias e os termos aplicáveis."
     },
     teacherImplementationSteps: [
       {
@@ -1592,7 +1592,7 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
       {
         step: 3,
         title: "Animação Ilustrativa do Detalhe (Aula 3 · 50 min)",
-        description: "Com o Pika ou o Kling (operado pelo professor ou por alunos com idade e autorização confirmadas), gera-se um movimento muito suave e respeitoso (o vento num tecido, as ondas da água, a luz de uma vela).",
+        description: "O professor opera o Pika quando esta ferramenta é escolhida, uma vez que os seus termos exigem idade mínima de 18 anos. O Kling só pode ser operado diretamente pelos alunos depois de se confirmar que cumprem os termos etários e as condições de utilização aplicáveis. Os alunos participam na preparação do storyboard, na escolha dos movimentos ilustrativos e na avaliação crítica do resultado. Deve privilegiar-se um movimento subtil que preserve a composição da obra (por exemplo, o movimento de um tecido, da água ou da luz).",
         aiUseMode: "IA de apoio",
         recommendedTools: ["Pika", "Kling AI"]
       },
