@@ -19,15 +19,13 @@ export interface EducationalAdvantage {
 export interface EducationalPrompt {
   id: number;
   title: string;
-  category: string;
   discipline: string;
   gradeLevel: string;
+  creationType: string;
   recommendedTool: string;
-  promptText: string;
-  visualStyle: string;
   pedagogicalObjective: string;
-  curriculumCompetence: string;
-  ethicalConsideration?: string;
+  promptText: string;
+  validationNote?: string;
 }
 
 export type CapabilityTag = 
@@ -101,45 +99,40 @@ export interface EvaluationRubricCriterion {
   evidence: string;
 }
 
+export interface ClassroomActivityCopyItem {
+  id: string;
+  label: string;
+  title: string;
+  content: string;
+  note?: string;
+}
+
+export interface ClassroomActivityStage {
+  title: string;
+  description?: string;
+  steps?: string[];
+  copyItem?: ClassroomActivityCopyItem;
+  tip?: string;
+}
+
 export interface ClassroomActivity {
   id: string;
+  number: number;
   title: string;
   discipline: string;
-  targetCycle: string;
-  estimatedDuration: string;
-  icon: string;
-  learningObjectives: string[];
-  teacherVerificationChecklist: string[];
-  whoOperatesTool: {
-    firstCycle: string;
-    secondCycle: string;
-    thirdAndSecondary: string;
-  };
-  teacherImplementationSteps: {
-    step: number;
-    title: string;
-    description: string;
-    aiUseMode: 'Sem IA' | 'IA de apoio' | 'IA integrada';
-    subitems?: string[];
-    recommendedTools?: string[];
-    teacherTip?: string;
-  }[];
-  studentDeliverables: string[];
-  evaluationRubric: EvaluationRubricCriterion[];
-  evaluationCriteria: string[]; // Retrocompatibilidade textual
-  processEvaluation: {
-    selfAssessment: string;
-    peerAssessment: string;
-    processEvidence: string;
-  };
-  udlAndDifferentiation: {
-    representation: string;
-    actionAndExpression: string;
-    engagement: string;
-    noTechAlternative: string;
-  };
-  pedagogicalFramework: string;
-  rgpdSafetyChecklist: string[];
+  year: string;
+  duration: string;
+  tool: string;
+  usageMode: string;
+  freeAccess: string;
+  challenge: string;
+  howToSteps?: string[];
+  stages?: ClassroomActivityStage[];
+  copyItems?: ClassroomActivityCopyItem[];
+  recommendedSettings?: string[];
+  expectedResult: string;
+  validationNotes: string[];
+  toolImportantNote?: string;
 }
 
 export interface BibliographyEntry {
@@ -307,150 +300,262 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
   }
 ];
 
-// 3. BANCO DE PROMPTS PEDAGÓGICOS (Linguagem Humana, Clara e Pronta para Sala de Aula)
+// 3. BANCO DE PROMPTS PARA VÍDEOS COM IA (11 PROMPTS PRONTOS A UTILIZAR)
 export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
   {
     id: 1,
-    title: "1. Como Funciona o Coração: Circulação Sanguínea",
+    title: "O percurso do sangue no coração",
     discipline: "Ciências Naturais / Biologia",
     gradeLevel: "3.º Ciclo (9.º ano)",
-    category: "Animação 3D Didática de Processo Biológico",
-    recommendedTool: "Kling AI / Luma AI — Ray3.2 / MiniMax — Hailuo AI",
-    visualStyle: "Animação 3D médica translúcida, com contraste forte entre sangue oxigenado e desoxigenado",
-    pedagogicalObjective: "Compreender o percurso do sangue na circulação pulmonar e sistémica e identificar, de forma esquemática, as fases de diástole e sístole cardíacas.",
-    curriculumCompetence: "Identificar os constituintes do sistema cardiovascular e explicar as funções da circulação pulmonar e sistémica.",
-    promptText: "Cria uma animação educativa esquemática do coração humano, em corte longitudinal, sem legendas ou texto gerado automaticamente. Mostra um ciclo cardíaco em momentos claramente separados.\n\nPrimeiro, durante a diástole ventricular, os ventrículos relaxam e enchem-se de sangue; as válvulas auriculoventriculares estão abertas.\n\nSegundo, a contração das aurículas completa o enchimento ventricular.\n\nTerceiro, durante a sístole ventricular, os ventrículos contraem-se, as válvulas auriculoventriculares fecham, as válvulas semilunares abrem e o sangue é ejetado para a artéria pulmonar e para a aorta.\n\nDistingue o lado direito, que envia sangue menos oxigenado para os pulmões, do lado esquerdo, que envia sangue oxigenado para o corpo.\n\nUtiliza azul e vermelho apenas como convenções gráficas. Estas cores não representam as cores reais do sangue.\n\nMantém as estruturas anatómicas estáveis e não inventes vasos, cavidades ou válvulas. Se a sequência não puder ser representada com rigor, apresenta planos separados, em vez de uma animação contínua enganadora.",
-    ethicalConsideration: "A animação é uma representação esquemática, não uma imagem anatómica de referência. O professor deve validar o percurso do sangue, a abertura e o fecho das válvulas e as fases cardíacas através de um esquema científico adequado. As cores azul e vermelho são convenções gráficas."
+    creationType: "Imagem para vídeo — animação científica esquemática.",
+    recommendedTool: "PixVerse — alternativa: Kling AI. Utilizar uma imagem anatómica previamente validada.",
+    pedagogicalObjective: "Visualizar o percurso do sangue na circulação pulmonar e sistémica, distinguindo os dois circuitos.",
+    promptText: `Usa exclusivamente a imagem de referência fornecida pelo professor, que contém um esquema anatómico validado do coração e dos principais vasos sanguíneos.
+
+Cria uma animação científica curta, mantendo rigorosamente a forma, a posição e o número das cavidades, válvulas e vasos representados.
+
+Anima apenas um realce luminoso discreto que acompanhe os percursos já existentes no esquema: o sangue menos oxigenado segue do lado direito do coração para os pulmões; o sangue oxigenado regressa ao lado esquerdo e é enviado para o corpo através da aorta.
+
+Utiliza azul e vermelho apenas como convenções gráficas para distinguir os dois tipos de sangue.
+
+Mantém a anatomia estável. Não acrescentes vasos, válvulas, cavidades ou órgãos. Não introduzas texto, setas ou legendas.
+
+A câmara deve permanecer estável, com movimento mínimo.`,
+    validationNote: "A imagem de referência deve ser um esquema anatómico cientificamente validado. Confirmar os percursos do sangue e as estruturas cardíacas. As cores são convenções gráficas, não representam as cores reais do sangue."
   },
   {
     id: 2,
-    title: "2. A Descoberta do Caminho Marítimo para a Índia (1498)",
+    title: "A chegada de Vasco da Gama à Índia (1498)",
     discipline: "História",
     gradeLevel: "2.º Ciclo (5.º ou 6.º ano)",
-    category: "Reconstituição Histórica Cinematográfica",
-    recommendedTool: "Luma AI — Ray3.2 / Kling AI",
-    visualStyle: "Cinematográfico realista de época, iluminação de fim de tarde, nevoeiro suave sobre a água",
-    pedagogicalObjective: "Compreender a chegada da expedição de Vasco da Gama a Calecute em 1498 e distinguir a reconstituição visual de um registo histórico.",
-    curriculumCompetence: "Reconhecer a importância dos Descobrimentos portugueses e localizar as principais etapas da expansão marítima.",
-    promptText: "Cria uma reconstituição visual ilustrativa, não documental, da aproximação de embarcações portuguesas à costa de Calecute, na Índia, em 1498.\n\nRepresenta navios à vela de finais do século XV, marinheiros e a costa de Malabar, com materiais, velas e elementos visuais coerentes com fontes iconográficas e históricas fornecidas pelo professor.\n\nNão indiques um número exato de navios nem atribuas nomes, bandeiras, símbolos, uniformes ou detalhes específicos sem uma imagem ou fonte documental de referência.\n\nNão inventes acontecimentos, diálogos ou reações individuais. Não imites a aparência de uma filmagem histórica autêntica.\n\nNão incluas texto, rótulos ou símbolos gerados automaticamente. Os elementos históricos e a rota serão identificados posteriormente pelo professor com fontes documentais.",
-    ethicalConsideration: "A armada que partiu em 1497 deve ser distinguida da representação da chegada a Calecute. A composição da expedição, os nomes das embarcações e a rota devem ser confirmados em fontes históricas. A animação deve ser identificada como reconstituição visual ilustrativa, nunca como documento de arquivo."
+    creationType: "Imagem para vídeo — reconstituição histórica ilustrativa.",
+    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
+    pedagogicalObjective: "Representar visualmente a chegada da expedição de Vasco da Gama a Calecute em 1498, distinguindo uma reconstituição de um documento histórico.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação ilustrativa da aproximação de embarcações portuguesas à costa de Calecute, na Índia, em 1498.
+
+Preserva os navios, as pessoas, a composição e os elementos históricos presentes na imagem original.
+
+Anima suavemente o movimento do mar, as velas ao vento e a luz sobre a paisagem.
+
+Utiliza um movimento de câmara lento e discreto, mantendo a coerência visual da imagem.
+
+Não acrescentes navios, pessoas, bandeiras, símbolos ou elementos históricos que não estejam presentes na referência. Não inventes acontecimentos, diálogos ou reações individuais.
+
+Não incluas texto, datas ou legendas. Não imites a aparência de uma filmagem documental autêntica.
+
+O resultado deve ser uma reconstituição visual ilustrativa, não um documento histórico.`,
+    validationNote: "Confrontar a representação com fontes iconográficas e históricas. Identificar sempre o vídeo como reconstituição gerada por IA."
   },
   {
     id: 3,
-    title: "3. O Ciclo da Água: Da Evaporação à Precipitação",
-    discipline: "Geografia / Ciências Naturais",
+    title: "O ciclo da água",
+    discipline: "Ciências Naturais / Geografia",
     gradeLevel: "2.º Ciclo (5.º ano)",
-    category: "Paisagem Dinâmica e Meteorologia",
-    recommendedTool: "Pika / Kling AI",
-    visualStyle: "Documentário de natureza realista em plano aberto sobre paisagem costeira montanhosa",
-    pedagogicalObjective: "Compreender os principais processos do ciclo da água: evaporação, condensação, precipitação, escoamento e infiltração.",
-    curriculumCompetence: "Compreender o ciclo da água como processo dinâmico e reconhecer a água como recurso vital e finito.",
-    promptText: "Cria uma animação educativa esquemática do ciclo da água numa paisagem costeira.\n\nMostra a água líquida à superfície do mar a evaporar. O vapor de água é invisível e não deve ser representado como fumo branco.\n\nMostra a subida do ar húmido, o seu arrefecimento e a condensação em pequenas gotículas de água ou cristais de gelo que contribuem para a formação das nuvens.\n\nRepresenta a precipitação e o regresso da água à superfície através do escoamento superficial e da infiltração no solo, voltando a alimentar rios e oceanos.\n\nInclui, quando adequado ao nível de ensino, a transpiração das plantas como outra entrada de vapor de água na atmosfera.\n\nMantém a sequência cíclica, sem sugerir que todos os processos ocorrem sempre numa única trajetória obrigatória.\n\nNão acrescentes textos, setas, valores ou rótulos automáticos.",
-    ethicalConsideration: "O vapor de água não é visível. As nuvens são constituídas por gotículas de água e/ou cristais de gelo. O ciclo da água representa processos interligados, não uma sequência rígida única. O professor deve validar a sequência e a terminologia."
+    creationType: "Imagem para vídeo — animação científica de um esquema.",
+    recommendedTool: "PixVerse — alternativa: Vidu ou Hailuo AI.",
+    pedagogicalObjective: "Representar as principais etapas do ciclo da água, incluindo evaporação, condensação, precipitação, escoamento e infiltração.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor, que representa um esquema cientificamente validado do ciclo da água.
+
+Cria uma animação educativa curta, mantendo a composição e os elementos fundamentais do esquema.
+
+Anima suavemente a superfície da água, a formação das nuvens e a precipitação.
+
+O vapor de água deve ser representado como invisível, não como fumo branco. As nuvens devem apresentar pequenas gotículas de água ou cristais de gelo.
+
+Mostra o regresso da água à superfície através do escoamento e da infiltração no solo, respeitando os processos já representados na imagem.
+
+Não acrescentes novos elementos, setas, textos, legendas ou valores.
+
+Mantém a imagem estável e evita alterações à sequência científica do esquema.`,
+    validationNote: "Confirmar que o vapor de água não é representado como fumo e que a sequência não sugere uma trajetória única obrigatória para todas as moléculas de água."
   },
   {
     id: 4,
-    title: "4. A Mitose Celular: Divisão e Vida ao Microscópio",
+    title: "A mitose celular",
     discipline: "Biologia e Geologia",
     gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
-    category: "Microscopia Científica de Alta Resolução",
-    recommendedTool: "Kling AI / Luma AI — Ray3.2",
-    visualStyle: "Microscopia confocal de fluorescência com fundo negro e contraste vívido de proteínas",
-    pedagogicalObjective: "Compreender as fases da mitose (prófase, metáfase, anáfase e telófase) observando a separação dos cromossomas pelo fuso acromático.",
-    curriculumCompetence: "Explicar a importância da mitose na manutenção da estabilidade genética e na renovação dos tecidos biológicos.",
-    promptText: "Cria uma animação científica esquemática de uma célula eucariótica animal a realizar a mitose, apresentando quatro fases clássicas numa sequência ordenada: prófase, metáfase, anáfase e telófase, seguida da citocinese.\n\nNa prófase, os cromossomas condensam-se e o fuso mitótico organiza-se.\n\nNa metáfase, os cromossomas alinham-se na região equatorial.\n\nNa anáfase, as cromátides-irmãs separam-se e deslocam-se para polos opostos.\n\nNa telófase, os núcleos reorganizam-se.\n\nDepois, o citoplasma divide-se por citocinese, originando duas células-filhas.\n\nNão representes a duplicação do ADN como um acontecimento da mitose: essa duplicação ocorre anteriormente, durante a interfase.\n\nNão afirmes que a animação é uma captura microscópica real. Não incluas texto ou etiquetas automáticas; estes elementos serão acrescentados posteriormente, depois de validação científica.",
-    ethicalConsideration: "A animação é um modelo simplificado do processo celular. Não deve ser apresentada como imagem microscópica real nem como representação à escala. Validar a sequência das fases e a distinção entre mitose e citocinese através de uma fonte de Biologia."
+    creationType: "Imagem para vídeo — animação de esquema científico.",
+    recommendedTool: "PixVerse — alternativa: Kling AI ou Vidu.",
+    pedagogicalObjective: "Identificar visualmente as fases da mitose e compreender a separação das cromátides-irmãs.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor, que apresenta um esquema científico validado das quatro fases da mitose: prófase, metáfase, anáfase e telófase.
+
+Cria uma animação curta que destaque progressivamente cada uma das quatro fases.
+
+Realça cada painel através de uma iluminação suave ou de um ligeiro movimento de câmara.
+
+Preserva integralmente as células, os cromossomas, o fuso mitótico e a composição original do esquema.
+
+Não inventes cromossomas, não alteres o número de estruturas e não transformes uma fase noutra através de movimentos anatómicos imaginados.
+
+Não representes a duplicação do ADN como parte da mitose. Não acrescentes legendas, nomes ou texto automático.
+
+O resultado deve funcionar como uma animação de apoio à observação do esquema científico original.`,
+    validationNote: "A imagem deve ser validada previamente e a sequência das fases deve ser confirmada através de uma fonte científica. A animação não deve ser apresentada como uma captura microscópica real."
   },
   {
     id: 5,
-    title: "5. A Formação dos Vulcões e Placas Tectónicas",
-    discipline: "Ciências Naturais / Físico-Química",
+    title: "Como se formam os vulcões nas zonas de subducção?",
+    discipline: "Ciências Naturais / Geologia",
     gradeLevel: "3.º Ciclo (7.º ano)",
-    category: "Geologia Dinâmica 3D",
-    recommendedTool: "Luma AI — Ray3.2 / Kling AI / MiniMax — Hailuo AI",
-    visualStyle: "Corte geológico 3D com magma incandescente e fumo volumétrico hiper-realista",
-    pedagogicalObjective: "Compreender o movimento convergente das placas tectónicas, o processo de subducção e a formação de magma em zonas de subducção.",
-    curriculumCompetence: "Relacionar a tectónica de placas com a ocorrência de sismos e erupções vulcânicas no planeta.",
-    promptText: "Cria uma animação geológica esquemática em corte transversal de uma zona de subducção, mostrando uma placa oceânica a convergir e a mergulhar sob uma placa continental.\n\nÀ medida que a placa oceânica desce, liberta água e outros fluidos para o manto sobrejacente.\n\nEsses fluidos favorecem a fusão parcial do manto, formando magma que pode ascender através da crosta e alimentar um vulcão.\n\nNão representes a placa subductada como se fundisse integralmente. Não expliques a formação do magma apenas pelo aumento da pressão ou da temperatura da própria placa.\n\nMostra a subducção e a formação de magma em sequências distintas e simplificadas. Não acrescentes setas, legendas ou escalas automáticas, que serão incluídas posteriormente pelo professor.",
-    ethicalConsideration: "A animação é uma representação simplificada de um processo geológico que decorre em escalas temporais muito longas. O professor deve validar a distinção entre placa subductada, cunha mantélica, fluidos libertados e fusão parcial do manto através de uma fonte científica."
+    creationType: "Imagem para vídeo — animação de um corte geológico.",
+    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
+    pedagogicalObjective: "Visualizar a subducção de uma placa oceânica e a formação de magma na região do manto sobrejacente.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor, que representa um corte geológico validado de uma zona de subducção.
+
+Preserva a posição e a geometria das placas tectónicas, da crosta, do manto e do vulcão.
+
+Cria uma animação curta que destaque o mergulho da placa oceânica sob a placa continental e a ascensão do magma através da região já representada no esquema.
+
+Mostra o movimento do magma apenas no percurso previamente indicado na imagem.
+
+Não representes a placa subductada como se fundisse integralmente. Não acrescentes novas placas, vulcões ou estruturas geológicas.
+
+Não inventes escalas, setas ou legendas. Não transformes o esquema científico numa representação fantasiosa.`,
+    validationNote: "Confirmar que a animação não apresenta a fusão integral da placa oceânica. Validar a relação entre os fluidos libertados, a fusão parcial do manto e a ascensão do magma."
   },
   {
     id: 6,
-    title: "6. Apresentador Virtual: Instruções de Segurança Laboratorial",
-    discipline: "Físico-Química / Ciências Naturais",
-    gradeLevel: "3.º Ciclo (7.º a 9.º ano)",
-    category: "Apresentador Virtual Pedagógico em Estúdio",
-    recommendedTool: "HeyGen / Vidnoz AI",
-    visualStyle: "Apresentador jovem e profissional com bata branca num laboratório escolar limpo e moderno",
-    pedagogicalObjective: "Apresentar as regras indispensáveis de segurança no laboratório de ciências de forma próxima, empática e memorável.",
-    curriculumCompetence: "Adotar regras de segurança individual e coletiva no trabalho experimental em ambiente laboratorial.",
-    promptText: "Cria um vídeo de apresentação com uma personagem virtual fictícia e adulta a apresentar três regras gerais de segurança num laboratório escolar.\n\nA personagem utiliza bata e óculos de proteção adequados ao contexto, mantém o cabelo comprido preso e fala de forma clara, num ritmo moderado.\n\nUtiliza o seguinte texto de fala:\n\n«Antes de iniciar uma atividade laboratorial, coloca os equipamentos de proteção indicados pelo professor e prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Se ocorrer um derrame ou outra situação inesperada, não toques no material nem tentes limpar. Afasta-te e informa imediatamente o professor, seguindo as instruções de segurança do laboratório.»\n\nNão afirmes que a voz será necessariamente em Português de Portugal nem que a sincronização labial será perfeita. Se a ferramenta não disponibilizar uma voz adequada, o professor deve gravar ou substituir a narração.\n\nNão utilizar a imagem ou voz de qualquer pessoa real.",
-    ethicalConsideration: "As regras apresentadas são orientações gerais. A versão final deve ser revista de acordo com as fichas de segurança dos produtos, o regulamento do laboratório e os procedimentos definidos pela escola. A personagem é fictícia e não substitui a explicação do professor nem as regras específicas de cada atividade."
+    title: "Segurança no laboratório de Ciências",
+    discipline: "Ciências Naturais / Físico-Química",
+    gradeLevel: "3.º Ciclo (7.º ao 9.º ano)",
+    creationType: "Texto para vídeo — apresentador virtual.",
+    recommendedTool: "HeyGen — plano gratuito de experimentação; alternativa: Vidnoz AI. Utilização da conta pelo professor adulto.",
+    pedagogicalObjective: "Apresentar três regras fundamentais de segurança laboratorial através de um apresentador virtual.",
+    promptText: `Cria um vídeo educativo com um apresentador virtual adulto, de aparência profissional, num laboratório escolar organizado.
+
+O apresentador deve utilizar bata e óculos de proteção, falar de forma clara e manter um ritmo moderado.
+
+Utiliza exatamente o seguinte texto de narração, em Português de Portugal:
+
+«Antes de iniciares uma atividade laboratorial, coloca os equipamentos de proteção indicados pelo professor e prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Se ocorrer um derrame ou uma situação inesperada, não toques no material nem tentes limpar. Afasta-te e informa imediatamente o professor, seguindo as regras de segurança do laboratório.»
+
+Utiliza uma apresentação simples, com o apresentador em destaque e um laboratório como cenário.
+
+Não acrescentes regras, produtos químicos, procedimentos ou instruções que não estejam no texto.
+
+Não utilizes a imagem ou a voz de pessoas reais. Não apresentes a personagem como um professor verdadeiro.`,
+    validationNote: "Adaptar as instruções ao regulamento do laboratório e às fichas de segurança dos produtos utilizados na escola. Confirmar a pronúncia antes da exportação."
   },
   {
     id: 7,
-    title: "7. O Teorema de Pitágoras no Mundo Real",
+    title: "O Teorema de Pitágoras: a relação entre as áreas",
     discipline: "Matemática",
     gradeLevel: "3.º Ciclo (8.º ano)",
-    category: "Visualização Geométrica 3D Concreta",
-    recommendedTool: "GeoGebra para construir e validar o diagrama; Canva para Educação ou Microsoft Clipchamp para montar a animação e a explicação.",
-    visualStyle: "Animação geométrica plana, limpa e rigorosa, sobre fundo neutro. Triângulo retângulo de lados 3, 4 e 5, com os três quadrados construídos externamente sobre os respetivos lados. Sem água, recipientes, volumes, perspetivas deformadas ou elementos decorativos que alterem a geometria.",
-    pedagogicalObjective: "Compreender geometricamente o Teorema de Pitágoras através da comparação das áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
-    curriculumCompetence: "Deduzir e aplicar o Teorema de Pitágoras na resolução de problemas geométricos do espaço real.",
-    promptText: "Utiliza como imagem de referência um diagrama de um triângulo retângulo com lados de comprimento 3, 4 e 5 e os quadrados construídos externamente sobre cada lado. O diagrama deve ser previamente criado e validado pelo professor numa ferramenta geométrica.\n\nCria uma animação simples que permita comparar as áreas dos três quadrados sem alterar a forma, os ângulos, as medidas ou a posição dos elementos.\n\nMantém os quadrados construídos sobre os catetos separados e mostra visualmente que as respetivas áreas, 9 e 16 unidades quadradas, totalizam a área do quadrado construído sobre a hipotenusa, 25 unidades quadradas.\n\nNão geres números, símbolos ou fórmulas no vídeo. Estes elementos serão inseridos no editor depois de verificados.\n\nNão uses água, volumes ou recipientes, porque esta demonstração se baseia na comparação de áreas.\n\nSe o modelo deformar a geometria, rejeita o resultado e utiliza o diagrama estático ou uma animação construída numa ferramenta geométrica.",
-    ethicalConsideration: "As medidas, os ângulos, as áreas e a igualdade matemática devem ser construídos e verificados fora do modelo generativo. A IA pode ser utilizada apenas para movimento ilustrativo, nunca como garantia de rigor geométrico."
+    creationType: "Imagem para vídeo — animação de diagrama geométrico validado.",
+    recommendedTool: "GeoGebra para criar o esquema rigoroso e PixVerse para uma animação muito subtil. Alternativa gratuita de montagem: Clipchamp.",
+    pedagogicalObjective: "Visualizar a relação entre as áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
+    promptText: `Utiliza exclusivamente a imagem de referência fornecida pelo professor, previamente construída e validada no GeoGebra.
+
+A imagem contém um triângulo retângulo com lados de comprimento 3, 4 e 5 e três quadrados construídos externamente sobre os respetivos lados.
+
+Cria uma animação geométrica simples, aplicando apenas um movimento de câmara lento e uma aproximação visual aos três quadrados.
+
+Preserva integralmente as medidas, os ângulos, a posição dos elementos e a forma dos quadrados.
+
+Não deformes o triângulo nem alteres as dimensões dos quadrados.
+
+Não geres números, fórmulas, símbolos matemáticos ou legendas.
+
+O vídeo deve manter o diagrama original sem alterações geométricas.`,
+    validationNote: "As medidas, os ângulos e as áreas devem ser construídos e verificados no GeoGebra. Se a IA deformar qualquer elemento, utilizar o diagrama original e montar a animação no Clipchamp. Inserir posteriormente a expressão 3² + 4² = 5² através de um editor."
   },
   {
     id: 8,
-    title: "8. Inês de Castro: História, Lenda e Representação em Os Lusíadas",
-    discipline: "Português / Literatura",
-    gradeLevel: "3.º Ciclo e Secundário (9.º ao 12.º ano)",
-    category: "Evocação Poética e Histórica de Os Lusíadas",
-    recommendedTool: "Luma AI — Ray3.2 / Kling AI",
-    visualStyle: "Ilustração simbólica e não documental, inspirada no século XIV. Evitar representar como reconstituição factual um cenário cuja relação com o acontecimento é lendária.",
-    pedagogicalObjective: "Analisar o episódio de Inês de Castro no Canto III de Os Lusíadas, distinguindo contexto histórico, construção literária e tradições lendárias associadas ao local.",
-    curriculumCompetence: "Interpretar textos literários clássicos reconhecendo temas intemporais, símbolos e figuras de estilo.",
-    promptText: "Cria uma ilustração animada, assumidamente ficcional e simbólica, inspirada na figura literária de Inês de Castro e no episódio narrado no Canto III de Os Lusíadas.\n\nRepresenta uma figura feminina medieval num jardim junto à água, sem identificar o cenário como o local historicamente comprovado do acontecimento.\n\nNão afirmes que o episódio ocorreu na Quinta das Lágrimas. A associação deste espaço à história de Pedro e Inês deve ser apresentada como tradição ou lenda, e não como facto histórico comprovado.\n\nNão representes as manchas avermelhadas das pedras como sangue real. Se forem mostradas, identifica-as como elemento de uma tradição lendária.\n\nNão inventes roupa, edifícios ou símbolos históricos específicos sem uma fonte de referência.\n\nNão incluas texto gerado automaticamente. O professor acrescentará posteriormente uma nota que distingue a história, a lenda e a representação literária de Camões.",
-    ethicalConsideration: "Distinguem-se três dimensões: informação histórica documentada, tradição lendária e representação literária. Os Lusíadas é uma epopeia. A associação da Quinta das Lágrimas ao episódio de Inês de Castro deve ser apresentada como tradição, não como localização comprovada. As manchas avermelhadas das pedras da Fonte das Lágrimas são associadas a algas vermelhas e não constituem vestígios documentais de sangue."
+    title: "Inês de Castro: História, Lenda e Literatura",
+    discipline: "Português / História",
+    gradeLevel: "3.º Ciclo (9.º ano) e Ensino Secundário",
+    creationType: "Imagem para vídeo — animação de ilustração literária.",
+    recommendedTool: "PixVerse — alternativa: Kling AI.",
+    pedagogicalObjective: "Criar uma representação visual inspirada no episódio de Inês de Castro, distinguindo a dimensão histórica da construção literária e lendária.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação visual inspirada na figura literária de Inês de Castro e no episódio narrado no Canto III de Os Lusíadas.
+
+Preserva o estilo artístico, a composição, a personagem e os elementos visuais da imagem original.
+
+Anima suavemente o movimento da água, das folhas e do vestuário, utilizando um movimento de câmara discreto.
+
+Não acrescentes acontecimentos, personagens ou elementos históricos específicos que não estejam presentes na imagem de referência.
+
+Não apresentes a Quinta das Lágrimas como local historicamente comprovado do acontecimento.
+
+Não representes as manchas avermelhadas das pedras como vestígios reais de sangue.
+
+Não incluas diálogos, legendas ou texto.
+
+O resultado deve ser uma representação artística e ilustrativa, não uma reconstituição documental.`,
+    validationNote: "A Quinta das Lágrimas deve ser apresentada como espaço associado à tradição lendária de Pedro e Inês. Distinguir a informação histórica, a lenda e a representação literária de Camões."
   },
   {
     id: 9,
-    title: "9. Fotossíntese: Como as Plantas Transformam Energia Luminosa em Energia Química",
+    title: "A fotossíntese: da luz à produção de matéria orgânica",
     discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "Aprofundamento de Biologia — selecionar apenas para os níveis em que a planificação curricular e as Aprendizagens Essenciais aplicáveis incluam estes processos e estruturas celulares. Não utilizar a versão detalhada indiscriminadamente no 6.º ano.",
-    category: "Macro-Cinematografia Botânica com Corte Microscópico",
-    recommendedTool: "Kling AI / Luma AI — Ray3.2",
-    visualStyle: "Animação científica esquemática, com ampliação da folha para o cloroplasto e distinção visual entre tilacoides e estroma.",
-    pedagogicalObjective: "Compreender a fotossíntese e distinguir as reações dependentes da luz, que ocorrem nas membranas dos tilacoides, do ciclo de Calvin, que decorre no estroma do cloroplasto.",
-    curriculumCompetence: "Compreender o papel da fotossíntese na nutrição das plantas e, em níveis de aprofundamento, relacionar as reações dependentes da luz nos tilacoides com o ciclo de Calvin no estroma.",
-    promptText: "Cria uma animação científica esquemática da fotossíntese numa folha e num cloroplasto.\n\nComeça com a luz a incidir na folha e mostra a água a chegar através dos vasos condutores.\n\nFaz uma ampliação até um cloroplasto. Distingue claramente duas regiões.\n\nNas membranas dos tilacoides, a energia luminosa é absorvida pelos pigmentos fotossintéticos e ocorrem as reações dependentes da luz. A água é utilizada e ocorre libertação de oxigénio.\n\nNo estroma do cloroplasto decorre o ciclo de Calvin, que utiliza dióxido de carbono e a energia química produzida nas reações dependentes da luz para formar compostos orgânicos.\n\nNão mostres o dióxido de carbono a transformar-se diretamente em glicose nos tilacoides.\n\nNão representes moléculas como esferas com rótulos automáticos nem inventes estruturas celulares.\n\nA animação é esquemática e será acompanhada por uma explicação e legendas elaboradas e validadas pelo professor.",
-    ethicalConsideration: "Validar a distinção entre tilacoides e estroma, a origem do oxigénio libertado e a função do ciclo de Calvin através de uma fonte científica de Biologia. A animação gerada por IA não deve ser utilizada como fonte científica. Para alunos do 6.º ano, utilizar uma explicação introdutória adaptada às aprendizagens previstas: a planta utiliza água, dióxido de carbono e energia luminosa para produzir matéria orgânica e liberta oxigénio. Não exigir a identificação dos tilacoides, do estroma ou das etapas do ciclo de Calvin quando esses conteúdos não façam parte da planificação curricular do ano."
+    gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
+    creationType: "Imagem para vídeo — animação científica de um esquema celular.",
+    recommendedTool: "PixVerse — alternativa: Vidu ou Kling AI.",
+    pedagogicalObjective: "Visualizar a relação entre as reações dependentes da luz nos tilacoides e o ciclo de Calvin no estroma do cloroplasto.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor, que contém um esquema científico validado da fotossíntese e da estrutura de um cloroplasto.
+
+Cria uma animação educativa curta, mantendo as estruturas e a composição da imagem original.
+
+Realça primeiro as membranas dos tilacoides, onde ocorrem as reações dependentes da luz.
+
+Depois, destaca o estroma, onde decorre o ciclo de Calvin.
+
+Utiliza uma iluminação suave para distinguir visualmente as duas regiões.
+
+Preserva a estrutura do cloroplasto e não inventes membranas, organelos ou moléculas.
+
+Não representes o ciclo de Calvin como ocorrendo nos tilacoides. Não mostres a água a ser transformada diretamente em glicose.
+
+Não acrescentes fórmulas, legendas, nomes ou texto automático.`,
+    validationNote: "Utilizar apenas uma imagem científica previamente validada. Confirmar a distinção entre tilacoides e estroma e a localização dos processos. Para níveis de ensino mais elementares, substituir a explicação molecular por uma representação introdutória da fotossíntese."
   },
   {
     id: 10,
-    title: "10. Multiplicação Prática com Caixas de Fruta",
+    title: "Multiplicação prática: três grupos de quatro",
     discipline: "Matemática",
     gradeLevel: "1.º Ciclo (3.º ano)",
-    category: "Vídeo Narrado com Personagem Animada",
-    recommendedTool: "CapCut (Web, PC e Telemóvel) / InVideo AI",
-    visualStyle: "Personagem 3D simpática e calorosa numa sala de aula colorida, com maçãs e caixas luminosas",
-    pedagogicalObjective: "Desmistificar a tabuada mostrando visualmente que 3 vezes 4 não é magia nem memorização mecânica, mas sim 3 grupos com 4 objetos cada (adição repetida).",
-    curriculumCompetence: "Compreender os sentidos da multiplicação e utilizar estratégias de cálculo mental com segurança no quotidiano.",
-    promptText: "Utiliza como referência uma imagem estática previamente criada e verificada pelo professor, que contenha exatamente três caixas iguais, cada uma com quatro maçãs vermelhas visíveis.\n\nCria uma animação simples com um movimento de câmara ligeiro ou uma aproximação visual, preservando sem qualquer alteração o número de caixas e de maçãs.\n\nNão acrescentes, retires, dupliques ou deformes objetos.\n\nNão geres texto, números ou símbolos matemáticos.\n\nSe a ferramenta alterar a contagem dos objetos, rejeita a animação e utiliza a imagem estática original.\n\nNa fase de edição, o professor acrescentará a expressão matemática 4 + 4 + 4 = 12 e 3 × 4 = 12, depois de confirmar a correspondência entre o número de grupos e a quantidade de elementos.",
-    ethicalConsideration: "Não confiar numa geração de vídeo para produzir contagens matemáticas exatas. Criar e validar a imagem com os elementos pretendidos e inserir a notação matemática no editor."
+    creationType: "Imagem para vídeo — animação de uma representação visual da multiplicação.",
+    recommendedTool: "PixVerse, a partir de uma imagem previamente construída no Canva. Alternativa gratuita: Clipchamp.",
+    pedagogicalObjective: "Representar a multiplicação como adição repetida através de três grupos com quatro elementos cada.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor, que apresenta exatamente três caixas iguais, cada uma com quatro maçãs vermelhas.
+
+Cria uma animação curta, mantendo rigorosamente os três grupos e as doze maçãs da imagem original.
+
+Aplica apenas um movimento de câmara suave e uma aproximação visual às caixas.
+
+Não acrescentes, retires, dupliques ou deformes maçãs ou caixas.
+
+Não alteres a disposição dos grupos.
+
+Não geres números, símbolos ou expressões matemáticas.
+
+O resultado deve preservar a imagem original e facilitar a observação dos três grupos de quatro elementos.`,
+    validationNote: "A imagem deve ser construída e contada previamente no Canva. Confirmar a existência de três grupos com quatro elementos cada. Se a IA alterar a quantidade, utilizar a imagem original e fazer a animação no Clipchamp."
   },
   {
     id: 11,
-    title: "11. A Revolução dos Cravos (25 de Abril de 1974)",
+    title: "A Revolução dos Cravos — 25 de Abril de 1974",
     discipline: "História / Cidadania",
-    gradeLevel: "2.º / 3.º Ciclo e Secundário",
-    category: "Reconstituição Histórica e Cidadania",
-    recommendedTool: "Kling AI / MiniMax — Hailuo AI / Luma AI — Ray3.2",
-    visualStyle: "Reconstituição visual ilustrativa, estilizada e claramente identificada como gerada por Inteligência Artificial; não imitar filmagem documental autêntica.",
-    pedagogicalObjective: "Explorar o contexto histórico do 25 de Abril de 1974, relacionando acontecimentos e símbolos com fontes históricas e distinguindo registos documentais de reconstituições visuais.",
-    curriculumCompetence: "Compreender o fim da ditadura, a importância da Constituição de 1976 e a valorização ativa dos direitos humanos e das liberdades cívicas.",
-    promptText: "Cria uma reconstituição visual ilustrativa, em estilo gráfico ou cinematográfico assumidamente ficcional, inspirada no 25 de Abril de 1974 em Lisboa. Mostra uma rua de Lisboa, a presença de militares e civis e um cravo vermelho como símbolo associado à Revolução dos Cravos. Não imites a aparência de uma filmagem documental autêntica, não inventes diálogos nem detalhes históricos específicos e não apresentes a cena como registo real. A composição deve ser identificada como reconstituição gerada por Inteligência Artificial e acompanhada, na atividade, por fotografias, testemunhos e fontes históricas devidamente identificados.",
-    ethicalConsideration: "Confrontar a representação com fotografias de arquivo, testemunhos e fontes históricas identificadas. Não utilizar a reconstituição como prova documental. Se forem representados uniformes, veículos militares, insígnias ou outros detalhes históricos específicos, estes devem ser confrontados com imagens de arquivo. Não inventar acontecimentos ou comportamentos de pessoas reais."
+    gradeLevel: "2.º e 3.º Ciclos e Ensino Secundário",
+    creationType: "Imagem para vídeo — reconstituição histórica ilustrativa.",
+    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
+    pedagogicalObjective: "Representar visualmente o ambiente associado ao 25 de Abril de 1974, distinguindo a reconstituição gerada de uma imagem documental.",
+    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação ilustrativa inspirada no 25 de Abril de 1974, em Lisboa.
+
+Preserva a composição, os edifícios, os militares, os civis e os símbolos históricos existentes na imagem.
+
+Anima suavemente o movimento dos cravos vermelhos e dos elementos visuais já presentes. Aplica um movimento de câmara lento e discreto.
+
+Não acrescentes figuras históricas, acontecimentos, uniformes, veículos militares ou símbolos que não estejam representados na imagem de referência.
+
+Não inventes diálogos, comportamentos individuais ou acontecimentos específicos.
+
+Não simules uma filmagem documental verdadeira. Não apresentes o resultado como fotografia ou filme de arquivo.
+
+Não incluas datas, títulos, legendas ou texto automático.
+
+O resultado deve ser uma reconstituição visual claramente identificada como gerada por Inteligência Artificial.`,
+    validationNote: "Utilizar uma imagem própria ou devidamente licenciada. Confrontar a representação com fotografias, testemunhos e documentos históricos. Nunca apresentar a animação como registo documental autêntico."
   }
 ];
 
@@ -1191,464 +1296,278 @@ export const NON_AI_TOOLS: NonAiToolItem[] = [
   }
 ];
 
-// 5. ATIVIDADES DE SALA DE AULA REAIS E TESTÁVEIS (Linguagem Humana e EduQA 2026/2027)
+// 5. ATIVIDADES NA AULA — CINCO PROPOSTAS PRÁTICAS
 export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
   {
-    id: "entrevista-ia",
-    title: "Entrevista a uma Figura da História",
-    discipline: "História / Português / Cidadania",
-    targetCycle: "2.º e 3.º Ciclo do Ensino Básico",
-    estimatedDuration: "4 a 5 aulas de 50 minutos, consoante o número de grupos e a realização de parte da edição em trabalho autónomo.",
-    icon: "Users",
-    learningObjectives: [
-      "Pesquisar em fontes históricas credíveis o papel de uma figura marcante (ex.: Aristides de Sousa Mendes, D. Afonso Henriques, Marie Curie).",
-      "Elaborar um guião de 3 perguntas e respostas com rigor factual, distinguindo a verdade histórica de lendas.",
-      "Produzir um pequeno vídeo simulando a entrevista e analisar criticamente o resultado com a turma."
+    id: "apresentador-virtual",
+    number: 1,
+    title: "Criar um Apresentador Virtual",
+    discipline: "Ciências Naturais",
+    year: "5.º ano",
+    duration: "1 aula de 50 minutos.",
+    tool: "Vidnoz AI",
+    usageMode: "Texto para vídeo com avatar virtual.",
+    freeAccess: "O Vidnoz disponibiliza créditos diários gratuitos. O plano gratuito permite vídeos até 3 minutos e exportação até 720p, com limitações próprias.",
+    challenge: "Criar um apresentador virtual que explique os três estados físicos da água.",
+    howToSteps: [
+      "1. Os alunos preparam e verificam um pequeno texto sobre os estados físicos da água.",
+      "2. O professor abre o Vidnoz AI, seleciona um avatar adulto da biblioteca e escolhe uma voz.",
+      "3. Introduz o texto no campo de guião (Script/Enter Script) e gera o vídeo."
     ],
-    teacherVerificationChecklist: [
-      "Qual é a aprendizagem que se pretende desenvolver? (Rigor histórico e competência comunicativa)",
-      "A IA acrescenta valor real a esta tarefa? (Apoia na reconstituição visual sem substituir a pesquisa factual)",
-      "Que etapas podem ser realizadas sem IA? (Pesquisa, guião histórico, validação documental e coavaliação)",
-      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas texto didático genérico, sem dados de alunos)",
-      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas institucionais da escola)",
-      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Simulação teatral, podcast ou cartaz)",
-      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Grelha de rubrica ponderada e autoavaliação)"
-    ],
-    whoOperatesTool: {
-      firstCycle: "Privilegiar o professor como operador da ferramenta. Os alunos observam, formulam ideias e preparam o guião.",
-      secondCycle: "O professor verifica previamente a idade mínima e termos; opera ou apoia na preparação de prompts.",
-      thirdAndSecondary: "Utilização direta permitida quando compatível com os termos do fornecedor e autorizações institucionais."
-    },
-    teacherImplementationSteps: [
+    copyItems: [
       {
-        step: 1,
-        title: "Pesquisa e Verificação de Fontes (Aula 1 · 50 min)",
-        description: "Os alunos organizam-se em pares e escolhem uma figura histórica. Antes de tocarem em qualquer ferramenta digital, consultam o manual escolar e fontes fidedignas (RTP Ensina, Dicionário Biográfico, arquivos) para recolher datas, factos e contexto real.",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Manual Escolar", "RTP Ensina", "Europeana"],
-        teacherTip: "Alerte os alunos para o risco de anacronismos: figuras do século XII não usavam relógios nem falavam como no século XXI."
-      },
-      {
-        step: 2,
-        title: "Construção do Guião Histórico a Duas Vozes (Aula 2 · 50 min)",
-        description: "Os alunos redigem as 3 perguntas do jornalista e as 3 respostas fundamentadas da figura histórica. O professor valida o texto no papel ou num documento partilhado antes de qualquer gravação. As respostas devem ser identificadas como dramatização baseada em informação histórica.",
-        aiUseMode: "Sem IA",
-        subitems: [
-          "Pergunta 1: O contexto da época e a principal escolha que a figura teve de fazer.",
-          "Pergunta 2: O maior desafio ou oposição que enfrentou na sua vida.",
-          "Pergunta 3: O legado que deixou para a sociedade atual."
-        ]
-      },
-      {
-        step: 3,
-        title: "Preparação de Imagem ou Ilustração de Apoio (Aula 3 · 50 min)",
-        description: "O professor ou os alunos (quando autorizados) preparam uma imagem ilustrativa da figura ou do cenário recorrendo a gravuras de domínio público ou ferramentas com termos compatíveis com a conta escolar. Não utilizar ferramentas com restrição de idade como o Perchance para alunos menores.",
-        aiUseMode: "IA de apoio",
-        recommendedTools: ["Canva para Educação", "Microsoft Clipchamp"]
-      },
-      {
-        step: 4,
-        title: "Montagem, Revisão e Legendas (Aula 4 · 50 min)",
-        description: "Os pares montam o vídeo de cerca de 90 segundos com recurso a um editor simples, gravando a locução e ativando legendas com ortografia e pontuação revistas. Identificação clara de que se trata de uma simulação educativa.",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Microsoft Clipchamp", "CapCut (Web, PC e Telemóvel)"]
-      },
-      {
-        step: 5,
-        title: "Apresentação, Validação Histórica e Coavaliação (Aula 5 · 50 min)",
-        description: "Exibição dos trabalhos à turma com debate crítico. Os colegas analisam o rigor dos factos apresentados e identificam eventuais anacronismos ou elementos especulativos.",
-        aiUseMode: "Sem IA",
-        teacherTip: "Promova um ambiente de entreajuda onde o erro factual detetado pelos colegas é uma oportunidade de aprendizagem mútua."
+        id: "vidnoz-script",
+        label: "Copiar guião",
+        title: "Texto para Introduzir no Vidnoz",
+        content: "«Olá! Hoje vamos conhecer os três estados físicos da água. O gelo é água no estado sólido. A água que colocamos num copo está no estado líquido. A água também pode existir no estado gasoso, sob a forma de vapor de água, que é invisível. Quando o gelo derrete, ocorre a fusão. Quando a água líquida passa ao estado gasoso, ocorre a vaporização.»",
+        note: "Utilizar exatamente este texto como guião de fala, não como instrução genérica de geração."
       }
     ],
-    studentDeliverables: [
-      "Guião escrito com as 3 perguntas, respostas fundamentadas e fontes documentais consultadas.",
-      "Vídeo curto de aproximadamente 90 segundos com a simulação da entrevista e legendas revistas.",
-      "Ficha de reflexão e evidência de processo: uma decisão tomada pelo par e uma dificuldade ultrapassada."
-    ],
-    evaluationRubric: [
-      {
-        id: "historico",
-        criterion: "Rigor histórico dos factos apresentados",
-        weight: 40,
-        evidence: "Exatidão das datas, dos acontecimentos e do contexto da figura, sem anacronismos ou dados falsos."
-      },
-      {
-        id: "linguagem",
-        criterion: "Clareza da linguagem e correção do Português",
-        weight: 30,
-        evidence: "Correção gramatical, vocabulário adequado à época e dicção clara na narração oral e nas legendas."
-      },
-      {
-        id: "sentido_critico",
-        criterion: "Sentido crítico na avaliação da imagem gerada por IA",
-        weight: 20,
-        evidence: "Capacidade de identificar os limites, eventuais imperfeições ou licenças ficcionais da representação visual."
-      },
-      {
-        id: "cooperacao",
-        criterion: "Cooperação e respeito no trabalho em equipa",
-        weight: 10,
-        evidence: "Partilha equilibrada de tarefas entre os elementos do par, cumprimento de prazos e entreajuda."
-      }
-    ],
-    evaluationCriteria: [
-      "Rigor histórico dos factos apresentados (40%)",
-      "Clareza da linguagem e correção do Português (30%)",
-      "Sentido crítico na avaliação da imagem gerada por IA (20%)",
-      "Cooperação e respeito no trabalho em equipa (10%)"
-    ],
-    processEvaluation: {
-      selfAssessment: "O aluno identifica uma decisão de pesquisa tomada e uma dificuldade que conseguiu superar.",
-      peerAssessment: "Um colega de outro grupo identifica um aspeto factual bem documentado e sugere uma melhoria fundamentada.",
-      processEvidence: "Registo da fonte de arquivo consultada, indicação de um elemento descartado por anacronismo e versão final do guião."
-    },
-    udlAndDifferentiation: {
-      representation: "Disponibilizar instruções em texto e orais; fornecer exemplos de guiões e quadros cronológicos de apoio.",
-      actionAndExpression: "Possibilidade de apresentar em vídeo, podcast áudio, banda desenhada narrada ou encenação teatral direta.",
-      engagement: "Liberdade na escolha da figura histórica dentro dos períodos curriculares; papéis flexíveis no grupo.",
-      noTechAlternative: "Elaboração de guião em papel e dramatização presencial em aula com suporte de gravuras impressas (Dec.-Lei n.º 54/2018)."
-    },
-    pedagogicalFramework: "Taxonomia de Anderson & Krathwohl (Níveis 'Analisar' e 'Criar') + Orientações EduQA 2026/2027.",
-    rgpdSafetyChecklist: [
-      "Não criar nem divulgar imagens, vídeos ou gravações de voz sintéticas que representem alunos, professores ou colegas.",
-      "Nenhum rosto ou voz real de aluno é carregado para plataformas externas de IA.",
-      "As pesquisas são realizadas sob a orientação e supervisão ativa do professor."
+    expectedResult: "Um pequeno vídeo com um apresentador virtual a explicar os estados físicos da água.",
+    validationNotes: [
+      "A conta Vidnoz exige 18 anos. O professor deve operar a ferramenta, utilizando um avatar adulto da biblioteca, sem criar representações de alunos.",
+      "A explicação científica deve manter a distinção entre vapor de água, que é invisível, e as pequenas gotículas que constituem uma nuvem ou nevoeiro."
     ]
   },
   {
-    id: "micro-documentario",
-    title: "Micro-Documentário: Explicar a Ciência em 60 Segundos",
-    discipline: "Ciências Naturais / Físico-Química / Biologia",
-    targetCycle: "3.º Ciclo e Ensino Secundário",
-    estimatedDuration: "2 semanas (4 aulas de 50 minutos mais trabalho de equipa)",
-    icon: "HeartPulse",
-    learningObjectives: [
-      "Descodificar um fenómeno científico complexo (ex.: a mitose, a energia das ondas, a circulação sanguínea).",
-      "Escrever uma locução concisa em que cada palavra conta, aplicando o Princípio da Modalidade de Mayer.",
-      "Construir um micro-documentário dinâmico pronto a partilhar com a comunidade escolar."
+    id: "video-a-partir-de-ideia",
+    number: 2,
+    title: "Criar um Vídeo a Partir de uma Ideia",
+    discipline: "Geografia / Cidadania",
+    year: "5.º ao 9.º ano",
+    duration: "1 aula de 50 minutos.",
+    tool: "PixVerse",
+    usageMode: "Texto para vídeo (Text to Video).",
+    freeAccess: "60 créditos iniciais e 30 créditos diários para utilizadores não subscritores, no plano Basic. O custo da geração depende das opções selecionadas.",
+    challenge: "Transformar uma descrição escrita numa cena audiovisual sobre uma cidade sustentável.",
+    howToSteps: [
+      "1. Os alunos identificam elementos que caracterizam uma cidade sustentável.",
+      "2. Organizam as ideias numa descrição curta.",
+      "3. O professor abre o PixVerse, seleciona Text to Video e introduz o prompt seguinte."
     ],
-    teacherVerificationChecklist: [
-      "Qual é a aprendizagem que se pretende desenvolver? (Compreensão e síntese de processos científicos dinâmicos)",
-      "A IA acrescenta valor real a esta tarefa? (Auxilia na visualização tridimensional de processos microscópicos ou abstratos)",
-      "Que etapas podem ser realizadas sem IA? (Validação científica das fontes, guião, storyboard e revisão das legendas)",
-      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas descrições conceptuais científicas neutras)",
-      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas de edição e software institucional da escola)",
-      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Apresentação comentada ou cartaz desdobrável)",
-      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Avaliação da síntese científica e glossário)"
-    ],
-    whoOperatesTool: {
-      firstCycle: "Não aplicável diretamente; no 1.º ciclo o professor operaria qualquer demonstração visual.",
-      secondCycle: "O professor disponibiliza previamente um banco de clipes validados para montagem pelos alunos.",
-      thirdAndSecondary: "Os alunos podem desenvolver o storyboard, preparar instruções, selecionar referências e avaliar criticamente os resultados. A operação direta das ferramentas de geração de vídeo só pode ocorrer quando a idade mínima, os termos do fornecedor, os requisitos de consentimento e as regras institucionais o permitirem. Quando essas condições não estiverem reunidas, a geração é realizada pelo professor, que apresenta o resultado aos alunos para análise."
-    },
-    teacherImplementationSteps: [
+    copyItems: [
       {
-        step: 1,
-        title: "Pesquisa Científica e Validação dos Conceitos (Aula 1 · 50 min)",
-        description: "Os alunos escolhem um fenómeno onde o movimento seja crucial. Recolhem informação no manual e em artigos de referência, definindo 3 conceitos-chave que o público leigo tem de reter com rigor.",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Manual Escolar", "Artigos de Divulgação Científica", "Simulações PhET"],
-        teacherTip: "Quando existir uma simulação científica validada (como as do PhET), utilize-a como fonte de comparação com a representação gerada."
-      },
-      {
-        step: 2,
-        title: "Desenho da Narrativa Visual e Storyboard (Aula 2 · 50 min)",
-        description: "Em quadrículas de papel ou documento digital, os alunos desenham o que se vai ver e o que a voz vai dizer em três momentos: Introdução (0-15s), O Processo (15-40s) e O Impacto (40-60s).",
-        aiUseMode: "Sem IA",
-        teacherTip: "Evite texto corrido que repita integralmente a narração. Aplique o Princípio da Redundância de Mayer mantendo legendas de acessibilidade e palavras-chave."
-      },
-      {
-        step: 3,
-        title: "Criação de Clipes ou Apoio Visual (Aula 3 · 50 min)",
-        description: "Os alunos selecionam imagens de arquivo ou preparam instruções para a criação de um clipe ilustrativo. A operação da ferramenta é feita pelo professor sempre que a idade, a conta, o consentimento ou as regras institucionais não permitam a utilização direta pelos alunos. A escolha da ferramenta deve respeitar os termos de utilização: o Hailuo exige idade mínima de 16 anos; a Luma permite a utilização entre os 13 e os 17 anos apenas com consentimento do progenitor ou representante legal nos termos do fornecedor. As condições do Kling devem ser confirmadas nos termos atuais antes de autorizar a utilização pelos alunos.",
-        aiUseMode: "IA de apoio",
-        recommendedTools: ["Kling AI", "Luma AI — Ray3.2", "MiniMax — Hailuo AI"]
-      },
-      {
-        step: 4,
-        title: "Edição, Revisão, Legendas e Apresentação (Aula 4 · 50 min)",
-        description: "Montagem dos elementos audiovisuais no CapCut ou Clipchamp. Gravação da locução clara em Português de Portugal e correção manual da pontuação e dos termos científicos nas legendas automáticas.",
-        aiUseMode: "IA de apoio",
-        recommendedTools: ["Microsoft Clipchamp", "CapCut (Web, PC e Telemóvel)"]
+        id: "pixverse-text-prompt",
+        label: "Copiar prompt",
+        title: "Prompt para PixVerse",
+        content: `A single continuous wide shot of a small Portuguese town designed for sustainable mobility.
+
+Show a clearly marked bicycle lane, pedestrians on wide pavements, street trees, a small public garden and solar panels on rooftops.
+
+One cyclist moves slowly along the bicycle lane while leaves move gently in the breeze.
+
+Natural morning light, realistic educational visual, steady camera with a slow forward movement.
+
+Keep the scene calm and visually simple.
+
+No readable signs, text, logos or close-up faces.`,
+        note: "Utilizar o texto em inglês."
       }
     ],
-    studentDeliverables: [
-      "Storyboard com a estrutura dos três momentos e o guião oral redigido.",
-      "Vídeo MP4 com cerca de 60 segundos com legendas revistas e acessíveis.",
-      "Glossário científico com a definição rigorosa dos 3 termos técnicos utilizados."
+    recommendedSettings: [
+      "Duração: 5 segundos.",
+      "Formato: horizontal, 16:9.",
+      "Áudio: desligado.",
+      "Resolução e qualidade: selecionar a opção de menor consumo de créditos disponível.",
+      "Gerações: uma única tentativa inicial."
     ],
-    evaluationRubric: [
-      {
-        id: "ciencia",
-        criterion: "Correção científica dos conceitos",
-        weight: 45,
-        evidence: "Rigor conceptual na explicação do fenómeno biológico ou físico-químico, sem conceções alternativas erradas."
-      },
-      {
-        id: "sintese",
-        criterion: "Capacidade de síntese e clareza da locução",
-        weight: 30,
-        evidence: "Estruturação concisa em 60 segundos, ritmo pausado, tom pedagógico e respeito pelo tempo do espectador."
-      },
-      {
-        id: "montagem",
-        criterion: "Qualidade da montagem e ritmo de visualização",
-        weight: 15,
-        evidence: "Fluidez nos cortes, sincronização entre imagem e palavra, e volume calibrado da locução."
-      },
-      {
-        id: "acessibilidade",
-        criterion: "Acessibilidade e revisão das legendas",
-        weight: 10,
-        evidence: "Legendas sincronizadas, sem erros de transcrição fonética, e inclusão de transcrição textual de apoio."
-      }
-    ],
-    evaluationCriteria: [
-      "Correção científica dos conceitos (45%)",
-      "Capacidade de síntese e clareza da locução (30%)",
-      "Qualidade da montagem e ritmo de visualização (15%)",
-      "Acessibilidade e revisão das legendas (10%)"
-    ],
-    processEvaluation: {
-      selfAssessment: "O grupo regista uma alteração que fez ao texto da narração para tornar o conceito mais compreensível.",
-      peerAssessment: "Um colega valida se o glossário técnico corresponde com exatidão ao que é explicado no vídeo.",
-      processEvidence: "Rascunho inicial do storyboard com as anotações do professor e versão final exportada."
-    },
-    udlAndDifferentiation: {
-      representation: "Fornecer esquemas gráficos do processo antes da redação do guião; disponibilizar modelos de storyboards.",
-      actionAndExpression: "Possibilidade de criar animação passo a passo, infográfico interactivo ou demonstração com modelos físicos.",
-      engagement: "Escolha do fenómeno científico pelo grupo; atribuição de tarefas de redação, gravação e revisão técnica.",
-      noTechAlternative: "Apresentação oral com maquete ou póster científico em papel ilustrado à mão (Dec.-Lei n.º 54/2018)."
-    },
-    pedagogicalFramework: "Princípios da Segmentação e Modalidade de Richard Mayer (2020) + DUA.",
-    rgpdSafetyChecklist: [
-      "Utilizar apenas música cuja licença permita a utilização pretendida (ex.: Wikimedia Commons, Europeana, arquivo com licença educativa).",
-      "Confirmar condições de atribuição de cada faixa e imagem de terceiros.",
-      "Não carregar gravações com dados identificativos dos estudantes."
+    expectedResult: "Um pequeno vídeo criado a partir de uma descrição escrita.",
+    validationNotes: [
+      "Os créditos diários renovam-se segundo as condições da plataforma. Confirmar o custo apresentado antes de carregar em Generate. Não gerar versões adicionais desnecessariamente."
     ]
   },
   {
-    id: "noticiario-critico",
-    title: "O Noticiário de Ciência: Separar Facto de Ficção",
-    discipline: "Cidadania e Desenvolvimento / Português / Geografia",
-    targetCycle: "3.º Ciclo e Secundário",
-    estimatedDuration: "2 a 3 aulas de 50 minutos",
-    icon: "Newspaper",
-    learningObjectives: [
-      "Desenvolver literacia mediática: aprender a identificar como a IA pode ser usada para desinformar ou simular notícias falsas.",
-      "Recriar uma notícia séria sobre alterações climáticas ou biodiversidade com base em relatórios científicos reais (IPCC, ICNF).",
-      "Desenvolver procedimentos de verificação da origem, data, contexto e fontes de um conteúdo audiovisual; rotular sintéticos com transparência."
+    id: "dar-vida-a-ilustracao",
+    number: 3,
+    title: "Dar Vida a uma Ilustração",
+    discipline: "Português / Educação Visual",
+    year: "1.º e 2.º ciclos",
+    duration: "1 aula de 50 minutos.",
+    tool: "PixVerse",
+    usageMode: "Imagem para vídeo (Image to Video).",
+    freeAccess: "Utilizar os créditos diários do plano Basic.",
+    challenge: "Criar uma personagem ilustrada e transformá-la numa pequena animação.",
+    howToSteps: [
+      "1. Os alunos criam uma personagem original através de um desenho ou ilustração.",
+      "2. Selecionam a imagem que pretendem animar.",
+      "3. O professor carrega a imagem no PixVerse, seleciona Image to Video e introduz apenas as instruções de movimento."
     ],
-    teacherVerificationChecklist: [
-      "Qual é a aprendizagem que se pretende desenvolver? (Literacia mediática, sentido crítico e verificação de fontes)",
-      "A IA acrescenta valor real a esta tarefa? (Permite analisar como funcionam as manipulações e praticar a rotulagem ética)",
-      "Que etapas podem ser realizadas sem IA? (Verificação cruzada de notícias, pesquisa documental e debate em aula)",
-      "Que dados ou conteúdos serão enviados para a ferramenta? (Apenas texto noticioso simulado baseado em relatórios públicos)",
-      "A ferramenta está aprovada e é adequada ao contexto? (Canva para Educação ou ferramentas de edição autorizadas)",
-      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Artigo jornalístico escrito no jornal da escola)",
-      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Checklist de verificação de factos assinada)"
-    ],
-    whoOperatesTool: {
-      firstCycle: "Não aplicável a este nível de complexidade.",
-      secondCycle: "O professor conduz a análise de exemplos no quadro interativo e coordena o debate crítico.",
-      thirdAndSecondary: "Os alunos realizam a redação e edição em pares sob supervisão das orientações de cidadania digital."
-    },
-    teacherImplementationSteps: [
+    copyItems: [
       {
-        step: 1,
-        title: "Análise de Conteúdos Sintéticos e Desinformação (Aula 1 · 50 min)",
-        description: "Os alunos analisam notícias reais e peças geradas por computador, avaliando contexto, data, fonte primária e confirmação em fontes independentes. A própria tecnologia de IA generativa é objeto de estudo.",
-        aiUseMode: "IA integrada",
-        recommendedTools: ["Exemplos de Noticiários", "Arquivo RTP"],
-        teacherTip: "A aparência visual não basta para determinar autenticidade: ensine a verificar a cadeia de custódia e a fonte original."
-      },
-      {
-        step: 2,
-        title: "Pesquisa e Verificação de Fontes Científicas (Aula 2 · 50 min)",
-        description: "A turma simula a redação de um telejornal de ciência, elaborando uma peça noticiosa rigorosa baseada num relatório ambiental autêntico (ex.: seca, preservação do lince ibérico, transição energética).",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Relatórios IPCC", "Portal ICNF", "Agência Portuguesa do Ambiente"]
-      },
-      {
-        step: 3,
-        title: "Produção de Elementos Ilustrativos com Rotulagem Ética (Aula 2/3 · 50 min)",
-        description: "Os alunos criam elementos visuais de apoio ou vinhetas de telejornal no Canva ou Clipchamp. Rotulam de forma visível e transparente qualquer imagem sintética como 'Reconstituição ilustrativa gerada por computador'.",
-        aiUseMode: "IA de apoio",
-        recommendedTools: ["Canva para Educação", "Microsoft Clipchamp"]
-      },
-      {
-        step: 4,
-        title: "Análise Crítica Final e Debate em Aula (Aula 3 · 50 min)",
-        description: "Visualização coletiva das peças produzidas. Debate sobre o impacto da desinformação, a distinção entre divulgação pedagógica e obrigações jurídicas concretas do artigo 50.º e a importância da verificação de fontes. Não apresentar a rotulagem na atividade como dever legal universal dos alunos.",
-        aiUseMode: "Sem IA",
-        teacherTip: "Sensibilize para as regras relativas a imagens de pessoas reais e os procedimentos de comunicação escolar perante incidentes digitais."
+        id: "pixverse-image-prompt",
+        label: "Copiar prompt",
+        title: "Prompt para PixVerse",
+        content: `Use the uploaded drawing as the exact first frame and visual reference.
+
+The illustrated character blinks once, slowly raises one hand and gives one gentle wave.
+
+Keep the character's face, colours, proportions, linework, clothing and background unchanged.
+
+Locked camera, subtle natural movement, one continuous short shot.
+
+Do not add objects, characters, text or new details.`
       }
     ],
-    studentDeliverables: [
-      "Texto da notícia com citação explícita do relatório científico fonte (IPCC, ICNF ou APA).",
-      "Vídeo da peça noticiosa com identificação clara e percetível de que contém elementos gerados por IA.",
-      "Checklist de verificação de factos assinada pelo grupo."
+    recommendedSettings: [
+      "Duração: 5 segundos.",
+      "Formato: horizontal.",
+      "Áudio: desligado.",
+      "Qualidade: opção de menor consumo de créditos.",
+      "Gerações: uma única tentativa inicial."
     ],
-    evaluationRubric: [
-      {
-        id: "fidelidade_fonte",
-        criterion: "Fidelidade da notícia à fonte científica",
-        weight: 40,
-        evidence: "Dados estatísticos, conclusões e contexto rigorosamente fiéis ao relatório científico consultado."
-      },
-      {
-        id: "verificacao_factos",
-        criterion: "Verificação das fontes e dos factos",
-        weight: 30,
-        evidence: "Aplicação do método de verificação cruzada e indicação transparente das fontes primárias."
-      },
-      {
-        id: "comunicacao",
-        criterion: "Clareza da comunicação e dicção",
-        weight: 20,
-        evidence: "Estrutura jornalística clara (lead, desenvolvimento, fecho) e dicção cuidada na locução."
-      },
-      {
-        id: "transparencia_ia",
-        criterion: "Identificação transparente dos elementos sintéticos",
-        weight: 10,
-        evidence: "Identifica de forma clara os elementos visuais gerados ou alterados por IA, distingue ilustração de registo documental e indica as fontes utilizadas. A avaliação incide na transparência pedagógica e na literacia mediática, não numa certificação do cumprimento jurídico do artigo 50.º."
-      }
-    ],
-    evaluationCriteria: [
-      "Fidelidade da notícia à fonte científica (40%)",
-      "Verificação das fontes e dos factos (30%)",
-      "Clareza da comunicação e dicção (20%)",
-      "Identificação transparente dos elementos sintéticos (10%)"
-    ],
-    processEvaluation: {
-      selfAssessment: "O grupo regista uma afirmação duvidosa encontrada na internet que conseguiu desmentir com a fonte oficial.",
-      peerAssessment: "Um colega avalia se a rotulagem de IA é percetível e se a notícia cita claramente a entidade científica.",
-      processEvidence: "Ficha de verificação de factos com as hiperligações para as fontes primárias e o guião da notícia."
-    },
-    udlAndDifferentiation: {
-      representation: "Fornecer sínteses prévias dos relatórios do IPCC com vocabulário simplificado e glossário.",
-      actionAndExpression: "Apresentação como podcast radiofónico, artigo de jornal escolar ilustrado ou vídeo de bancada.",
-      engagement: "Papéis diferenciados: jornalista de investigação, pivot de notícias, verificador de factos e editor de imagem.",
-      noTechAlternative: "Produção de um boletim informativo impresso em papel com análise de recortes de imprensa (Dec.-Lei n.º 54/2018)."
-    },
-    pedagogicalFramework: "Referencial de Educação para os Media (DGE) + Regulamento (UE) 2024/1689 e 2026/1744.",
-    rgpdSafetyChecklist: [
-      "Rotulagem clara de que as imagens são criadas por computador.",
-      "Proibição absoluta de simular notícias falsas alarmistas ou boatos de pânico que envolvam a escola ou a comunidade.",
-      "Não criar réplicas de pessoas reais sem consentimento institucional."
+    expectedResult: "Uma personagem original transformada numa pequena animação.",
+    validationNotes: [
+      "Neste modo, a imagem carregada já define a personagem e a composição. O prompt deve concentrar-se apenas nos movimentos desejados. Utilizar desenhos originais ou imagens devidamente autorizadas."
     ]
   },
   {
-    id: "quadros-animados",
-    title: "Vozes do Património: O Quadro que Conta a Sua História",
-    discipline: "Educação Visual / História / Literatura",
-    targetCycle: "1.º ao 3.º Ciclo e Secundário",
-    estimatedDuration: "3 a 4 aulas práticas de 50 minutos",
-    icon: "Boxes",
-    learningObjectives: [
-      "Observar com detalhe uma obra de arte do património nacional ou universal.",
-      "Investigar o contexto histórico e cultural da obra e analisar os seus elementos visuais, distinguindo informação documentada de interpretações possíveis.",
-      "Dar um movimento subtil à pintura e criar uma narrativa na primeira pessoa com a perspetiva de quem viveu a cena."
-    ],
-    teacherVerificationChecklist: [
-      "Qual é a aprendizagem que se pretende desenvolver? (Interpretação estética, contexto patrimonial e expressão escrita)",
-      "A IA acrescenta valor real a esta tarefa? (Permite animar subtilmente um detalhe plástico sem deturpar a obra)",
-      "Que etapas podem ser realizadas sem IA? (Estudo da obra no museu/manual, redação do monólogo e avaliação estética)",
-      "Verificar os direitos de autor da obra e as condições de utilização da respetiva reprodução digital. A disponibilidade pública de uma imagem não significa automaticamente que esteja no domínio público ou que possa ser reutilizada sem restrições.",
-      "A ferramenta está aprovada e é adequada ao contexto? (Ferramentas com verificação de direitos)",
-      "Existem alternativas para alunos sem equipamento, conta ou autorização? (Dramatização de 'quadro vivo' em aula)",
-      "Como será verificada a aprendizagem e a contribuição individual dos alunos? (Ficha de análise artística e monólogo literário)"
-    ],
-    whoOperatesTool: {
-      firstCycle: "O professor opera a animação subtil da pintura no ecrã da turma; os alunos criam a história e fazem a voz.",
-      secondCycle: "O professor apoia a animação com ferramentas institucionais; alunos redigem e gravam em pares.",
-      thirdAndSecondary: "Os alunos podem preparar o storyboard, selecionar os elementos visuais, escrever o monólogo e realizar a edição e gravação áudio. A geração da animação deve ser operada pelo professor sempre que a ferramenta escolhida tenha restrições de idade ou a escola não autorize a utilização direta pelos alunos. O Pika exige utilizadores com pelo menos 18 anos; por isso, não deve ser indicado como ferramenta de utilização direta por alunos menores, mesmo com autorização parental. A utilização do Kling pelos alunos só pode ocorrer depois de confirmadas as condições etárias e os termos aplicáveis."
-    },
-    teacherImplementationSteps: [
+    id: "video-educativo-legendas",
+    number: 4,
+    title: "Criar um Vídeo Educativo e Acrescentar Legendas",
+    discipline: "Ciências Naturais",
+    year: "5.º ou 6.º ano",
+    duration: "2 aulas de 50 minutos.",
+    tool: "Canva — Magic Video e Legendas editáveis",
+    usageMode: "Criação assistida por IA a partir de imagens e clips + legendagem automática.",
+    freeAccess: "O Canva Magic Video está incluído nos planos gratuitos. Permite utilizar entre 1 e 10 fotografias ou clips para criar um vídeo de até 60 segundos.",
+    challenge: "Criar um pequeno vídeo educativo sobre a polinização e acrescentar narração e legendas automáticas.",
+    stages: [
       {
-        step: 1,
-        title: "Investigação da Obra e Visita Virtual (Aula 1 · 50 min)",
-        description: "Através do Google Arts & Culture ou dos portais dos museus nacionais (MNAA, Soares dos Reis), os alunos escolhem uma pintura histórica e documentam autor, data, estilo plástico e contexto.",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Google Arts & Culture", "Portal do Museu Nacional de Arte Antiga"]
+        title: "Etapa 1 — Preparar os materiais",
+        description: "Os alunos selecionam, com apoio do professor, quatro imagens ou clips:",
+        steps: [
+          "1. Uma flor com as estruturas reprodutoras identificadas num esquema científico validado.",
+          "2. Uma abelha a visitar uma flor.",
+          "3. Uma imagem que mostre grãos de pólen no corpo de um inseto.",
+          "4. Uma abelha a visitar outra flor da mesma espécie."
+        ],
+        tip: "Utilizar imagens próprias ou com licença adequada."
       },
       {
-        step: 2,
-        title: "Construção da Narrativa na Primeira Pessoa (Aula 2 · 50 min)",
-        description: "Os alunos assumem a perspetiva de uma personagem retratada ou de um observador da época e escrevem um monólogo poético de cerca de 40 segundos, expressando os sentimentos e o contexto histórico da cena. O monólogo é uma criação ficcional dos alunos. Não deve ser apresentado como testemunho real da personagem nem como declaração documentada do artista.",
-        aiUseMode: "Sem IA",
-        teacherTip: "Excelente oportunidade para trabalhar a empatia histórica, a adjetivação expressiva e a norma do Português."
+        title: "Etapa 2 — Criar o vídeo com Magic Video",
+        steps: [
+          "1. Abrir o Canva.",
+          "2. Aceder ao Magic Video.",
+          "3. Carregar as quatro imagens ou clips, pela ordem pretendida.",
+          "4. Introduzir as instruções seguintes, caso a ferramenta disponibilize um campo de descrição:"
+        ],
+        copyItem: {
+          id: "canva-magic-instructions",
+          label: "Copiar instruções",
+          title: "Instruções para o Canva Magic Video",
+          content: `Cria um vídeo educativo horizontal sobre a polinização, utilizando exclusivamente as imagens e os clips carregados e respeitando a sua ordem.
+
+Apresenta primeiro a flor e o esquema das suas estruturas reprodutoras; depois, uma abelha a visitar uma flor; em seguida, uma imagem que mostre pólen no corpo de um inseto; e, por fim, outra flor da mesma espécie.
+
+Usa transições simples, ritmo calmo e tempo suficiente para observar cada imagem.
+
+Mantém os elementos científicos das imagens originais.
+
+Não inventes etiquetas, nomes de estruturas, setas ou explicações científicas.
+
+Evita efeitos visuais que dificultem a observação.`
+        },
+        tip: "Gerar o vídeo e verificar a sequência, os cortes e a visibilidade de cada imagem."
       },
       {
-        step: 3,
-        title: "Animação Ilustrativa do Detalhe (Aula 3 · 50 min)",
-        description: "O professor opera o Pika quando esta ferramenta é escolhida, uma vez que os seus termos exigem idade mínima de 18 anos. O Kling só pode ser operado diretamente pelos alunos depois de se confirmar que cumprem os termos etários e as condições de utilização aplicáveis. Os alunos participam na preparação do storyboard, na escolha dos movimentos ilustrativos e na avaliação crítica do resultado. Deve privilegiar-se um movimento subtil que preserve a composição da obra (por exemplo, o movimento de um tecido, da água ou da luz).",
-        aiUseMode: "IA de apoio",
-        recommendedTools: ["Pika", "Kling AI"]
+        title: "Etapa 3 — Acrescentar a narração",
+        description: "Utilizar a funcionalidade de gravação de voz do Canva. Caminho possível: Áudio → Voiceovers → Record voiceover. O professor ou os alunos, conforme a organização da atividade, gravam a narração seguinte:",
+        copyItem: {
+          id: "canva-voiceover-text",
+          label: "Copiar texto da narração",
+          title: "Texto da Narração",
+          content: "«A polinização é a transferência dos grãos de pólen das anteras para o estigma da mesma flor ou de outra flor da mesma espécie. O pólen pode ser transportado pelo vento ou por animais, como as abelhas. Quando uma abelha visita uma flor, alguns grãos de pólen podem ficar presos ao seu corpo e ser transportados para outra flor. A polinização não é o mesmo que a fecundação: é um processo anterior que pode permitir que esta ocorra.»"
+        },
+        tip: "Ajustar a duração das imagens à narração. Remover ou reduzir a música automática, caso dificulte a audição da voz."
       },
       {
-        step: 4,
-        title: "Avaliação Crítica da Animação e Partilha (Aula 4 · 50 min)",
-        description: "No Clipchamp, monta-se o clipe animado com a voz expressiva do aluno gravada ao microfone. Apresentação à turma com debate sobre como a animação preserva ou altera a composição, os elementos visuais e a leitura possível da obra. Não atribuir uma intenção ao artista sem uma fonte documental que a sustente.",
-        aiUseMode: "Sem IA",
-        recommendedTools: ["Microsoft Clipchamp"]
+        title: "Etapa 4 — Gerar legendas automáticas",
+        steps: [
+          "1. Abrir o projeto de vídeo com a narração concluída.",
+          "2. Aceder a Texto → Texto dinâmico → Legendas (ou Aplicações → Captions, conforme a interface).",
+          "3. Selecionar o áudio ou vídeo com a fala.",
+          "4. Selecionar Português como língua de transcrição.",
+          "5. Gerar as legendas automáticas.",
+          "6. Rever o texto, corrigir eventuais erros e ajustar a sincronização.",
+          "7. Escolher um estilo legível, com bom contraste e tamanho adequado."
+        ],
+        tip: "Dar especial atenção à grafia e à sincronização das palavras «polinização», «anteras», «estigma» e «fecundação». Utilizar as legendas editáveis integradas no vídeo, não apenas as legendas de acessibilidade que servem para visualização."
+      },
+      {
+        title: "Etapa 5 — Exportar",
+        description: "Exportar o vídeo final em MP4, verificando se a narração e as legendas estão corretamente sincronizadas."
       }
     ],
-    studentDeliverables: [
-      "Ficha técnica da obra (autor, data, técnica plástica e museu onde se encontra preservada).",
-      "Monólogo literário escrito na primeira pessoa com revisão linguística.",
-      "Vídeo final de cerca de 40 segundos unindo a imagem animada com respeito à locução expressiva."
+    expectedResult: "Um vídeo educativo com imagens organizadas por IA, narração e legendas automáticas revistas pelo professor.",
+    validationNotes: [
+      "A polinização corresponde à transferência de grãos de pólen das anteras para o estigma da mesma flor ou de outra flor da mesma espécie.",
+      "A polinização pode ocorrer através de agentes como insetos e vento.",
+      "Não confundir polinização com fecundação. A transferência do pólen antecede os processos que podem conduzir à fecundação e à formação de sementes.",
+      "O esquema e as fotografias devem ser cientificamente corretos. As legendas automáticas devem ser revistas antes da utilização."
     ],
-    evaluationRubric: [
+    toolImportantNote: "Esta atividade utiliza Canva Magic Video, e não Canva AI Video Clip. O Magic Video organiza imagens e clips fornecidos pelo utilizador. Não gera, a partir de texto, todas as imagens do vídeo. O AI Video Clip é uma funcionalidade diferente, sujeita a condições de acesso Ultra AI e quotas próprias. Não a apresentar como requisito desta atividade."
+  },
+  {
+    id: "microconto-video-narrado",
+    number: 5,
+    title: "Transformar um Microconto num Vídeo Narrado",
+    discipline: "Português",
+    year: "2.º e 3.º ciclos",
+    duration: "1 aula de 50 minutos.",
+    tool: "Fliki",
+    usageMode: "Texto para vídeo / Script to Video.",
+    freeAccess: "Plano gratuito com 3 créditos por mês, exportação até 720p e marca de água. O consumo depende da operação e da duração. Confirmar o saldo antes de gerar.",
+    challenge: "Transformar um microconto original num vídeo com cenas ilustradas e narração.",
+    howToSteps: [
+      "1. Os alunos leem o microconto e identificam as três partes da narrativa.",
+      "2. Organizam o texto em três cenas.",
+      "3. O professor abre o Fliki, escolhe Script to Video e introduz o texto seguinte."
+    ],
+    copyItems: [
       {
-        id: "profundidade",
-        criterion: "Profundidade e sensibilidade da interpretação artística",
-        weight: 40,
-        evidence: "Compreensão da mensagem estética da obra, sensibilidade histórica e expressividade literária do monólogo."
+        id: "fliki-scene-1",
+        label: "Copiar Cena 1",
+        title: "Cena 1",
+        content: "«No último dia de aulas, Inês encontrou um envelope dentro de um livro da biblioteca. O envelope não tinha remetente, mas tinha o seu nome escrito à mão.»"
       },
       {
-        id: "respeito_plastico",
-        criterion: "Qualidade e respeito pelo estilo plástico da obra",
-        weight: 30,
-        evidence: "Preservação da paleta de cores, da textura pictórica e da iluminação original do pintor na animação."
+        id: "fliki-scene-2",
+        label: "Copiar Cena 2",
+        title: "Cena 2",
+        content: "«Dentro do envelope encontrou uma mensagem: “As histórias continuam vivas quando alguém as lê e partilha.” Inês olhou para as estantes e imaginou quantas aventuras estariam escondidas naqueles livros.»"
       },
       {
-        id: "diccao",
-        criterion: "Expressividade e dicção da narração oral",
-        weight: 20,
-        evidence: "Tom emotivo adequado ao contexto da cena, ritmo pausado e pronúncia cuidada em língua portuguesa."
+        id: "fliki-scene-3",
+        label: "Copiar Cena 3",
+        title: "Cena 3",
+        content: "«No dia seguinte, escreveu uma continuação da história, leu-a aos colegas e convidou cada um a acrescentar uma frase. Assim nasceu uma nova história, escrita por toda a turma.»"
       },
       {
-        id: "autonomia",
-        criterion: "Autonomia e empenho na atividade",
-        weight: 10,
-        evidence: "Pesquisa autónoma sobre o museu, cuidado na preparação dos materiais e respeito pelo trabalho dos colegas."
+        id: "fliki-script-all",
+        label: "Copiar guião completo",
+        title: "Guião Completo (3 Cenas)",
+        content: `Cena 1
+«No último dia de aulas, Inês encontrou um envelope dentro de um livro da biblioteca. O envelope não tinha remetente, mas tinha o seu nome escrito à mão.»
+
+Cena 2
+«Dentro do envelope encontrou uma mensagem: “As histórias continuam vivas quando alguém as lê e partilha.” Inês olhou para as estantes e imaginou quantas aventuras estariam escondidas naqueles livros.»
+
+Cena 3
+«No dia seguinte, escreveu uma continuação da história, leu-a aos colegas e convidou cada um a acrescentar uma frase. Assim nasceu uma nova história, escrita por toda a turma.»`,
+        note: "Introduzir o conteúdo seguinte, mantendo as três cenas separadas."
       }
     ],
-    evaluationCriteria: [
-      "Profundidade e sensibilidade da interpretação artística (40%)",
-      "Qualidade e respeito pelo estilo plástico da obra (30%)",
-      "Expressividade e dicção da narração oral (20%)",
-      "Autonomia e empenho na atividade (10%)"
+    recommendedSettings: [
+      "Selecionar Script to Video.",
+      "Manter as três cenas separadas.",
+      "Escolher uma voz em Português de Portugal, se disponível.",
+      "Selecionar imagens ou clips adequados a cada cena.",
+      "Evitar a expansão automática do texto.",
+      "Não gerar novas versões sem verificar primeiro os créditos disponíveis."
     ],
-    processEvaluation: {
-      selfAssessment: "O aluno identifica uma frase do monólogo que reescreveu para refletir melhor o estado de espírito da personagem.",
-      peerAssessment: "Um colega comenta se o movimento gerado parece natural ou se prejudicou a composição original da pintura.",
-      processEvidence: "Ficha de museu preenchida com a análise plástica da tela e ficheiro final do monólogo."
-    },
-    udlAndDifferentiation: {
-      representation: "Proporcionar reproduções em alta resolução com ampliações de detalhes e audiodescrições da pintura.",
-      actionAndExpression: "Opção de encenar a pintura fisicamente (técnica de 'quadro vivo'), gravar monólogo sonoro ou criar texto epistolar.",
-      engagement: "Escolha da obra de arte de acordo com as preferências dos alunos (pintura renascentista, barroca ou modernista).",
-      noTechAlternative: "Reconstituição presencial de 'quadro vivo' em sala com figurinos simples e leitura expressiva (Dec.-Lei n.º 54/2018)."
-    },
-    pedagogicalFramework: "Plano Nacional das Artes (PNA) + Taxonomia de Anderson & Krathwohl (Nível 'Criar').",
-    rgpdSafetyChecklist: [
-      "Verificar os direitos de autor da obra e as condições de utilização da respetiva reprodução digital. A disponibilidade pública de uma imagem não significa automaticamente que esteja no domínio público ou que possa ser reutilizada sem restrições.",
-      "Verificação de licenças em repositórios abertos (Wikimedia Commons, Europeana).",
-      "Processamento seguro sem exposição de dados individuais dos estudantes."
+    expectedResult: "Um pequeno vídeo narrativo com três cenas, imagens de apoio e voz sintética.",
+    validationNotes: [
+      "Confirmar que a narração corresponde ao texto original e que as imagens respeitam a sequência narrativa. Não atribuir a autoria do texto a uma pessoa real."
     ]
   }
 ];

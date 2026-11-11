@@ -11,10 +11,9 @@ import {
   BarChart3,
   AlertTriangle,
   Info,
-  ArrowUpRight,
   Sparkles
 } from 'lucide-react';
-import { TEACHER_ADVANTAGES, TOOLS_CATALOG, EducationalAdvantage } from '../data/presentationData';
+import { TEACHER_ADVANTAGES, EducationalAdvantage } from '../data/presentationData';
 
 interface AdvantagesSectionProps {
   onSelectTool?: (toolName: string) => void;
@@ -141,34 +140,18 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
             <span>FERRAMENTAS PARA EXPERIMENTAR</span>
           </div>
           <div className="space-y-2.5 pt-2 flex-1">
-            {currentAdvantage.usefulTools.map((tool, i) => {
-              const catalogMatch = TOOLS_CATALOG.find(
-                t => t.name.toLowerCase().trim() === tool.name.toLowerCase().trim()
-              );
-
-              return (
-                <div key={i} className="p-3.5 rounded-xl bg-white border border-[#DCE8F6] shadow-2xs flex flex-col justify-between gap-2.5">
-                  <div className="flex items-start justify-between gap-2">
-                    <span className="font-bold text-xs sm:text-sm text-[#08203E] font-serif-display">
-                      {tool.name}
-                    </span>
-                    {catalogMatch && onSelectTool && (
-                      <button
-                        onClick={() => onSelectTool(catalogMatch.name)}
-                        className="bg-[#D7ECFC] hover:bg-[#C2E2FB] text-[#085294] font-bold px-2 py-1 rounded-lg text-[11px] inline-flex items-center gap-1 transition-all shrink-0 cursor-pointer"
-                        title={`Ver ${catalogMatch.name} no catálogo`}
-                      >
-                        <span>Ver no catálogo</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </button>
-                    )}
-                  </div>
-                  <p className="text-xs text-slate-600 leading-normal">
-                    {tool.description}
-                  </p>
+            {currentAdvantage.usefulTools.map((tool, i) => (
+              <div key={i} className="p-3.5 rounded-xl bg-white border border-[#DCE8F6] shadow-2xs flex flex-col justify-between gap-2.5">
+                <div>
+                  <span className="font-bold text-xs sm:text-sm text-[#08203E] font-serif-display">
+                    {tool.name}
+                  </span>
                 </div>
-              );
-            })}
+                <p className="text-xs text-slate-600 leading-normal">
+                  {tool.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 

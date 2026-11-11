@@ -128,9 +128,6 @@ export const OverviewSection: React.FC<OverviewSectionProps> = () => {
               <Compass className="w-6 h-6 text-[#0966C2]" />
             </div>
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0966C2]">
-                Integração Curricular & Didática
-              </span>
               <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display">
                 Como integrar a Inteligência Artificial de Vídeo na prática docente?
               </h2>
@@ -193,15 +190,9 @@ export const OverviewSection: React.FC<OverviewSectionProps> = () => {
       {/* 2. OS DOIS GRANDES DOMÍNIOS DO VÍDEO COM IA */}
       <section className="space-y-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#0966C2] font-mono">
-            Panorama Tecnológico
-          </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display mt-0.5">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display">
             Os Dois Grandes Domínios do Vídeo com IA
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Diferença prática entre a síntese de novo material e a edição inteligente para acessibilidade e inclusão
-          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -251,14 +242,11 @@ export const OverviewSection: React.FC<OverviewSectionProps> = () => {
                   <h3 className="text-base sm:text-lg font-bold text-[#08203E] font-serif-display">
                     Edição com IA Integrada
                   </h3>
-                  <span className="text-xs text-[#0966C2] font-semibold font-mono">
-                    Pós-produção | Acessibilidade e inclusão (DUA)
-                  </span>
                 </div>
               </div>
 
               <p className="text-xs text-slate-600 leading-relaxed">
-                Algumas ferramentas apoiam tarefas de pós-produção, como legendagem automática, transcrição, corte assistido e tradução. A disponibilidade destas funcionalidades, as línguas suportadas e a qualidade dos resultados variam consoante o fornecedor, o modelo, a versão, o plano e a conta. A transcrição, a pontuação, as legendas e os termos técnicos devem ser revistos pelo professor.
+                Algumas ferramentas de IA permitem criar legendas, transcrever áudio, cortar vídeos e traduzir conteúdos. As funcionalidades variam de ferramenta para ferramenta. O professor deve sempre rever os resultados para garantir que estão corretos.
               </p>
 
               <div className="space-y-2 pt-2 border-t border-slate-100">

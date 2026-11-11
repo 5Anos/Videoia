@@ -1,442 +1,422 @@
 import React, { useState } from 'react';
 import { 
-  Users, 
-  HeartPulse, 
-  Newspaper, 
-  Boxes, 
-  CheckCircle2, 
-  Clock, 
-  FileCheck, 
-  Calculator, 
-  Award,
   Sparkle,
-  ShieldAlert,
-  HelpCircle,
-  Sparkles,
+  Copy,
+  Check,
+  Film,
+  Target,
+  Clock,
+  BookOpen,
+  Calendar,
   Layers,
-  FileQuestion,
-  UserCheck
+  ShieldAlert,
+  Info,
+  CheckCircle2,
+  Video,
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
-import { CLASSROOM_ACTIVITIES } from '../data/presentationData';
-import { calculateWeightedRubricScore } from '../utils/pedagogyLogic';
+import { CLASSROOM_ACTIVITIES, ClassroomActivity } from '../data/presentationData';
 
 export const ActivitiesSection: React.FC = () => {
-  const [selectedActivityId, setSelectedActivityId] = useState<string>('entrevista-ia');
-  const [completedSteps, setCompletedSteps] = useState<Record<string, Record<number, boolean>>>({});
-  
-  const currentActivity = CLASSROOM_ACTIVITIES.find(a => a.id === selectedActivityId) || CLASSROOM_ACTIVITIES[0];
+  const [selectedActivityId, setSelectedActivityId] = useState<string>(CLASSROOM_ACTIVITIES[0].id);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Dynamic rubric scores per criterion id (0 to 5 scale)
-  const [rubricScores, setRubricScores] = useState<Record<string, Record<string, number>>>({
-    'entrevista-ia': { historico: 4, linguagem: 4, sentido_critico: 4, cooperacao: 4 },
-    'micro-documentario': { ciencia: 4, sintese: 4, montagem: 4, acessibilidade: 4 },
-    'noticiario-critico': { fidelidade_fonte: 4, verificacao_factos: 4, comunicacao: 4, transparencia_ia: 4 },
-    'quadros-animados': { profundidade: 4, respeito_plastico: 4, diccao: 4, autonomia: 4 },
-  });
+  const currentActivity: ClassroomActivity = 
+    CLASSROOM_ACTIVITIES.find(a => a.id === selectedActivityId) || CLASSROOM_ACTIVITIES[0];
 
-  const [showRubricCalculator, setShowRubricCalculator] = useState(false);
-
-  const iconsMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    Users,
-    HeartPulse,
-    Newspaper,
-    Boxes
-  };
-
-  const CurrentIcon = iconsMap[currentActivity.icon] || Users;
-
-  const toggleStep = (activityId: string, stepNum: number) => {
-    setCompletedSteps(prev => ({
-      ...prev,
-      [activityId]: {
-        ...prev[activityId],
-        [stepNum]: !prev[activityId]?.[stepNum]
-      }
-    }));
-  };
-
-  const currentScores = rubricScores[currentActivity.id] || {};
-  const calculatedGrade = calculateWeightedRubricScore(currentScores, currentActivity.evaluationRubric);
-
-  const handleScoreChange = (criterionId: string, value: number) => {
-    setRubricScores(prev => ({
-      ...prev,
-      [currentActivity.id]: {
-        ...prev[currentActivity.id],
-        [criterionId]: value
-      }
-    }));
+  const handleCopy = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => {
+      setCopiedId(null);
+    }, 2000);
   };
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      <div>
-        <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0966C2] uppercase font-mono mb-1">
-          <Sparkle className="w-3.5 h-3.5 text-[#0966C2]" />
-          <span>Planificação Didática · Guiões Pedagógicos para a Aula</span>
+      {/* 1. Header / Introdução */}
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE8F6] shadow-xs">
+        <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-2">
+          <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
+          <span>Capacitação Docente · Práticas de Sala de Aula</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#08203E] tracking-tight font-serif-display">
-          Planificação de Atividades em Sala de Aula
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] tracking-tight font-serif-display">
+          Atividades na Aula
         </h1>
-        <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-3xl leading-relaxed">
-          Quatro guiões pedagógicos estruturados para colocar os alunos a criar em equipa com rigor factual e literacia digital. 
-          Inclui as 3 modalidades de utilização de IA do EduQA, verificação prévia, alternativas de DUA (Decreto-Lei n.º 54/2018) e simulador de avaliação ponderada (0 a 20 valores).
-        </p>
+        <div className="mt-3 text-sm text-[#475569] leading-relaxed max-w-4xl space-y-2">
+          <p>
+            Explore cinco atividades práticas para experimentar diferentes formas de criação de vídeos com Inteligência Artificial. Crie apresentadores virtuais, gere pequenos vídeos, anime imagens, produza conteúdos com legendas e transforme textos em recursos audiovisuais.
+          </p>
+          <p className="text-xs sm:text-sm font-medium text-[#08203E]">
+            Cada proposta inclui uma ferramenta recomendada, passos simples e instruções prontas a utilizar.
+          </p>
+        </div>
       </div>
 
-      {/* Activity Selector Tabs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        {CLASSROOM_ACTIVITIES.map((act, idx) => {
-          const Icon = iconsMap[act.icon] || Users;
-          const isSelected = act.id === selectedActivityId;
+      {/* 2. Cinco Cartões de Seleção */}
+      <div>
+        <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider font-mono mb-3">
+          Selecione uma Atividade (5 Propostas Práticas)
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+          {CLASSROOM_ACTIVITIES.map((act) => {
+            const isSelected = act.id === selectedActivityId;
 
-          return (
-            <button
-              key={act.id}
-              onClick={() => setSelectedActivityId(act.id)}
-              className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 ${
-                isSelected
-                  ? 'bg-[#0966C2] text-white border-[#0966C2] shadow-sm'
-                  : 'bg-white hover:bg-slate-50 border-[#DCE8F6] text-slate-800'
-              }`}
-            >
-              <div className="flex items-center justify-between w-full">
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
-                  isSelected ? 'bg-white/20 text-white' : 'bg-[#EAF3FD] text-[#0966C2]'
-                }`}>
-                  <Icon className="w-4 h-4" />
+            return (
+              <button
+                key={act.id}
+                onClick={() => setSelectedActivityId(act.id)}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-3 text-xs ${
+                  isSelected
+                    ? 'bg-[#041D3A] text-white border-[#041D3A] shadow-md ring-2 ring-[#FACC15]'
+                    : 'bg-white hover:bg-[#F8FAFC] border-[#DCE8F6] text-[#08203E] hover:border-[#38BDF8]'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className={`inline-block font-mono text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                      isSelected
+                        ? 'bg-[#FACC15] text-[#041D3A]'
+                        : 'bg-[#EAF3FD] text-[#0B4B82]'
+                    }`}>
+                      Atividade {act.number}
+                    </span>
+                    <span className={`text-[10px] font-medium truncate ${
+                      isSelected ? 'text-slate-300' : 'text-slate-500'
+                    }`}>
+                      {act.year}
+                    </span>
+                  </div>
+                  <h3 className={`font-bold font-serif-display line-clamp-2 leading-snug ${
+                    isSelected ? 'text-white' : 'text-[#08203E]'
+                  }`}>
+                    {act.title}
+                  </h3>
                 </div>
-                <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${
-                  isSelected ? 'bg-white/20 text-amber-200' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  Guião 0{idx + 1}
-                </span>
-              </div>
 
-              <div>
-                <div className={`text-xs sm:text-sm leading-snug line-clamp-1 font-serif-display ${isSelected ? 'font-bold text-white' : 'font-semibold text-[#08203E]'}`}>
-                  {act.title}
+                <div className={`pt-2 border-t text-[11px] flex items-center justify-between ${
+                  isSelected ? 'border-white/10 text-cyan-300' : 'border-[#EEF2F6] text-[#0284C7]'
+                }`}>
+                  <span className="font-semibold truncate">{act.tool}</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                 </div>
-                <div className={`text-[11px] mt-1 ${isSelected ? 'text-white/80' : 'text-slate-500'}`}>
-                  {act.targetCycle}
-                </div>
-              </div>
-            </button>
-          );
-        })}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Main Activity Detail Card */}
-      <section className="bg-white rounded-3xl border border-[#DCE8F6] shadow-xs overflow-hidden">
-        {/* Banner */}
-        <div className="bg-gradient-to-r from-[#EBF5FE] via-[#F4F9FE] to-[#E3F1FD] border-b border-[#CDE3F7] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#D6EAFE] border border-[#BBDCFB] text-[#0966C2] flex items-center justify-center shrink-0">
-              <CurrentIcon className="w-6 h-6 text-[#0966C2]" />
-            </div>
-            <div>
-              <span className="text-[11px] text-[#0966C2] font-semibold tracking-wider uppercase font-mono">
-                {currentActivity.discipline} · {currentActivity.estimatedDuration}
-              </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] mt-0.5 font-serif-display">
-                {currentActivity.title}
-              </h2>
-            </div>
+      {/* 3. Atividade Selecionada — Apresentação Detalhada */}
+      <div className="bg-white rounded-3xl border border-[#DCE8F6] shadow-sm overflow-hidden space-y-6 p-6 sm:p-8">
+        {/* Cabeçalho da Atividade */}
+        <div className="border-b border-[#EEF2F6] pb-6">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-[#041D3A] text-[#FACC15]">
+              ATIVIDADE {currentActivity.number}
+            </span>
+            <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#EAF3FD] text-[#0B4B82] border border-[#CEE2F7]">
+              {currentActivity.discipline}
+            </span>
+            <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#F1F5F9] text-slate-700 border border-slate-200">
+              Ano: {currentActivity.year}
+            </span>
+            <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#F1F5F9] text-slate-700 border border-slate-200 flex items-center gap-1">
+              <Clock className="w-3 h-3 text-[#0B4B82]" />
+              {currentActivity.duration}
+            </span>
           </div>
 
-          <button
-            onClick={() => setShowRubricCalculator(!showRubricCalculator)}
-            className="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-[#0966C2] text-xs font-bold border border-[#BBDCFB] shadow-2xs inline-flex items-center gap-1.5 cursor-pointer shrink-0"
-          >
-            <Calculator className="w-3.5 h-3.5" />
-            <span>{showRubricCalculator ? 'Ocultar Simulador' : 'Simulador de Rubrica (0-20)'}</span>
-          </button>
+          <h2 className="text-xl sm:text-2xl font-bold text-[#08203E] font-serif-display mt-2">
+            {currentActivity.title}
+          </h2>
+
+          {/* Ferramenta e Modo de Utilização */}
+          <div className="grid sm:grid-cols-2 gap-3.5 mt-4">
+            <div className="p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#08203E]">
+                <Video className="w-3.5 h-3.5 text-[#0284C7]" />
+                <span>Ferramenta recomendada:</span>
+                <span className="text-[#0284C7]">{currentActivity.tool}</span>
+              </div>
+              <p className="text-xs text-slate-600">
+                <strong>Modo de utilização:</strong> {currentActivity.usageMode}
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#92400E]">
+                <Sparkles className="w-3.5 h-3.5 text-[#B45309]" />
+                <span>Acesso gratuito:</span>
+              </div>
+              <p className="text-xs text-[#78350F] leading-relaxed">
+                {currentActivity.freeAccess}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Dynamic Weighted Rubric Simulator Drawer */}
-        {showRubricCalculator && (
-          <div className="p-6 sm:p-8 bg-[#F8FAFD] border-b border-[#DCE8F6] animate-in fade-in duration-200">
-            <div className="max-w-3xl mx-auto space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
-                <div>
-                  <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
-                    Simulador de Avaliação Ponderada por Rubrica
-                  </h3>
-                  <p className="text-xs text-slate-600">
-                    Atribua uma classificação de 0 a 5 a cada critério desta atividade para calcular o resultado ponderado de 0 a 20 valores.
-                  </p>
+        {/* Desafio */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#EAF3FD] to-[#F0F7FF] border border-[#CEE2F7]">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#0B4B82] uppercase font-mono mb-1">
+            <Target className="w-4 h-4 text-[#0B4B82]" />
+            <span>DESAFIO</span>
+          </div>
+          <p className="text-sm font-semibold text-[#08203E] leading-relaxed">
+            {currentActivity.challenge}
+          </p>
+        </div>
+
+        {/* Como Fazer (Passos simples normais se existirem) */}
+        {currentActivity.howToSteps && currentActivity.howToSteps.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-bold text-[#08203E] uppercase font-mono tracking-wider flex items-center gap-1.5">
+              <Layers className="w-4 h-4 text-[#0B4B82]" />
+              <span>COMO FAZER</span>
+            </h3>
+            <div className="space-y-2">
+              {currentActivity.howToSteps.map((step, idx) => (
+                <div 
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#334155] leading-relaxed"
+                >
+                  {step}
                 </div>
-
-                <div className="text-right shrink-0">
-                  <div className="text-2xl font-black text-[#0966C2] font-mono">
-                    {calculatedGrade.total} / 20 valores
-                  </div>
-                  <span className="text-[11px] text-slate-500 font-medium">
-                    ({calculatedGrade.percentage}%)
-                  </span>
-                </div>
-              </div>
-
-              {/* Sliders for each activity criterion */}
-              <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                {currentActivity.evaluationRubric.map((item) => {
-                  const score = currentScores[item.id] ?? 4;
-                  return (
-                    <div key={item.id} className="space-y-1.5 bg-white p-4 rounded-2xl border border-[#DCE8F6] shadow-2xs">
-                      <div className="flex justify-between items-start text-xs font-semibold text-[#08203E]">
-                        <div>
-                          <span>{item.criterion}</span>
-                          <span className="ml-1 text-[11px] font-mono text-[#0966C2]">({item.weight}%)</span>
-                        </div>
-                        <span className="text-[#0966C2] font-bold font-mono shrink-0 ml-2">{score} / 5</span>
-                      </div>
-                      <input
-                        type="range"
-                        min="0"
-                        max="5"
-                        step="1"
-                        value={score}
-                        onChange={(e) => handleScoreChange(item.id, Number(e.target.value))}
-                        className="w-full accent-[#0966C2]"
-                      />
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        <strong>Evidência:</strong> {item.evidence}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <p className="text-[11px] text-slate-500 italic bg-white p-3 rounded-xl border border-slate-200 leading-relaxed">
-                Esta grelha é um instrumento de apoio à avaliação e ao feedback. A interpretação do resultado e a classificação final são da responsabilidade do professor, de acordo com os critérios definidos para a disciplina e para a atividade.
-              </p>
+              ))}
             </div>
           </div>
         )}
 
-        <div className="p-6 sm:p-8 space-y-8">
-          {/* ITEM 3.3: VERIFICAÇÃO PRÉVIA DO PROFESSOR (EduQA 2026/2027) */}
-          <div className="p-5 rounded-2xl bg-[#EAF3FD] border border-[#CEE2F7] space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
-              <FileQuestion className="w-4 h-4 text-[#0966C2]" />
-              <span>Antes de utilizar IA, o professor deve verificar:</span>
+        {/* Etapas Estruturadas (caso da Atividade 4 Canva) */}
+        {currentActivity.stages && currentActivity.stages.length > 0 && (
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold text-[#08203E] uppercase font-mono tracking-wider flex items-center gap-1.5">
+              <Layers className="w-4 h-4 text-[#0B4B82]" />
+              <span>COMO FAZER — ETAPAS DETALHADAS</span>
+            </h3>
+            
+            <div className="space-y-4">
+              {currentActivity.stages.map((stage, sIdx) => (
+                <div 
+                  key={sIdx}
+                  className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-3"
+                >
+                  <h4 className="text-xs sm:text-sm font-bold text-[#08203E] font-serif-display">
+                    {stage.title}
+                  </h4>
+
+                  {stage.description && (
+                    <p className="text-xs text-[#475569] leading-relaxed">
+                      {stage.description}
+                    </p>
+                  )}
+
+                  {stage.steps && stage.steps.length > 0 && (
+                    <div className="space-y-1.5 text-xs text-[#334155]">
+                      {stage.steps.map((st, i) => (
+                        <div key={i} className="pl-2 border-l-2 border-[#0284C7]/40 py-0.5">
+                          {st}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Copy item inside stage */}
+                  {stage.copyItem && (
+                    <div className="mt-3 p-3.5 rounded-xl bg-white border border-[#CBD5E1] space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[11px] font-bold text-[#08203E] font-mono">
+                          {stage.copyItem.title}
+                        </span>
+                        <button
+                          onClick={() => handleCopy(stage.copyItem!.id, stage.copyItem!.content)}
+                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#041D3A] hover:bg-[#09284D] text-[#FACC15] flex items-center gap-1.5 cursor-pointer transition-all shrink-0 shadow-2xs"
+                        >
+                          {copiedId === stage.copyItem.id ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-400" />
+                              <span>Copiado!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>{stage.copyItem.label}</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <pre className="text-xs font-mono bg-[#041D3A] text-slate-100 p-3 rounded-lg overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                        {stage.copyItem.content}
+                      </pre>
+                    </div>
+                  )}
+
+                  {stage.tip && (
+                    <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-900 leading-relaxed font-medium">
+                      💡 {stage.tip}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <ol className="grid sm:grid-cols-2 gap-2 text-xs text-[#132B47] list-decimal list-inside leading-relaxed font-medium">
-              {currentActivity.teacherVerificationChecklist.map((check, i) => (
-                <li key={i} className="bg-white/80 p-2.5 rounded-xl border border-[#D5E5F7]">
-                  <span>{check}</span>
+          </div>
+        )}
+
+        {/* Copy Items dedicados (Prompts, Guiões, Narrações) */}
+        {currentActivity.copyItems && currentActivity.copyItems.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-bold text-[#08203E] uppercase font-mono tracking-wider flex items-center gap-1.5">
+              <Copy className="w-4 h-4 text-[#0B4B82]" />
+              <span>TEXTO / PROMPT / GUIÃO PARA A FERRAMENTA</span>
+            </h3>
+
+            <div className="space-y-3">
+              {currentActivity.copyItems.map((item) => (
+                <div 
+                  key={item.id}
+                  className="p-4 sm:p-5 rounded-2xl bg-[#041D3A] text-white border border-[#0E2C52] space-y-3 shadow-xs"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-[#FACC15] font-serif-display">
+                        {item.title}
+                      </h4>
+                      {item.note && (
+                        <p className="text-[11px] text-slate-300 mt-0.5">
+                          {item.note}
+                        </p>
+                      )}
+                    </div>
+
+                    <button
+                      onClick={() => handleCopy(item.id, item.content)}
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#FACC15] hover:bg-amber-300 text-[#041D3A] flex items-center gap-1.5 cursor-pointer transition-all self-start sm:self-auto shrink-0 font-sans shadow-xs"
+                    >
+                      {copiedId === item.id ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-[#041D3A]" />
+                          <span className="font-bold">Copiado!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span className="font-bold">{item.label}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <pre className="text-xs font-mono text-cyan-200 bg-[#021326] p-3.5 rounded-xl overflow-x-auto whitespace-pre-wrap leading-relaxed border border-cyan-900/40">
+                    {item.content}
+                  </pre>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Definições Recomendadas (se aplicável) */}
+        {currentActivity.recommendedSettings && currentActivity.recommendedSettings.length > 0 && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-2.5">
+            <h4 className="text-xs font-bold text-[#08203E] uppercase font-mono tracking-wider flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#0284C7]" />
+              <span>DEFINIÇÕES RECOMENDADAS</span>
+            </h4>
+            <ul className="grid sm:grid-cols-2 gap-2 text-xs text-[#475569]">
+              {currentActivity.recommendedSettings.map((setting, idx) => (
+                <li key={idx} className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-[#EEF2F6]">
+                  <span className="text-[#0284C7] font-bold">•</span>
+                  <span>{setting}</span>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
+        )}
 
-          {/* ITEM 10.2 & 10.3: QUEM UTILIZA A FERRAMENTA & MODELO PROFESSOR-OPERADOR */}
-          <div className="p-5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#874A07]">
-              <UserCheck className="w-4 h-4 text-[#874A07]" />
-              <span>Quem utiliza a ferramenta? (Orientações por Ciclo de Ensino)</span>
+        {/* Resultado Esperado */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-1">
+          <span className="text-xs font-bold text-emerald-900 uppercase font-mono tracking-wider block">
+            RESULTADO ESPERADO
+          </span>
+          <p className="text-xs sm:text-sm font-semibold text-emerald-950 leading-relaxed">
+            {currentActivity.expectedResult}
+          </p>
+        </div>
+
+        {/* Notas de Validação */}
+        {currentActivity.validationNotes && currentActivity.validationNotes.length > 0 && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] space-y-2">
+            <span className="text-xs font-bold text-[#92400E] uppercase font-mono tracking-wider flex items-center gap-1.5">
+              <ShieldAlert className="w-4 h-4 text-[#B45309]" />
+              <span>NOTA DE VALIDAÇÃO CIENTÍFICA E PEDAGÓGICA</span>
+            </span>
+            <div className="space-y-1.5 text-xs text-[#78350F] leading-relaxed">
+              {currentActivity.validationNotes.map((note, nIdx) => (
+                <p key={nIdx}>
+                  {note}
+                </p>
+              ))}
             </div>
-            <div className="grid sm:grid-cols-3 gap-3 text-xs text-[#2A1E0E] leading-relaxed">
-              <div className="bg-white/85 p-3 rounded-xl border border-amber-200">
-                <strong>1.º Ciclo:</strong> {currentActivity.whoOperatesTool.firstCycle}
-              </div>
-              <div className="bg-white/85 p-3 rounded-xl border border-amber-200">
-                <strong>2.º Ciclo:</strong> {currentActivity.whoOperatesTool.secondCycle}
-              </div>
-              <div className="bg-white/85 p-3 rounded-xl border border-amber-200">
-                <strong>3.º Ciclo e Secundário:</strong> {currentActivity.whoOperatesTool.thirdAndSecondary}
-              </div>
+          </div>
+        )}
+
+        {/* Importante sobre a Ferramenta (se existir) */}
+        {currentActivity.toolImportantNote && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#EFF6FF] border border-[#BFDBFE] space-y-1.5 text-xs text-[#1E40AF] leading-relaxed">
+            <span className="font-bold uppercase font-mono text-[11px] flex items-center gap-1.5 text-[#1E3A8A]">
+              <Info className="w-4 h-4 text-[#2563EB]" />
+              <span>IMPORTANTE SOBRE A FERRAMENTA</span>
+            </span>
+            <p>
+              {currentActivity.toolImportantNote}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* 4. Secção Final: O que observar na atividade? */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#DCE8F6] shadow-sm space-y-4">
+        <div>
+          <span className="text-xs font-bold text-[#0B4B82] uppercase tracking-wider font-mono">
+            Apoio à Mediação Pedagógica
+          </span>
+          <h2 className="text-lg sm:text-xl font-bold text-[#08203E] font-serif-display mt-0.5">
+            O que observar na atividade?
+          </h2>
+          <p className="text-xs text-slate-500 mt-1">
+            Esta secção é de apoio ao professor e não constitui uma nova rubrica de avaliação.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-3.5 pt-2">
+          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
+            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
+              1
             </div>
-            <p className="text-[11px] text-[#5C3306] italic pt-1 border-t border-amber-200/80">
-              <strong>Modelo Professor-Operador:</strong> O professor pode preparar previamente um pequeno conjunto de clipes ou recursos visuais para a turma. Durante a aula, os alunos analisam, selecionam, comparam, guionizam, montam e justificam as suas escolhas, sem precisarem de criar contas individuais ou aguardar por várias gerações em simultâneo.
+            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
+              A informação apresentada está correta?
             </p>
           </div>
 
-          {/* Objectives */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#08203E] flex items-center gap-1.5 font-mono">
-              <span className="text-[#0966C2]">🎯</span>
-              <span>Objetivos de Aprendizagem</span>
-            </h3>
-            <div className="grid sm:grid-cols-3 gap-3">
-              {currentActivity.learningObjectives.map((obj, i) => (
-                <div key={i} className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] text-xs font-medium text-slate-800 leading-snug flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
-                  <span>{obj}</span>
-                </div>
-              ))}
+          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
+            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
+              2
             </div>
+            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
+              O vídeo corresponde ao objetivo definido?
+            </p>
           </div>
 
-          {/* Steps with EduQA Modalities (Sem IA, IA de apoio, IA integrada) */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#08203E] flex items-center gap-1.5 font-mono">
-                <span className="text-[#0966C2]">🏫</span>
-                <span>Etapas de Condução com Modalidade de IA (EduQA)</span>
-              </h3>
-              <span className="text-xs text-slate-400 font-mono">Clique para registar progresso</span>
+          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
+            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
+              3
             </div>
-
-            <div className="space-y-3">
-              {currentActivity.teacherImplementationSteps.map((step) => {
-                const isDone = completedSteps[currentActivity.id]?.[step.step] || false;
-
-                const aiBadgeClasses = 
-                  step.aiUseMode === 'Sem IA'
-                    ? 'bg-slate-100 text-slate-700 border-slate-300'
-                    : step.aiUseMode === 'IA de apoio'
-                    ? 'bg-[#EAF3FD] text-[#0966C2] border-[#CDE3F7]'
-                    : 'bg-[#FEF8E7] text-[#874A07] border-[#FDE5B5]';
-
-                return (
-                  <div
-                    key={step.step}
-                    className={`p-4 sm:p-5 rounded-2xl border transition-all ${
-                      isDone
-                        ? 'bg-emerald-50/60 border-emerald-200'
-                        : 'bg-white border-[#DCE8F6] hover:border-[#0966C2]/40'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3.5">
-                        <button
-                          onClick={() => toggleStep(currentActivity.id, step.step)}
-                          className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 cursor-pointer transition-colors ${
-                            isDone
-                              ? 'bg-emerald-600 text-white'
-                              : 'border-2 border-slate-300 hover:border-[#0966C2] text-transparent'
-                          }`}
-                          title={isDone ? 'Marcar como não concluído' : 'Marcar etapa como concluída'}
-                        >
-                          <CheckCircle2 className="w-4 h-4" />
-                        </button>
-                        <div className="space-y-1.5">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-xs sm:text-sm font-bold text-[#08203E] font-serif-display">
-                              Etapa {step.step} — {step.title}
-                            </span>
-                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border ${aiBadgeClasses}`}>
-                              {step.aiUseMode}
-                            </span>
-                          </div>
-
-                          <p className="text-xs text-slate-600 leading-relaxed">
-                            {step.description}
-                          </p>
-
-                          {step.subitems && step.subitems.length > 0 && (
-                            <ul className="mt-2 space-y-1 text-xs text-slate-600 pl-2">
-                              {step.subitems.map((sub, sIdx) => (
-                                <li key={sIdx} className="flex items-start gap-1.5">
-                                  <span className="text-[#0966C2] font-bold">•</span>
-                                  <span>{sub}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      </div>
-
-                      {step.recommendedTools && (
-                        <div className="shrink-0 text-right hidden sm:block">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1 font-mono">
-                            Recursos
-                          </span>
-                          <div className="flex flex-wrap justify-end gap-1">
-                            {step.recommendedTools.map((tool, tIdx) => (
-                              <span key={tIdx} className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#EAF3FD] text-[#085294] border border-[#CDE3F7]">
-                                {tool}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ITEM 11.5: AVALIAÇÃO DO PROCESSO & ENTREGÁVEIS */}
-          <div className="grid md:grid-cols-2 gap-5 pt-2">
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#08203E] flex items-center gap-1.5 font-mono">
-                <FileCheck className="w-4 h-4 text-[#0966C2]" />
-                <span>O que o Aluno Entrega</span>
-              </h4>
-              <ul className="space-y-2 text-xs text-slate-700">
-                {currentActivity.studentDeliverables.map((del, i) => (
-                  <li key={i} className="flex items-start gap-2 bg-white p-3 rounded-xl border border-[#DCE8F6] font-medium">
-                    <span className="text-[#0966C2] font-bold">•</span>
-                    <span>{del}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFD] border border-[#DCE8F6] space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#08203E] flex items-center gap-1.5 font-mono">
-                <Award className="w-4 h-4 text-[#0966C2]" />
-                <span>Avaliação do Processo & Metacognição</span>
-              </h4>
-              <div className="space-y-2 text-xs text-slate-700">
-                <div className="bg-white p-3 rounded-xl border border-[#DCE8F6]">
-                  <strong>Autoavaliação:</strong> {currentActivity.processEvaluation.selfAssessment}
-                </div>
-                <div className="bg-white p-3 rounded-xl border border-[#DCE8F6]">
-                  <strong>Coavaliação:</strong> {currentActivity.processEvaluation.peerAssessment}
-                </div>
-                <div className="bg-white p-3 rounded-xl border border-[#DCE8F6]">
-                  <strong>Evidência do processo:</strong> {currentActivity.processEvaluation.processEvidence}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ITEM 12: DIFERENCIAÇÃO PEDAGÓGICA, ACESSIBILIDADE E ALTERNATIVAS (Dec.-Lei n.º 54/2018) */}
-          <div className="p-6 rounded-2xl bg-white border border-[#DCE8F6] space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#08203E]">
-              <Layers className="w-4 h-4 text-[#0966C2]" />
-              <span>Diferenciação pedagógica, acessibilidade e alternativas (DUA & Dec.-Lei n.º 54/2018)</span>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-3.5 text-xs text-slate-700">
-              <div className="p-3.5 rounded-xl bg-[#F8FAFD] border border-slate-200 space-y-1">
-                <strong className="text-[#08203E] block">Representação:</strong>
-                <p>{currentActivity.udlAndDifferentiation.representation}</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#F8FAFD] border border-slate-200 space-y-1">
-                <strong className="text-[#08203E] block">Ação e Expressão:</strong>
-                <p>{currentActivity.udlAndDifferentiation.actionAndExpression}</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#F8FAFD] border border-slate-200 space-y-1">
-                <strong className="text-[#08203E] block">Envolvimento:</strong>
-                <p>{currentActivity.udlAndDifferentiation.engagement}</p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#EAF3FD] border border-[#CEE2F7] space-y-1">
-                <strong className="text-[#0B4B82] block">Alternativa Sem Dispositivo ou Sem IA:</strong>
-                <p>{currentActivity.udlAndDifferentiation.noTechAlternative}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* ITEM 13 & 14: SALVAGUARDAS DE SEGURANÇA E FERRAMENTAS DA ESCOLA */}
-          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 space-y-1.5 leading-relaxed">
-            <div className="flex items-center gap-2 font-bold font-mono text-[11px] uppercase text-[#874A07]">
-              <ShieldAlert className="w-4 h-4 text-[#874A07]" />
-              <span>Direitos de Autor, Pessoas Reais e Infraestrutura Escolar</span>
-            </div>
-            <p>
-              Não criar nem divulgar imagens, vídeos ou gravações de voz sintéticas que representem alunos, professores ou outras pessoas reais sem autorização e validação institucional. Antes de criar contas externas, verificar quais as ferramentas e licenças que o agrupamento já disponibiliza (Microsoft 365, Clipchamp, Google Workspace ou Teams). Em caso de incidente, seguir os procedimentos de cidadania digital e segurança da escola.
+            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
+              O resultado foi revisto antes da partilha?
             </p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
