@@ -51,7 +51,7 @@ export const ActivitiesSection: React.FC = () => {
         </h1>
         <div className="mt-3 text-sm text-[#475569] leading-relaxed max-w-4xl space-y-2">
           <p>
-            Explore cinco atividades práticas para experimentar diferentes formas de criação de vídeos com Inteligência Artificial. Crie apresentadores virtuais, gere pequenos vídeos, anime imagens, produza conteúdos com legendas e transforme textos em recursos audiovisuais.
+            Explore quatro atividades práticas para experimentar diferentes formas de criação de vídeos com Inteligência Artificial. Crie apresentadores virtuais, gere pequenos vídeos, anime imagens e produza conteúdos com legendas.
           </p>
           <p className="text-xs sm:text-sm font-medium text-[#08203E]">
             Cada proposta inclui uma ferramenta recomendada, passos simples e instruções prontas a utilizar.
@@ -59,12 +59,12 @@ export const ActivitiesSection: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Cinco Cartões de Seleção */}
+      {/* 2. Cartões de Seleção */}
       <div>
         <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider font-mono mb-3">
-          Selecione uma Atividade (5 Propostas Práticas)
+          Selecione uma Atividade (4 Propostas Práticas)
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {CLASSROOM_ACTIVITIES.map((act) => {
             const isSelected = act.id === selectedActivityId;
 

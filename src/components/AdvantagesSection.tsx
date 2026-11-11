@@ -154,11 +154,11 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
           </div>
         </div>
 
-        {/* 4. VANTAGENS PARA O PROFESSOR */}
+        {/* 4. VANTAGENS */}
         <div className="bg-[#F4F9FE] border border-[#CFE3F8] rounded-2xl p-5 shadow-xs space-y-3.5 flex flex-col">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#0B4B82]">
             <BarChart3 className="w-4 h-4 text-[#0966C2]" />
-            <span>VANTAGENS PARA O PROFESSOR</span>
+            <span>VANTAGENS</span>
           </div>
           <ul className="space-y-2.5 pt-2 flex-1">
             {currentAdvantage.teacherBenefits.map((ben, i) => (

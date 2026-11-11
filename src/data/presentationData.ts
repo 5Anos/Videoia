@@ -499,6 +499,172 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     copyButtonLabel: "Copiar prompt",
     promptText: "Os cravos vermelhos nas mãos da multidão oscilam suavemente com a brisa. As pessoas apresentam movimentos discretos e naturais. A câmara aproxima-se lentamente dos cravos, num movimento contínuo e estável.",
     validationNote: "Identificar o vídeo como reconstituição ilustrativa gerada por IA. Não apresentar a animação como filmagem original de 25 de Abril de 1974. Confrontar a representação com fotografias, testemunhos e documentos históricos."
+  },
+  {
+    id: 12,
+    title: "A Batalha do Buçaco (1810): animar uma imagem histórica",
+    discipline: "História",
+    gradeLevel: "3.º Ciclo (9.º ano)",
+    creationType: "Imagem para vídeo — animação de cena histórica.",
+    recommendedTool: "Vidnoz AI — Animate Image",
+    pedagogicalObjective: "Explorar uma reconstituição visual de um episódio das Invasões Francesas, distinguindo a animação gerada por IA de um documento histórico.",
+    requiredInput: "Imagem de referência da Batalha do Buçaco, com soldados portugueses e britânicos e tropas francesas.",
+    toolSetup: "No Vidnoz AI, selecionar a funcionalidade Animate Image, carregar a imagem de referência e colar o prompt em inglês. Pré-visualizar o resultado antes de exportar.",
+    promptLabel: "Prompt (em inglês)",
+    copyButtonLabel: "Copiar prompt",
+    promptText: "Animate this historical Battle of Bussaco scene, Portugal, 1810. Portuguese and British soldiers fire their muskets while French infantry advances through the battlefield. The cannon fires with a powerful flash, producing thick smoke. Soldiers move forward, flags wave strongly in the wind, and smoke drifts across the forested hills. The camera slowly moves forward through the battlefield, creating an immersive cinematic war scene. Realistic historical movements, dramatic atmosphere. Preserve the original uniforms, flags and characters.",
+    validationNote: "Identificar o vídeo como reconstituição histórica gerada por IA, não como documento de arquivo. Verificar uniformes, bandeiras, armamento e contexto histórico."
+  },
+  {
+    id: 13,
+    title: "Os Descobrimentos Portugueses: uma viagem pelos séculos XV e XVI",
+    discipline: "História / Geografia",
+    gradeLevel: "2.º e 3.º Ciclos",
+    creationType: "Texto para vídeo — documentário histórico por cenas.",
+    recommendedTool: "Vidnoz AI — Criar Vídeo",
+    pedagogicalObjective: "Representar diferentes momentos da expansão marítima portuguesa e promover a reflexão sobre os contactos entre povos e as consequências da expansão.",
+    requiredInput: "Não necessita de imagem de referência. O vídeo é criado a partir das instruções textuais.",
+    toolSetup: "No Vidnoz AI, selecionar a funcionalidade de criação de vídeo, introduzir o prompt completo, definir 30 segundos e selecionar narração em português de Portugal. Rever todas as cenas antes de exportar.",
+    promptLabel: "Prompt (em português)",
+    copyButtonLabel: "Copiar prompt",
+    promptText: `Cria um vídeo histórico cinematográfico de 30 segundos sobre os Descobrimentos Portugueses, nos séculos XV e XVI.
+
+Cena 1: Uma caravela portuguesa navega em alto-mar, enfrentando ondas e vento forte. A câmara aproxima-se da embarcação e mostra as velas a agitar-se.
+
+Cena 2: Um navegador observa um mapa antigo, utiliza uma bússola e orienta a tripulação. Mostrar instrumentos de navegação da época.
+
+Cena 3: A caravela atravessa o oceano e aproxima-se de uma costa desconhecida para os navegadores europeus.
+
+Cena 4: Mostrar a chegada de Vasco da Gama à Índia, em 1498, com embarcações no porto de Calecute.
+
+Cena 5: Um mapa antigo apresenta as rotas marítimas portuguesas que ligaram a Europa, África e Ásia.
+
+Estilo de documentário histórico, imagens realistas, movimentos de câmara cinematográficos, cores e vestuário de época, música épica discreta. Narrativa em português de Portugal. Abordagem histórica rigorosa, incluindo a expansão marítima, os contactos entre povos e as consequências da expansão portuguesa.`,
+    validationNote: "Verificar a cronologia, os instrumentos de navegação, a chegada a Calecute e os contactos entre povos. A representação visual não deve ser confundida com um documento histórico."
+  },
+  {
+    id: 14,
+    title: "O 25 de Abril: criar um avatar inspirado em Salgueiro Maia",
+    discipline: "História / Cidadania",
+    gradeLevel: "3.º Ciclo (9.º ano) e Ensino Secundário",
+    creationType: "Avatar digital — guião histórico, personagem e voz.",
+    recommendedTool: "HeyGen — Criar Avatar, AI Studio e Voice Design",
+    pedagogicalObjective: "Criar um apresentador virtual para narrar acontecimentos relacionados com a Revolução de 25 de Abril de 1974.",
+    requiredInput: "Não necessita de imagem. O avatar e a voz são criados a partir de instruções textuais.",
+    toolSetup: "Este cartão contém três textos para três campos diferentes do HeyGen. GUIÃO: introduzir no campo Script do AI Studio. AVATAR: introduzir no campo de criação ou descrição do avatar. VOZ: introduzir no campo de criação ou descrição da voz. Não colar os três textos no mesmo campo.",
+    promptLabel: "Guião, avatar e voz — três campos separados",
+    copyButtonLabel: "Copiar instruções",
+    promptText: `GUIÃO — CAMPO SCRIPT
+
+A 25 de abril de 1974, Portugal mudou para sempre.
+
+Durante quase 50 anos, o país viveu sob uma ditadura, marcada pela censura, pela falta de liberdade e pela repressão.
+
+Na madrugada desse dia, o Movimento das Forças Armadas iniciou uma revolução para pôr fim ao regime. As senhas transmitidas pela rádio foram «E Depois do Adeus» e «Grândola, Vila Morena».
+
+Os militares ocuparam pontos estratégicos de Lisboa e receberam o apoio da população. Nas ruas, os cravos vermelhos foram oferecidos aos soldados e colocados nos canos das espingardas.
+
+A revolução derrubou a ditadura e abriu caminho à democracia.
+
+O 25 de Abril ficou conhecido como a Revolução dos Cravos: um marco na história de Portugal e na conquista da liberdade.
+
+
+AVATAR — CAMPO DE CRIAÇÃO DO AVATAR
+
+Create a realistic historical male character inspired by Captain Salgueiro Maia, the Portuguese military officer who played a key role in the Carnation Revolution of April 25, 1974.
+
+A Portuguese army captain in his late 20s, with dark brown slightly wavy hair, a clean-shaven face, strong expressive features and a determined yet calm gaze.
+
+He wears an authentic-looking Portuguese military olive-green uniform from the early 1970s, including a field shirt, shoulder epaulettes and a period-appropriate military cap.
+
+His appearance conveys courage, leadership, intelligence and integrity.
+
+Photorealistic style, historically inspired 1970s appearance, natural facial features, realistic fabric textures, professional cinematic lighting.
+
+Neutral standing pose, facing the camera, upper-body portrait. Plain, unobtrusive background.
+
+
+VOZ — CAMPO DE CRIAÇÃO DA VOZ
+
+Create an original male voice that SPEAKS EXCLUSIVELY IN EUROPEAN PORTUGUESE (PORTUGAL). The spoken language MUST be Portuguese from Portugal, NOT English and NOT Brazilian Portuguese. All generated speech and voice samples must be entirely in European Portuguese. Native Portuguese pronunciation, with a natural Portuguese accent, correct Portuguese intonation and authentic pronunciation of Portuguese words. Warm, deep, mature and confident male voice. Calm, articulate and expressive, suitable for narrating a historical documentary. Moderate speaking pace, with natural pauses. NEVER speak in English.`,
+    validationNote: "O avatar é uma representação digital gerada por IA, inspirada numa figura histórica, não uma reprodução autêntica de Salgueiro Maia. Em 25 de abril de 1974, Salgueiro Maia tinha 29 anos. Rever a pronúncia das senhas e os acontecimentos narrados."
+  },
+  {
+    id: 15,
+    title: "A Batalha de Aljubarrota (1385): criar um documentário histórico",
+    discipline: "História",
+    gradeLevel: "2.º Ciclo (6.º ano) e 3.º Ciclo",
+    creationType: "Texto para vídeo — documentário histórico por cenas.",
+    recommendedTool: "HeyGen — Criar Vídeo",
+    pedagogicalObjective: "Representar a Batalha de Aljubarrota e compreender a sua importância na afirmação da independência portuguesa.",
+    requiredInput: "Não necessita de imagem de referência. O vídeo é criado a partir das instruções textuais.",
+    toolSetup: "Abrir a funcionalidade de criação de vídeo do HeyGen, introduzir o prompt completo e configurar a narração exclusivamente em português de Portugal. Rever o plano visual, a pronúncia e as cenas antes de exportar.",
+    promptLabel: "Prompt (em inglês)",
+    copyButtonLabel: "Copiar prompt",
+    promptText: `Create a cinematic historical documentary about the Battle of Aljubarrota, fought in Portugal on August 14, 1385.
+
+IMPORTANT: The narrator must speak exclusively in European Portuguese (Portugal), never in English or Brazilian Portuguese.
+
+Scene 1: Show an animated medieval map of the Iberian Peninsula, highlighting Portugal and the Kingdom of Castile.
+
+Scene 2: Show two large medieval armies facing each other on a battlefield. Portuguese and Castilian soldiers wear historically inspired 14th-century armour, helmets and shields. Medieval flags wave in the wind.
+
+Scene 3: Show the Castilian army advancing towards the Portuguese defensive positions. Portuguese soldiers prepare to defend their territory under the command of King John I and the military leadership of Nuno Álvares Pereira.
+
+Scene 4: Show an intense medieval battle with archers firing arrows, cavalry advancing and soldiers fighting. Highlight the Portuguese defensive tactics and the use of the natural terrain.
+
+Scene 5: Show the Portuguese victory, with Portuguese soldiers celebrating on the battlefield and their flags waving proudly.
+
+Use realistic medieval environments, cinematic camera movements, dramatic lighting, historically inspired costumes and smooth transitions. Epic orchestral background music. Educational documentary style. No modern objects, weapons or buildings.
+
+The video narration must be entirely in European Portuguese.`,
+    validationNote: "Confirmar a data da batalha, o papel de D. João I e de Nuno Álvares Pereira e a representação dos exércitos. Identificar o resultado como reconstituição histórica gerada por IA."
+  },
+  {
+    id: 16,
+    title: "A germinação de uma semente de feijão",
+    discipline: "Ciências Naturais",
+    gradeLevel: "2.º Ciclo (5.º ano) — 10 a 12 anos",
+    creationType: "Texto para vídeo — animação científica 3D.",
+    recommendedTool: "Canva — Video Clip (8 segundos)",
+    pedagogicalObjective: "Representar as principais etapas da germinação de uma semente e observar o desenvolvimento inicial da planta.",
+    requiredInput: "Não necessita de imagem. A animação é gerada a partir do texto.",
+    toolSetup: "No Canva, abrir a funcionalidade Video Clip através do Canva AI. Selecionar a duração de 8 segundos, quando disponível, introduzir o prompt em inglês e gerar o clip. Não confundir com Magic Video ou com o editor de vídeo normal.",
+    promptLabel: "Prompt (em inglês)",
+    copyButtonLabel: "Copiar prompt",
+    promptText: `Create a single 8-second educational video clip showing the germination of a bean seed.
+
+Style: high-quality 3D educational animation, bright natural colours, realistic botanical details, visually engaging and suitable for 10–12-year-old students.
+
+Scene: Show a bean seed beneath the soil in a transparent cross-section of the ground. In a smooth time-lapse animation, the seed absorbs water, opens, develops roots growing downwards and a green shoot growing upwards through the soil. Finish with a small green seedling emerging above the ground.
+
+Camera: Close-up view, fixed camera, clear visibility of the seed, roots and shoot.
+
+Lighting: Soft natural daylight, clean educational visual style.`,
+    validationNote: "Verificar que a radícula emerge primeiro e cresce para baixo e que o rebento cresce em direção à superfície. A animação representa de forma acelerada um processo que ocorre ao longo de vários dias."
+  },
+  {
+    id: 17,
+    title: "A evaporação: uma etapa do ciclo da água",
+    discipline: "Ciências Naturais / Geografia",
+    gradeLevel: "2.º Ciclo (5.º ano)",
+    creationType: "Texto para vídeo — animação educativa 2D.",
+    recommendedTool: "Adobe Firefly — Generate Video (Text to Video)",
+    pedagogicalObjective: "Representar visualmente a evaporação da água a partir da superfície do oceano, como uma das etapas do ciclo da água.",
+    requiredInput: "Não necessita de imagem de referência. A animação é criada a partir de texto.",
+    toolSetup: "Abrir Adobe Firefly, selecionar Vídeo e a opção Generate Video (Text to Video). Introduzir o prompt em inglês. Selecionar uma composição adequada a uma animação educativa, com câmara fixa e uma única cena.",
+    promptLabel: "Prompt (em inglês)",
+    copyButtonLabel: "Copiar prompt",
+    promptText: `Create a beautiful 2D educational animation showing one stage of the water cycle: evaporation.
+
+A bright yellow sun shines above a blue ocean. Invisible water vapour rises gently from the ocean surface towards the sky, suggested by subtle translucent upward movement rather than visible liquid droplets. A few white clouds float slowly across the blue sky.
+
+Use a clean, colourful, friendly cartoon animation style, similar to a high-quality educational science video for children.
+
+Smooth simple animation, consistent illustrations, soft colours, clear shapes and a cheerful atmosphere.
+
+Keep the camera fixed. Show only water vapour rising from the ocean. One continuous animated scene. No text, no labels, no subtitles, no realistic photography.`,
+    validationNote: "O vídeo representa apenas a evaporação, não o ciclo da água completo. O vapor de água é invisível; não deve ser apresentado como gotículas líquidas a subir do oceano."
   }
 ];
 
@@ -1466,69 +1632,6 @@ Evita efeitos visuais que dificultem a observação.`
     expectedResult: "Um vídeo educativo com imagens organizadas por IA, narração e legendas automáticas revistas pelo professor.",
     validationNotes: [],
     toolImportantNote: "Esta atividade utiliza Canva Magic Video, e não Canva AI Video Clip. O Magic Video organiza imagens e clips fornecidos pelo utilizador. Não gera, a partir de texto, todas as imagens do vídeo. O AI Video Clip é uma funcionalidade diferente, sujeita a condições de acesso Ultra AI e quotas próprias. Não a apresentar como requisito desta atividade. O Magic Video gera vídeos verticais (9:16). Para criar um vídeo horizontal (16:9), utilizar o editor de vídeo normal do Canva, em vez desta funcionalidade."
-  },
-  {
-    id: "microconto-video-narrado",
-    number: 5,
-    title: "Transformar um Microconto num Vídeo Narrado",
-    discipline: "Português",
-    year: "2.º e 3.º ciclos",
-    duration: "1 aula de 50 minutos.",
-    tool: "Fliki",
-    usageMode: "Texto para vídeo / Script to Video.",
-    freeAccess: "Plano gratuito com 3 créditos por mês, exportação até 720p e marca de água. O consumo depende da operação e da duração. Confirmar o saldo antes de gerar.",
-    challenge: "Transformar um microconto original num vídeo com cenas ilustradas e narração.",
-    howToSteps: [
-      "1. Os alunos leem o microconto e identificam as três partes da narrativa.",
-      "2. Organizam o texto em três cenas.",
-      "3. O professor abre o Fliki, seleciona Script to Video e copia o «Guião Completo (3 Cenas)», mantendo as três cenas separadas. Para criar um único vídeo, utilizar o guião completo. Os três textos individuais servem apenas para trabalhar ou gerar cada cena separadamente."
-    ],
-    copyItems: [
-      {
-        id: "fliki-scene-1",
-        label: "Copiar Cena 1",
-        title: "Cena 1",
-        content: "«No último dia de aulas, Inês encontrou um envelope dentro de um livro da biblioteca. O envelope não tinha remetente, mas tinha o seu nome escrito à mão.»"
-      },
-      {
-        id: "fliki-scene-2",
-        label: "Copiar Cena 2",
-        title: "Cena 2",
-        content: "«Dentro do envelope encontrou uma mensagem: “As histórias continuam vivas quando alguém as lê e partilha.” Inês olhou para as estantes e imaginou quantas aventuras estariam escondidas naqueles livros.»"
-      },
-      {
-        id: "fliki-scene-3",
-        label: "Copiar Cena 3",
-        title: "Cena 3",
-        content: "«No dia seguinte, escreveu uma continuação da história, leu-a aos colegas e convidou cada um a acrescentar uma frase. Assim nasceu uma nova história, escrita por toda a turma.»"
-      },
-      {
-        id: "fliki-script-all",
-        label: "Copiar guião completo",
-        title: "Guião Completo (3 Cenas)",
-        content: `Cena 1
-«No último dia de aulas, Inês encontrou um envelope dentro de um livro da biblioteca. O envelope não tinha remetente, mas tinha o seu nome escrito à mão.»
-
-Cena 2
-«Dentro do envelope encontrou uma mensagem: “As histórias continuam vivas quando alguém as lê e partilha.” Inês olhou para as estantes e imaginou quantas aventuras estariam escondidas naqueles livros.»
-
-Cena 3
-«No dia seguinte, escreveu uma continuação da história, leu-a aos colegas e convidou cada um a acrescentar uma frase. Assim nasceu uma nova história, escrita por toda a turma.»`,
-        note: "Para criar um único vídeo com três cenas, copiar apenas este guião completo. Os botões das cenas individuais servem para trabalhar ou gerar cada cena separadamente."
-      }
-    ],
-    recommendedSettings: [
-      "Selecionar Script to Video.",
-      "Manter as três cenas separadas.",
-      "Escolher uma voz em Português de Portugal, se disponível.",
-      "Selecionar imagens ou clips adequados a cada cena.",
-      "Evitar a expansão automática do texto.",
-      "Não gerar novas versões sem verificar primeiro os créditos disponíveis."
-    ],
-    expectedResult: "Um pequeno vídeo narrativo com três cenas, imagens de apoio e voz sintética.",
-    validationNotes: [
-      "Confirmar que a narração corresponde ao texto original e que as imagens respeitam a sequência narrativa. Não atribuir a autoria do texto a uma pessoa real."
-    ]
   }
 ];
 

@@ -126,7 +126,7 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
             type="text"
             value={internalSearch}
             onChange={(e) => setInternalSearch(e.target.value)}
-            placeholder="Pesquisar nos 11 prompts..."
+            placeholder={`Pesquisar nos ${EDUCATIONAL_PROMPTS.length} prompts...`}
             className="w-full pl-9 pr-3.5 py-1.5 text-xs rounded-xl bg-white border border-[#DCE8F6] focus:outline-hidden focus:border-[#0284C7] focus:ring-1 focus:ring-[#0284C7] text-[#08203E] placeholder:text-slate-400"
           />
         </div>
@@ -185,18 +185,6 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
                     {prompt.promptText}
                   </div>
                 </div>
-
-                {/* 6. Nota de validação (apenas quando necessária) */}
-                {prompt.validationNote && (
-                  <div className="p-3.5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] text-xs space-y-1">
-                    <span className="font-bold text-[#92400E] font-mono text-[11px] uppercase block">
-                      Nota:
-                    </span>
-                    <p className="text-[#78350F] leading-relaxed">
-                      {prompt.validationNote}
-                    </p>
-                  </div>
-                )}
               </div>
 
               {/* 7. Botão Copiar */}
