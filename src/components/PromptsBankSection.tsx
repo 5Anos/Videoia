@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { 
   Copy, 
   Check, 
-  Sparkle,
   ShieldAlert,
   Search
 } from 'lucide-react';
@@ -91,11 +90,6 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 1. Cabeçalho / Introdução */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE8F6] shadow-xs space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono">
-          <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
-          <span>Recursos Pedagógicos Prontos a Utilizar</span>
-        </div>
-
         <div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] tracking-tight font-serif-display">
             Banco de Prompts para Vídeos com IA

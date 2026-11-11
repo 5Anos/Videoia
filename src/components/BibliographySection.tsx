@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  GraduationCap, 
-  Sparkle
+  GraduationCap
 } from 'lucide-react';
 import { BIBLIOGRAPHY } from '../data/presentationData';
 
@@ -26,10 +25,6 @@ export const BibliographySection: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-1">
-            <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
-            <span>Fundamentação Científica & Rigor Académico</span>
-          </div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] tracking-tight font-serif-display">
             Bibliografia APA (7.ª edição)
           </h1>

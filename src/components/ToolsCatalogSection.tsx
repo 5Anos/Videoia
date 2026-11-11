@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
   ExternalLink, 
   Check, 
+  CheckCircle2,
   Info,
   ShieldCheck,
   Compass
@@ -168,11 +169,6 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
       <section className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-10 shadow-xs overflow-hidden">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Seleção Pedagógica · 16 Ferramentas de IA Analisadas</span>
-            </div>
-
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] font-serif-display leading-tight">
               Catálogo de Ferramentas de Vídeo com IA para Professores
             </h1>
@@ -334,47 +330,63 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                   </section>
 
                   {/* 2. Principais Funcionalidades */}
-                  <section className="space-y-1.5">
+                  <section className="space-y-2">
                     <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
                       Principais Funcionalidades
                     </h3>
-                    <div className="space-y-1 text-xs sm:text-sm text-[#334155] leading-relaxed">
+                    <div className="space-y-2">
                       {tool.keyFeatures.map((feat, i) => (
-                        <div key={i}>{feat}</div>
+                        <div 
+                          key={i}
+                          className="flex items-start gap-2.5 p-3 rounded-xl bg-[#F0F7FF] border border-[#D8EAFD] text-xs sm:text-sm text-[#1E3A5F] leading-snug"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-[#0966C2] shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
                       ))}
                     </div>
                   </section>
 
                   {/* 3. Tipos de Conteúdo de Entrada */}
-                  <section className="space-y-1.5">
+                  <section className="space-y-2">
                     <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
                       Tipos de Conteúdo de Entrada
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#334155] leading-relaxed">
-                      {tool.inputTypes.join(' · ')}
-                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {tool.inputTypes.map((type, i) => (
+                        <span 
+                          key={i}
+                          className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-[#EBF3FC] text-[#0B4B82] border border-[#CFE2F7]"
+                        >
+                          {type}
+                        </span>
+                      ))}
+                    </div>
                   </section>
 
                   {/* 4. Cenários de Aplicação em Sala de Aula */}
-                  <section className="space-y-1.5">
+                  <section className="space-y-2">
                     <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
                       Cenários de Aplicação em Sala de Aula
                     </h3>
-                    <div className="space-y-2 text-xs sm:text-sm text-[#334155] leading-relaxed">
+                    <div className="space-y-2.5">
                       {tool.pedagogicalUseCases.map((useCase, i) => (
-                        <p key={i}>
-                          <strong>Cenário 0{i + 1}:</strong> {useCase}
-                        </p>
+                        <div 
+                          key={i}
+                          className="p-3.5 rounded-xl bg-[#F4F9FE] border border-[#CFE3F8] text-xs sm:text-sm text-[#1E3A5F] leading-relaxed"
+                        >
+                          <strong className="text-[#08203E] font-bold">Cenário 0{i + 1}:</strong> {useCase}
+                        </div>
                       ))}
                     </div>
                   </section>
 
                   {/* 5. Requisitos Legais, Idade e Salvaguardas */}
-                  <section className="space-y-1.5">
+                  <section className="space-y-2">
                     <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
                       Requisitos Legais, Idade e Salvaguardas
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#334155] leading-relaxed">
+                    <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs sm:text-sm text-[#334155] leading-relaxed">
                       {tool.factCheckStatus.minimumAge.startsWith('É necessário') ? (
                         <span>
                           {tool.factCheckStatus.minimumAge}
@@ -392,19 +404,19 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                           )}
                         </span>
                       )}
-                    </p>
+                    </div>
                   </section>
 
                   {/* 6. Fontes Oficiais da Ferramenta */}
-                  <section className="space-y-2 pt-2 border-t border-[#EEF2F6]">
+                  <section className="space-y-2 pt-3 border-t border-[#EEF2F6]">
                     <h3 className="text-sm font-bold text-[#08203E] font-serif-display">
                       Fontes Oficiais da Ferramenta
                     </h3>
                     {tool.officialSources && tool.officialSources.length > 0 && (
-                      <p className="text-xs sm:text-sm text-[#334155] leading-relaxed">
+                      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs sm:text-sm text-[#334155] leading-relaxed">
                         {tool.officialSources.map((source, sIdx) => (
                           <React.Fragment key={sIdx}>
-                            {sIdx > 0 && ' · '}
+                            {sIdx > 0 && <span className="text-slate-300 font-bold">·</span>}
                             <a
                               href={source.url}
                               target="_blank"
@@ -415,9 +427,9 @@ export const ToolsCatalogSection: React.FC<ToolsCatalogSectionProps> = ({
                             </a>
                           </React.Fragment>
                         ))}
-                      </p>
+                      </div>
                     )}
-                    <p className="text-xs text-slate-500 font-mono">
+                    <p className="text-xs text-slate-500 font-mono pt-0.5">
                       Verificado em {formatDate(tool.lastVerified)}
                     </p>
                   </section>

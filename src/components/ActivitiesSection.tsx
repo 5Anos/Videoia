@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Sparkle,
   Copy,
   Check,
   Film,
@@ -47,10 +46,6 @@ export const ActivitiesSection: React.FC = () => {
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 1. Header / Introdução */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#DCE8F6] shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#0B4B82] uppercase font-mono mb-2">
-          <Sparkle className="w-3.5 h-3.5 text-[#0B4B82]" />
-          <span>Capacitação Docente · Práticas de Sala de Aula</span>
-        </div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#08203E] tracking-tight font-serif-display">
           Atividades na Aula
         </h1>
@@ -392,50 +387,6 @@ export const ActivitiesSection: React.FC = () => {
             </p>
           </div>
         )}
-      </div>
-
-      {/* 4. Secção Final: O que observar na atividade? */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#DCE8F6] shadow-sm space-y-4">
-        <div>
-          <span className="text-xs font-bold text-[#0B4B82] uppercase tracking-wider font-mono">
-            Apoio à Mediação Pedagógica
-          </span>
-          <h2 className="text-lg sm:text-xl font-bold text-[#08203E] font-serif-display mt-0.5">
-            O que observar na atividade?
-          </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Esta secção apoia a observação do processo e da aprendizagem; não constitui uma nova rubrica de avaliação. Para além do vídeo produzido, observe o que os alunos conseguem explicar, justificar ou analisar sobre o conteúdo trabalhado.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-3 gap-3.5 pt-2">
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
-            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
-              1
-            </div>
-            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
-              A informação apresentada está correta?
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
-            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
-              2
-            </div>
-            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
-              O vídeo corresponde ao objetivo definido?
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
-            <div className="w-7 h-7 rounded-lg bg-[#EAF3FD] text-[#0B4B82] flex items-center justify-center font-bold text-xs font-mono">
-              3
-            </div>
-            <p className="text-xs font-semibold text-[#08203E] leading-relaxed">
-              O resultado foi revisto antes da partilha?
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
