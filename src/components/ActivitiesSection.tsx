@@ -9,7 +9,6 @@ import {
   Calendar,
   Layers,
   ShieldAlert,
-  Info,
   CheckCircle2,
   Video,
   Sparkles,
@@ -358,35 +357,6 @@ export const ActivitiesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Notas de Validação */}
-        {currentActivity.validationNotes && currentActivity.validationNotes.length > 0 && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] space-y-2">
-            <span className="text-xs font-bold text-[#92400E] uppercase font-mono tracking-wider flex items-center gap-1.5">
-              <ShieldAlert className="w-4 h-4 text-[#B45309]" />
-              <span>NOTA DE VALIDAÇÃO CIENTÍFICA E PEDAGÓGICA</span>
-            </span>
-            <div className="space-y-1.5 text-xs text-[#78350F] leading-relaxed">
-              {currentActivity.validationNotes.map((note, nIdx) => (
-                <p key={nIdx}>
-                  {note}
-                </p>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Importante sobre a Ferramenta (se existir) */}
-        {currentActivity.toolImportantNote && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#EFF6FF] border border-[#BFDBFE] space-y-1.5 text-xs text-[#1E40AF] leading-relaxed">
-            <span className="font-bold uppercase font-mono text-[11px] flex items-center gap-1.5 text-[#1E3A8A]">
-              <Info className="w-4 h-4 text-[#2563EB]" />
-              <span>IMPORTANTE SOBRE A FERRAMENTA</span>
-            </span>
-            <p>
-              {currentActivity.toolImportantNote}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
