@@ -26,6 +26,10 @@ export interface EducationalPrompt {
   pedagogicalObjective: string;
   promptText: string;
   validationNote?: string;
+  requiredInput?: string;
+  toolSetup?: string;
+  promptLabel?: string;
+  copyButtonLabel?: string;
 }
 
 export type CapabilityTag = 
@@ -297,265 +301,173 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
       "Libertar tempo para rever o conteúdo e a finalidade pedagógica do vídeo."
     ],
     pedagogicalNote: "Rever o vídeo completo depois da edição. Confirmar que nenhum corte retirou informação essencial ou alterou o significado. Verificar a resolução, o formato de exportação e a eventual marca de água."
+  },
+  {
+    id: 6,
+    title: "6. Envolver os alunos na criação de vídeos",
+    shortTitle: "Criação pelos alunos",
+    description: "Permite ao professor envolver os alunos na conceção e produção de vídeos com apoio de ferramentas de Inteligência Artificial. Os alunos podem pesquisar informação, elaborar guiões, planear cenas, selecionar recursos visuais, criar narrativas audiovisuais e analisar criticamente os resultados.",
+    capabilities: [
+      "Elaborar guiões e storyboards a partir de conteúdos curriculares.",
+      "Criar vídeos explicativos, apresentações e narrativas audiovisuais em grupo.",
+      "Utilizar funcionalidades de IA para apoiar a criação ou adaptação de elementos visuais, narração e legendas, quando disponíveis na conta.",
+      "Analisar criticamente os resultados gerados por IA, identificar erros e justificar as escolhas realizadas."
+    ],
+    usefulTools: [
+      {
+        name: "Canva para Educação",
+        description: "Criar e editar vídeos e apresentações multimédia em projetos individuais ou colaborativos, utilizando os modelos e as funcionalidades de IA disponíveis e autorizadas na conta educativa."
+      },
+      {
+        name: "Microsoft Clipchamp",
+        description: "Montar sequências de vídeo, gravar narrações, editar áudio e vídeo e adicionar legendas, de acordo com as funcionalidades disponíveis na conta."
+      }
+    ],
+    teacherBenefits: [
+      "Colocar os alunos no papel de autores e comunicadores do conhecimento.",
+      "Desenvolver a criatividade, a comunicação, a colaboração e a literacia digital.",
+      "Observar a compreensão dos conteúdos através das explicações e escolhas presentes nos vídeos.",
+      "Promover o pensamento crítico através da análise e validação dos conteúdos gerados por IA."
+    ],
+    pedagogicalNote: "Definir previamente os objetivos de aprendizagem e os critérios de qualidade. Valorizar o processo de pesquisa, elaboração do guião, produção e revisão, não apenas o vídeo final. Antes de envolver os alunos, confirmar a idade mínima, os termos do fornecedor, as permissões da conta escolar e as regras da instituição. Quando uma ferramenta não permitir a utilização direta por menores, o professor opera as funcionalidades de IA e os alunos participam na preparação e análise dos conteúdos. Não carregar imagens, vozes ou dados pessoais dos alunos sem as autorizações e validações aplicáveis."
   }
 ];
 
 // 3. BANCO DE PROMPTS PARA VÍDEOS COM IA (11 PROMPTS PRONTOS A UTILIZAR)
 export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
   {
-    id: 1,
-    title: "O percurso do sangue no coração",
-    discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "3.º Ciclo (9.º ano)",
-    creationType: "Imagem para vídeo — animação científica esquemática.",
-    recommendedTool: "PixVerse — alternativa: Kling AI. Utilizar uma imagem anatómica previamente validada.",
-    pedagogicalObjective: "Visualizar o percurso do sangue na circulação pulmonar e sistémica, distinguindo os dois circuitos.",
-    promptText: `Usa exclusivamente a imagem de referência fornecida pelo professor, que contém um esquema anatómico validado do coração e dos principais vasos sanguíneos.
-
-Cria uma animação científica curta, mantendo rigorosamente a forma, a posição e o número das cavidades, válvulas e vasos representados.
-
-Anima apenas um realce luminoso discreto que acompanhe os percursos já existentes no esquema: o sangue menos oxigenado segue do lado direito do coração para os pulmões; o sangue oxigenado regressa ao lado esquerdo e é enviado para o corpo através da aorta.
-
-Utiliza azul e vermelho apenas como convenções gráficas para distinguir os dois tipos de sangue.
-
-Mantém a anatomia estável. Não acrescentes vasos, válvulas, cavidades ou órgãos. Não introduzas texto, setas ou legendas.
-
-A câmara deve permanecer estável, com movimento mínimo.`,
-    validationNote: "A imagem de referência deve ser um esquema anatómico cientificamente validado. Confirmar os percursos do sangue e as estruturas cardíacas. As cores são convenções gráficas, não representam as cores reais do sangue."
+    "id": 1,
+    "title": "O percurso do sangue no coração",
+    "discipline": "Ciências Naturais / Biologia",
+    "gradeLevel": "3.º Ciclo (9.º ano)",
+    "creationType": "Imagem para vídeo — animação científica esquemática.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Visualizar o percurso do sangue na circulação pulmonar e sistémica, distinguindo os dois circuitos.",
+    "requiredInput": "Esquema anatómico validado do coração, com cavidades e principais vasos sanguíneos identificados.",
+    "promptText": "A partir do esquema carregado, destaca com um realce luminoso o percurso do sangue: veias cavas → aurícula direita → ventrículo direito → artérias pulmonares → pulmões → veias pulmonares → aurícula esquerda → ventrículo esquerdo → aorta. Mantém as estruturas e legendas originais.",
+    "validationNote": "Confirmar a sequência e o sentido da circulação. As cores azul e vermelho são convenções gráficas, não representam as cores reais do sangue. A animação deve ser revista, pois a IA pode alterar o percurso."
   },
   {
-    id: 2,
-    title: "A chegada de Vasco da Gama à Índia (1498)",
-    discipline: "História",
-    gradeLevel: "2.º Ciclo (5.º ou 6.º ano)",
-    creationType: "Imagem para vídeo — reconstituição histórica ilustrativa.",
-    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
-    pedagogicalObjective: "Representar visualmente a chegada da expedição de Vasco da Gama a Calecute em 1498, distinguindo uma reconstituição de um documento histórico.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação ilustrativa da aproximação de embarcações portuguesas à costa de Calecute, na Índia, em 1498.
-
-Preserva os navios, as pessoas, a composição e os elementos históricos presentes na imagem original.
-
-Anima suavemente o movimento do mar, as velas ao vento e a luz sobre a paisagem.
-
-Utiliza um movimento de câmara lento e discreto, mantendo a coerência visual da imagem.
-
-Não acrescentes navios, pessoas, bandeiras, símbolos ou elementos históricos que não estejam presentes na referência. Não inventes acontecimentos, diálogos ou reações individuais.
-
-Não incluas texto, datas ou legendas. Não imites a aparência de uma filmagem documental autêntica.
-
-O resultado deve ser uma reconstituição visual ilustrativa, não um documento histórico.`,
-    validationNote: "Confrontar a representação com fontes iconográficas e históricas. Identificar sempre o vídeo como reconstituição gerada por IA."
+    "id": 2,
+    "title": "A chegada de Vasco da Gama à Índia (1498)",
+    "discipline": "História",
+    "gradeLevel": "2.º Ciclo (5.º ou 6.º ano)",
+    "creationType": "Imagem para vídeo — reconstituição histórica ilustrativa.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Representar visualmente a chegada da expedição de Vasco da Gama a Calecute em 1498, distinguindo uma reconstituição de um documento histórico.",
+    "requiredInput": "Imagem de referência de embarcações portuguesas junto à costa de Calecute.",
+    "promptText": "Anima suavemente as ondas e as velas das embarcações junto à costa de Calecute. Preserva os navios, as pessoas e a composição original da imagem. Não acrescentes figuras, bandeiras ou acontecimentos. O resultado deve ser uma reconstituição histórica ilustrativa, não uma filmagem documental.",
+    "validationNote": "Identificar sempre o vídeo como uma reconstituição gerada por IA e confrontar a representação com fontes históricas."
   },
   {
-    id: 3,
-    title: "O ciclo da água",
-    discipline: "Ciências Naturais / Geografia",
-    gradeLevel: "2.º Ciclo (5.º ano)",
-    creationType: "Imagem para vídeo — animação científica de um esquema.",
-    recommendedTool: "PixVerse — alternativa: Vidu ou Hailuo AI.",
-    pedagogicalObjective: "Representar as principais etapas do ciclo da água, incluindo evaporação, condensação, precipitação, escoamento e infiltração.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor, que representa um esquema cientificamente validado do ciclo da água.
-
-Cria uma animação educativa curta, mantendo a composição e os elementos fundamentais do esquema.
-
-Anima suavemente a superfície da água, a formação das nuvens e a precipitação.
-
-O vapor de água deve ser representado como invisível, não como fumo branco. As nuvens devem apresentar pequenas gotículas de água ou cristais de gelo.
-
-Mostra o regresso da água à superfície através do escoamento e da infiltração no solo, respeitando os processos já representados na imagem.
-
-Não acrescentes novos elementos, setas, textos, legendas ou valores.
-
-Mantém a imagem estável e evita alterações à sequência científica do esquema.`,
-    validationNote: "Confirmar que o vapor de água não é representado como fumo e que a sequência não sugere uma trajetória única obrigatória para todas as moléculas de água."
+    "id": 3,
+    "title": "O ciclo da água",
+    "discipline": "Ciências Naturais / Geografia",
+    "gradeLevel": "2.º Ciclo (5.º ano)",
+    "creationType": "Imagem para vídeo — animação científica de um esquema.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Representar as principais etapas do ciclo da água, incluindo evaporação, condensação, precipitação, escoamento e infiltração.",
+    "requiredInput": "Esquema cientificamente validado do ciclo da água.",
+    "promptText": "Anima suavemente as nuvens e a precipitação no esquema carregado. Destaca o escoamento e a infiltração já representados. Mantém as setas e legendas originais. O vapor de água é invisível: não o representes como fumo.",
+    "validationNote": "Confirmar que a animação não sugere que todas as moléculas de água seguem obrigatoriamente o mesmo percurso."
   },
   {
-    id: 4,
-    title: "A mitose celular",
-    discipline: "Biologia e Geologia",
-    gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
-    creationType: "Imagem para vídeo — animação de esquema científico.",
-    recommendedTool: "PixVerse — alternativa: Kling AI ou Vidu.",
-    pedagogicalObjective: "Identificar visualmente as fases da mitose e compreender a separação das cromátides-irmãs.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor, que apresenta um esquema científico validado das quatro fases da mitose: prófase, metáfase, anáfase e telófase.
-
-Cria uma animação curta que destaque progressivamente cada uma das quatro fases.
-
-Realça cada painel através de uma iluminação suave ou de um ligeiro movimento de câmara.
-
-Preserva integralmente as células, os cromossomas, o fuso mitótico e a composição original do esquema.
-
-Não inventes cromossomas, não alteres o número de estruturas e não transformes uma fase noutra através de movimentos anatómicos imaginados.
-
-Não representes a duplicação do ADN como parte da mitose. Não acrescentes legendas, nomes ou texto automático.
-
-O resultado deve funcionar como uma animação de apoio à observação do esquema científico original.`,
-    validationNote: "A imagem deve ser validada previamente e a sequência das fases deve ser confirmada através de uma fonte científica. A animação não deve ser apresentada como uma captura microscópica real."
+    "id": 4,
+    "title": "A mitose celular",
+    "discipline": "Biologia e Geologia",
+    "gradeLevel": "Ensino Secundário (10.º ou 11.º ano)",
+    "creationType": "Imagem para vídeo — animação de esquema científico.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Identificar visualmente as fases da mitose e compreender a separação das cromátides-irmãs.",
+    "requiredInput": "Esquema científico validado das quatro fases da mitose.",
+    "promptText": "Faz uma aproximação lenta e sequencial aos painéis da prófase, metáfase, anáfase e telófase. Mantém as células, os cromossomas e o fuso mitótico sem alterações. Não cries fases intermédias nem acrescentes estruturas ou legendas.",
+    "validationNote": "Confirmar que as quatro fases estão corretamente identificadas. A animação é uma representação ilustrativa e não uma observação microscópica real."
   },
   {
-    id: 5,
-    title: "Como se formam os vulcões nas zonas de subducção?",
-    discipline: "Ciências Naturais / Geologia",
-    gradeLevel: "3.º Ciclo (7.º ano)",
-    creationType: "Imagem para vídeo — animação de um corte geológico.",
-    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
-    pedagogicalObjective: "Visualizar a subducção de uma placa oceânica e a formação de magma na região do manto sobrejacente.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor, que representa um corte geológico validado de uma zona de subducção.
-
-Preserva a posição e a geometria das placas tectónicas, da crosta, do manto e do vulcão.
-
-Cria uma animação curta que destaque o mergulho da placa oceânica sob a placa continental e a ascensão do magma através da região já representada no esquema.
-
-Mostra o movimento do magma apenas no percurso previamente indicado na imagem.
-
-Não representes a placa subductada como se fundisse integralmente. Não acrescentes novas placas, vulcões ou estruturas geológicas.
-
-Não inventes escalas, setas ou legendas. Não transformes o esquema científico numa representação fantasiosa.`,
-    validationNote: "Confirmar que a animação não apresenta a fusão integral da placa oceânica. Validar a relação entre os fluidos libertados, a fusão parcial do manto e a ascensão do magma."
+    "id": 5,
+    "title": "Como se formam os vulcões nas zonas de subducção?",
+    "discipline": "Ciências Naturais / Geologia",
+    "gradeLevel": "3.º Ciclo (7.º ano)",
+    "creationType": "Imagem para vídeo — animação de um corte geológico.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Visualizar a subducção de uma placa oceânica e a formação de magma na região do manto sobrejacente.",
+    "requiredInput": "Corte geológico validado de uma zona de subducção, com a placa oceânica, o manto e o percurso do magma identificados.",
+    "promptText": "Destaca o mergulho da placa oceânica sob a placa continental e a ascensão do magma no manto sobrejacente, seguindo o percurso já indicado no esquema. Mantém a geometria original. Não representes a placa oceânica a fundir-se integralmente.",
+    "validationNote": "A fusão parcial ocorre no manto sobrejacente, favorecida pela água libertada pela placa subductada. Confirmar que o vídeo não apresenta a placa oceânica como totalmente fundida."
   },
   {
-    id: 6,
-    title: "Segurança no laboratório de Ciências",
-    discipline: "Ciências Naturais / Físico-Química",
-    gradeLevel: "3.º Ciclo (7.º ao 9.º ano)",
-    creationType: "Texto para vídeo — apresentador virtual.",
-    recommendedTool: "HeyGen — plano gratuito de experimentação; alternativa: Vidnoz AI. Utilização da conta pelo professor adulto.",
-    pedagogicalObjective: "Apresentar três regras fundamentais de segurança laboratorial através de um apresentador virtual.",
-    promptText: `Cria um vídeo educativo com um apresentador virtual adulto, de aparência profissional, num laboratório escolar organizado.
-
-O apresentador deve utilizar bata e óculos de proteção, falar de forma clara e manter um ritmo moderado.
-
-Utiliza exatamente o seguinte texto de narração, em Português de Portugal:
-
-«Antes de iniciares uma atividade laboratorial, coloca os equipamentos de proteção indicados pelo professor e prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Se ocorrer um derrame ou uma situação inesperada, não toques no material nem tentes limpar. Afasta-te e informa imediatamente o professor, seguindo as regras de segurança do laboratório.»
-
-Utiliza uma apresentação simples, com o apresentador em destaque e um laboratório como cenário.
-
-Não acrescentes regras, produtos químicos, procedimentos ou instruções que não estejam no texto.
-
-Não utilizes a imagem ou a voz de pessoas reais. Não apresentes a personagem como um professor verdadeiro.`,
-    validationNote: "Adaptar as instruções ao regulamento do laboratório e às fichas de segurança dos produtos utilizados na escola. Confirmar a pronúncia antes da exportação."
+    "id": 6,
+    "title": "Segurança no laboratório de Ciências",
+    "discipline": "Ciências Naturais / Físico-Química",
+    "gradeLevel": "3.º Ciclo (7.º ao 9.º ano)",
+    "creationType": "Texto para vídeo — apresentador virtual.",
+    "recommendedTool": "HeyGen — AI Studio",
+    "pedagogicalObjective": "Apresentar três regras fundamentais de segurança laboratorial através de um apresentador virtual.",
+    "toolSetup": "Seleciona um avatar público adulto, um cenário de laboratório e uma voz em Português de Portugal, se disponível. Cola o texto seguinte no campo Script.",
+    "promptLabel": "Texto para o campo Script",
+    "copyButtonLabel": "Copiar texto",
+    "promptText": "Antes da atividade, segue as indicações do professor e utiliza os equipamentos de proteção adequados. Prende o cabelo comprido. Nunca proves reagentes nem cheires diretamente os recipientes. Em caso de derrame, afasta-te e informa imediatamente o professor. Não tentes limpar o material.",
+    "validationNote": "Adaptar as regras ao regulamento do laboratório e às fichas de segurança dos produtos utilizados na escola. Confirmar a pronúncia antes de exportar o vídeo."
   },
   {
-    id: 7,
-    title: "O Teorema de Pitágoras: a relação entre as áreas",
-    discipline: "Matemática",
-    gradeLevel: "3.º Ciclo (8.º ano)",
-    creationType: "Imagem para vídeo — animação de diagrama geométrico validado.",
-    recommendedTool: "GeoGebra para criar o esquema rigoroso e PixVerse para uma animação muito subtil. Alternativa gratuita de montagem: Clipchamp.",
-    pedagogicalObjective: "Visualizar a relação entre as áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
-    promptText: `Utiliza exclusivamente a imagem de referência fornecida pelo professor, previamente construída e validada no GeoGebra.
-
-A imagem contém um triângulo retângulo com lados de comprimento 3, 4 e 5 e três quadrados construídos externamente sobre os respetivos lados.
-
-Cria uma animação geométrica simples, aplicando apenas um movimento de câmara lento e uma aproximação visual aos três quadrados.
-
-Preserva integralmente as medidas, os ângulos, a posição dos elementos e a forma dos quadrados.
-
-Não deformes o triângulo nem alteres as dimensões dos quadrados.
-
-Não geres números, fórmulas, símbolos matemáticos ou legendas.
-
-O vídeo deve manter o diagrama original sem alterações geométricas.`,
-    validationNote: "As medidas, os ângulos e as áreas devem ser construídos e verificados no GeoGebra. Se a IA deformar qualquer elemento, utilizar o diagrama original e montar a animação no Clipchamp. Inserir posteriormente a expressão 3² + 4² = 5² através de um editor."
+    "id": 7,
+    "title": "O Teorema de Pitágoras: a relação entre as áreas",
+    "discipline": "Matemática",
+    "gradeLevel": "3.º Ciclo (8.º ano)",
+    "creationType": "Imagem para vídeo — animação de diagrama geométrico validado.",
+    "recommendedTool": "Canva — Image to Video (modo Custom)",
+    "pedagogicalObjective": "Visualizar a relação entre as áreas dos quadrados construídos sobre os lados de um triângulo retângulo.",
+    "requiredInput": "Diagrama criado e validado no GeoGebra, com um triângulo retângulo de lados 3, 4 e 5 e três quadrados construídos externamente sobre os respetivos lados.",
+    "promptText": "Aplica uma aproximação muito suave à imagem, mantendo o triângulo retângulo e os três quadrados exatamente como no original. Preserva os comprimentos, os ângulos e as proporções. Não acrescentes números, fórmulas, legendas ou elementos.",
+    "validationNote": "Confirmar as medidas e os ângulos no GeoGebra. Se o vídeo alterar a geometria, não utilizar a animação gerada. Manter o diagrama original e montar o vídeo no editor."
   },
   {
-    id: 8,
-    title: "Inês de Castro: História, Lenda e Literatura",
-    discipline: "Português / História",
-    gradeLevel: "3.º Ciclo (9.º ano) e Ensino Secundário",
-    creationType: "Imagem para vídeo — animação de ilustração literária.",
-    recommendedTool: "PixVerse — alternativa: Kling AI.",
-    pedagogicalObjective: "Criar uma representação visual inspirada no episódio de Inês de Castro, distinguindo a dimensão histórica da construção literária e lendária.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação visual inspirada na figura literária de Inês de Castro e no episódio narrado no Canto III de Os Lusíadas.
-
-Preserva o estilo artístico, a composição, a personagem e os elementos visuais da imagem original.
-
-Anima suavemente o movimento da água, das folhas e do vestuário, utilizando um movimento de câmara discreto.
-
-Não acrescentes acontecimentos, personagens ou elementos históricos específicos que não estejam presentes na imagem de referência.
-
-Não apresentes a Quinta das Lágrimas como local historicamente comprovado do acontecimento.
-
-Não representes as manchas avermelhadas das pedras como vestígios reais de sangue.
-
-Não incluas diálogos, legendas ou texto.
-
-O resultado deve ser uma representação artística e ilustrativa, não uma reconstituição documental.`,
-    validationNote: "A Quinta das Lágrimas deve ser apresentada como espaço associado à tradição lendária de Pedro e Inês. Distinguir a informação histórica, a lenda e a representação literária de Camões."
+    "id": 8,
+    "title": "Inês de Castro: História, Lenda e Literatura",
+    "discipline": "Português / História",
+    "gradeLevel": "3.º Ciclo (9.º ano) e Ensino Secundário",
+    "creationType": "Imagem para vídeo — animação de ilustração literária.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Criar uma representação visual inspirada no episódio de Inês de Castro, distinguindo a dimensão histórica da construção literária e lendária.",
+    "requiredInput": "Ilustração artística de Inês de Castro.",
+    "promptText": "Anima suavemente a água, as folhas e o vestuário da ilustração. Preserva a composição e o estilo artístico originais. Não acrescentes personagens ou acontecimentos. O resultado deve ser uma ilustração inspirada na obra, não uma reconstituição documental.",
+    "validationNote": "Distinguir a informação histórica, a tradição lendária e a representação literária de Camões. A Quinta das Lágrimas deve ser apresentada como espaço associado à tradição lendária, não como local historicamente comprovado do acontecimento."
   },
   {
-    id: 9,
-    title: "A fotossíntese: da luz à produção de matéria orgânica",
-    discipline: "Ciências Naturais / Biologia",
-    gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
-    creationType: "Imagem para vídeo — animação científica de um esquema celular.",
-    recommendedTool: "PixVerse — alternativa: Vidu ou Kling AI.",
-    pedagogicalObjective: "Visualizar a relação entre as reações dependentes da luz nos tilacoides e o ciclo de Calvin no estroma do cloroplasto.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor, que contém um esquema científico validado da fotossíntese e da estrutura de um cloroplasto.
-
-Cria uma animação educativa curta, mantendo as estruturas e a composição da imagem original.
-
-Realça primeiro as membranas dos tilacoides, onde ocorrem as reações dependentes da luz.
-
-Depois, destaca o estroma, onde decorre o ciclo de Calvin.
-
-Utiliza uma iluminação suave para distinguir visualmente as duas regiões.
-
-Preserva a estrutura do cloroplasto e não inventes membranas, organelos ou moléculas.
-
-Não representes o ciclo de Calvin como ocorrendo nos tilacoides. Não mostres a água a ser transformada diretamente em glicose.
-
-Não acrescentes fórmulas, legendas, nomes ou texto automático.`,
-    validationNote: "Utilizar apenas uma imagem científica previamente validada. Confirmar a distinção entre tilacoides e estroma e a localização dos processos. Para níveis de ensino mais elementares, substituir a explicação molecular por uma representação introdutória da fotossíntese."
+    "id": 9,
+    "title": "A fotossíntese: da luz à produção de matéria orgânica",
+    "discipline": "Ciências Naturais / Biologia",
+    "gradeLevel": "Ensino Secundário (10.º ou 11.º ano)",
+    "creationType": "Imagem para vídeo — animação científica de um esquema celular.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Visualizar a relação entre as reações dependentes da luz nos tilacoides e o ciclo de Calvin no estroma do cloroplasto.",
+    "requiredInput": "Esquema cientificamente validado de um cloroplasto, com os tilacoides e o estroma identificados.",
+    "promptText": "Faz uma aproximação suave ao cloroplasto, destacando primeiro os tilacoides e depois o estroma. Mantém as estruturas e a localização dos processos como no esquema original. Não acrescentes organelos, moléculas, setas ou legendas.",
+    "validationNote": "Confirmar que as reações dependentes da luz ocorrem nas membranas dos tilacoides e que o ciclo de Calvin decorre no estroma."
   },
   {
-    id: 10,
-    title: "Multiplicação prática: três grupos de quatro",
-    discipline: "Matemática",
-    gradeLevel: "1.º Ciclo (3.º ano)",
-    creationType: "Imagem para vídeo — animação de uma representação visual da multiplicação.",
-    recommendedTool: "PixVerse, a partir de uma imagem previamente construída no Canva. Alternativa gratuita: Clipchamp.",
-    pedagogicalObjective: "Representar a multiplicação como adição repetida através de três grupos com quatro elementos cada.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor, que apresenta exatamente três caixas iguais, cada uma com quatro maçãs vermelhas.
-
-Cria uma animação curta, mantendo rigorosamente os três grupos e as doze maçãs da imagem original.
-
-Aplica apenas um movimento de câmara suave e uma aproximação visual às caixas.
-
-Não acrescentes, retires, dupliques ou deformes maçãs ou caixas.
-
-Não alteres a disposição dos grupos.
-
-Não geres números, símbolos ou expressões matemáticas.
-
-O resultado deve preservar a imagem original e facilitar a observação dos três grupos de quatro elementos.`,
-    validationNote: "A imagem deve ser construída e contada previamente no Canva. Confirmar a existência de três grupos com quatro elementos cada. Se a IA alterar a quantidade, utilizar a imagem original e fazer a animação no Clipchamp."
+    "id": 10,
+    "title": "Multiplicação prática: três grupos de quatro",
+    "discipline": "Matemática",
+    "gradeLevel": "1.º Ciclo (3.º ano)",
+    "creationType": "Imagem para vídeo — animação de uma representação visual da multiplicação.",
+    "recommendedTool": "Canva — Image to Video (modo Custom)",
+    "pedagogicalObjective": "Representar a multiplicação como adição repetida através de três grupos com quatro elementos cada.",
+    "requiredInput": "Imagem criada no Canva com três caixas iguais, cada uma com exatamente quatro maçãs vermelhas.",
+    "promptText": "Aplica uma aproximação muito suave à imagem, mantendo exatamente três grupos com quatro maçãs em cada um. Preserva a quantidade, a forma e a disposição dos elementos. Não acrescentes, retires ou dupliques maçãs ou caixas.",
+    "validationNote": "Confirmar que continuam visíveis exatamente três grupos de quatro maçãs. Se a geração alterar a quantidade ou a disposição, não utilizar o vídeo. Manter a imagem original e fazer a montagem no editor."
   },
   {
-    id: 11,
-    title: "A Revolução dos Cravos — 25 de Abril de 1974",
-    discipline: "História / Cidadania",
-    gradeLevel: "2.º e 3.º Ciclos e Ensino Secundário",
-    creationType: "Imagem para vídeo — reconstituição histórica ilustrativa.",
-    recommendedTool: "PixVerse — alternativa: Hailuo AI ou Kling AI.",
-    pedagogicalObjective: "Representar visualmente o ambiente associado ao 25 de Abril de 1974, distinguindo a reconstituição gerada de uma imagem documental.",
-    promptText: `Utiliza a imagem de referência fornecida pelo professor para criar uma animação ilustrativa inspirada no 25 de Abril de 1974, em Lisboa.
-
-Preserva a composição, os edifícios, os militares, os civis e os símbolos históricos existentes na imagem.
-
-Anima suavemente o movimento dos cravos vermelhos e dos elementos visuais já presentes. Aplica um movimento de câmara lento e discreto.
-
-Não acrescentes figuras históricas, acontecimentos, uniformes, veículos militares ou símbolos que não estejam representados na imagem de referência.
-
-Não inventes diálogos, comportamentos individuais ou acontecimentos específicos.
-
-Não simules uma filmagem documental verdadeira. Não apresentes o resultado como fotografia ou filme de arquivo.
-
-Não incluas datas, títulos, legendas ou texto automático.
-
-O resultado deve ser uma reconstituição visual claramente identificada como gerada por Inteligência Artificial.`,
-    validationNote: "Utilizar uma imagem própria ou devidamente licenciada. Confrontar a representação com fotografias, testemunhos e documentos históricos. Nunca apresentar a animação como registo documental autêntico."
+    "id": 11,
+    "title": "A Revolução dos Cravos — 25 de Abril de 1974",
+    "discipline": "História / Cidadania",
+    "gradeLevel": "2.º e 3.º Ciclos e Ensino Secundário",
+    "creationType": "Imagem para vídeo — reconstituição histórica ilustrativa.",
+    "recommendedTool": "PixVerse — Image to Video",
+    "pedagogicalObjective": "Representar visualmente o ambiente associado ao 25 de Abril de 1974, distinguindo a reconstituição gerada de uma imagem documental.",
+    "requiredInput": "Imagem histórica devidamente licenciada ou ilustração de referência do 25 de Abril de 1974.",
+    "promptText": "Anima suavemente os cravos vermelhos e os elementos já presentes na imagem. Preserva os edifícios, as pessoas e a composição original. Não acrescentes figuras ou acontecimentos. Identifica o resultado como reconstituição ilustrativa gerada por IA, não como documento de arquivo.",
+    "validationNote": "Confrontar a representação com fotografias, testemunhos e documentos históricos. Nunca apresentar a animação como registo documental autêntico."
   }
 ];
 
@@ -580,7 +492,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "O resultado pode incluir imagens inadequadas ou incorretas.",
       "O resumo de um texto não garante fidelidade ao documento original.",
       "A geração por IA consome créditos.",
-      "Não assumir Português de Portugal ou direitos comerciais sem confirmação."
+      "Não assumir Português de Portugal ou direitos comerciais sem confirmação.",
+      "Não é permitida a criação de avatares de pessoas com menos de 18 anos, mesmo com consentimento parental."
     ],
     pedagogicalUseCases: [
       "Apoiar a criação de um primeiro rascunho de vídeo para introdução de conteúdos",
@@ -593,13 +506,14 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "limited-free-plan",
     officialSources: [
       { label: "Página Oficial", url: "https://invideo.io/" },
-      { label: "Documentação de Planos", url: "https://docs.invideo.io/account/plans" }
+      { label: "Documentação de Planos", url: "https://docs.invideo.io/account/plans" },
+      { label: "Política de Segurança Infantil", url: "https://invideo.io/legal/child-safety/" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Plano gratuito limitado",
-      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "16 anos. Menores de 18 anos necessitam de consentimento e supervisão parental.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Permite apoiar a criação de um rascunho audiovisual a partir de instruções escritas, exigindo validação científica e revisão de guião.",
       whatIsFact: "Cria uma proposta estruturada de vídeo com cortes e narração a partir de uma instrução em texto.",
       whatIsMisleading: "O guião gerado automaticamente necessita de revisão pedagógica e científica pelo professor."
@@ -608,14 +522,14 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
   {
     id: "kling",
     name: "Kling AI",
-    category: "Geração de Vídeo e Movimento Físico",
-    badge: "Física e Fotorrealismo",
+    category: "Geração de Vídeo e Movimento Visual",
+    badge: "Movimento e Fotorrealismo",
     shortDesc: "O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens.",
     fullDesc: "O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens. As funcionalidades dependem do modelo e da versão selecionada.",
     keyFeatures: [
       "Geração de clipes visuais a partir de instruções em texto",
       "Animação de fotografias e ilustrações estáticas",
-      "Modelação de movimentos de fluidos, tecidos e luz natural",
+      "Representação visual de movimentos de fluidos, tecidos e efeitos de iluminação",
       "Controlo de câmara conforme o modelo e versão selecionados"
     ],
     inputTypes: ["Instrução em Texto", "Fotografia Estática"],
@@ -628,7 +542,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Os termos de utilização e a idade mínima devem ser respeitados."
     ],
     pedagogicalUseCases: [
-      "Simular processos físicos ou químicos que não se conseguem filmar em aula",
+      "Criar representações visuais ilustrativas de fenómenos físicos ou químicos difíceis de filmar, para observação e análise crítica, sem as apresentar como simulações científicas validadas.",
       "Animação de quadros e gravuras históricas para projetos interdisciplinares",
       "Exercícios de observação crítica do movimento gerado por IA"
     ],
@@ -637,16 +551,17 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     capabilityTags: ["text-to-video", "image-to-video"],
     accessType: "recurring-free-credits",
     officialSources: [
-      { label: "Página Oficial", url: "https://kling.ai/" }
+      { label: "Página Oficial", url: "https://kling.ai/" },
+      { label: "Política de Utilização", url: "https://kling.ai/docs/user-policy" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Créditos gratuitos periódicos sujeitos a limites",
-      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "13 anos. Menores de 18 anos necessitam de representação parental.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Adequado para geração de clipes visuais curtos ilustrativos para demonstrar fenómenos dinâmicos.",
-      whatIsFact: "Produz simulações de movimento e iluminação natural com elevado detalhe visual.",
-      whatIsMisleading: "As representações visuais podem incluir artefactos e necessitam de validação factual."
+      whatIsFact: "Gera clipes visuais a partir de texto e imagens, incluindo representações de movimento e efeitos visuais.",
+      whatIsMisleading: "O realismo visual não garante precisão física ou química. Os resultados podem apresentar erros e artefactos."
     }
   },
   {
@@ -662,7 +577,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Controlo de perspetiva e movimento de câmara tridimensional"
     ],
     inputTypes: ["Texto", "Fotografia / Imagem 2D"],
-    freeTierDetails: "Não apresentar uma quota gratuita recorrente de 30 gerações mensais. Consultar os planos e a disponibilidade atuais.",
+    freeTierDetails: "A página oficial de preços apresenta planos pagos e não indica um plano gratuito recorrente. Os custos variam conforme o modelo, a resolução, a duração e o modo de criação.",
     limitations: [
       "Os modelos podem mudar.",
       "Não presumir que todas as funcionalidades estão disponíveis gratuitamente.",
@@ -680,16 +595,18 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "paid-or-unconfirmed",
     officialSources: [
       { label: "Informação Oficial de Modelos", url: "https://lumalabs.ai/llm-info" },
-      { label: "Aplicação Luma", url: "https://app.lumalabs.ai/" }
+      { label: "Aplicação Luma", url: "https://app.lumalabs.ai/" },
+      { label: "Preços Oficiais", url: "https://lumalabs.ai/pricing" },
+      { label: "Termos de Serviço", url: "https://lumalabs.ai/legal/terms-of-service" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Acesso gratuito variável ou pago",
-      minimumAge: "Os termos indicam utilização a partir dos 18 anos ou, entre os 13 e os 17 anos, com consentimento do progenitor ou representante legal, nos termos definidos pelo fornecedor. Utilização por alunos apenas após validação das condições institucionais e legais.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      freeStatus: "Planos pagos; plano gratuito recorrente não indicado na página oficial consultada.",
+      minimumAge: "13 anos. Entre os 13 e os 17 anos, é necessário consentimento parental.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Permite criar clipes com câmara em movimento e perspetiva 3D; verificar condições comerciais e termos etários antes de qualquer uso.",
-      whatIsFact: "Excelente consistência espacial e movimentos de câmara fluídos.",
-      whatIsMisleading: "Pode distorcer detalhes anatómicos complexos e os planos gratuitos variam sem aviso."
+      whatIsFact: "O Ray3.2 permite gerar vídeos a partir de texto e imagem, com diferentes opções de criação.",
+      whatIsMisleading: "A página de preços não apresenta um plano gratuito recorrente. A qualidade visual não garante rigor científico ou anatómico."
     }
   },
   {
@@ -705,12 +622,13 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Representação de texturas, iluminação e atmosferas expressivas"
     ],
     inputTypes: ["Texto Descritivo", "Fotografia de Referência"],
-    freeTierDetails: "Os termos de utilização indicam uma idade mínima de 16 anos. Podem existir créditos promocionais de boas-vindas para determinados novos registos, com condições e validade próprias. Não apresentar créditos diários permanentes nem quantidades não confirmadas.",
+    freeTierDetails: "Os utilizadores gratuitos têm acesso a funcionalidades básicas e podem descarregar vídeos com marca de água. Podem existir créditos promocionais de boas-vindas, sujeitos a elegibilidade e validade. Não constituem créditos diários permanentes.",
     limitations: [
       "Modelos e condições variáveis.",
       "Marcas de água e exportação dependem do plano.",
       "Não garantir geração de vídeo com a duração de um documentário completo.",
-      "Validar os resultados antes de utilização educativa."
+      "Validar os resultados antes de utilização educativa.",
+      "Ao utilizar o serviço, o utilizador concede ao fornecedor uma licença mundial, gratuita, não exclusiva, perpétua e irrevogável sobre os conteúdos enviados e gerados, incluindo direitos de utilização, reprodução, modificação, distribuição e criação de obras derivadas. Esta licença mantém-se após o fim do contrato."
     ],
     pedagogicalUseCases: [
       "Reconstituição ilustrativa de ambientes históricos descritos em textos",
@@ -723,16 +641,17 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "one-time-free-trial",
     officialSources: [
       { label: "Página Oficial", url: "https://hailuoai.video/" },
-      { label: "Termos de Serviço", url: "https://hailuoai.video/doc/terms-of-service.html" }
+      { label: "Termos de Serviço", url: "https://hailuoai.video/doc/terms-of-service.html" },
+      { label: "Condições de Acesso e Créditos", url: "https://hailuoai.video/doc/payment-policy.html" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Créditos promocionais de utilização pontual, sujeitos a elegibilidade, validade e condições do fornecedor. Não equivale a um plano gratuito com créditos recorrentes.",
-      minimumAge: "16+ anos (segundo os termos de serviço oficiais)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "16 anos.",
+      rgpdRiskLevel: "Os termos concedem ao fornecedor uma licença muito ampla sobre os conteúdos enviados e gerados. Evitar carregar dados pessoais de alunos.",
       teacherVerdict: "Útil para o professor gerar pequenas ilustrações visuais expressivas; respeitar a idade mínima e rever rigor.",
       whatIsFact: "Interpretação detalhada de descrições ricas em texto.",
-      whatIsMisleading: "Pode acrescentar elementos cenográficos não solicitados no prompt original."
+      whatIsMisleading: "Os créditos promocionais não são créditos diários recorrentes. Os termos concedem ao fornecedor uma licença muito abrangente sobre os conteúdos enviados e gerados."
     }
   },
   {
@@ -748,7 +667,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Efeitos visuais de transformação de materiais"
     ],
     inputTypes: ["Texto", "Ilustrações", "Fotografias"],
-    freeTierDetails: "O plano Free indicado na página oficial não inclui créditos mensais. A criação pode exigir packs de créditos pagos. Não classificar o Pika como ferramenta com créditos gratuitos recorrentes.",
+    freeTierDetails: "O plano Free tem custo zero, mas inclui zero créditos mensais. Permite comprar packs de créditos sem subscrição. A geração de vídeos exige créditos adquiridos ou promocionais. O plano não inclui licença comercial.",
     limitations: [
       "Não garantir uma quota mensal gratuita.",
       "Não garantir funcionalidades ou durações específicas sem confirmação.",
@@ -765,16 +684,17 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "paid-or-unconfirmed",
     officialSources: [
       { label: "Página Oficial", url: "https://pika.art/" },
-      { label: "Preços Oficiais", url: "https://creation.pika.art/pricing" }
+      { label: "Preços Oficiais", url: "https://pika.art/pricing" },
+      { label: "Termos de Serviço", url: "https://pika.art/terms-of-service" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
-      freeStatus: "Plano gratuito sem créditos mensais garantidos",
-      minimumAge: "18+ anos (segundo termos consultados)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      freeStatus: "Plano gratuito sem créditos mensais; packs de créditos adquiridos separadamente.",
+      minimumAge: "18 anos.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Ferramenta para criação e efeitos visuais; confirmar condições de acesso previamente.",
-      whatIsFact: "Interface ágil para efeitos de transformação e animação de imagens.",
-      whatIsMisleading: "Não disponibiliza quota mensal gratuita garantida no plano base."
+      whatIsFact: "O plano Free não inclui créditos mensais para geração de vídeos.",
+      whatIsMisleading: "A designação Free não significa que existam gerações mensais gratuitas."
     }
   },
   {
@@ -809,13 +729,14 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "free-editor",
     officialSources: [
       { label: "Página Oficial", url: "https://www.capcut.com/" },
-      { label: "Preços Oficiais", url: "https://www.capcut.com/pricing/" }
+      { label: "Preços Oficiais", url: "https://www.capcut.com/pricing/" },
+      { label: "Termos de Serviço", url: "https://www.capcut.com/clause/terms-of-service" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Editor gratuito com funcionalidades Pro pagas",
-      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "13 anos. Menores de 18 anos necessitam de consentimento parental.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Editor funcional para montagem e legendas; rever termos de privacidade e exportação antes de partilhar.",
       whatIsFact: "Disponibiliza ferramentas de montagem áudio e vídeo em múltiplas plataformas.",
       whatIsMisleading: "Nem todas as funções de IA ou legendagem são gratuitas em todas as versões."
@@ -858,8 +779,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Gratuito para professores e escolas elegíveis",
-      minimumAge: "Consultar os termos e as condições aplicáveis à conta educativa e aos utilizadores. Não está estabelecida nesta ficha uma idade mínima universal.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "Consultar as condições etárias aplicáveis à conta Canva para Educação e aos respetivos utilizadores.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Opção estruturada para trabalho colaborativo escolar quando cumpridos os critérios de elegibilidade.",
       whatIsFact: "Permite criar apresentações multimédia com animação e gravação integrada.",
       whatIsMisleading: "A gratuitidade educativa depende de validação documental institucional e não cobre todo o tipo de entidades."
@@ -902,8 +823,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Acesso experimental comunitário (18+)",
-      minimumAge: "18+ anos (Termos explícitos da plataforma: restrito a adultos)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "18 anos.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Exclusivo para exploração individual por docentes adultos; não utilizar em ambiente escolar com alunos.",
       whatIsFact: "Plataforma comunitária de scripts e geradores com comportamento variável.",
       whatIsMisleading: "A ausência de registo prévio não significa ausência de recolha de dados nem conformidade legal para menores."
@@ -944,8 +865,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Editor gratuito na versão pessoal (exportação 1080p)",
-      minimumAge: "Consultar os termos oficiais do fornecedor. Não confirmada nesta ficha.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "Não confirmada nesta ficha; consultar os termos oficiais da Microsoft.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Ferramenta acessível para gravar ecrã e montar videoaulas; verificar disponibilidade de vozes na conta utilizada.",
       whatIsFact: "Permite exportar até 1080p sem marca de água na versão pessoal e oferece gravação de ecrã.",
       whatIsMisleading: "A disponibilidade de vozes em Português de Portugal depende da conta e do ambiente configurado."
@@ -987,8 +908,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Plano gratuito muito limitado (3 vídeos/mês de 1 min)",
-      minimumAge: "18+ anos (segundo os termos oficiais do serviço)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "18 anos.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Adequado para pequenas demonstrações preparadas pelo docente adulto; plano gratuito restrito.",
       whatIsFact: "Gera personagens virtuais animadas a partir de texto.",
       whatIsMisleading: "Não deve ser utilizado diretamente por alunos nem garante sincronização labial perfeita."
@@ -1012,7 +933,9 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Utilização individual pelo professor adulto.",
       "Não recomendar a criação de contas por alunos.",
       "Confirmar limites, resolução, marca de água e exportação na conta concreta.",
-      "Não garantir funcionalidades não documentadas."
+      "Não garantir funcionalidades não documentadas.",
+      "É proibida a criação de avatares que representem ou aparentem representar pessoas com menos de 18 anos.",
+      "A representação de pessoas reais exige consentimento explícito."
     ],
     pedagogicalUseCases: [
       "Criação de simulações com avatares didáticos para abertura de módulos",
@@ -1024,16 +947,17 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "limited-free-plan",
     officialSources: [
       { label: "Página Oficial", url: "https://pt.vidnoz.com/" },
-      { label: "Termos de Serviço", url: "https://pt.vidnoz.com/termos.html" }
+      { label: "Termos de Serviço", url: "https://pt.vidnoz.com/termos.html" },
+      { label: "Política de Utilização e Moderação", url: "https://pt.vidnoz.com/moderation-policy.html" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Opções gratuitas com limites e opções pagas",
       minimumAge: "18+ anos para criação de conta (termos oficiais)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Ferramenta para criação de avatares didáticos por docentes adultos; verificar limites de exportação.",
       whatIsFact: "Oferece criação de vídeos com personagens virtuais a partir de texto.",
-      whatIsMisleading: "As contas e opções gratuitas têm restrições de resolução e marcas de água."
+      whatIsMisleading: "As opções gratuitas têm limitações. É proibida a criação de avatares que representem menores de 18 anos e a representação de pessoas reais sem consentimento explícito."
     }
   },
   {
@@ -1056,7 +980,9 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "Não garantir um número fixo de vídeos por dia.",
       "A ferramenta não assegura rigor científico ou histórico.",
       "O professor deve validar os resultados.",
-      "Não recomendar utilização autónoma por menores."
+      "Não recomendar utilização autónoma por menores.",
+      "A edição de vídeos carregados não está atualmente disponível no Espaço Económico Europeu, incluindo Portugal.",
+      "A funcionalidade Avatars também não está atualmente disponível nesta região."
     ],
     pedagogicalUseCases: [
       "Geração de clipes visuais ilustrativos para conceitos científicos ou históricos pelo docente",
@@ -1064,7 +990,7 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     ],
     externalUrl: "https://labs.google/fx/pt-pt/tools/flow",
     screenshots: [],
-    capabilityTags: ["text-to-video", "image-to-video", "video-to-video"],
+    capabilityTags: ["text-to-video", "image-to-video"],
     accessType: "recurring-free-credits",
     officialSources: [
       { label: "Página Oficial Google Flow", url: "https://labs.google/fx/pt-pt/tools/flow" },
@@ -1074,11 +1000,11 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "50 créditos diários gratuitos (sujeito a disponibilidade)",
-      minimumAge: "18+ anos",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Espaço de experimentação generativa para professores adultos; útil para criar clipes curtos ilustrativos com imagens de apoio.",
+      minimumAge: "18 anos.",
+      rgpdRiskLevel: "",
+      teacherVerdict: "Ferramenta de criação generativa para professores adultos. Permite criar clipes a partir de texto e imagens, mas a edição de vídeos carregados e a funcionalidade Avatars não estão disponíveis no Espaço Económico Europeu.",
       whatIsFact: "Disponibiliza modelos generativos da Google com créditos diários renováveis.",
-      whatIsMisleading: "Em picos de utilização a geração sem subscrição pode estar temporariamente suspensa; requer validação factual."
+      whatIsMisleading: "Os 50 créditos diários não garantem um número fixo de vídeos. A edição de vídeos carregados e a funcionalidade Avatars estão indisponíveis no Espaço Económico Europeu."
     }
   },
   {
@@ -1100,7 +1026,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
       "A quantidade mensal de vídeos é limitada.",
       "O clipe gerado não equivale a um vídeo educativo completo.",
       "O professor deve montar, rever e contextualizar o resultado.",
-      "Não assumir que todas as funcionalidades estão disponíveis em qualquer conta escolar."
+      "Não assumir que todas as funcionalidades estão disponíveis em qualquer conta escolar.",
+      "As exceções educativas previstas para o Gemini for Education e o NotebookLM não se aplicam automaticamente ao Google Vids."
     ],
     pedagogicalUseCases: [
       "Preparação de apresentações e vídeos didáticos com estrutura por cenas",
@@ -1112,14 +1039,15 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     accessType: "limited-free-plan",
     officialSources: [
       { label: "Aplicação Google Vids", url: "https://vids.new/" },
-      { label: "Anúncio Oficial", url: "https://blog.google/products-and-platforms/products/workspace/omni-1-2-flash-google-vids/" }
+      { label: "Anúncio Oficial", url: "https://blog.google/products-and-platforms/products/workspace/omni-1-2-flash-google-vids/" },
+      { label: "Termos Específicos do Google Workspace", url: "https://workspace.google.com/terms/service-terms/" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Até 3 vídeos de 15s por mês com modelo Omni 1.2 Flash",
-      minimumAge: "Consultar termos da conta Google/Workspace escolar aplicável.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
-      teacherVerdict: "Ferramenta de criação de apresentações em vídeo integrada no ecossistema Google; verificar permissões da conta escolar.",
+      minimumAge: "18 anos para as funcionalidades de IA generativa abrangidas pelos termos do Google Workspace.",
+      rgpdRiskLevel: "",
+      teacherVerdict: "Ferramenta útil para o professor organizar e produzir apresentações em vídeo. A utilização das funcionalidades generativas em contas escolares deve respeitar as condições da conta e as configurações do administrador Workspace.",
       whatIsFact: "Permite estruturar guiões por cenas e gerar pequenos clipes com IA no ecossistema Google Workspace.",
       whatIsMisleading: "A quota gratuita mensal de geração por IA é reduzida e não substitui a montagem e revisão pedagógica."
     }
@@ -1160,8 +1088,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "30 créditos diários gratuitos (renovados diariamente às 00:00 UTC)",
-      minimumAge: "16+ anos (segundo os termos oficiais; supervisão parental prevista para menores de 16)",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "16 anos. Consultar os termos para as condições aplicáveis a menores.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Plataforma acessível para o professor adulto gerar clipes curtos diários; validar os conteúdos antes da aula.",
       whatIsFact: "Disponibiliza créditos gratuitos que renovam diariamente para criação de pequenos vídeos.",
       whatIsMisleading: "Os créditos diários não acumulam e o consumo varia com a resolução e o modelo selecionados."
@@ -1200,13 +1128,14 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     officialSources: [
       { label: "Adobe Firefly", url: "https://firefly.adobe.com/" },
       { label: "Gerador de Vídeo Firefly", url: "https://www.adobe.com/pt/products/firefly/features/ai-video-generator.html" },
-      { label: "FAQ de Créditos Generativos", url: "https://helpx.adobe.com/creative-cloud/apps/generative-ai/generative-credits-faq.html" }
+      { label: "FAQ de Créditos Generativos", url: "https://helpx.adobe.com/creative-cloud/apps/generative-ai/generative-credits-faq.html" },
+      { label: "Termos Gerais da Adobe", url: "https://www.adobe.com/pt/legal/terms.html" }
     ],
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "Acesso gratuito limitado com créditos generativos",
-      minimumAge: "Consultar os termos de utilização da Adobe Creative Cloud.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "É necessário ter pelo menos 13 anos para criar um Adobe ID.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Opção para criação generativa com foco visual; verificar créditos e termos da conta institucional.",
       whatIsFact: "Permite gerar clipes a partir de texto e imagens no ambiente criativo da Adobe.",
       whatIsMisleading: "Nem todas as funções ou modelos de vídeo estão disponíveis sem limites nas contas gratuitas."
@@ -1247,8 +1176,8 @@ export const TOOLS_CATALOG: ToolCatalogItem[] = [
     lastVerified: "2026-11-09",
     factCheckStatus: {
       freeStatus: "125 créditos pontuais de teste (não recorrentes)",
-      minimumAge: "Consultar os termos oficiais de serviço do Runway.",
-      rgpdRiskLevel: "Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.",
+      minimumAge: "Não confirmada nesta ficha; consultar os termos oficiais do fornecedor.",
+      rgpdRiskLevel: "",
       teacherVerdict: "Adequado para experimentação pontual pelo docente; não conta com créditos recorrentes gratuitos.",
       whatIsFact: "Disponibiliza 125 créditos uma única vez para experimentar a plataforma.",
       whatIsMisleading: "Os créditos não se renovam mensalmente e os vídeos no plano de teste incluem marca de água."
@@ -1373,7 +1302,9 @@ No readable signs, text, logos or close-up faces.`,
     ],
     expectedResult: "Um pequeno vídeo criado a partir de uma descrição escrita.",
     validationNotes: [
-      "Os créditos diários renovam-se segundo as condições da plataforma. Confirmar o custo apresentado antes de carregar em Generate. Não gerar versões adicionais desnecessariamente."
+      "Os créditos diários renovam-se segundo as condições da plataforma. Confirmar o custo apresentado antes de carregar em Generate. Não gerar versões adicionais desnecessariamente.",
+      "Adaptar a complexidade dos critérios de sustentabilidade ao ano de escolaridade e aos conteúdos já trabalhados.",
+      "O vídeo é uma representação visual gerada por IA, não uma prova de que as soluções apresentadas são realmente sustentáveis. Comparar o resultado com os critérios estudados e identificar elementos em falta, imprecisos ou irrealistas."
     ]
   },
   {
@@ -1417,7 +1348,9 @@ Do not add objects, characters, text or new details.`
     ],
     expectedResult: "Uma personagem original transformada numa pequena animação.",
     validationNotes: [
-      "Neste modo, a imagem carregada já define a personagem e a composição. O prompt deve concentrar-se apenas nos movimentos desejados. Utilizar desenhos originais ou imagens devidamente autorizadas."
+      "Neste modo, a imagem carregada já define a personagem e a composição. O prompt deve concentrar-se apenas nos movimentos desejados. Utilizar desenhos originais ou imagens devidamente autorizadas.",
+      "Depois da geração, comparar a animação com o desenho original e identificar alterações introduzidas pela IA, como mudanças nas cores, proporções, rosto ou fundo. A animação não reproduz necessariamente o desenho de forma exata.",
+      "A conta e a geração do vídeo devem ser geridas pelo professor. Utilizar desenhos originais ou imagens devidamente autorizadas."
     ]
   },
   {
@@ -1449,17 +1382,18 @@ Do not add objects, characters, text or new details.`
           "1. Abrir o Canva.",
           "2. Aceder ao Magic Video.",
           "3. Carregar as quatro imagens ou clips, pela ordem pretendida.",
-          "4. Introduzir as instruções seguintes, caso a ferramenta disponibilize um campo de descrição:"
+          "4. Introduzir as instruções seguintes, caso a ferramenta disponibilize um campo de descrição:",
+          "Ter em conta que o Magic Video gera um vídeo vertical (9:16). Não solicitar formato horizontal nesta atividade."
         ],
         copyItem: {
           id: "canva-magic-instructions",
           label: "Copiar instruções",
           title: "Instruções para o Canva Magic Video",
-          content: `Cria um vídeo educativo horizontal sobre a polinização, utilizando exclusivamente as imagens e os clips carregados e respeitando a sua ordem.
+          content: `Cria um vídeo educativo vertical (9:16) sobre a polinização, utilizando exclusivamente as imagens e os clips carregados e respeitando a sua ordem.
 
 Apresenta primeiro a flor e o esquema das suas estruturas reprodutoras; depois, uma abelha a visitar uma flor; em seguida, uma imagem que mostre pólen no corpo de um inseto; e, por fim, outra flor da mesma espécie.
 
-Usa transições simples, ritmo calmo e tempo suficiente para observar cada imagem.
+Utiliza transições simples, ritmo calmo e tempo suficiente para observar cada imagem.
 
 Mantém os elementos científicos das imagens originais.
 
@@ -1486,7 +1420,7 @@ Evita efeitos visuais que dificultem a observação.`
           "1. Abrir o projeto de vídeo com a narração concluída.",
           "2. Aceder a Texto → Texto dinâmico → Legendas (ou Aplicações → Captions, conforme a interface).",
           "3. Selecionar o áudio ou vídeo com a fala.",
-          "4. Selecionar Português como língua de transcrição.",
+          "4. Confirmar a língua detetada pela ferramenta. Se necessário, selecionar Português manualmente.",
           "5. Gerar as legendas automáticas.",
           "6. Rever o texto, corrigir eventuais erros e ajustar a sincronização.",
           "7. Escolher um estilo legível, com bom contraste e tamanho adequado."
@@ -1505,7 +1439,7 @@ Evita efeitos visuais que dificultem a observação.`
       "Não confundir polinização com fecundação. A transferência do pólen antecede os processos que podem conduzir à fecundação e à formação de sementes.",
       "O esquema e as fotografias devem ser cientificamente corretos. As legendas automáticas devem ser revistas antes da utilização."
     ],
-    toolImportantNote: "Esta atividade utiliza Canva Magic Video, e não Canva AI Video Clip. O Magic Video organiza imagens e clips fornecidos pelo utilizador. Não gera, a partir de texto, todas as imagens do vídeo. O AI Video Clip é uma funcionalidade diferente, sujeita a condições de acesso Ultra AI e quotas próprias. Não a apresentar como requisito desta atividade."
+    toolImportantNote: "Esta atividade utiliza Canva Magic Video, e não Canva AI Video Clip. O Magic Video organiza imagens e clips fornecidos pelo utilizador. Não gera, a partir de texto, todas as imagens do vídeo. O AI Video Clip é uma funcionalidade diferente, sujeita a condições de acesso Ultra AI e quotas próprias. Não a apresentar como requisito desta atividade. O Magic Video gera vídeos verticais (9:16). Para criar um vídeo horizontal (16:9), utilizar o editor de vídeo normal do Canva, em vez desta funcionalidade."
   },
   {
     id: "microconto-video-narrado",
@@ -1521,7 +1455,7 @@ Evita efeitos visuais que dificultem a observação.`
     howToSteps: [
       "1. Os alunos leem o microconto e identificam as três partes da narrativa.",
       "2. Organizam o texto em três cenas.",
-      "3. O professor abre o Fliki, escolhe Script to Video e introduz o texto seguinte."
+      "3. O professor abre o Fliki, seleciona Script to Video e copia o «Guião Completo (3 Cenas)», mantendo as três cenas separadas. Para criar um único vídeo, utilizar o guião completo. Os três textos individuais servem apenas para trabalhar ou gerar cada cena separadamente."
     ],
     copyItems: [
       {
@@ -1554,7 +1488,7 @@ Cena 2
 
 Cena 3
 «No dia seguinte, escreveu uma continuação da história, leu-a aos colegas e convidou cada um a acrescentar uma frase. Assim nasceu uma nova história, escrita por toda a turma.»`,
-        note: "Introduzir o conteúdo seguinte, mantendo as três cenas separadas."
+        note: "Para criar um único vídeo com três cenas, copiar apenas este guião completo. Os botões das cenas individuais servem para trabalhar ou gerar cada cena separadamente."
       }
     ],
     recommendedSettings: [

@@ -27,11 +27,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = [
     { id: 'home', label: 'Página Inicial', icon: Home },
     { id: 'overview', label: 'Visão Pedagógica', icon: Compass },
-    { id: 'advantages', label: '5 Vantagens', icon: Layers },
+    { id: 'advantages', label: 'Aplicações', icon: Layers },
     { id: 'tools', label: 'Ferramentas de Vídeo', icon: Video },
     { id: 'prompts', label: 'Banco de Prompts', icon: MessageSquare },
     { id: 'activities', label: 'Atividades na Aula', icon: CheckSquare },
-    { id: 'bibliography', label: 'Bibliografia & Limites', icon: FileText },
+    { id: 'bibliography', label: 'Bibliografia', icon: FileText },
   ];
 
   const handleSelectTab = (tabId: string) => {

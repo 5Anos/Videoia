@@ -21,16 +21,26 @@ import { CLASSROOM_ACTIVITIES, ClassroomActivity } from '../data/presentationDat
 export const ActivitiesSection: React.FC = () => {
   const [selectedActivityId, setSelectedActivityId] = useState<string>(CLASSROOM_ACTIVITIES[0].id);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copyErrorId, setCopyErrorId] = useState<string | null>(null);
 
   const currentActivity: ClassroomActivity = 
     CLASSROOM_ACTIVITIES.find(a => a.id === selectedActivityId) || CLASSROOM_ACTIVITIES[0];
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => {
+  const handleCopy = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyErrorId(null);
+      setCopiedId(id);
+      setTimeout(() => {
+        setCopiedId(null);
+      }, 2000);
+    } catch {
       setCopiedId(null);
-    }, 2000);
+      setCopyErrorId(id);
+      setTimeout(() => {
+        setCopyErrorId(null);
+      }, 2500);
+    }
   };
 
   return (
@@ -237,6 +247,11 @@ export const ActivitiesSection: React.FC = () => {
                               <Check className="w-3.5 h-3.5 text-emerald-400" />
                               <span>Copiado!</span>
                             </>
+                          ) : copyErrorId === stage.copyItem.id ? (
+                            <>
+                              <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+                              <span>Não foi possível copiar</span>
+                            </>
                           ) : (
                             <>
                               <Copy className="w-3.5 h-3.5" />
@@ -297,6 +312,11 @@ export const ActivitiesSection: React.FC = () => {
                           <Check className="w-3.5 h-3.5 text-[#041D3A]" />
                           <span className="font-bold">Copiado!</span>
                         </>
+                      ) : copyErrorId === item.id ? (
+                        <>
+                          <ShieldAlert className="w-3.5 h-3.5 text-[#041D3A]" />
+                          <span className="font-bold">Não foi possível copiar</span>
+                        </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
@@ -333,10 +353,10 @@ export const ActivitiesSection: React.FC = () => {
           </div>
         )}
 
-        {/* Resultado Esperado */}
+        {/* Produto Final */}
         <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-1">
           <span className="text-xs font-bold text-emerald-900 uppercase font-mono tracking-wider block">
-            RESULTADO ESPERADO
+            PRODUTO FINAL
           </span>
           <p className="text-xs sm:text-sm font-semibold text-emerald-950 leading-relaxed">
             {currentActivity.expectedResult}
@@ -384,7 +404,7 @@ export const ActivitiesSection: React.FC = () => {
             O que observar na atividade?
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Esta secção é de apoio ao professor e não constitui uma nova rubrica de avaliação.
+            Esta secção apoia a observação do processo e da aprendizagem; não constitui uma nova rubrica de avaliação. Para além do vídeo produzido, observe o que os alunos conseguem explicar, justificar ou analisar sobre o conteúdo trabalhado.
           </p>
         </div>
 

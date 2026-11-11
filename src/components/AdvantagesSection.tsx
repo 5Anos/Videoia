@@ -5,6 +5,7 @@ import {
   Scissors, 
   UserCheck, 
   Sliders, 
+  Users,
   CheckCircle2, 
   Target,
   Laptop,
@@ -25,6 +26,7 @@ const ADVANTAGE_ICONS: Record<number, React.ComponentType<{ className?: string }
   3: Scissors,
   4: UserCheck,
   5: Sliders,
+  6: Users,
 };
 
 export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTool }) => {
@@ -45,15 +47,12 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
           </div>
 
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-serif-display tracking-tight text-white">
-            5 Vantagens do Vídeo com IA na Prática Docente
+            Vídeo com IA no Ensino e na Aprendizagem
           </h1>
 
-          <div className="space-y-3 text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
+          <div className="text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
             <p>
-              A Inteligência Artificial abre novas possibilidades para a criação e edição de vídeos educativos. Desde a produção de videoaulas à legendagem, tradução, criação de avatares e edição automática, existem ferramentas que podem simplificar o trabalho docente e enriquecer os recursos utilizados na aprendizagem.
-            </p>
-            <p>
-              Explore estas possibilidades, conheça as ferramentas e descubra como integrá-las na sua prática pedagógica, sempre com intencionalidade educativa e supervisão do professor.
+              A Inteligência Artificial abre novas possibilidades para criar, adaptar e editar vídeos educativos. Os professores podem produzir videoaulas, legendar e traduzir conteúdos, criar avatares e preparar recursos audiovisuais. Os alunos também podem participar na criação de guiões, vídeos e projetos multimédia, desenvolvendo a criatividade, a comunicação e o pensamento crítico, sempre com orientação e supervisão do professor.
             </p>
           </div>
         </div>
@@ -101,7 +100,7 @@ export const AdvantagesSection: React.FC<AdvantagesSectionProps> = ({ onSelectTo
           </div>
           <div>
             <span className="text-xs font-mono font-bold text-[#0966C2] tracking-wider uppercase block">
-              VANTAGEM 0{currentAdvantage.id} DE 05
+              APLICAÇÃO 0{currentAdvantage.id} DE 06
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-[#08203E] font-serif-display mt-0.5">
               {currentAdvantage.title}

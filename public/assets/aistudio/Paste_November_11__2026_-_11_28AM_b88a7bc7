@@ -1,0 +1,750 @@
+# REESTRUTURAÇÃO FINAL DO CATÁLOGO — 16 FERRAMENTAS DE VÍDEO
+
+Executa a alteração do catálogo existente, utilizando os textos integrais definidos neste pedido.
+
+## 1. OBJETIVO
+
+Quero que as 16 ferramentas apresentem diretamente a respetiva informação no catálogo, seguindo exatamente a estrutura dos exemplos Vidnoz AI e Luma AI aprovados.
+
+Cada ferramenta deve apresentar exclusivamente estas secções, nesta ordem:
+
+1. Descrição
+2. Principais Funcionalidades
+3. Tipos de Conteúdo de Entrada
+4. Cenários de Aplicação em Sala de Aula
+5. Requisitos Legais, Idade e Salvaguardas
+6. Fontes Oficiais da Ferramenta
+
+Não acrescentar outras secções.
+
+Não apresentar:
+- Acesso Gratuito e Limitações.
+- Parecer Pedagógico.
+- Verificação da Informação.
+- O que está confirmado.
+- O que pode ser enganador.
+
+Os dados destas secções devem continuar guardados no catálogo, mas não devem aparecer na apresentação das ferramentas.
+
+## 2. FORMATAÇÃO OBRIGATÓRIA
+
+**Descrição**
+
+Apresentar o texto integral indicado para cada ferramenta.
+
+**Principais Funcionalidades**
+
+Apresentar cada funcionalidade em linha própria, sem cartões, ícones ou elementos decorativos adicionais.
+
+**Tipos de Conteúdo de Entrada**
+
+Apresentar numa única linha, separando os elementos por « · ».
+
+**Cenários de Aplicação em Sala de Aula**
+
+Apresentar cada cenário num parágrafo independente, com a designação a negrito:
+
+**Cenário 01:** texto do cenário.
+
+**Cenário 02:** texto do cenário.
+
+**Requisitos Legais, Idade e Salvaguardas**
+
+Apresentar a idade e a nota de proteção de dados num único parágrafo compacto:
+
+**Idade mínima recomendada:** idade/condição · Nota sobre proteção de dados: informação.
+
+Não repetir os rótulos quando os valores já os contenham. A idade deve ser curta e direta. Não escrever explicações jurídicas extensas.
+
+**Fontes Oficiais da Ferramenta**
+
+Apresentar as fontes numa única linha, com os nomes a negrito, separados por « · ». Cada hiperligação deve ser individual e funcional.
+
+Apresentar abaixo:
+
+Verificado em DD/MM/AAAA
+
+Utilizar a data existente no registo de cada ferramenta.
+
+## 3. TEXTOS INTEGRAIS DAS 16 FERRAMENTAS
+
+Os textos seguintes são os conteúdos finais a apresentar. Não os resumir, reescrever ou completar por iniciativa própria.
+
+---
+
+## FERRAMENTA 01 — InVideo AI
+
+### Descrição
+
+O InVideo AI é uma plataforma de criação de vídeos que permite preparar conteúdos audiovisuais a partir de instruções escritas e materiais fornecidos pelo utilizador. Pode apoiar a criação de um primeiro rascunho de vídeo, que deve ser revisto e editado pelo docente.
+
+### Principais Funcionalidades
+
+Criação de rascunhos audiovisuais com IA
+
+Preparação de sequências visuais a partir de texto
+
+Edição posterior do vídeo
+
+Funcionalidades de narração e transcrição, conforme plano e disponibilidade
+
+### Tipos de Conteúdo de Entrada
+
+Instrução em Texto · Resumo Curricular · Artigos Web
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Apoiar a criação de um primeiro rascunho de vídeo para introdução de conteúdos
+
+**Cenário 02:** Produzir sínteses de apoio para disponibilização aos estudantes
+
+**Cenário 03:** Trabalho de projeto em que os alunos redigem o guião e o professor apoia a montagem
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 16 anos. Menores de 18 anos necessitam de consentimento e supervisão parental. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://invideo.io/)** · **[Documentação de Planos](https://docs.invideo.io/account/plans)** · **[Política de Segurança Infantil](https://invideo.io/legal/child-safety/)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 02 — Kling AI
+
+### Descrição
+
+O Kling AI disponibiliza modelos de criação audiovisual com Inteligência Artificial, incluindo geração de vídeo a partir de texto e imagens. As funcionalidades dependem do modelo e da versão selecionada.
+
+### Principais Funcionalidades
+
+Geração de clipes visuais a partir de instruções em texto
+
+Animação de fotografias e ilustrações estáticas
+
+Representação visual de movimentos de fluidos, tecidos e efeitos de iluminação
+
+Controlo de câmara conforme o modelo e versão selecionados
+
+### Tipos de Conteúdo de Entrada
+
+Instrução em Texto · Fotografia Estática
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Criar representações visuais ilustrativas de fenómenos físicos ou químicos difíceis de filmar, para observação e análise crítica, sem as apresentar como simulações científicas validadas.
+
+**Cenário 02:** Animação de quadros e gravuras históricas para projetos interdisciplinares
+
+**Cenário 03:** Exercícios de observação crítica do movimento gerado por IA
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 13 anos. Menores de 18 anos necessitam de representação parental. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://kling.ai/)** · **[Política de Utilização](https://kling.ai/docs/user-policy)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 03 — Luma AI — Ray3.2
+
+### Descrição
+
+A Luma AI disponibiliza ferramentas de criação audiovisual com modelos de Inteligência Artificial. O modelo de vídeo indicado pela documentação consultada em novembro de 2026 é o Ray3.2. As funcionalidades e os modos de criação dependem da versão e da conta.
+
+### Principais Funcionalidades
+
+Geração de vídeo a partir de texto com o modelo Ray3.2
+
+Animação de fotografias estáticas com transições espaciais
+
+Controlo de perspetiva e movimento de câmara tridimensional
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Fotografia / Imagem 2D
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Sobrevoo de relevos e formações geográficas para apoio às aulas de Geografia
+
+**Cenário 02:** Animação de esculturas clássicas ou peças de arqueologia a partir de fotografias
+
+**Cenário 03:** Criação de fundos visuais para apresentações temáticas
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 13 anos. Entre os 13 e os 17 anos, é necessário consentimento parental. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Informação Oficial de Modelos](https://lumalabs.ai/llm-info)** · **[Aplicação Luma](https://app.lumalabs.ai/)** · **[Preços Oficiais](https://lumalabs.ai/pricing)** · **[Termos de Serviço](https://lumalabs.ai/legal/terms-of-service)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 04 — MiniMax — Hailuo AI
+
+### Descrição
+
+A Hailuo AI disponibiliza ferramentas de geração de vídeo com Inteligência Artificial, incluindo criação a partir de instruções escritas e imagens, de acordo com os modelos disponíveis.
+
+### Principais Funcionalidades
+
+Geração de clipes visuais a partir de instruções escritas
+
+Transformação de imagens de referência em vídeo dinâmico
+
+Representação de texturas, iluminação e atmosferas expressivas
+
+### Tipos de Conteúdo de Entrada
+
+Texto Descritivo · Fotografia de Referência
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Reconstituição ilustrativa de ambientes históricos descritos em textos
+
+**Cenário 02:** Visualização de biomas e ecossistemas com atmosfera envolvente
+
+**Cenário 03:** Exercícios de escrita criativa onde os alunos comparam descrições com a imagem gerada
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 16 anos. · Nota sobre proteção de dados: Os termos concedem ao fornecedor uma licença muito ampla sobre os conteúdos enviados e gerados. Evitar carregar dados pessoais de alunos.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://hailuoai.video/)** · **[Termos de Serviço](https://hailuoai.video/doc/terms-of-service.html)** · **[Condições de Acesso e Créditos](https://hailuoai.video/doc/payment-policy.html)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 05 — Pika
+
+### Descrição
+
+O Pika disponibiliza ferramentas de criação e transformação audiovisual com Inteligência Artificial. As funcionalidades dependem do modelo e das opções disponíveis na conta.
+
+### Principais Funcionalidades
+
+Geração de vídeo a partir de texto
+
+Animação de imagens estáticas e ilustrações
+
+Efeitos visuais de transformação de materiais
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Ilustrações · Fotografias
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Animar ilustrações para projetos visuais
+
+**Cenário 02:** Criar efeitos pontuais para introdução de tópicos
+
+**Cenário 03:** Exploração de técnicas visuais em contexto de formação docente
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18 anos. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://pika.art/)** · **[Preços Oficiais](https://pika.art/pricing)** · **[Termos de Serviço](https://pika.art/terms-of-service)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 06 — CapCut
+
+### Descrição
+
+O CapCut é um editor de vídeo que disponibiliza ferramentas de montagem, efeitos, áudio, legendagem e funcionalidades de Inteligência Artificial, conforme a versão e o plano.
+
+### Principais Funcionalidades
+
+Edição de vídeo em linha temporal e corte de faixas
+
+Legendagem automática (conforme versão e plano)
+
+Recorte de fundo e efeitos visuais
+
+Exportação para múltiplos formatos
+
+### Tipos de Conteúdo de Entrada
+
+Vídeos Gravados · Áudios · Fotografias · Texto
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Legendar videoaulas e rever a transcrição para garantir acessibilidade
+
+**Cenário 02:** Montagem de projetos em vídeo preparados pelos estudantes ou docentes
+
+**Cenário 03:** Corte de hesitações e organização de sequências pedagógicas
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 13 anos. Menores de 18 anos necessitam de consentimento parental. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://www.capcut.com/)** · **[Preços Oficiais](https://www.capcut.com/pricing/)** · **[Termos de Serviço](https://www.capcut.com/clause/terms-of-service)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 07 — Canva para Educação
+
+### Descrição
+
+O Canva para Educação é um programa gratuito para professores e instituições elegíveis do ensino primário, básico e secundário, nos termos definidos pelo fornecedor. Permite criar apresentações, materiais visuais e conteúdos audiovisuais, incluindo funcionalidades assistidas por IA quando disponibilizadas na conta.
+
+### Principais Funcionalidades
+
+Criação e edição colaborativa de apresentações e vídeos
+
+Biblioteca de modelos, imagens de arquivo e elementos gráficos
+
+Gravação de apresentações narradas com câmara integrada
+
+Exportação em alta definição sem marca de água na conta educativa
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Apresentações · Imagens · Vídeos
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Criação de apresentações multimédia colaborativas com vídeo e texto
+
+**Cenário 02:** Gravação de explicações pelo professor para apoio ao estudo
+
+**Cenário 03:** Trabalhos de grupo com modelos visuais orientados a temas curriculares
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** Consultar as condições etárias aplicáveis à conta Canva para Educação e aos respetivos utilizadores. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Canva Educação](https://www.canva.com/pt_pt/educacao/)** · **[Critérios de Elegibilidade](https://www.canva.com/pt_pt/educacao/elegibilidade/)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 08 — Perchance — geradores comunitários
+
+### Descrição
+
+O Perchance disponibiliza diferentes geradores criados no seu ecossistema comunitário. As funcionalidades, condições de acesso e características de privacidade podem variar entre geradores. Os termos gerais consultados restringem a utilização a maiores de 18 anos. Pode ser apresentado apenas como exemplo de exploração individual por docentes adultos, não como ferramenta escolar validada.
+
+### Principais Funcionalidades
+
+Exploração experimental de geradores da comunidade
+
+Geração pontual sem início de sessão obrigatório em alguns casos
+
+Uso exclusivamente preparatório por docentes adultos
+
+### Tipos de Conteúdo de Entrada
+
+Instrução em Texto
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Exploração pessoal prévia pelo docente para criação de exemplos ilustrativos
+
+**Cenário 02:** Discussão em formação de adultos sobre geradores abertos e moderação comunitária
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18 anos. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Gerador Comunitário de Vídeo](https://perchance.org/ai-text-to-video-generator)** · **[Termos de Serviço](https://perchance.org/terms-of-service)** · **[Política de Privacidade](https://perchance.org/privacy-policy)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 09 — Microsoft Clipchamp
+
+### Descrição
+
+O Microsoft Clipchamp é um editor de vídeo que permite organizar sequências, gravar, editar áudio e vídeo e utilizar funcionalidades como legendagem e texto para voz, de acordo com a conta e as opções disponíveis.
+
+### Principais Funcionalidades
+
+Edição de vídeo em linha temporal e gravação combinada de ecrã e câmara
+
+Funcionalidade de texto para voz (conforme versão e conta)
+
+Legendagem automática com edição manual
+
+Exportação até 1080p sem marca de água na versão pessoal gratuita
+
+### Tipos de Conteúdo de Entrada
+
+Gravações de Ecrã · Ficheiros de Vídeo · Áudios · Texto para Voz
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Gravar tutoriais de ecrã e explicações pedagógicas com a câmara do docente
+
+**Cenário 02:** Editar e montar sequências de vídeo com legendas acessíveis
+
+**Cenário 03:** Criação de narrações de apoio a apresentações educativas
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** Não confirmada nesta ficha; consultar os termos oficiais da Microsoft. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://clipchamp.com/)** · **[Documentação de Texto para Voz](https://support.microsoft.com/pt-pt/clipchamp/how-to-use-the-text-to-speech-feature)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 10 — HeyGen
+
+### Descrição
+
+O HeyGen permite criar vídeos com apresentadores virtuais e avatares, a partir de textos e materiais fornecidos pelo utilizador.
+
+### Principais Funcionalidades
+
+Geração de vídeos com personagens virtuais falantes
+
+Sincronização labial a partir de guião em texto
+
+Modelos de apresentador para estúdio e demonstrações
+
+### Tipos de Conteúdo de Entrada
+
+Texto de Guião · Áudio
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Simulação de introdução de um tema pelo professor através de um avatar fictício
+
+**Cenário 02:** Demonstração de regras gerais ou avisos em ambiente de formação de professores
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18 anos. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://www.heygen.com/)** · **[Preços Oficiais](https://www.heygen.com/pricing)** · **[Termos de Serviço](https://www.heygen.com/terms)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 11 — Vidnoz AI
+
+### Descrição
+
+O Vidnoz AI disponibiliza ferramentas de criação de vídeo com avatares e funcionalidades assistidas por Inteligência Artificial.
+
+### Principais Funcionalidades
+
+Criação de vídeos com avatares e diapositivos didáticos
+
+Opções de diálogo com personagens virtuais (conforme o plano)
+
+Biblioteca de modelos temáticos
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Guião Didático · Imagens
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Criação de simulações com avatares didáticos para abertura de módulos
+
+**Cenário 02:** Apresentações curtas em vídeo preparadas pelo docente
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18+ anos para criação de conta (termos oficiais) · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial](https://pt.vidnoz.com/)** · **[Termos de Serviço](https://pt.vidnoz.com/termos.html)** · **[Política de Utilização e Moderação](https://pt.vidnoz.com/moderation-policy.html)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 12 — Google Flow
+
+### Descrição
+
+O Google Flow é um espaço de criação audiovisual com Inteligência Artificial que permite gerar e trabalhar com clipes a partir de instruções escritas, imagens e outros elementos de referência. As opções disponíveis dependem do modelo selecionado. Em Portugal, a edição de vídeos carregados e a funcionalidade Avatars não estão atualmente disponíveis no Espaço Económico Europeu.
+
+### Principais Funcionalidades
+
+Geração de vídeo a partir de texto
+
+Geração de vídeo a partir de imagens
+
+Utilização de imagens de referência, conforme o modelo
+
+Ferramentas de organização e continuidade de cenas, conforme a versão
+
+### Tipos de Conteúdo de Entrada
+
+Instrução em Texto · Imagens de Referência
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Geração de clipes visuais ilustrativos para conceitos científicos ou históricos pelo docente
+
+**Cenário 02:** Exploração de continuidade visual a partir de imagens de referência
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18 anos. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial Google Flow](https://labs.google/fx/pt-pt/tools/flow)** · **[Documentação de Créditos](https://support.google.com/flow/answer/16526234?hl=en)** · **[Disponibilidade e Línguas](https://support.google.com/flow/answer/16353544?hl=en)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 13 — Google Vids
+
+### Descrição
+
+O Google Vids é uma ferramenta de criação e edição de vídeos que integra funcionalidades de Inteligência Artificial. Permite organizar cenas, trabalhar com materiais audiovisuais e gerar pequenos clipes para integrar em projetos de vídeo.
+
+### Principais Funcionalidades
+
+Criação e edição de vídeos
+
+Organização de cenas
+
+Integração de elementos visuais e audiovisuais
+
+Geração de pequenos clipes com modelos disponibilizados pela Google
+
+### Tipos de Conteúdo de Entrada
+
+Documentos · Guiões · Imagens · Vídeos
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Preparação de apresentações e vídeos didáticos com estrutura por cenas
+
+**Cenário 02:** Integração de rascunhos audiovisuais a partir de documentos de trabalho
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 18 anos para as funcionalidades de IA generativa abrangidas pelos termos do Google Workspace. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Aplicação Google Vids](https://vids.new/)** · **[Anúncio Oficial](https://blog.google/products-and-platforms/products/workspace/omni-1-2-flash-google-vids/)** · **[Termos Específicos do Google Workspace](https://workspace.google.com/terms/service-terms/)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 14 — PixVerse
+
+### Descrição
+
+O PixVerse é uma plataforma de criação de vídeos com IA, com funcionalidades de geração a partir de texto e imagem e diferentes opções de transformação audiovisual.
+
+### Principais Funcionalidades
+
+Geração de vídeo a partir de instruções em texto
+
+Transformação de fotografias e ilustrações em vídeo dinâmico
+
+Opções de controlo de movimento e efeitos audiovisuais
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Imagens estáticas
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Criação de pequenos clipes ilustrativos para enriquecer explicações em sala
+
+**Cenário 02:** Dar movimento a ilustrações didáticas preparadas pelo professor
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** 16 anos. Consultar os termos para as condições aplicáveis a menores. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial PixVerse](https://pixverse.ai/en)** · **[FAQ Oficial](https://docs.pixverse.ai/FAQ-PixVerse-App-1533e99bf35080888cb5effee85f8289)** · **[Termos de Serviço](https://pixverse.ai/en/terms-of-service)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 15 — Adobe Firefly — Vídeo
+
+### Descrição
+
+O Adobe Firefly disponibiliza ferramentas generativas de imagem e vídeo, incluindo criação de vídeo a partir de texto e imagem. A disponibilidade de modelos e operações depende da conta e dos créditos generativos.
+
+### Principais Funcionalidades
+
+Texto para vídeo
+
+Imagem para vídeo
+
+Ferramentas generativas de vídeo, de acordo com o modelo
+
+Integração com outras ferramentas Adobe, conforme a conta
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Fotografias e Imagens de Referência
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Geração de clipes visuais temáticos com controlo estético pelo docente
+
+**Cenário 02:** Criação de fundos e atmosferas visuais para projetos multimédia
+
+### Requisitos Legais, Idade e Salvaguardas
+
+É necessário ter pelo menos 13 anos para criar um Adobe ID. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Adobe Firefly](https://firefly.adobe.com/)** · **[Gerador de Vídeo Firefly](https://www.adobe.com/pt/products/firefly/features/ai-video-generator.html)** · **[FAQ de Créditos Generativos](https://helpx.adobe.com/creative-cloud/apps/generative-ai/generative-credits-faq.html)** · **[Termos Gerais da Adobe](https://www.adobe.com/pt/legal/terms.html)**
+
+Verificado em 09/11/2026
+
+---
+
+## FERRAMENTA 16 — Runway
+
+### Descrição
+
+O Runway é uma plataforma de criação audiovisual com Inteligência Artificial, com ferramentas de geração, transformação e edição de vídeo.
+
+### Principais Funcionalidades
+
+Geração de vídeo a partir de texto e de imagem
+
+Ferramentas de transformação de estilo e composição de movimento
+
+Edição e efeitos visuais com modelos generativos
+
+### Tipos de Conteúdo de Entrada
+
+Texto · Imagens · Vídeos
+
+### Cenários de Aplicação em Sala de Aula
+
+**Cenário 01:** Exploração pontual de técnicas generativas audiovisuais pelo docente
+
+**Cenário 02:** Análise de transformação e movimento de vídeo em formação de professores
+
+### Requisitos Legais, Idade e Salvaguardas
+
+**Idade mínima recomendada:** Não confirmada nesta ficha; consultar os termos oficiais do fornecedor. · Nota sobre proteção de dados: Não foi realizada uma avaliação jurídica ou técnica de risco nesta ficha.
+
+### Fontes Oficiais da Ferramenta
+
+**[Página Oficial Runway](https://runwayml.com/)** · **[Detalhes do Plano Gratuito](https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details)**
+
+Verificado em 09/11/2026
+
+---
+
+## 4. IMPLEMENTAÇÃO NA INTERFACE
+
+No ficheiro `src/components/ToolsCatalogSection.tsx`, apresentar os 16 registos com a estrutura e os textos definidos acima.
+
+Utilizar os dados de `TOOLS_CATALOG`, mantendo a correspondência de cada ID com a respetiva ferramenta.
+
+Não duplicar textos no componente se já estiverem disponíveis em `presentationData.ts`.
+
+As listas de funcionalidades devem ser apresentadas em linhas separadas, sem cartões individuais ou ícones.
+
+Os tipos de entrada devem aparecer numa linha, separados por « · ».
+
+Os cenários devem ser parágrafos independentes com identificação a negrito.
+
+A idade e a nota de proteção de dados devem ficar no mesmo parágrafo. Eliminar prefixos duplicados como «Idade mínima:» quando o componente já apresenta «Idade mínima recomendada:».
+
+As fontes devem ser ligações independentes, separadas por « · ».
+
+A data deve ser apresentada no formato DD/MM/AAAA.
+
+## 5. PRESERVAR O TRABALHO JÁ REALIZADO
+
+Esta alteração não deve reconstruir o catálogo.
+
+Manter:
+- O cabeçalho atual das ferramentas (nome, logótipo, categoria e identificação existente).
+- O botão «Experimentar» e o respetivo funcionamento.
+- Os 16 registos.
+- Os filtros e a pesquisa.
+- O guia «Que ferramenta escolher para a minha tarefa?».
+- A secção das três alternativas sem IA: Shotcut, OpenShot e OBS Studio.
+- A navegação para as restantes páginas.
+- A identidade gráfica, cores, tipografia e grelha responsiva atual.
+
+Não recuperar fichas separadas, janelas, modais ou botões que já foram eliminados.
+
+Não acrescentar secções de acesso gratuito, limitações, parecer ou verificação da informação.
+
+## 6. REGRAS PARA REDUZIR O CONSUMO DE CRÉDITOS
+
+- Não realizar novas pesquisas na Internet.
+- Não voltar a analisar as ferramentas.
+- Não gerar novas descrições ou cenários.
+- Utilizar os textos integrais deste pedido.
+- Não refazer o trabalho já executado no catálogo.
+- Não reescrever ficheiros integralmente.
+- Não criar componentes ou dependências desnecessários.
+- Não modificar páginas ou funcionalidades fora do âmbito indicado.
+
+Trata-se de uma alteração de apresentação e correspondência dos conteúdos, não de uma nova investigação.
+
+## 7. VERIFICAÇÃO FINAL
+
+Confirmar:
+1. Que existem exatamente 16 ferramentas de IA com a estrutura definida.
+2. Que os textos correspondem aos 16 blocos deste pedido.
+3. Que não há secções adicionais.
+4. Que não há rótulos duplicados na idade ou na proteção de dados.
+5. Que as funcionalidades estão em linhas separadas.
+6. Que os tipos de entrada estão separados por « · ».
+7. Que os cenários estão numerados corretamente.
+8. Que todas as fontes estão separadas e clicáveis.
+9. Que a data de verificação é apresentada corretamente.
+10. Que o botão «Experimentar» permanece funcional.
+11. Que os filtros, pesquisa, navegação e alternativas sem IA continuam a funcionar.
+12. Que o projeto compila sem erros.
+
+Executa exclusivamente o solicitado. No final, apresenta uma confirmação breve dos ficheiros alterados e das verificações realizadas.

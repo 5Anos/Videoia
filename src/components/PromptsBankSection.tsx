@@ -3,13 +3,9 @@ import {
   Copy, 
   Check, 
   Sparkle,
-  Target,
-  Video,
-  Info,
-  ShieldCheck,
+  ShieldAlert,
   Search
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { EDUCATIONAL_PROMPTS, EducationalPrompt } from '../data/presentationData';
 import { matchesSearch } from '../utils/pedagogyLogic';
 
@@ -23,6 +19,7 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
   const [internalSearch, setInternalSearch] = useState<string>('');
   const [selectedDiscipline, setSelectedDiscipline] = useState<string>('all');
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const [copyErrorId, setCopyErrorId] = useState<number | null>(null);
 
   const activeSearch = externalSearchQuery || internalSearch;
 
@@ -37,19 +34,17 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
   const handleCopy = async (prompt: EducationalPrompt) => {
     try {
       await navigator.clipboard.writeText(prompt.promptText);
+      setCopyErrorId(null);
       setCopiedId(prompt.id);
-      confetti({
-        particleCount: 25,
-        spread: 50,
-        origin: { y: 0.85 }
-      });
       setTimeout(() => {
         setCopiedId(null);
       }, 2000);
     } catch {
-      // Fallback
-      setCopiedId(prompt.id);
-      setTimeout(() => setCopiedId(null), 2000);
+      setCopiedId(null);
+      setCopyErrorId(prompt.id);
+      setTimeout(() => {
+        setCopyErrorId(null);
+      }, 2500);
     }
   };
 
@@ -58,11 +53,13 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
       p.title,
       p.discipline,
       p.gradeLevel,
-      p.creationType,
       p.recommendedTool,
-      p.pedagogicalObjective,
+      p.requiredInput || '',
+      p.toolSetup || '',
       p.promptText,
-      p.validationNote || ''
+      p.validationNote || '',
+      p.creationType,
+      p.pedagogicalObjective
     ]);
     if (!matches) return false;
 
@@ -104,37 +101,7 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
             Banco de Prompts para Vídeos com IA
           </h1>
           <p className="text-sm text-[#475569] mt-2 leading-relaxed max-w-4xl">
-            Explore exemplos de prompts prontos a utilizar para criar vídeos com Inteligência Artificial em diferentes disciplinas e níveis de ensino. Escolha um exemplo, selecione a ferramenta indicada e copie o prompt para experimentar.
-          </p>
-        </div>
-
-        {/* Nota breve sobre as ferramentas gratuitas */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] border border-[#DCE8F6] text-xs text-[#334155] leading-relaxed space-y-2.5">
-          <div className="flex items-center gap-2 font-bold text-[#08203E] uppercase font-mono text-[11px]">
-            <Info className="w-4 h-4 text-[#0284C7] shrink-0" />
-            <span>Nota breve sobre as ferramentas gratuitas (para experimentar sem subscrição):</span>
-          </div>
-
-          <ul className="space-y-1.5 pl-1 text-[#475569]">
-            <li>
-              • <strong>PixVerse:</strong> plano Basic gratuito, com 60 créditos iniciais e 30 créditos diários para utilizadores não subscritores. Cada geração consome 20, 40 ou 60 créditos, conforme as definições. A exportação gratuita tem marca de água e resolução máxima de 540p.
-            </li>
-            <li>
-              • <strong>Kling AI:</strong> disponibiliza créditos promocionais gratuitos a novos utilizadores; quantidade e validade variáveis.
-            </li>
-            <li>
-              • <strong>Vidu:</strong> disponibiliza créditos de experimentação no registo e créditos adicionais por acesso diário; quantidades não garantidas.
-            </li>
-            <li>
-              • <strong>Hailuo AI:</strong> disponibiliza um pacote único de créditos de boas-vindas, com validade de três dias. As exportações gratuitas incluem marca de água.
-            </li>
-            <li>
-              • <strong>HeyGen:</strong> plano gratuito com uma quota de 1 a 3 vídeos, conforme a região, até um minuto e 720p. Não utiliza créditos no plano gratuito.
-            </li>
-          </ul>
-
-          <p className="text-[11px] text-[#64748B] pt-1 border-t border-[#E2E8F0] italic">
-            Estas condições devem ser apresentadas como informação sujeita a alteração, confirmada em 10/11/2026. Não recomendar Google Veo como ferramenta de experimentação gratuita sem subscrição.
+            Encontra prompts simples e prontos a utilizar para criar vídeos com Inteligência Artificial. Escolhe a proposta, utiliza a ferramenta indicada e copia o texto. Cada exemplo identifica o material necessário e inclui notas de validação quando importante.
           </p>
         </div>
       </div>
@@ -181,65 +148,56 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
           {filteredPrompts.map((prompt) => (
             <div
               key={prompt.id}
-              className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-7 shadow-xs hover:border-[#38BDF8] hover:shadow-sm transition-all flex flex-col justify-between space-y-4 group"
+              className="bg-white rounded-3xl border border-[#DCE8F6] p-6 sm:p-7 shadow-xs hover:border-[#38BDF8] hover:shadow-sm transition-all flex flex-col justify-between space-y-5 group"
             >
-              <div className="space-y-4">
-                {/* 1. Título do Prompt */}
+              <div className="space-y-3.5">
+                {/* 1. Título da proposta */}
                 <div>
                   <h3 className="text-lg font-bold text-[#08203E] leading-snug font-serif-display group-hover:text-[#0284C7] transition-colors">
                     {prompt.title}
                   </h3>
 
-                  {/* 2. Disciplina e Ano de Escolaridade */}
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#64748B] font-medium mt-1.5">
-                    <span className="font-semibold text-[#0B4B82] bg-[#EAF3FD] px-2.5 py-0.5 rounded-md border border-[#CEE2F7]">
-                      {prompt.discipline}
-                    </span>
-                    <span className="text-slate-600 font-medium">
-                      Ano: {prompt.gradeLevel}
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3. Tipo de Criação e Ferramenta Recomendada */}
-                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1 text-xs">
-                  <div className="text-[#334155] leading-relaxed">
-                    <strong>Tipo de criação:</strong> {prompt.creationType}
-                  </div>
-                  <div className="text-[#0B4B82] font-medium flex items-start gap-1.5 pt-0.5">
-                    <Video className="w-3.5 h-3.5 text-[#0284C7] shrink-0 mt-0.5" />
-                    <span><strong>Ferramenta recomendada:</strong> {prompt.recommendedTool}</span>
-                  </div>
-                </div>
-
-                {/* 4. Objetivo (numa única frase) */}
-                <div className="p-3.5 rounded-2xl bg-[#EFF6FF] border border-[#BFDBFE] text-xs space-y-1">
-                  <div className="font-bold text-[#1E3A8A] flex items-center gap-1.5 font-mono text-[11px] uppercase">
-                    <Target className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
-                    <span>Objetivo:</span>
-                  </div>
-                  <p className="text-[#1E40AF] leading-relaxed font-medium">
-                    {prompt.pedagogicalObjective}
+                  {/* 2. Disciplina | Ano de escolaridade */}
+                  <p className="text-xs text-[#64748B] font-medium mt-1">
+                    {prompt.discipline} | {prompt.gradeLevel}
                   </p>
                 </div>
 
-                {/* 5. Prompt Integral para Copiar */}
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-bold text-[#64748B] uppercase font-mono tracking-wider">
-                    Prompt Integral:
-                  </span>
-                  <div className="p-4 rounded-2xl bg-[#041D3A] text-cyan-100 font-mono text-xs leading-relaxed border border-[#0E2C52] whitespace-pre-wrap selection:bg-[#FACC15] selection:text-[#041D3A]">
+                {/* 3. Ferramenta */}
+                <div className="text-xs text-[#334155] leading-relaxed">
+                  <strong>Ferramenta:</strong> {prompt.recommendedTool}
+                </div>
+
+                {/* 4. Material necessário (quando aplicável) */}
+                {prompt.requiredInput && (
+                  <div className="text-xs text-[#334155] leading-relaxed">
+                    <strong>Material necessário:</strong> {prompt.requiredInput}
+                  </div>
+                )}
+
+                {/* Preparação (quando aplicável) */}
+                {prompt.toolSetup && (
+                  <div className="text-xs text-[#334155] leading-relaxed">
+                    <strong>Preparação:</strong> {prompt.toolSetup}
+                  </div>
+                )}
+
+                {/* 5. Prompt / Texto para o campo Script */}
+                <div className="space-y-1.5 pt-1">
+                  <h4 className="text-xs font-bold text-[#08203E] font-serif-display">
+                    {prompt.promptLabel || 'Prompt'}
+                  </h4>
+                  <div className="p-4 rounded-2xl bg-[#041D3A] text-cyan-100 font-mono text-xs sm:text-sm leading-relaxed border border-[#0E2C52] whitespace-pre-wrap selection:bg-[#FACC15] selection:text-[#041D3A]">
                     {prompt.promptText}
                   </div>
                 </div>
 
-                {/* 6. Nota de Validação (apenas quando necessária) */}
+                {/* 6. Nota de validação (apenas quando necessária) */}
                 {prompt.validationNote && (
                   <div className="p-3.5 rounded-2xl bg-[#FEF8E7] border border-[#FDE5B5] text-xs space-y-1">
-                    <div className="font-bold text-[#92400E] flex items-center gap-1.5 font-mono text-[11px] uppercase">
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#B45309] shrink-0" />
-                      <span>Nota de Validação:</span>
-                    </div>
+                    <span className="font-bold text-[#92400E] font-mono text-[11px] uppercase block">
+                      Nota:
+                    </span>
                     <p className="text-[#78350F] leading-relaxed">
                       {prompt.validationNote}
                     </p>
@@ -247,13 +205,15 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
                 )}
               </div>
 
-              {/* Botão Copiar Prompt */}
+              {/* 7. Botão Copiar */}
               <div className="pt-3 border-t border-[#EEF2F6] flex items-center justify-end">
                 <button
                   onClick={() => handleCopy(prompt)}
                   className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs ${
                     copiedId === prompt.id
                       ? 'bg-emerald-600 text-white font-bold'
+                      : copyErrorId === prompt.id
+                      ? 'bg-rose-600 text-white font-bold'
                       : 'bg-[#FACC15] hover:bg-amber-300 text-[#041D3A] font-bold'
                   }`}
                 >
@@ -262,10 +222,15 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
                       <Check className="w-3.5 h-3.5 text-white" />
                       <span>Copiado!</span>
                     </>
+                  ) : copyErrorId === prompt.id ? (
+                    <>
+                      <ShieldAlert className="w-3.5 h-3.5 text-white" />
+                      <span>Não foi possível copiar</span>
+                    </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5 text-[#041D3A]" />
-                      <span>Copiar Prompt</span>
+                      <span>{prompt.copyButtonLabel || 'Copiar prompt'}</span>
                     </>
                   )}
                 </button>
