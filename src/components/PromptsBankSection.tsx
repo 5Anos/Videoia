@@ -132,7 +132,7 @@ export const PromptsBankSection: React.FC<PromptsBankSectionProps> = ({
         </div>
       </div>
 
-      {/* 3. Grelha dos 11 Cartões */}
+      {/* 3. Grelha dos 17 Cartões */}
       {filteredPrompts.length === 0 ? (
         <div className="p-8 text-center bg-white rounded-3xl border border-[#DCE8F6] text-xs text-slate-500">
           Nenhum prompt encontrado para a pesquisa ou disciplina selecionada.

@@ -333,22 +333,37 @@ export const TEACHER_ADVANTAGES: EducationalAdvantage[] = [
   }
 ];
 
-// 3. BANCO DE PROMPTS PARA VÍDEOS COM IA (11 PROMPTS PRONTOS A UTILIZAR)
+// 3. BANCO DE PROMPTS PARA VÍDEOS COM IA (17 PROMPTS PRONTOS A UTILIZAR)
 export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
   {
     id: 1,
     title: "O percurso do sangue no coração",
     discipline: "Ciências Naturais / Biologia",
     gradeLevel: "3.º Ciclo (9.º ano)",
-    creationType: "Apresentador virtual — vídeo explicativo com guião",
+    creationType: "Apresentador virtual — vídeo explicativo com guião e esquema anatómico de apoio",
     recommendedTool: "Vidnoz AI — AI Video Wizard",
     pedagogicalObjective: "Visualizar o percurso do sangue na circulação pulmonar e sistémica, distinguindo os dois circuitos.",
     requiredInput: "Esquema anatómico validado do coração, em formato PNG ou JPG, com cavidades e principais vasos sanguíneos identificados.",
-    toolSetup: "Abrir o AI Video Wizard, selecionar um avatar público adulto e uma voz em português, se disponível. Carregar o esquema anatómico e adicioná-lo como apoio visual à explicação. Rever as cenas e o guião antes de gerar o vídeo. A conta deve ser utilizada pelo professor adulto.",
+    toolSetup: "Abrir o Vidnoz AI Video Wizard, selecionar um avatar público adulto e uma voz em português, se disponível. Carregar o esquema anatómico validado do coração e utilizá-lo como apoio visual durante a explicação. Introduzir o texto de narração fornecido, rever as cenas e confirmar a correspondência entre a fala e o esquema antes de gerar o vídeo. A conta deve ser utilizada pelo professor adulto.",
     promptLabel: "Prompt para o AI Video Wizard",
     copyButtonLabel: "Copiar prompt",
-    promptText: "Cria um vídeo educativo curto, em português de Portugal, com um apresentador virtual adulto a explicar o percurso do sangue no coração. Utiliza o esquema anatómico carregado como apoio visual. O apresentador deve explicar:\n\nO sangue que regressa do organismo entra na aurícula direita pelas veias cavas. Passa pela válvula tricúspide para o ventrículo direito e segue pelas artérias pulmonares até aos pulmões. Depois de receber oxigénio, regressa pelas veias pulmonares à aurícula esquerda. Atravessa a válvula mitral até ao ventrículo esquerdo e sai pela aorta para todo o organismo.",
-    validationNote: "Confirmar que a sequência das cavidades e dos vasos está correta, especialmente a distinção entre artérias pulmonares e veias pulmonares. O esquema deve ser validado pelo professor; o avatar não deve criar uma nova representação anatómica."
+    promptText: `Cria um vídeo educativo curto, em português de Portugal, com um apresentador virtual adulto a explicar o percurso do sangue na circulação pulmonar e sistémica.
+
+Utiliza exclusivamente o esquema anatómico carregado como referência visual para a explicação. Não inventes, redesenhes ou alteres a anatomia do coração. Não substituas as cavidades, válvulas ou vasos sanguíneos identificados no esquema.
+
+O apresentador deve explicar, pela seguinte ordem:
+
+1. O sangue pobre em oxigénio regressa do organismo e entra na aurícula direita pelas veias cavas.
+2. Passa pela válvula tricúspide para o ventrículo direito.
+3. Sai pelas artérias pulmonares em direção aos pulmões, onde ocorre a hematose.
+4. O sangue oxigenado regressa pelas veias pulmonares à aurícula esquerda.
+5. Passa pela válvula mitral para o ventrículo esquerdo.
+6. Sai pela aorta e é distribuído por todo o organismo.
+
+Utiliza linguagem científica correta, frases curtas e uma explicação adequada a alunos do 9.º ano.
+
+Mantém o esquema visível nas cenas correspondentes. Não acrescentes informação anatómica que não esteja representada ou validada.`,
+    validationNote: "Confirmar a sequência das cavidades, válvulas e vasos sanguíneos. Verificar especialmente que as artérias pulmonares transportam sangue do coração para os pulmões e que as veias pulmonares transportam sangue dos pulmões para o coração. O esquema deve ser validado pelo professor. O avatar não deve criar uma nova representação anatómica."
   },
   {
     id: 2,
@@ -374,11 +389,17 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     recommendedTool: "Google Vids — Animar Imagem com IA",
     pedagogicalObjective: "Representar as principais etapas do ciclo da água, incluindo evaporação, condensação, precipitação, escoamento e infiltração.",
     requiredInput: "Esquema do ciclo da água em formato JPG ou PNG. Preferir uma imagem nítida, sem legendas demasiado pequenas.",
-    toolSetup: "No Google Vids, abrir Criar Vídeos com IA, selecionar Animar, carregar a imagem e escolher o formato paisagem. Inserir o texto no campo de descrição do movimento. A funcionalidade gera um clipe curto a partir da imagem estática.",
+    toolSetup: "Abrir o Google Vids e carregar o esquema do ciclo da água. Selecionar a funcionalidade de animação de imagem, quando disponível na conta. Introduzir o texto no campo destinado à descrição do movimento. Utilizar a imagem original como referência e verificar o resultado antes de o integrar no vídeo final.",
     promptLabel: "Prompt",
     copyButtonLabel: "Copiar prompt",
-    promptText: "Anima suavemente as nuvens a deslocarem-se e a chuva a cair sobre a paisagem. Mostra um movimento discreto da água à superfície, mantendo a câmara estável.",
-    validationNote: "Confirmar a representação da evaporação, condensação, precipitação, escoamento e infiltração. A IA pode modificar elementos do esquema; se necessário, voltar a inserir as legendas originais no editor de vídeo."
+    promptText: `Animate this water cycle diagram with subtle, natural movement. Keep the original scientific diagram, labels, arrows, colours and layout unchanged.
+
+Show the clouds moving slowly across the sky. Animate raindrops falling from the clouds towards the land and water. Show gentle movement of surface water towards rivers and the sea.
+
+Represent the water cycle in a calm and educational way. Keep the camera fixed and stable. Do not add new labels, arrows, symbols or scientific elements. Do not change the original diagram or rearrange its components.
+
+The animation must preserve the scientific information in the uploaded image.`,
+    validationNote: "Confirmar que a imagem original mantém as legendas, setas e etapas do ciclo da água. Verificar a evaporação, condensação, precipitação, escoamento e infiltração. A animação pode alterar elementos do esquema; se isso acontecer, utilizar novamente a imagem original e acrescentar os movimentos no editor. Não aceitar alterações científicas introduzidas pela IA."
   },
   {
     id: 4,
@@ -407,23 +428,47 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     toolSetup: "Selecionar o fluxo Script to Video. Utilizar o guião incluído no prompt como narração e carregar o corte geológico como recurso visual. Rever as imagens e substituir qualquer representação geológica incorreta pelo esquema validado antes de exportar.",
     promptLabel: "Prompt para Script to Video",
     copyButtonLabel: "Copiar prompt",
-    promptText: "Cria um vídeo educativo de 45 a 60 segundos, em português de Portugal, sobre a formação de vulcões em zonas de subducção. Utiliza o seguinte texto como guião de narração, sem alterar a explicação científica:\n\nQuando duas placas convergem, a placa oceânica, mais densa, mergulha sob a outra placa. À medida que desce, liberta água dos minerais que transporta. Essa água favorece a fusão parcial das rochas do manto sobrejacente. O magma formado pode ascender e alimentar vulcões.\n\nUtiliza o corte geológico carregado como principal apoio visual durante a explicação do processo. Complementa com imagens de apoio adequadas.",
-    validationNote: "Confirmar que o vídeo não representa a placa oceânica como totalmente fundida. A fusão parcial ocorre no manto sobrejacente, favorecida pela água libertada pela placa em subducção. Rever todas as imagens geradas antes de utilizar o vídeo."
+    promptText: `Cria um vídeo educativo de 45 a 60 segundos, em português de Portugal, sobre a formação de vulcões em zonas de subducção.
+
+Utiliza exatamente o seguinte texto como narração, sem alterar os conceitos científicos:
+
+"Nas zonas de convergência, duas placas tectónicas aproximam-se. Quando uma placa oceânica converge com outra placa, a placa oceânica, geralmente mais densa, mergulha sob a outra. Este processo chama-se subducção.
+
+À medida que a placa oceânica desce, liberta água dos minerais que transporta. Essa água favorece a fusão parcial das rochas do manto sobrejacente, originando magma.
+
+O magma pode ascender através da crosta e alimentar vulcões. Assim se formam muitos dos vulcões associados às zonas de subducção."
+
+Utiliza o corte geológico carregado como principal recurso visual. Mostra a placa oceânica a mergulhar sob a outra placa, a formação de magma no manto sobrejacente e a sua ascensão em direção à superfície.
+
+Não representes a placa oceânica como totalmente fundida. Não coloques a origem do magma na placa em subducção. Não inventes legendas científicas.
+
+Utiliza imagens de apoio simples e coerentes com o esquema fornecido. Mantém uma linguagem visual adequada a alunos do 7.º ano.`,
+    validationNote: "Confirmar que a placa oceânica mergulha sob a outra placa e que a água libertada favorece a fusão parcial do manto sobrejacente. O magma não deve ser representado como resultado da fusão total da placa em subducção. Rever todas as imagens antes da exportação."
   },
   {
     id: 6,
     title: "Segurança no laboratório de Ciências",
     discipline: "Ciências Naturais / Físico-Química",
     gradeLevel: "3.º Ciclo (7.º ao 9.º ano)",
-    creationType: "Edição de vídeo — narração com voz sintética e legendagem",
+    creationType: "Edição de vídeo — montagem de imagens, narração com voz sintética e legendagem automática",
     recommendedTool: "Microsoft Clipchamp — Texto para Voz e Legendas",
-    pedagogicalObjective: "Apresentar três regras fundamentais de segurança laboratorial através de um apresentador virtual.",
-    requiredInput: "Imagens ou clips curtos que mostrem a utilização de equipamentos de proteção, a organização de uma bancada e o comportamento seguro no laboratório.",
-    toolSetup: "Importar as imagens ou clips para o editor do Clipchamp. Selecionar Gravar e Criar > Texto para Voz. Inserir o texto, escolher uma voz em português disponível e pré-visualizar a narração. Depois, utilizar a funcionalidade Legendas para gerar e rever as legendas automáticas. Se não existir uma voz adequada em português de Portugal, gravar a narração do professor.",
+    pedagogicalObjective: "Apresentar regras fundamentais de segurança laboratorial através de um vídeo explicativo com imagens, narração e legendas.",
+    requiredInput: "Imagens ou clips curtos que mostrem a utilização de equipamentos de proteção, a organização de uma bancada e comportamentos seguros no laboratório.",
+    toolSetup: "Importar as imagens ou clips para o editor do Clipchamp. Selecionar Gravar e Criar > Texto para Voz e inserir o texto de narração. Escolher uma voz em português disponível e pré-visualizar o áudio. Organizar as imagens de acordo com a narração. No final, utilizar a funcionalidade de legendas automáticas e rever cuidadosamente o texto gerado. Se não existir uma voz adequada em português de Portugal, gravar a narração do professor.",
     promptLabel: "Texto para narração",
     copyButtonLabel: "Copiar texto",
-    promptText: "Antes de iniciar uma experiência, lê as instruções do professor e coloca o equipamento de proteção indicado. Prende o cabelo comprido e mantém a bancada organizada. Nunca comas, bebas ou proves reagentes. Não cheires diretamente os recipientes. Se ocorrer um derrame ou acidente, afasta-te e informa imediatamente o professor. Não tentes limpar sem orientação.",
-    validationNote: "Adaptar as regras ao regulamento do laboratório e às fichas de segurança dos produtos utilizados na escola. O texto é uma orientação geral e não substitui as normas de segurança locais."
+    promptText: `Antes de iniciar uma experiência, lê atentamente as instruções do professor e coloca o equipamento de proteção indicado.
+
+Prende o cabelo comprido e mantém a bancada organizada.
+
+Nunca comas, bebas ou proves reagentes no laboratório. Não cheires diretamente os recipientes.
+
+Utiliza os materiais e equipamentos apenas de acordo com as instruções recebidas.
+
+Se ocorrer um derrame ou acidente, afasta-te e informa imediatamente o professor. Não tentes limpar sem orientação.
+
+No laboratório, a segurança é responsabilidade de todos.`,
+    validationNote: "Confirmar que as imagens correspondem às regras de segurança apresentadas na narração. Rever todas as legendas, especialmente os termos relacionados com equipamentos e materiais laboratoriais. Adaptar as regras ao regulamento do laboratório da escola. O Clipchamp é utilizado para montagem, narração e legendagem, não para criar um apresentador virtual."
   },
   {
     id: 7,
@@ -460,15 +505,21 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     title: "A fotossíntese: da luz à produção de matéria orgânica",
     discipline: "Ciências Naturais / Biologia",
     gradeLevel: "Ensino Secundário (10.º ou 11.º ano)",
-    creationType: "Edição de vídeo — narração e legendagem com IA",
+    creationType: "Edição de vídeo — narração científica, legendagem e montagem com esquema validado",
     recommendedTool: "CapCut — Texto para Voz e Legendas Automáticas",
     pedagogicalObjective: "Visualizar a relação entre as reações dependentes da luz nos tilacoides e o ciclo de Calvin no estroma do cloroplasto.",
     requiredInput: "Esquema cientificamente validado de um cloroplasto, com os tilacoides e o estroma identificados.",
-    toolSetup: "Importar o esquema para o projeto de vídeo. Adicionar uma camada de texto com a narração e selecionar Texto para Voz. Escolher uma voz em português disponível e gerar o áudio. Depois, selecionar Legendas Automáticas, escolher a língua da narração, gerar as legendas e corrigir todos os termos científicos.",
+    toolSetup: "Importar o esquema validado para o CapCut. Organizar a imagem no vídeo e adicionar o texto de narração. Utilizar a funcionalidade de texto para voz, se disponível na versão utilizada, ou gravar a narração. Gerar legendas automáticas e rever todos os termos científicos. Não utilizar a geração de imagens por IA para substituir o esquema científico fornecido pelo professor.",
     promptLabel: "Texto para narração",
     copyButtonLabel: "Copiar texto",
-    promptText: "A fotossíntese ocorre nos cloroplastos. Nas membranas dos tilacoides decorrem as reações dependentes da luz, que permitem produzir ATP e NADPH e libertar oxigénio a partir da água. No estroma decorre o ciclo de Calvin, que utiliza ATP e NADPH para fixar dióxido de carbono e formar compostos orgânicos.",
-    validationNote: "Confirmar que as reações dependentes da luz são localizadas nas membranas dos tilacoides e que o ciclo de Calvin decorre no estroma. Rever a pronúncia dos termos científicos e a precisão das legendas."
+    promptText: `A fotossíntese é o processo através do qual os organismos fotossintéticos utilizam a energia da luz para produzir compostos orgânicos.
+
+Nas membranas dos tilacoides dos cloroplastos decorrem as reações dependentes da luz. Durante estas reações, ocorre a fotólise da água, há libertação de oxigénio e são produzidos ATP e NADPH.
+
+No estroma do cloroplasto decorre o ciclo de Calvin, que utiliza ATP e NADPH para fixar dióxido de carbono e formar compostos orgânicos.
+
+As duas etapas estão relacionadas e permitem transformar energia luminosa em energia química armazenada em moléculas orgânicas.`,
+    validationNote: "Confirmar que as reações dependentes da luz decorrem nas membranas dos tilacoides e que o ciclo de Calvin ocorre no estroma. Verificar a pronúncia de tilacoides, estroma, ATP, NADPH e dióxido de carbono. Rever todas as legendas. O esquema científico deve ser fornecido e validado pelo professor."
   },
   {
     id: 10,
@@ -505,58 +556,86 @@ export const EDUCATIONAL_PROMPTS: EducationalPrompt[] = [
     title: "A Batalha do Buçaco (1810): animar uma imagem histórica",
     discipline: "História",
     gradeLevel: "3.º Ciclo (9.º ano)",
-    creationType: "Imagem para vídeo — animação de cena histórica.",
+    creationType: "Imagem para vídeo — animação histórica em três clips independentes",
     recommendedTool: "Vidnoz AI — Animate Image",
     pedagogicalObjective: "Explorar uma reconstituição visual de um episódio das Invasões Francesas, distinguindo a animação gerada por IA de um documento histórico.",
-    requiredInput: "Imagem de referência da Batalha do Buçaco, com soldados portugueses e britânicos e tropas francesas.",
-    toolSetup: "No Vidnoz AI, selecionar a funcionalidade Animate Image, carregar a imagem de referência e colar o prompt em inglês. Pré-visualizar o resultado antes de exportar.",
-    promptLabel: "Prompt (em inglês)",
+    requiredInput: "Três imagens de referência ou uma imagem histórica que possa servir de base à criação de três planos distintos da Batalha do Buçaco.",
+    toolSetup: "Preparar três clips separados a partir das imagens de referência. Introduzir um prompt de movimento de cada vez na funcionalidade de animação de imagem. Não tentar gerar toda a batalha num único clip. Guardar os três resultados e montá-los posteriormente num editor de vídeo. Rever uniformes, armamento, bandeiras e contexto histórico antes de utilizar o resultado.",
+    promptLabel: "Três prompts em inglês — copiar separadamente",
     copyButtonLabel: "Copiar prompt",
-    promptText: "Animate this historical Battle of Bussaco scene, Portugal, 1810. Portuguese and British soldiers fire their muskets while French infantry advances through the battlefield. The cannon fires with a powerful flash, producing thick smoke. Soldiers move forward, flags wave strongly in the wind, and smoke drifts across the forested hills. The camera slowly moves forward through the battlefield, creating an immersive cinematic war scene. Realistic historical movements, dramatic atmosphere. Preserve the original uniforms, flags and characters.",
-    validationNote: "Identificar o vídeo como reconstituição histórica gerada por IA, não como documento de arquivo. Verificar uniformes, bandeiras, armamento e contexto histórico."
+    promptText: `CLIP 1 — GENERAL VIEW OF THE BATTLEFIELD
+
+Animate this historical illustration of the Battle of Bussaco, Portugal, 1810. Show a wide view of the forested hills and the military positions of the opposing armies. Add subtle movement to the flags and trees. Use a slow and stable camera movement. Preserve the original uniforms, weapons, landscape and composition. Do not add new soldiers or objects.
+
+CLIP 2 — TROOP MOVEMENT
+
+Animate the soldiers in the historical illustration with restrained and realistic movement. Show small groups of infantry advancing carefully across the battlefield. Add distant musket smoke drifting slowly through the air. Keep the camera stable and avoid exaggerated movement. Preserve the original uniforms, weapons, flags and historical appearance. Do not create graphic violence or hand-to-hand combat.
+
+CLIP 3 — AFTER THE BATTLE
+
+Animate a quiet final view of the historical battlefield after the confrontation. Show smoke slowly dissipating over the forested hills. Add subtle movement to the vegetation and flags. Use a slow camera pull-back. Preserve the original historical illustration and its composition. Do not introduce new characters or objects.`,
+    validationNote: "Identificar os três clips como reconstituições históricas ilustrativas geradas por IA, nunca como documentos de arquivo. Verificar uniformes, bandeiras, armamento e contexto histórico. Montar os três clips num editor de vídeo e acrescentar uma narração histórica validada pelo professor."
   },
   {
     id: 13,
     title: "Os Descobrimentos Portugueses: uma viagem pelos séculos XV e XVI",
     discipline: "História / Geografia",
     gradeLevel: "2.º e 3.º Ciclos",
-    creationType: "Texto para vídeo — documentário histórico por cenas.",
+    creationType: "Documentário histórico — criação de clips independentes e montagem final",
     recommendedTool: "Vidnoz AI — Criar Vídeo",
     pedagogicalObjective: "Representar diferentes momentos da expansão marítima portuguesa e promover a reflexão sobre os contactos entre povos e as consequências da expansão.",
-    requiredInput: "Não necessita de imagem de referência. O vídeo é criado a partir das instruções textuais.",
-    toolSetup: "No Vidnoz AI, selecionar a funcionalidade de criação de vídeo, introduzir o prompt completo, definir 30 segundos e selecionar narração em português de Portugal. Rever todas as cenas antes de exportar.",
-    promptLabel: "Prompt (em português)",
+    requiredInput: "Imagens históricas ou ilustrações devidamente licenciadas para servir de referência visual. Mapa histórico validado das rotas marítimas portuguesas.",
+    toolSetup: "Preparar cinco clips independentes, um para cada momento do documentário. Utilizar a ferramenta para gerar ou animar cada clip separadamente. Não pedir a criação do documentário completo numa única geração. Utilizar o mapa histórico validado como elemento gráfico fornecido pelo professor. Montar os clips num editor de vídeo e acrescentar a narração. Rever a cronologia, as imagens e o conteúdo histórico antes da exportação.",
+    promptLabel: "Guião e cinco prompts visuais separados",
     copyButtonLabel: "Copiar prompt",
-    promptText: `Cria um vídeo histórico cinematográfico de 30 segundos sobre os Descobrimentos Portugueses, nos séculos XV e XVI.
+    promptText: `TÍTULO: Os Descobrimentos Portugueses — viagens, encontros e consequências
 
-Cena 1: Uma caravela portuguesa navega em alto-mar, enfrentando ondas e vento forte. A câmara aproxima-se da embarcação e mostra as velas a agitar-se.
+NARRAÇÃO:
 
-Cena 2: Um navegador observa um mapa antigo, utiliza uma bússola e orienta a tripulação. Mostrar instrumentos de navegação da época.
+Durante os séculos XV e XVI, os portugueses realizaram viagens marítimas que estabeleceram novas rotas entre a Europa, África, Ásia e, mais tarde, a América.
 
-Cena 3: A caravela atravessa o oceano e aproxima-se de uma costa desconhecida para os navegadores europeus.
+Estas viagens foram possíveis graças ao desenvolvimento da navegação, à utilização de instrumentos náuticos e à experiência dos navegadores.
 
-Cena 4: Mostrar a chegada de Vasco da Gama à Índia, em 1498, com embarcações no porto de Calecute.
+Em 1498, a expedição comandada por Vasco da Gama chegou a Calecute, na Índia, estabelecendo uma ligação marítima entre a Europa e o oceano Índico.
 
-Cena 5: Um mapa antigo apresenta as rotas marítimas portuguesas que ligaram a Europa, África e Ásia.
+A expansão portuguesa promoveu contactos comerciais, culturais e políticos entre diferentes povos. Contudo, também esteve associada à conquista de territórios, à violência, à exploração económica e à escravização de populações.
 
-Estilo de documentário histórico, imagens realistas, movimentos de câmara cinematográficos, cores e vestuário de época, música épica discreta. Narrativa em português de Portugal. Abordagem histórica rigorosa, incluindo a expansão marítima, os contactos entre povos e as consequências da expansão portuguesa.`,
-    validationNote: "Verificar a cronologia, os instrumentos de navegação, a chegada a Calecute e os contactos entre povos. A representação visual não deve ser confundida com um documento histórico."
+Estudar os Descobrimentos implica compreender tanto as viagens e os contactos entre sociedades como as consequências humanas, políticas e económicas da expansão.
+
+CLIP 1 — AS CARAVELAS
+
+Create a historically inspired animation of a Portuguese sailing ship from the fifteenth century navigating the Atlantic Ocean. Show gentle ocean waves and sails moving in the wind. Preserve historically plausible ship design. Slow cinematic camera movement.
+
+CLIP 2 — A NAVEGAÇÃO
+
+Create a historical educational scene showing navigation instruments used by Portuguese sailors during the fifteenth century. Show a nautical chart, compass and astrolabe on a wooden table. Use a slow camera movement. Do not include modern objects.
+
+CLIP 3 — AS ROTAS MARÍTIMAS
+
+Use the historical map supplied by the teacher. Preserve the original map, labels and route lines. Do not invent or modify geographical locations. Add only a subtle visual emphasis to the existing maritime routes.
+
+CLIP 4 — A CHEGADA À ÍNDIA
+
+Create an illustrative historical reconstruction of Portuguese ships arriving near Calicut in 1498. Show ships approaching the coast. Avoid invented historical details and preserve a plausible fifteenth-century setting.
+
+CLIP 5 — CONTACTOS E CONSEQUÊNCIAS
+
+Create an educational historical illustration representing encounters between Portuguese travellers and communities in Africa and Asia during the sixteenth century. Represent the different groups with dignity and historical care. Avoid stereotypes, romanticised depictions or an exclusively celebratory view of expansion.`,
+    validationNote: "Confirmar a cronologia, a chegada a Calecute em 1498 e a representação dos instrumentos de navegação. Verificar cuidadosamente o mapa e as rotas, que devem ser fornecidos pelo professor. Garantir que a narração aborda os contactos entre povos, a conquista, a exploração e a escravização. Os clips são reconstituições ilustrativas e não documentos históricos."
   },
   {
     id: 14,
-    title: "O 25 de Abril: criar um avatar inspirado em Salgueiro Maia",
+    title: "O 25 de Abril: um apresentador virtual explica a Revolução dos Cravos",
     discipline: "História / Cidadania",
     gradeLevel: "3.º Ciclo (9.º ano) e Ensino Secundário",
-    creationType: "Avatar digital — guião histórico, personagem e voz.",
+    creationType: "Apresentador virtual — guião histórico com personagem fictícia e voz",
     recommendedTool: "HeyGen — Criar Avatar, AI Studio e Voice Design",
     pedagogicalObjective: "Criar um apresentador virtual para narrar acontecimentos relacionados com a Revolução de 25 de Abril de 1974.",
-    requiredInput: "Não necessita de imagem. O avatar e a voz são criados a partir de instruções textuais.",
-    toolSetup: "Este cartão contém três textos para três campos diferentes do HeyGen. GUIÃO: introduzir no campo Script do AI Studio. AVATAR: introduzir no campo de criação ou descrição do avatar. VOZ: introduzir no campo de criação ou descrição da voz. Não colar os três textos no mesmo campo.",
-    promptLabel: "Guião, avatar e voz — três campos separados",
+    requiredInput: "Não necessita de imagem de uma pessoa real. Utilizar um avatar fictício da biblioteca disponibilizada pela ferramenta.",
+    toolSetup: "Utilizar um avatar fictício disponível na biblioteca do HeyGen. Não criar uma réplica de Salgueiro Maia nem utilizar fotografias ou gravações da sua voz. Introduzir o texto histórico no campo Script do AI Studio. Escolher uma voz em português de Portugal, se disponível. Rever a pronúncia dos nomes e das expressões históricas antes de exportar.",
+    promptLabel: "Guião para o apresentador virtual",
     copyButtonLabel: "Copiar instruções",
-    promptText: `GUIÃO — CAMPO SCRIPT
-
-A 25 de abril de 1974, Portugal mudou para sempre.
+    promptText: `A 25 de abril de 1974, Portugal mudou para sempre.
 
 Durante quase 50 anos, o país viveu sob uma ditadura, marcada pela censura, pela falta de liberdade e pela repressão.
 
@@ -564,61 +643,37 @@ Na madrugada desse dia, o Movimento das Forças Armadas iniciou uma revolução 
 
 Os militares ocuparam pontos estratégicos de Lisboa e receberam o apoio da população. Nas ruas, os cravos vermelhos foram oferecidos aos soldados e colocados nos canos das espingardas.
 
+Um dos militares que teve um papel fundamental neste acontecimento foi Salgueiro Maia, capitão de Abril.
+
 A revolução derrubou a ditadura e abriu caminho à democracia.
 
-O 25 de Abril ficou conhecido como a Revolução dos Cravos: um marco na história de Portugal e na conquista da liberdade.
-
-
-AVATAR — CAMPO DE CRIAÇÃO DO AVATAR
-
-Create a realistic historical male character inspired by Captain Salgueiro Maia, the Portuguese military officer who played a key role in the Carnation Revolution of April 25, 1974.
-
-A Portuguese army captain in his late 20s, with dark brown slightly wavy hair, a clean-shaven face, strong expressive features and a determined yet calm gaze.
-
-He wears an authentic-looking Portuguese military olive-green uniform from the early 1970s, including a field shirt, shoulder epaulettes and a period-appropriate military cap.
-
-His appearance conveys courage, leadership, intelligence and integrity.
-
-Photorealistic style, historically inspired 1970s appearance, natural facial features, realistic fabric textures, professional cinematic lighting.
-
-Neutral standing pose, facing the camera, upper-body portrait. Plain, unobtrusive background.
-
-
-VOZ — CAMPO DE CRIAÇÃO DA VOZ
-
-Create an original male voice that SPEAKS EXCLUSIVELY IN EUROPEAN PORTUGUESE (PORTUGAL). The spoken language MUST be Portuguese from Portugal, NOT English and NOT Brazilian Portuguese. All generated speech and voice samples must be entirely in European Portuguese. Native Portuguese pronunciation, with a natural Portuguese accent, correct Portuguese intonation and authentic pronunciation of Portuguese words. Warm, deep, mature and confident male voice. Calm, articulate and expressive, suitable for narrating a historical documentary. Moderate speaking pace, with natural pauses. NEVER speak in English.`,
-    validationNote: "O avatar é uma representação digital gerada por IA, inspirada numa figura histórica, não uma reprodução autêntica de Salgueiro Maia. Em 25 de abril de 1974, Salgueiro Maia tinha 29 anos. Rever a pronúncia das senhas e os acontecimentos narrados."
+O 25 de Abril ficou conhecido como a Revolução dos Cravos e representa um marco na história de Portugal e na conquista da liberdade.`,
+    validationNote: "Utilizar um apresentador fictício, sem imitar a aparência ou a voz de Salgueiro Maia. Confirmar as datas, os acontecimentos e as senhas da Revolução. O avatar é apenas o apresentador da explicação histórica, não representa a pessoa histórica."
   },
   {
     id: 15,
     title: "A Batalha de Aljubarrota (1385): criar um documentário histórico",
     discipline: "História",
     gradeLevel: "2.º Ciclo (6.º ano) e 3.º Ciclo",
-    creationType: "Texto para vídeo — documentário histórico por cenas.",
+    creationType: "Vídeo histórico narrado — apresentador virtual e imagens de reconstituição",
     recommendedTool: "HeyGen — Criar Vídeo",
-    pedagogicalObjective: "Representar a Batalha de Aljubarrota e compreender a sua importância na afirmação da independência portuguesa.",
-    requiredInput: "Não necessita de imagem de referência. O vídeo é criado a partir das instruções textuais.",
-    toolSetup: "Abrir a funcionalidade de criação de vídeo do HeyGen, introduzir o prompt completo e configurar a narração exclusivamente em português de Portugal. Rever o plano visual, a pronúncia e as cenas antes de exportar.",
-    promptLabel: "Prompt (em inglês)",
+    pedagogicalObjective: "Explicar a Batalha de Aljubarrota e a sua importância na consolidação da independência portuguesa através de um vídeo histórico narrado.",
+    requiredInput: "Guião histórico validado e imagens ou clips ilustrativos da Batalha de Aljubarrota, preparados separadamente.",
+    toolSetup: "No HeyGen AI Studio, selecionar um avatar fictício e inserir o guião histórico no campo Script. Utilizar imagens ou clips previamente preparados como apoio visual, caso o editor permita essa integração. Não pedir ao HeyGen para gerar uma batalha cinematográfica. A representação visual da batalha deve ser preparada separadamente e validada pelo professor.",
+    promptLabel: "Guião para o apresentador virtual",
     copyButtonLabel: "Copiar prompt",
-    promptText: `Create a cinematic historical documentary about the Battle of Aljubarrota, fought in Portugal on August 14, 1385.
+    promptText: `A Batalha de Aljubarrota ocorreu a 14 de agosto de 1385, durante a crise de sucessão ao trono português.
 
-IMPORTANT: The narrator must speak exclusively in European Portuguese (Portugal), never in English or Brazilian Portuguese.
+O exército português, comandado por D. João I e com a participação de Nuno Álvares Pereira, enfrentou o exército castelhano.
 
-Scene 1: Show an animated medieval map of the Iberian Peninsula, highlighting Portugal and the Kingdom of Castile.
+Os portugueses escolheram cuidadosamente o terreno e organizaram posições defensivas que dificultaram o avanço do exército adversário.
 
-Scene 2: Show two large medieval armies facing each other on a battlefield. Portuguese and Castilian soldiers wear historically inspired 14th-century armour, helmets and shields. Medieval flags wave in the wind.
+A utilização estratégica do terreno e a organização das forças portuguesas contribuíram para a vitória portuguesa.
 
-Scene 3: Show the Castilian army advancing towards the Portuguese defensive positions. Portuguese soldiers prepare to defend their territory under the command of King John I and the military leadership of Nuno Álvares Pereira.
+Esta batalha foi decisiva para a consolidação da independência de Portugal e para o reconhecimento de D. João I como rei.
 
-Scene 4: Show an intense medieval battle with archers firing arrows, cavalry advancing and soldiers fighting. Highlight the Portuguese defensive tactics and the use of the natural terrain.
-
-Scene 5: Show the Portuguese victory, with Portuguese soldiers celebrating on the battlefield and their flags waving proudly.
-
-Use realistic medieval environments, cinematic camera movements, dramatic lighting, historically inspired costumes and smooth transitions. Epic orchestral background music. Educational documentary style. No modern objects, weapons or buildings.
-
-The video narration must be entirely in European Portuguese.`,
-    validationNote: "Confirmar a data da batalha, o papel de D. João I e de Nuno Álvares Pereira e a representação dos exércitos. Identificar o resultado como reconstituição histórica gerada por IA."
+As imagens que acompanham esta explicação são reconstituições ilustrativas geradas por inteligência artificial e não documentos históricos da época.`,
+    validationNote: "Confirmar a data de 14 de agosto de 1385, os intervenientes e o contexto da crise de sucessão. Identificar todas as imagens geradas por IA como reconstituições ilustrativas. Não apresentar as imagens como registos autênticos da batalha."
   },
   {
     id: 16,
@@ -1422,7 +1477,7 @@ export const NON_AI_TOOLS: NonAiToolItem[] = [
   }
 ];
 
-// 5. ATIVIDADES NA AULA — CINCO PROPOSTAS PRÁTICAS
+// 5. ATIVIDADES NA AULA — PROPOSTAS PRÁTICAS
 export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
   {
     id: "apresentador-virtual",
@@ -1453,7 +1508,8 @@ export const CLASSROOM_ACTIVITIES: ClassroomActivity[] = [
     validationNotes: [
       "A conta Vidnoz exige 18 anos. O professor deve operar a ferramenta, utilizando um avatar adulto da biblioteca, sem criar representações de alunos.",
       "A explicação científica deve manter a distinção entre vapor de água, que é invisível, e as pequenas gotículas que constituem uma nuvem ou nevoeiro."
-    ]
+    ],
+    toolImportantNote: "A conta deve ser utilizada pelo professor adulto. Não utilizar fotografias, rostos ou gravações de voz dos alunos. As funcionalidades, os créditos e os limites de utilização dependem das condições da conta."
   },
   {
     id: "video-a-partir-de-ideia",
@@ -1557,8 +1613,8 @@ Do not add objects, characters, text or new details.`
     discipline: "Ciências Naturais",
     year: "5.º ou 6.º ano",
     duration: "2 aulas de 50 minutos.",
-    tool: "Canva — Magic Video e Legendas editáveis",
-    usageMode: "Criação assistida por IA a partir de imagens e clips + legendagem automática.",
+    tool: "Canva — Magic Media / Video Clip / Editor de Vídeo",
+    usageMode: "Gerar clips curtos com IA e montar o vídeo no editor",
     freeAccess: "O Canva Magic Video está incluído nos planos gratuitos. Permite utilizar entre 1 e 10 fotografias ou clips para criar um vídeo de até 60 segundos.",
     challenge: "Criar um pequeno vídeo educativo sobre a polinização e acrescentar narração e legendas automáticas.",
     stages: [
@@ -1631,7 +1687,7 @@ Evita efeitos visuais que dificultem a observação.`
     ],
     expectedResult: "Um vídeo educativo com imagens organizadas por IA, narração e legendas automáticas revistas pelo professor.",
     validationNotes: [],
-    toolImportantNote: "Esta atividade utiliza Canva Magic Video, e não Canva AI Video Clip. O Magic Video organiza imagens e clips fornecidos pelo utilizador. Não gera, a partir de texto, todas as imagens do vídeo. O AI Video Clip é uma funcionalidade diferente, sujeita a condições de acesso Ultra AI e quotas próprias. Não a apresentar como requisito desta atividade. O Magic Video gera vídeos verticais (9:16). Para criar um vídeo horizontal (16:9), utilizar o editor de vídeo normal do Canva, em vez desta funcionalidade."
+    toolImportantNote: "O Video Clip gera clips curtos a partir de instruções textuais. O Magic Media disponibiliza ferramentas de geração de conteúdos. O editor de vídeo permite organizar e montar os elementos. Estas funcionalidades são distintas. Selecionar a opção disponível na conta e não assumir que um único prompt produz automaticamente um vídeo educativo completo."
   },
   {
     id: "microconto-video-narrado",
@@ -1876,59 +1932,47 @@ Neutral standing pose, facing the camera, upper-body portrait. Plain, unobtrusiv
   {
     id: "batalha-aljubarrota-heygen",
     number: 9,
-    title: "A Batalha de Aljubarrota (1385): Criar um Documentário Histórico",
+    title: "Explicar a Batalha de Aljubarrota com um apresentador virtual",
     discipline: "História",
     year: "2.º ciclo (5.º e 6.º anos) e 3.º ciclo",
     duration: "2 aulas de 50 minutos.",
     tool: "HeyGen",
-    usageMode: "Create Video — documentário histórico com cenas e narração.",
+    usageMode: "Vídeo histórico narrado com apresentador virtual",
     freeAccess: "Consultar o Catálogo de Ferramentas para confirmar o plano, créditos, duração e condições de exportação. A conta deve ser utilizada pelo professor adulto.",
-    challenge: "Produzir um pequeno documentário audiovisual sobre a Batalha de Aljubarrota, os seus intervenientes e a importância da vitória portuguesa.",
+    challenge: "Criar um vídeo histórico curto sobre a Batalha de Aljubarrota, utilizando um apresentador virtual para explicar os acontecimentos e imagens ou clips ilustrativos previamente preparados para acompanhar a narração.",
     howToSteps: [
-      "1. Os alunos pesquisam a crise de 1383–1385, os exércitos envolvidos e a importância da batalha.",
-      "2. Organizam a informação nas cinco cenas descritas no prompt.",
-      "3. O professor abre o HeyGen e seleciona a funcionalidade de criação de vídeo por instruções.",
-      "4. Introduz o prompt em inglês e configura a narração exclusivamente em português de Portugal.",
-      "5. Pré-visualiza as cenas e verifica as referências históricas, a narração e as imagens.",
-      "6. Exporta o vídeo e promove uma discussão sobre a importância histórica da batalha."
+      "1. Preparar um guião histórico validado pelo professor.",
+      "2. Abrir o HeyGen AI Studio, selecionar um avatar fictício e inserir o guião no campo Script.",
+      "3. Escolher uma voz adequada em português.",
+      "4. Utilizar imagens ou clips históricos ilustrativos previamente preparados como apoio visual.",
+      "5. Rever a pronúncia, a cronologia e a correspondência entre narração e imagens antes de exportar."
     ],
     copyItems: [
       {
         id: "aljubarrota-heygen-prompt",
-        label: "Copiar prompt",
-        title: "Prompt para HeyGen — Documentário por cenas",
-        content: `Create a cinematic historical documentary about the Battle of Aljubarrota, fought in Portugal on August 14, 1385.
+        label: "Copiar guião",
+        title: "Guião para copiar",
+        content: `A Batalha de Aljubarrota ocorreu a 14 de agosto de 1385, durante a crise de sucessão ao trono português.
 
-IMPORTANT: The narrator must speak exclusively in European Portuguese (Portugal), never in English or Brazilian Portuguese.
+O exército português, comandado por D. João I e com a participação de Nuno Álvares Pereira, enfrentou o exército castelhano.
 
-Scene 1: Show an animated medieval map of the Iberian Peninsula, highlighting Portugal and the Kingdom of Castile.
+A escolha do terreno e a organização defensiva foram fundamentais para a vitória portuguesa.
 
-Scene 2: Show two large medieval armies facing each other on a battlefield. Portuguese and Castilian soldiers wear historically inspired 14th-century armour, helmets and shields. Medieval flags wave in the wind.
+Esta batalha contribuiu decisivamente para a consolidação da independência de Portugal e para o reconhecimento de D. João I como rei.
 
-Scene 3: Show the Castilian army advancing towards the Portuguese defensive positions. Portuguese soldiers prepare to defend their territory under the command of King John I and the military leadership of Nuno Álvares Pereira.
-
-Scene 4: Show an intense medieval battle with archers firing arrows, cavalry advancing and soldiers fighting. Highlight the Portuguese defensive tactics and the use of the natural terrain.
-
-Scene 5: Show the Portuguese victory, with Portuguese soldiers celebrating on the battlefield and their flags waving proudly.
-
-Use realistic medieval environments, cinematic camera movements, dramatic lighting, historically inspired costumes and smooth transitions. Epic orchestral background music. Educational documentary style. No modern objects, weapons or buildings.
-
-The video narration must be entirely in European Portuguese.`
+As imagens utilizadas neste vídeo são reconstituições ilustrativas e não documentos históricos da época.`
       }
     ],
     recommendedSettings: [
-      "Utilizar a funcionalidade de criação de vídeo por cenas do HeyGen.",
       "Narração exclusivamente em português de Portugal.",
-      "Manter a sequência das cinco cenas.",
       "Rever a representação dos exércitos, armamento e vestuário.",
       "Confirmar a pronúncia dos nomes históricos antes de exportar."
     ],
-    expectedResult: "Um pequeno documentário histórico com cinco cenas sobre a Batalha de Aljubarrota.",
+    expectedResult: "Um vídeo histórico narrado por um apresentador virtual sobre a Batalha de Aljubarrota, acompanhado por imagens ou clips ilustrativos.",
     validationNotes: [
-      "A Batalha de Aljubarrota ocorreu a 14 de agosto de 1385.",
-      "Confirmar o papel de D. João I e de Nuno Álvares Pereira.",
-      "Verificar a representação das forças portuguesas e castelhanas e as táticas defensivas.",
-      "Identificar o vídeo como reconstituição histórica gerada por IA, não como documento de arquivo."
+      "Confirmar a data, os intervenientes e o contexto histórico.",
+      "Utilizar um avatar fictício, sem imitar figuras históricas.",
+      "Identificar as imagens geradas por IA como reconstituições ilustrativas."
     ],
     toolImportantNote: "O HeyGen é utilizado pelo professor adulto. Os alunos participam na investigação, organização das cenas e validação histórica, sem necessitarem de criar uma conta."
   },
@@ -2033,6 +2077,194 @@ Keep the camera fixed. Show only water vapour rising from the ocean. One continu
       "Este vídeo representa apenas a evaporação, não o ciclo da água completo. A condensação, precipitação, escoamento e infiltração devem ser explorados separadamente."
     ],
     toolImportantNote: "Esta atividade utiliza geração de vídeo a partir de texto no Adobe Firefly. O prompt foi ajustado para manter o rigor científico da evaporação, sem representar gotículas líquidas como vapor de água."
+  },
+  {
+    id: "viagem-gota-agua-google-vids",
+    number: 12,
+    title: "A viagem de uma gota de água",
+    discipline: "Ciências Naturais",
+    year: "5.º ano",
+    duration: "30 a 45 minutos",
+    tool: "Google Vids — Criar",
+    usageMode: "Criação de vídeo a partir de texto e narração, sem carregar imagens de referência.",
+    freeAccess: "Utilizar a conta Google e verificar os limites de utilização disponíveis na conta.",
+    challenge: "Criar um vídeo educativo com várias cenas que conte a história de uma gota de água durante o ciclo da água. A ferramenta deverá gerar as imagens a partir da descrição escrita e do guião de narração.",
+    howToSteps: [
+      "1. Aceder ao Google Vids.",
+      "2. Selecionar a funcionalidade «Criar».",
+      "3. Não carregar imagens na secção «Ingredientes».",
+      "4. Copiar o prompt integral disponibilizado nesta atividade.",
+      "5. Introduzir o prompt no campo de criação.",
+      "6. Gerar o vídeo.",
+      "7. Rever as cenas e confirmar a correspondência entre as imagens e a narração.",
+      "8. Se necessário, gerar as cenas separadamente e reuni-las no editor."
+    ],
+    copyItems: [
+      {
+        id: "gota-agua-google-vids-prompt",
+        label: "Copiar prompt",
+        title: "Prompt Integral — Google Vids (Criar)",
+        content: `Cria um vídeo educativo e animado intitulado «A viagem de uma gota de água».
+
+O vídeo deve contar a história de uma gota de água que realiza uma viagem pela natureza, explicando as diferentes etapas do ciclo da água.
+
+Cria seis cenas sequenciais, acompanhando a mesma gota de água ao longo de toda a narrativa.
+
+CENA 1 — NO OCEANO
+
+Apresenta uma gota de água no oceano, rodeada de outras gotas. O Sol começa a aquecer a superfície do mar.
+
+Narração: «Olá! Sou uma pequena gota de água e vivo no imenso oceano. Um dia, o calor do Sol começou a aquecer a água à minha volta.»
+
+CENA 2 — A EVAPORAÇÃO
+
+Mostra a gota a transformar-se em vapor de água e a subir na atmosfera.
+
+Narração: «Com o calor do Sol, a água evapora-se e transforma-se em vapor, subindo lentamente para a atmosfera.»
+
+CENA 3 — A CONDENSAÇÃO
+
+Mostra o vapor de água a arrefecer e a formar pequenas gotículas que dão origem às nuvens.
+
+Narração: «À medida que subo, encontro temperaturas mais baixas. O vapor arrefece e condensa-se, formando pequenas gotículas de água que constituem as nuvens.»
+
+CENA 4 — A PRECIPITAÇÃO
+
+Mostra uma nuvem a libertar gotas de chuva sobre uma paisagem.
+
+Narração: «Quando as gotículas se juntam e ficam suficientemente pesadas, caem sob a forma de precipitação. E eis que volto à Terra!»
+
+CENA 5 — O REGRESSO À NATUREZA
+
+Mostra a água a infiltrar-se no solo, alimentar um rio e regressar ao oceano.
+
+Narração: «Parte da água infiltra-se no solo, outra parte alimenta os rios e acaba por regressar ao oceano. A minha viagem continua!»
+
+CENA 6 — O CICLO CONTINUA
+
+Apresenta uma paisagem natural com oceano, montanhas, nuvens e chuva.
+
+Narração: «E assim funciona o ciclo da água: um processo contínuo e essencial à vida no nosso planeta.»
+
+ORIENTAÇÕES VISUAIS:
+
+- Utiliza animação 3D educativa, colorida e apelativa.
+- Cria cenas diferentes e sequenciais.
+- Mantém a mesma gota de água como personagem ao longo do vídeo.
+- Utiliza transições suaves.
+- Inclui narração em Português Europeu.
+- Adiciona música instrumental suave.
+- Evita textos excessivos no ecrã.
+- Mantém o rigor científico.
+
+Termina com a frase: «A água é essencial à vida. Vamos protegê-la!»`
+      }
+    ],
+    expectedResult: "Um vídeo educativo com uma narrativa visual sobre o ciclo da água, criado a partir de um guião escrito, sem utilização de imagens carregadas pelo utilizador.",
+    validationNotes: [
+      "Confirmar a representação correta da evaporação, condensação, precipitação, infiltração e escoamento. Verificar se a narração corresponde às imagens apresentadas."
+    ]
+  },
+  {
+    id: "evolucao-meios-comunicacao-google-vids",
+    number: 13,
+    title: "A evolução dos meios de comunicação",
+    discipline: "TIC / História / Cidadania",
+    year: "5.º ao 9.º ano",
+    duration: "30 a 45 minutos",
+    tool: "Google Vids — Criar com Ingredientes",
+    usageMode: "Criação de vídeo a partir de imagens carregadas pelo utilizador e de instruções escritas.",
+    freeAccess: "Utilizar a conta Google e verificar os limites de utilização disponíveis na conta.",
+    challenge: "Criar um pequeno documentário sobre a evolução dos meios de comunicação, utilizando cinco imagens selecionadas e carregadas pelo formando. A IA deverá animar as imagens e organizá-las numa narrativa cronológica.",
+    stages: [
+      {
+        title: "Etapa 1 — Como fazer",
+        steps: [
+          "1. Pesquisar cinco imagens representativas da evolução dos meios de comunicação.",
+          "2. Guardar as imagens no computador.",
+          "3. Aceder ao Google Vids.",
+          "4. Selecionar «Criar».",
+          "5. Carregar as cinco imagens na área «Ingredientes».",
+          "6. Copiar o prompt integral disponibilizado nesta atividade.",
+          "7. Introduzir o prompt no campo de criação.",
+          "8. Gerar o vídeo.",
+          "9. Rever a sequência cronológica, as animações e a narração.",
+          "10. Se necessário, gerar as cenas separadamente e reuni-las no editor."
+        ]
+      },
+      {
+        title: "Etapa 2 — Imagens a carregar",
+        steps: [
+          "Imagem 1: Telégrafo do século XIX.",
+          "Imagem 2: Telefone fixo do século XX.",
+          "Imagem 3: Televisão dos anos 60 ou 70.",
+          "Imagem 4: Telemóvel dos anos 90 ou 2000.",
+          "Imagem 5: Smartphone atual."
+        ]
+      }
+    ],
+    copyItems: [
+      {
+        id: "meios-comunicacao-google-vids-prompt",
+        label: "Copiar prompt",
+        title: "Prompt Integral — Google Vids (Criar com Ingredientes)",
+        content: `Cria um documentário educativo intitulado «A evolução dos meios de comunicação».
+
+UTILIZA AS CINCO IMAGENS CARREGADAS COMO INGREDIENTES DO VÍDEO.
+
+Organiza as imagens cronologicamente e cria uma narrativa visual que demonstre como os meios de comunicação evoluíram ao longo do tempo.
+
+Cria cinco cenas distintas, respeitando a ordem das imagens carregadas.
+
+CENA 1 — O TELÉGRAFO
+
+Utiliza a imagem do telégrafo. Anima a cena, mostrando uma pessoa a transmitir uma mensagem através do equipamento.
+
+Narração: «No século XIX, o telégrafo revolucionou a comunicação à distância, permitindo transmitir mensagens através de sinais elétricos.»
+
+CENA 2 — O TELEFONE FIXO
+
+Utiliza a imagem do telefone fixo. Mostra uma pessoa a levantar o auscultador e a comunicar com outra pessoa.
+
+Narração: «Com a popularização do telefone, passou a ser possível ouvir a voz de alguém que se encontrava a grandes distâncias.»
+
+CENA 3 — A TELEVISÃO
+
+Utiliza a imagem da televisão. Mostra uma família reunida a assistir a uma emissão televisiva.
+
+Narração: «A televisão transformou a comunicação, permitindo transmitir notícias, informação e entretenimento através de imagens e sons.»
+
+CENA 4 — O TELEMÓVEL
+
+Utiliza a imagem do telemóvel. Mostra uma pessoa a escrever uma mensagem e a realizar uma chamada.
+
+Narração: «Com o aparecimento dos telemóveis, a comunicação tornou-se portátil. Passámos a poder comunicar praticamente em qualquer lugar.»
+
+CENA 5 — O SMARTPHONE
+
+Utiliza a imagem do smartphone. Mostra uma pessoa a realizar uma videochamada, a consultar informação e a comunicar através de aplicações digitais.
+
+Narração: «Hoje, os smartphones permitem comunicar instantaneamente, partilhar imagens, realizar videochamadas e aceder a uma quantidade enorme de informação.»
+
+ORIENTAÇÕES VISUAIS:
+
+- Utiliza as imagens carregadas como referência principal de cada cena.
+- Anima cada imagem com movimentos naturais.
+- Respeita as características dos equipamentos de cada época.
+- Mantém a sequência cronológica.
+- Cria transições suaves entre as cenas.
+- Utiliza um estilo documental cinematográfico.
+- Inclui narração em Português Europeu.
+- Adiciona música instrumental discreta.
+- Não introduzas equipamentos modernos nas cenas históricas.
+
+Termina com a frase: «A tecnologia mudou a forma como comunicamos. E o futuro continua a surpreender-nos!»`
+      }
+    ],
+    expectedResult: "Um documentário educativo com cinco cenas, construído a partir das imagens selecionadas e carregadas pelo formando, com animação, narração e sequência cronológica.",
+    validationNotes: [
+      "Confirmar se todas as imagens foram utilizadas, se os equipamentos correspondem às épocas apresentadas e se a sequência histórica está correta."
+    ]
   }
 ];
 
