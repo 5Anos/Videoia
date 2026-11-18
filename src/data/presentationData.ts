@@ -2104,13 +2104,7 @@ Keep the camera fixed. Show only water vapour rising from the ocean. One continu
         id: "gota-agua-google-vids-prompt",
         label: "Copiar prompt",
         title: "Prompt Integral — Google Vids (Criar)",
-        content: `Cria um vídeo educativo e animado intitulado «A viagem de uma gota de água».
-
-O vídeo deve contar a história de uma gota de água que realiza uma viagem pela natureza, explicando as diferentes etapas do ciclo da água.
-
-Cria seis cenas sequenciais, acompanhando a mesma gota de água ao longo de toda a narrativa.
-
-CENA 1 — NO OCEANO
+        content: `CENA 1 — NO OCEANO
 
 Apresenta uma gota de água no oceano, rodeada de outras gotas. O Sol começa a aquecer a superfície do mar.
 
@@ -2145,17 +2139,6 @@ CENA 6 — O CICLO CONTINUA
 Apresenta uma paisagem natural com oceano, montanhas, nuvens e chuva.
 
 Narração: «E assim funciona o ciclo da água: um processo contínuo e essencial à vida no nosso planeta.»
-
-ORIENTAÇÕES VISUAIS:
-
-- Utiliza animação 3D educativa, colorida e apelativa.
-- Cria cenas diferentes e sequenciais.
-- Mantém a mesma gota de água como personagem ao longo do vídeo.
-- Utiliza transições suaves.
-- Inclui narração em Português Europeu.
-- Adiciona música instrumental suave.
-- Evita textos excessivos no ecrã.
-- Mantém o rigor científico.
 
 Termina com a frase: «A água é essencial à vida. Vamos protegê-la!»`
       }
@@ -2208,15 +2191,7 @@ Termina com a frase: «A água é essencial à vida. Vamos protegê-la!»`
         id: "meios-comunicacao-google-vids-prompt",
         label: "Copiar prompt",
         title: "Prompt Integral — Google Vids (Criar com Ingredientes)",
-        content: `Cria um documentário educativo intitulado «A evolução dos meios de comunicação».
-
-UTILIZA AS CINCO IMAGENS CARREGADAS COMO INGREDIENTES DO VÍDEO.
-
-Organiza as imagens cronologicamente e cria uma narrativa visual que demonstre como os meios de comunicação evoluíram ao longo do tempo.
-
-Cria cinco cenas distintas, respeitando a ordem das imagens carregadas.
-
-CENA 1 — O TELÉGRAFO
+        content: `CENA 1 — O TELÉGRAFO
 
 Utiliza a imagem do telégrafo. Anima a cena, mostrando uma pessoa a transmitir uma mensagem através do equipamento.
 
@@ -2245,18 +2220,6 @@ CENA 5 — O SMARTPHONE
 Utiliza a imagem do smartphone. Mostra uma pessoa a realizar uma videochamada, a consultar informação e a comunicar através de aplicações digitais.
 
 Narração: «Hoje, os smartphones permitem comunicar instantaneamente, partilhar imagens, realizar videochamadas e aceder a uma quantidade enorme de informação.»
-
-ORIENTAÇÕES VISUAIS:
-
-- Utiliza as imagens carregadas como referência principal de cada cena.
-- Anima cada imagem com movimentos naturais.
-- Respeita as características dos equipamentos de cada época.
-- Mantém a sequência cronológica.
-- Cria transições suaves entre as cenas.
-- Utiliza um estilo documental cinematográfico.
-- Inclui narração em Português Europeu.
-- Adiciona música instrumental discreta.
-- Não introduzas equipamentos modernos nas cenas históricas.
 
 Termina com a frase: «A tecnologia mudou a forma como comunicamos. E o futuro continua a surpreender-nos!»`
       }
